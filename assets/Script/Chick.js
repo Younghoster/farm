@@ -1,12 +1,3 @@
-// Learn cc.Class:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/class/index.html
-// Learn Attribute:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/reference/attributes/index.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
 var Data = require("Data");
 var Func = Data.func;
 var ToolJs = require("Tool");
@@ -287,8 +278,8 @@ var Chick = cc.Class({
     // Msg.show("小鸡饿了，小鸡生病了");
   },
   playChickSickShit: function() {
-    this._chickAnim.play("chick_shit_sick");
-    //this._chickAnim.play("chick_sick");
+    // this._chickAnim.play("chick_shit_sick");
+    this._chickAnim.play("chick_sick");
     // Msg.show("牧场不干净了，小鸡生病了");
   },
   playChickShitHungry: function() {
@@ -296,7 +287,8 @@ var Chick = cc.Class({
     // Msg.show("牧场不干净了，小鸡饿了");
   },
   playChickShitHungrySick: function() {
-    this._chickAnim.play("chick_hungry_sick_shit");
+    // this._chickAnim.play("chick_hungry_sick_shit");
+    this._chickAnim.play("chick_sick");
     // Msg.show("牧场不干净了，小鸡生病了，小鸡饿了");
   },
 

@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "38101735-7066-493e-a689-69012db86854",
+  "uuid": "0b55969c-5e00-4cb5-a229-026e2c0ff98a",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "house_3": {
+    "shouqu": {
       "ver": "1.0.3",
-      "uuid": "74763768-d341-497f-b643-e54b344a03ff",
-      "rawTextureUuid": "38101735-7066-493e-a689-69012db86854",
+      "uuid": "a0d4ef1e-3d21-435b-b00b-bb20530e2cee",
+      "rawTextureUuid": "0b55969c-5e00-4cb5-a229-026e2c0ff98a",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -16,10 +16,10 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 715,
-      "height": 301,
-      "rawWidth": 715,
-      "rawHeight": 301,
+      "width": 110,
+      "height": 110,
+      "rawWidth": 110,
+      "rawHeight": 110,
       "borderTop": 0,
       "borderBottom": 0,
       "borderLeft": 0,
