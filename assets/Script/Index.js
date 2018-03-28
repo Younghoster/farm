@@ -579,7 +579,22 @@ cc.Class({
     var openID = window.location.href.split("=")[1];
     window.Config.openID = openID || "dedbc83d62104d6da8d4a3c0188dc419";
     Func.openID = window.Config.openID;
-    Config.newSocket = io.connect("http://service.linedin.cn:5520");
+    Config.newSocket = new WebSocket("ws://service.linedin.cn:5530/");
+
+    // let ws = new WebSocket("wss://127.0.0.1:5520");
+    // ws.onopen = function(event) {
+    //   console.log("Send Text WS was opened.");
+    // };
+    // ws.onmessage = function(event) {
+    //   console.log("response text msg: " + event.data);
+    // };
+    // ws.onerror = function(event) {
+    //   console.log("Send Text fired an error");
+    // };
+    // ws.onclose = function(event) {
+    //   console.log("WebSocket instance closed.");
+    // };
+
     this.getStorageCount(); //初始化消息数量
     this.socketNotice(); //socket监听消息变化
     this.func = {
@@ -630,9 +645,16 @@ cc.Class({
   //socket监听消息变化
   socketNotice() {
     var self = this;
-    Config.newSocket.on(Func.openID, data => {
-      self.getStorageCount();
-    });
+    // Config.newSocket.on(Func.openID, data => {
+    //   self.getStorageCount();
+    // });
+
+    Config.newSocket.onmessage = function(evt) {
+      var obj = eval("(" + evt.data + ")");
+      if (obj.name == Func.openID) {
+        self.getStorageCount();
+      }
+    };
   },
   //仓库回调函数（0表示孵化操作）
   repertoryCallBack() {

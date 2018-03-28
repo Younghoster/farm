@@ -216,7 +216,8 @@ cc.Class({
             Msg.show(data.Message);
 
             if (data.Message == "请求成功！") {
-              Config.newSocket.emit("add", [Func.openID, openIds]);
+              let str = "{name:'" + openIds + "'}";
+              Config.newSocket.send(str);
             }
           } else {
             Msg.show(data.Code);
