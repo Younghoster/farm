@@ -32,6 +32,15 @@ var Tool = {
       }
       return result;
     };
+  },
+  //跳动的动画(节点、时间)
+  animateUpOrDown(node, time, y) {
+    let upOrDown = true;
+    setInterval(() => {
+      let action = upOrDown ? cc.moveBy(time, 0, y) : cc.moveBy(time, 0, -y);
+      node.runAction(action);
+      upOrDown = !upOrDown;
+    }, time * 1000);
   }
 };
 
