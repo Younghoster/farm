@@ -196,7 +196,9 @@ cc.Class({
       e[i].setPositionY(0);
     }
   },
-
+  gotoMuChange: function() {
+    cc.director.loadScene("index");
+  },
   update(dt) {
     // this.fatchData();
   }

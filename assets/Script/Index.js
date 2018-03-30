@@ -542,6 +542,9 @@ cc.Class({
   showUserCenter: function() {
     cc.director.loadScene("userCenter");
   },
+  gotoFarm: function() {
+    cc.director.loadScene("farm");
+  },
   loadSceneRepertory() {
     cc.director.loadScene("repertory");
   },
