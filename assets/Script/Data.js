@@ -30,6 +30,31 @@ var func = {
       // xhr.send("openID=o9AgowGKcD5MAuYIhedEX&pageSize=9");
     });
   },
+  //URL:
+  //用户饲料槽饲料数是否满的
+  GetFeedTroughFull() {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+
+            reject(response);
+          }
+        }
+      };
+      // GET方法
+      xhr.open("GET", Config.apiUrl + "/T_Base_User/GetFeedTroughFull?openID=" + this.openID, true);
+      xhr.setRequestHeader("Content-Type", "json");
+      xhr.send();
+    });
+  },
   //获取好友列表
   GetFriendsList(page) {
     return new Promise((resolve, reject) => {

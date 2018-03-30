@@ -19,6 +19,13 @@ cc.Class({
     this.fatchData();
     this.getToolPositon();
   },
+  //初始化 基本数据
+  assignData() {},
+  //绑定节点
+  bindNode() {
+    this.moneyLabel = cc.find("div_header/gold/money", this.node).getComponent(cc.Label);
+    this.level = cc.find("div_header/me/levelbg/label", this.node).getComponent(cc.Label);
+  },
   //加载植物
   fatchData() {
     this.Value = {

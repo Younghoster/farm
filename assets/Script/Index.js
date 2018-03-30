@@ -102,6 +102,14 @@ cc.Class({
 
     //初始化鸡蛋
     this.eggNode.active = data.RanchModel.EggCount > 0 ? true : false;
+    Tool.animateUpOrDown(this.eggNode, 0.5, 20);
+
+    Func.GetFeedTroughFull().then(data => {
+      if (data.Code === 1) {
+        this.arrowNode.active = !data.Model;
+      }
+    });
+
     this.initChick();
   },
 
@@ -172,28 +180,7 @@ cc.Class({
       }
     });
   },
-  //点击治疗事件
-  showTreatAlert: function() {
-    var self = this;
-    //调用接口
-    Func.PostTreat(this._chick._Id)
-      .then(data => {
-        if (data.Code === 1) {
-          var animState = self._chick._chickAnim.play("chick_treat");
 
-          this._chick._chickAnim.on("finished", this.chickFunc.initData, this._chick);
-        } else if (data.Code == "000") {
-          Alert.show(data.Message, this.rechargeEvent, this.treatIcon, "剩余的牧场币不足");
-        } else if (data.Code === 333) {
-          Msg.show(data.Message);
-        } else if (data.Code == 444) {
-          Msg.show(data.Message);
-        }
-      })
-      .catch(reason => {
-        Msg.show("failed:" + reason);
-      });
-  },
   //点击清理事件
   showClearAlert: function() {
     var self = this;
@@ -246,7 +233,7 @@ cc.Class({
     // });
   },
   //将饲料放入饲料槽中
-  putFeed() {
+  addFeed() {
     Func.AddFeed().then(data => {
       if (data.Code === 1) {
         let array = data.Model.split(",");
@@ -262,6 +249,7 @@ cc.Class({
         hanfFeedAnim.on("finished", () => {
           handFeedNode.active = false;
         });
+        this.arrowNode.active = false;
       } else if (data.Code == "000") {
         Alert.show(data.Message, this.loadSceneShop, "icon-feed", "剩余的饲料不足");
       } else if (data.Code == "333") {
@@ -303,6 +291,8 @@ cc.Class({
 
     Func.GetFeedData().then(data => {
       if (data.Code == 1) {
+        let flag = this.arrowNode.active;
+
         this.arrowNode.active = false;
         let capacity = data.Model.FeedTroughCapacity;
         let value = data.Model.FeedCount;
@@ -317,7 +307,7 @@ cc.Class({
           cc.fadeOut(0.5),
           cc.callFunc(() => {
             this.feedStateNode.active = false;
-            this.arrowNode.active = true;
+            this.arrowNode.active = flag ? true : false;
           }, this)
         );
         this.timer2 = setTimeout(() => {

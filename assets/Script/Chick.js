@@ -146,7 +146,7 @@ var Chick = cc.Class({
 
   onLoad() {
     this.init();
-
+    this.schedule(this.walking, 1);
     //方法导出给index.js
     this.chickFunc = {
       playChickAnim: this.playAnim,
@@ -248,11 +248,100 @@ var Chick = cc.Class({
         Alert.show("failed:" + reason);
       });
   },
-  //update(dt) {},
+  // update(dt) {
+
+  // },
+
+  //小鸡挪动
+  walking() {
+    let x, y, direction, speed;
+    //上下左右限定范围
+    let range = [0, -300, -200, 200];
+    //小鸡当前的位置
+    x = this.node.x;
+    y = this.node.y;
+    speed = 10;
+    //在0~5中随机生成一个整数(上、下、左、右、斜左、斜右)
+    direction = Math.round(Math.random() * 3);
+    switch (direction) {
+      //向上移动
+      case 0:
+        if (y + speed <= range[0]) {
+          y += speed;
+          //播放动画
+          this.playChickWalkUp();
+        } else {
+          y -= speed;
+          //播放动画
+          this.playChickWalkDown();
+        }
+        break;
+      //向下移动
+      case 1:
+        if (y - speed >= range[1]) {
+          y -= speed;
+          //播放动画
+          this.playChickWalkDown();
+        } else {
+          y += speed;
+          //播放动画
+          this.playChickWalkUp();
+        }
+        break;
+      //向左移动
+      case 2:
+        if (x - speed >= range[2]) {
+          x -= speed;
+          //播放动画
+          this.playChickWalkLeft();
+        } else {
+          x += speed;
+          //播放动画
+          this.playChickWalkRight();
+        }
+        break;
+      //向右移动
+      case 3:
+        if (x + speed <= range[3]) {
+          x += speed;
+          //播放动画
+          this.playChickWalkRight();
+        } else {
+          x -= speed;
+          //播放动画
+          this.playChickWalkLeft();
+        }
+        break;
+      //向斜左移动
+      // case 4:
+      //   x -= speed;
+      //   y -= speed;
+      //   break;
+      // //向斜右移动
+      // case 5:
+      //   x += speed;
+      //   y += speed;
+      //   break;
+    }
+    this.node.runAction(cc.moveTo(1, x, y));
+    // console.log(`x = ${x} ,y = ${y}`);
+  },
 
   //小鸡的动画
+  playChickWalkDown: function() {
+    this._chickAnim.play("chick_walk_down");
+  },
+  playChickWalkUp: function() {
+    this._chickAnim.play("chick_walk_up");
+  },
+  playChickWalkLeft: function() {
+    this._chickAnim.play("chick_walk_left");
+  },
+  playChickWalkRight: function() {
+    this._chickAnim.play("chick_walk_right");
+  },
   playChickMove: function() {
-    this._chickAnim.play("chick_move");
+    //this._chickAnim.play("chick_move");
   },
   playChickFeed: function() {
     var anim = this._chickAnim.play("chick_feed");
@@ -291,42 +380,41 @@ var Chick = cc.Class({
     this._chickAnim.play("chick_sick");
     // Msg.show("牧场不干净了，小鸡生病了，小鸡饿了");
   },
-
   //根据小鸡的状态 播放不同的动画
   playAnim: function() {
-    if (this._status != 0) {
-      if (this._chickStatus.sick && this._chickStatus.hungry && this._chickStatus.shit) {
-        this.playChickShitHungrySick();
-        return;
-      }
-      if (!this._chickStatus.sick && !this._chickStatus.hungry && !this._chickStatus.shit) {
-        this.playChickMove();
-        return;
-      }
-      if (this._chickStatus.sick) {
-        //生病状态
-        !this._chickStatus.hungry && !this._chickStatus.shit ? this.playChickSick() : false;
-        //生病+饥饿状态
-        this._chickStatus.hungry && !this._chickStatus.shit ? this.playChickSickHungry() : false;
-        //生病+肮脏状态
-        !this._chickStatus.hungry && this._chickStatus.shit ? this.playChickSickShit() : false;
-      }
-      if (this._chickStatus.hungry) {
-        //饥饿状态
-        !this._chickStatus.sick && !this._chickStatus.shit ? this.playChickHungry() : false;
-        //饥饿+肮脏状态
-        !this._chickStatus.sick && this._chickStatus.shit ? this.playChickShitHungry() : false;
-        //饥饿+生病状态
-        this._chickStatus.sick && this._chickStatus.shit ? this.playChickSickHungry() : false;
-      }
-      if (this._chickStatus.shit) {
-        //肮脏状态
-        !this._chickStatus.hungry && !this._chickStatus.sick ? this.playChickShit() : false;
-        //肮脏+饥饿状态
-        this._chickStatus.hungry && !this._chickStatus.sick ? this.playChickShitHungry() : false;
-        //肮脏+生病状态
-        !this._chickStatus.hungry && this._chickStatus.sick ? this.playChickSickShit() : false;
-      }
-    }
+    // if (this._status != 0) {
+    //   if (this._chickStatus.sick && this._chickStatus.hungry && this._chickStatus.shit) {
+    //     this.playChickShitHungrySick();
+    //     return;
+    //   }
+    //   if (!this._chickStatus.sick && !this._chickStatus.hungry && !this._chickStatus.shit) {
+    //     this.playChickMove();
+    //     return;
+    //   }
+    //   if (this._chickStatus.sick) {
+    //     //生病状态
+    //     !this._chickStatus.hungry && !this._chickStatus.shit ? this.playChickSick() : false;
+    //     //生病+饥饿状态
+    //     this._chickStatus.hungry && !this._chickStatus.shit ? this.playChickSickHungry() : false;
+    //     //生病+肮脏状态
+    //     !this._chickStatus.hungry && this._chickStatus.shit ? this.playChickSickShit() : false;
+    //   }
+    //   if (this._chickStatus.hungry) {
+    //     //饥饿状态
+    //     !this._chickStatus.sick && !this._chickStatus.shit ? this.playChickHungry() : false;
+    //     //饥饿+肮脏状态
+    //     !this._chickStatus.sick && this._chickStatus.shit ? this.playChickShitHungry() : false;
+    //     //饥饿+生病状态
+    //     this._chickStatus.sick && this._chickStatus.shit ? this.playChickSickHungry() : false;
+    //   }
+    //   if (this._chickStatus.shit) {
+    //     //肮脏状态
+    //     !this._chickStatus.hungry && !this._chickStatus.sick ? this.playChickShit() : false;
+    //     //肮脏+饥饿状态
+    //     this._chickStatus.hungry && !this._chickStatus.sick ? this.playChickShitHungry() : false;
+    //     //肮脏+生病状态
+    //     !this._chickStatus.hungry && this._chickStatus.sick ? this.playChickSickShit() : false;
+    //   }
+    // }
   }
 });
