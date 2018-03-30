@@ -25,7 +25,7 @@ cc.Class({
     cc.director.loadScene("AddressList");
   },
   outLogin() {
-    window.location = "http://jingongbao.com:4633";
+    window.location = "http://jingongbao.com:4634";
   },
   onLoad() {
     let self = this;
