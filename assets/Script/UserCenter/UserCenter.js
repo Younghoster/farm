@@ -92,6 +92,25 @@ cc.Class({
             imgSrc = "Modal/Repertory/img-hen";
             break;
           }
+          //农作物
+          case 6: {
+            imgSrc = "Modal/Repertory/img-hatchEgg";
+            break;
+          }
+          //肥料
+          case 7: {
+            imgSrc = "Modal/Repertory/img-hatchEgg";
+            break;
+          }
+          //粪便
+          case 8: {
+            imgSrc = "Modal/Repertory/img-hatchEgg";
+            break;
+          }
+          default: {
+            imgSrc = "Modal/Repertory/img-hatchEgg";
+            break;
+          }
         }
 
         cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
