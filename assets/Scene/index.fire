@@ -1781,7 +1781,9 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": null,
+    "target": {
+      "__id__": 2
+    },
     "component": "Index",
     "handler": "showUserCenter",
     "customEventData": ""
@@ -3814,7 +3816,7 @@
     "node": {
       "__id__": 104
     },
-    "_enabled": true,
+    "_enabled": false,
     "_defaultClip": {
       "__uuid__": "9a307ef8-696f-4984-8e63-66efbded8e1c"
     },
@@ -13586,7 +13588,9 @@
     "shareModal_Prefab": {
       "__uuid__": "83683648-7496-4c59-ad10-a3dfb7014957"
     },
-    "rankModal_Prefab": null
+    "rankModal_Prefab": {
+      "__uuid__": "c5dad82c-9177-459d-bfaa-e2c56837bb6f"
+    }
   },
   {
     "__type__": "89cb4Xfn6VNPqms1pb4w6pf",
