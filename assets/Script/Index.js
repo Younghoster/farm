@@ -62,8 +62,10 @@ cc.Class({
 
   init: function() {
     this._chick = this.Chick.getComponent("Chick");
-    // this.clearLabel = this.clearNode.getChildByName("Value").getComponent(cc.Label);
-    // this.clearBar = this.clearNode.getChildByName("heath_bar").getComponent(cc.ProgressBar);
+    this.clearLabel = cc.find("wave/mask/layout/value", this.node).getComponent(cc.Label);
+    this.wave1Node = cc.find("wave/mask/wave1", this.node);
+    this.wave2Node = cc.find("wave/mask/wave2", this.node);
+
     this.MenuModal = cc.find("/div_menu/Modal_more", this.node);
     this.btnMoreSprite = this.btnMoreNode.getComponent(cc.Sprite);
     this.handNode = cc.find("Hand", this.node);
@@ -84,11 +86,12 @@ cc.Class({
     this.step = 0;
   },
   initData(data) {
-    //清洁度设置
-    // Config.firstLogin = data.UserModel.FirstLanding;
-    // this._clearValue = data.RanchModel.RanchCleanliness;
-    // this.clearLabel.string = this._clearValue + "%";
-    // this.clearBar.progress = this._clearValue / 100;
+    Config.firstLogin = data.UserModel.FirstLanding;
+    // 清洁度设置
+    this._clearValue = data.RanchModel.RanchCleanliness;
+    this.clearLabel.string = this._clearValue + "%";
+    this.wave1Node.y = this._clearValue;
+    this.wave2Node.y = this._clearValue;
 
     //金币设置
     var RanchMoney = data.UserModel.RanchMoney;
@@ -188,32 +191,33 @@ cc.Class({
   },
 
   //点击清理事件
-  // showClearAlert: function() {
-  //   var self = this;
-  //   //调用接口
-  //   Func.PostClean()
-  //     .then(data => {
-  //       if (data.Code === 1) {
-  //         //清洁动画
-  //         this.handNode.active = true;
-  //         this.handAnim.play("hand_clear");
+  showClearAlert: function() {
+    var self = this;
+    //调用接口
+    Func.PostClean()
+      .then(data => {
+        if (data.Code === 1) {
+          //清洁动画
+          this.handNode.active = true;
+          this.handAnim.play("hand_clear");
 
-  //         this.handAnim.on("finished", () => {
-  //           this.handNode.active = false;
-  //           //清洁成功 牧场清洁度=100%
-  //           this.clearLabel.string = 100 + "%";
-  //           this.clearBar.progress = 1;
-  //         });
-  //         this.handAnim.on("finished", this.chickFunc.initData, this._chick);
-  //       } else {
-  //         //牧场不脏 弹出提示框
-  //         Msg.show(data.Message);
-  //       }
-  //     })
-  //     .catch(reason => {
-  //       Msg.show("failed:" + reason);
-  //     });
-  // },
+          this.handAnim.on("finished", () => {
+            this.handNode.active = false;
+            //清洁成功 牧场清洁度=100%
+            this.clearLabel.string = 100 + "%";
+            this.wave1Node.y = 100;
+            this.wave2Node.y = 100;
+          });
+          this.handAnim.on("finished", this.chickFunc.initData, this._chick);
+        } else {
+          //牧场不脏 弹出提示框
+          Msg.show(data.Message);
+        }
+      })
+      .catch(reason => {
+        Msg.show("failed:" + reason);
+      });
+  },
   //点击喂食事件
   showFeedAlert: function() {
     var self = this;

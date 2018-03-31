@@ -38,13 +38,13 @@ cc.Class({
       Tool.closeModal(this.node);
     });
     this.eggNumButton.on("click", () => {
-      this.eggNumButton.color = cc.color("#FFDE00");
-      this.cheapButton.color = cc.color("#FFEF4D");
+      this.eggNumButton.color = cc.color("#FFEF4D");
+      this.cheapButton.color = cc.color("#FFDE00");
       this.GetEggRankList();
     });
     this.cheapButton.on("click", () => {
-      this.eggNumButton.color = cc.color("#FFEF4D");
-      this.cheapButton.color = cc.color("#FFDE00");
+      this.eggNumButton.color = cc.color("#FFDE00");
+      this.cheapButton.color = cc.color("#FFEF4D");
       this.GetCheapRankList();
     });
   },
