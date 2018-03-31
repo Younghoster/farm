@@ -213,40 +213,41 @@ var Chick = cc.Class({
 
   //显示小鸡的状态
   showChickState: function() {
-    this.feedStateNode.active = false;
-    Func.GetChickValueById(this._Id)
-      .then(data => {
-        if (data.Code == 1) {
-          var sp = data.StarvationValue;
-          var hp = data.HealthValue;
-          var growth = data.Proportion;
-          //判断鸡是否能收取
-          let collect = data.CallBack;
-          //给小鸡的饥饿度和健康值赋值
-          this.assignChickState(sp, hp, growth, data.Hungry, data.Sick, collect, data.Status);
-          this.sayHello();
-          //显示节点（动画）
-          clearTimeout(this.timer);
-          this._stateNode.active = true;
+    cc.director.loadScene("chickDetail");
+    // this.feedStateNode.active = false;
+    // Func.GetChickValueById(this._Id)
+    // .then(data => {
+    //   if (data.Code == 1) {
+    //     var sp = data.StarvationValue;
+    //     var hp = data.HealthValue;
+    //     var growth = data.Proportion;
+    //     //判断鸡是否能收取
+    //     let collect = data.CallBack;
+    //     //给小鸡的饥饿度和健康值赋值
+    //     this.assignChickState(sp, hp, growth, data.Hungry, data.Sick, collect, data.Status);
+    //     this.sayHello();
+    //     //显示节点（动画）
+    //     clearTimeout(this.timer);
+    //     this._stateNode.active = true;
 
-          this._stateNode.opacity = 0;
-          this._stateNode.runAction(cc.fadeIn(0.3));
-          var action = cc.sequence(
-            cc.fadeOut(0.3),
-            cc.callFunc(() => {
-              this._stateNode.active = false;
-            }, this)
-          );
-          this.timer = setTimeout(() => {
-            this._stateNode.runAction(action);
-          }, 2000);
-        } else {
-          Alert.show(data.Message);
-        }
-      })
-      .catch(reason => {
-        Alert.show("failed:" + reason);
-      });
+    //     this._stateNode.opacity = 0;
+    //     this._stateNode.runAction(cc.fadeIn(0.3));
+    //     var action = cc.sequence(
+    //       cc.fadeOut(0.3),
+    //       cc.callFunc(() => {
+    //         this._stateNode.active = false;
+    //       }, this)
+    //     );
+    //     this.timer = setTimeout(() => {
+    //       this._stateNode.runAction(action);
+    //     }, 2000);
+    //   } else {
+    //     Alert.show(data.Message);
+    //   }
+    // })
+    // .catch(reason => {
+    //   Alert.show("failed:" + reason);
+    // });
   },
   // update(dt) {
 

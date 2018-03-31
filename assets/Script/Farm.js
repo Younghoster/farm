@@ -17,7 +17,6 @@ cc.Class({
   Prefab: null,
   onLoad() {
     var self = this;
-
     this.fatchData();
     this.getToolPositon();
   },
@@ -33,15 +32,28 @@ cc.Class({
     var self = this;
 
     Data.func.getFarmModalData().then(data => {
-      for (let i = 0; i < data.Model.LandList.length; i++) {
-        if (data.Model.LandList[i].IsLock) {
-          let itemBox = cc.find("bg/mapNew/item" + i, this.node).getComponent(cc.Sprite);
-          cc.loader.loadRes("Farm/itemG", cc.SpriteFrame, (err, spriteFrame) => {
-            itemBox.spriteFrame = spriteFrame;
-          });
-        }
+      if (data.Code === 1) {
+        // for (let i = 0; i < data.Model.LandList.length; i++) {
+        //   if (data.Model.LandList[i].IsLock) {
+        //     let itemBox = cc.find("bg/mapNew/item" + i, this.node).getComponent(cc.Sprite);
+        //     cc.loader.loadRes("Farm/itemG", cc.SpriteFrame, (err, spriteFrame) => {
+        //       itemBox.spriteFrame = spriteFrame;
+        //     });
+        //   }
+        // }
+
+        //金币设置
+        var RanchMoney = data.userModel.RanchMoney;
+
+        var moneyLabel = cc.find("div_header/gold/money", this.node).getComponent(cc.Label);
+        moneyLabel.string = "￥" + RanchMoney;
+        //经验值
+        this.level = cc.find("div_header/Lv/level", this.node).getComponent(cc.Label);
+        this.level.string = "V" + data.userModel.Grade;
+        this.levelProgressBar = cc.find("div_header/Lv/lv_bar", this.node).getComponent(cc.ProgressBar);
+        this.levelProgressBar.progress = data.userModel.ExperienceValue / data.userModel.GradeExperienceValue;
+        console.log(data);
       }
-      console.log(data);
     });
     this.Value = {
       List: [

@@ -31,13 +31,12 @@ cc.Class({
     btnMoreNode: {
       default: null,
       type: cc.Node
-    },
+    }
     //仓库跳转后执行相应操作
-    operate: null
   },
   //Chick.js
   _chick: null,
-
+  operate: null,
   _clearValue: null,
   clearLabel: null,
   clearBar: null,
@@ -97,9 +96,12 @@ cc.Class({
     var RanchMoney = data.UserModel.RanchMoney;
     let RanchRank = data.RanchModel.RanchRank;
     var moneyLabel = cc.find("div_header/gold/money", this.node).getComponent(cc.Label);
-    //var level = cc.find("div_header/me/levelbg/label", this.node).getComponent(cc.Label);
     moneyLabel.string = "￥" + RanchMoney;
-    //level.string = "V" + data.UserModel.Grade;
+    //经验值
+    this.level = cc.find("div_header/Lv/level", this.node).getComponent(cc.Label);
+    this.level.string = "V" + data.UserModel.Grade;
+    this.levelProgressBar = cc.find("div_header/Lv/lv_bar", this.node).getComponent(cc.ProgressBar);
+    this.levelProgressBar.progress = data.UserModel.ExperienceValue / data.UserModel.GradeExperienceValue;
     //初始化饲料tip的数量
     this.feedCountLabel.string = data.UserModel.Allfeed == null ? 0 : data.UserModel.Allfeed;
 
