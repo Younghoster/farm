@@ -1,3 +1,5 @@
+var Data = require("Data");
+
 cc.Class({
   extends: cc.Component,
 
@@ -28,6 +30,19 @@ cc.Class({
   },
   //加载植物
   fatchData() {
+    var self = this;
+
+    Data.func.getFarmModalData().then(data => {
+      for (let i = 0; i < data.Model.LandList.length; i++) {
+        if (data.Model.LandList[i].IsLock) {
+          let itemBox = cc.find("bg/mapNew/item" + i, this.node).getComponent(cc.Sprite);
+          cc.loader.loadRes("Farm/itemG", cc.SpriteFrame, (err, spriteFrame) => {
+            itemBox.spriteFrame = spriteFrame;
+          });
+        }
+      }
+      console.log(data);
+    });
     this.Value = {
       List: [
         { jiaoshui: false, chucao: false, chuchong: false, state: 0 },
@@ -51,7 +66,6 @@ cc.Class({
   },
   fatchPlant(i, ValueList) {
     var self = this;
-
     let bg = cc.find("bg", this.node);
     let Prefab = cc.instantiate(self.Item_Prefab);
     let PrefabPlant_xs = cc.find("plant-xs", Prefab);
