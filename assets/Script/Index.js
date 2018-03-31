@@ -102,7 +102,13 @@ cc.Class({
 
     //初始化鸡蛋
     this.eggNode.active = data.RanchModel.EggCount > 0 ? true : false;
-    Tool.animateUpOrDown(this.eggNode, 0.5, 20);
+
+    let upOrDown = true;
+    this.schedule(() => {
+      let action = upOrDown ? cc.moveBy(0.5, 0, 20) : cc.moveBy(0.5, 0, -20);
+      this.eggNode.runAction(action);
+      upOrDown = !upOrDown;
+    }, 0.5);
 
     Func.GetFeedTroughFull().then(data => {
       if (data.Code === 1) {
@@ -540,7 +546,7 @@ cc.Class({
     cc.director.loadScene("monitor");
   },
   showUserCenter: function() {
-    cc.director.loadScene("userCenter");
+    cc.director.loadScene("UserCenter/userCenter");
   },
   gotoFarm: function() {
     cc.director.loadScene("farm");
