@@ -28,6 +28,10 @@ var Modal = cc.Class({
     shareModal_Prefab: {
       default: null,
       type: cc.Prefab
+    },
+    rankModal_Prefab: {
+      default: null,
+      type: cc.Prefab
     }
   },
   _Modal: null,
@@ -99,7 +103,11 @@ var Modal = cc.Class({
         this._Modal.name = "default"; //开发中
         break;
       case "activity":
-        this._Modal.name = "default"; //开发中
+        if (!this.node.getChildByName("rank")) {
+          this._Modal = cc.instantiate(this.rankModal_Prefab);
+        } else {
+          this._Modal = this.node.getChildByName("rank");
+        }
         break;
     }
   },

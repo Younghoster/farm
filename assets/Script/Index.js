@@ -62,8 +62,8 @@ cc.Class({
 
   init: function() {
     this._chick = this.Chick.getComponent("Chick");
-    this.clearLabel = this.clearNode.getChildByName("Value").getComponent(cc.Label);
-    this.clearBar = this.clearNode.getChildByName("heath_bar").getComponent(cc.ProgressBar);
+    // this.clearLabel = this.clearNode.getChildByName("Value").getComponent(cc.Label);
+    // this.clearBar = this.clearNode.getChildByName("heath_bar").getComponent(cc.ProgressBar);
     this.MenuModal = cc.find("/div_menu/Modal_more", this.node);
     this.btnMoreSprite = this.btnMoreNode.getComponent(cc.Sprite);
     this.handNode = cc.find("Hand", this.node);
@@ -85,18 +85,18 @@ cc.Class({
   },
   initData(data) {
     //清洁度设置
-    Config.firstLogin = data.UserModel.FirstLanding;
-    this._clearValue = data.RanchModel.RanchCleanliness;
-    this.clearLabel.string = this._clearValue + "%";
-    this.clearBar.progress = this._clearValue / 100;
+    // Config.firstLogin = data.UserModel.FirstLanding;
+    // this._clearValue = data.RanchModel.RanchCleanliness;
+    // this.clearLabel.string = this._clearValue + "%";
+    // this.clearBar.progress = this._clearValue / 100;
 
     //金币设置
     var RanchMoney = data.UserModel.RanchMoney;
     let RanchRank = data.RanchModel.RanchRank;
     var moneyLabel = cc.find("div_header/gold/money", this.node).getComponent(cc.Label);
-    var level = cc.find("div_header/me/levelbg/label", this.node).getComponent(cc.Label);
+    //var level = cc.find("div_header/me/levelbg/label", this.node).getComponent(cc.Label);
     moneyLabel.string = "￥" + RanchMoney;
-    level.string = "V" + data.UserModel.Grade;
+    //level.string = "V" + data.UserModel.Grade;
     //初始化饲料tip的数量
     this.feedCountLabel.string = data.UserModel.Allfeed == null ? 0 : data.UserModel.Allfeed;
 
@@ -182,32 +182,32 @@ cc.Class({
   },
 
   //点击清理事件
-  showClearAlert: function() {
-    var self = this;
-    //调用接口
-    Func.PostClean()
-      .then(data => {
-        if (data.Code === 1) {
-          //清洁动画
-          this.handNode.active = true;
-          this.handAnim.play("hand_clear");
+  // showClearAlert: function() {
+  //   var self = this;
+  //   //调用接口
+  //   Func.PostClean()
+  //     .then(data => {
+  //       if (data.Code === 1) {
+  //         //清洁动画
+  //         this.handNode.active = true;
+  //         this.handAnim.play("hand_clear");
 
-          this.handAnim.on("finished", () => {
-            this.handNode.active = false;
-            //清洁成功 牧场清洁度=100%
-            this.clearLabel.string = 100 + "%";
-            this.clearBar.progress = 1;
-          });
-          this.handAnim.on("finished", this.chickFunc.initData, this._chick);
-        } else {
-          //牧场不脏 弹出提示框
-          Msg.show(data.Message);
-        }
-      })
-      .catch(reason => {
-        Msg.show("failed:" + reason);
-      });
-  },
+  //         this.handAnim.on("finished", () => {
+  //           this.handNode.active = false;
+  //           //清洁成功 牧场清洁度=100%
+  //           this.clearLabel.string = 100 + "%";
+  //           this.clearBar.progress = 1;
+  //         });
+  //         this.handAnim.on("finished", this.chickFunc.initData, this._chick);
+  //       } else {
+  //         //牧场不脏 弹出提示框
+  //         Msg.show(data.Message);
+  //       }
+  //     })
+  //     .catch(reason => {
+  //       Msg.show("failed:" + reason);
+  //     });
+  // },
   //点击喂食事件
   showFeedAlert: function() {
     var self = this;
@@ -547,6 +547,9 @@ cc.Class({
   },
   loadSceneRepertory() {
     cc.director.loadScene("repertory");
+  },
+  loadSceneFarm() {
+    cc.director.loadScene("Farm/farm");
   },
 
   onLoad: function() {
