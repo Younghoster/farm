@@ -1,6 +1,6 @@
 var func = {
-  //获取所有数据（index页面）
-  openID: null,
+  //获取所有数据（index页面）"dedbc83d62104d6da8d4a3c0188dc419",
+  openID: "dedbc83d62104d6da8d4a3c0188dc419",
   GetWholeData() {
     // Loading.show();
     return new Promise((resolve, reject) => {
@@ -1374,6 +1374,29 @@ var func = {
         true
       );
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); //缺少这句，后台无法获取参数
+      xhr.send();
+    });
+  },
+  //农场数据
+  getFarmModalData() {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            reject(response);
+          }
+        }
+      };
+      // GET方法
+      xhr.open("Get", Config.apiUrl + "/T_Farm_Land/GetList?openID=" + this.openID, true);
+      xhr.setRequestHeader("Content-Type", "json");
       xhr.send();
     });
   }
