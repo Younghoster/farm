@@ -58,9 +58,10 @@ cc.Class({
   wether: null,
   arrowNode: null,
   eggNode: null,
+  chickList: null,
 
   init: function() {
-    this._chick = this.Chick.getComponent("Chick");
+    // this._chick = this.Chick.getComponent("Chick");
     this.clearLabel = cc.find("wave/mask/layout/value", this.node).getComponent(cc.Label);
     this.wave1Node = cc.find("wave/mask/wave1", this.node);
     this.wave2Node = cc.find("wave/mask/wave2", this.node);
@@ -79,10 +80,13 @@ cc.Class({
     //饲料数量
     this.feedCountLabel = cc.find("div_action/feed/icon-tip/count", this.node).getComponent(cc.Label);
     // var chickState = new Chick();
+    this.scene = cc.find("Canvas");
     this.MenuListNode.active = false;
     this.updateWether();
     //新手指引step
     this.step = 0;
+
+    this.chickList = [];
   },
   initData(data) {
     Config.firstLogin = data.UserModel.FirstLanding;
@@ -126,31 +130,27 @@ cc.Class({
 
   //只运行一次
   initChick() {
-    Func.GetChickList().then(data => {
+    //获取正常的鸡
+    Func.GetChickList(1).then(data => {
       if (data.Code == 1) {
         //初始化鸡是否显示
         let length = data.List.length;
-        //最后一只鸡的位置
-        let index = length - 1;
-        this.Chick.active = length > 0 ? true : false;
-        //调用setId接口 给鸡传Id 默认最后那只鸡
 
-        if (this.Chick.active && !data.List[index].IsCallBack) {
-          this.Chick.setPosition(0, -140);
-          this._chick.setId(data.List[index].ID);
-          this._chick._status = data.List[index].Status;
-          if (data.List[index].Status === 0) {
-            cc.loader.loadRes("ChickAlta/Chick_die", cc.SpriteFrame, (err, spriteFrame) => {
-              this.Chick.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-              if (this.operate != -1) {
-                Msg.show("小鸡已经死亡");
-              }
-            });
-          } else {
-            this._chick.initData();
-          }
-        } else {
-          !Config.firstLogin ? Msg.show("您的牧场暂无小鸡") : false;
+        //调用setId接口 给鸡传Id 默认最后那只鸡
+        for (let i = 0; i < length; i++) {
+          let element = data.List[i];
+
+          cc.loader.loadRes("Prefab/Chick", cc.Prefab, (err, prefab) => {
+            var chickNode = cc.instantiate(prefab);
+            chickNode.setPosition(Math.random() * 280, Math.random() * -300);
+            var chickJs = chickNode.getComponent("Chick");
+            this.scene.addChild(chickNode);
+            chickJs.setId(data.List[i].ID);
+            chickJs._status = data.List[i].Status;
+            chickJs.initData();
+
+            this.chickList.push(chickNode);
+          });
         }
       } else {
         !Config.firstLogin ? Msg.show("您的牧场暂无小鸡") : false;
@@ -175,22 +175,22 @@ cc.Class({
     });
   },
   //收取贵妃鸡
-  collectChick() {
-    Func.CollectChick(this._chick._Id).then(data => {
-      if (data.Code == 1) {
-        let action = cc.sequence(
-          cc.fadeOut(0.3),
-          cc.callFunc(() => {
-            this.Chick.active = false;
-          }, this)
-        );
-        this.Chick.runAction(action);
-        Msg.show(data.Message);
-      } else {
-        Msg.show(data.Message);
-      }
-    });
-  },
+  // collectChick() {
+  //   Func.CollectChick(this._chick._Id).then(data => {
+  //     if (data.Code == 1) {
+  //       let action = cc.sequence(
+  //         cc.fadeOut(0.3),
+  //         cc.callFunc(() => {
+  //           this.Chick.active = false;
+  //         }, this)
+  //       );
+  //       this.Chick.runAction(action);
+  //       Msg.show(data.Message);
+  //     } else {
+  //       Msg.show(data.Message);
+  //     }
+  //   });
+  // },
 
   //点击清理事件
   showClearAlert: function() {
@@ -210,7 +210,7 @@ cc.Class({
             this.wave1Node.y = 100;
             this.wave2Node.y = 100;
           });
-          this.handAnim.on("finished", this.chickFunc.initData, this._chick);
+          // this.handAnim.on("finished", this.chickFunc.initData, this._chick);
         } else {
           //牧场不脏 弹出提示框
           Msg.show(data.Message);
@@ -226,10 +226,10 @@ cc.Class({
     Func.PostOwnFeeds(this._chick._Id).then(data => {
       if (data.Code === 1) {
         this.updateFeedCount();
-        var anim = self._chick._chickAnim.play("chick_feed");
-        anim.repeatCount = 4;
+        // var anim = self._chick._chickAnim.play("chick_feed");
+        // anim.repeatCount = 4;
 
-        this._chick._chickAnim.on("finished", this.chickFunc.initData, this._chick);
+        // this._chick._chickAnim.on("finished", this.chickFunc.initData, this._chick);
       } else if (data.Code == "000") {
         Alert.show(data.Message, this.loadSceneShop, this.feedIcon, "剩余的饲料不足");
       } else if (data.Code === 333) {
@@ -286,12 +286,16 @@ cc.Class({
   hatchEgg() {
     Func.HatchEgg().then(data => {
       if (data.Code === 1) {
-        this.Chick.active = true;
-        this.Chick.setPosition(0, -140);
-        this._chick.setId(data.Model);
-        this._chick._chickAnim.play("chick_born");
-        this._chick._chickAnim.on("finished", this._chick.chickFunc.initData, this._chick);
-        Msg.show("孵化成功");
+        cc.loader.loadRes("Prefab/Chick", cc.Prefab, (err, prefab) => {
+          let chickNode = cc.instantiate(prefab);
+          let chickJs = chickNode.getComponent("Chick");
+          chickNode.setPosition(0, -140);
+          this.scene.addChild(chickNode);
+          chickJs.setId(data.Model);
+          chickJs._chickAnim.play("chick_born");
+          chickJs._chickAnim.on("finished", chickJs.chickFunc.initData, this._chick);
+          Msg.show("孵化成功");
+        });
       } else {
         Msg.show(data.Message);
       }
@@ -299,7 +303,7 @@ cc.Class({
   },
   //显示饲料槽状态
   showFeedState() {
-    if (this._chick._stateNode != null) this._chick._stateNode.active = false;
+    // if (this._chick._stateNode != null) this._chick._stateNode.active = false;
 
     Func.GetFeedData().then(data => {
       if (data.Code == 1) {
@@ -342,97 +346,117 @@ cc.Class({
     Tool.setBarColor(feedBar, value / capacity);
   },
   //显示房屋升级弹出框
-  // showHouseUpgrade() {
-  //   this.houseStateNode = cc.find("bg/house/houseState", this.node);
-  //   Func.GetRanchUpGradeMoney().then(data => {
-  //     if (data.Code === 1) {
-  //       let length = data.List.length || 0;
-  //       let button0 = cc.find("button0", this.houseStateNode);
-  //       let button1 = cc.find("button1", this.houseStateNode);
-  //       for (let i = 0; i < length; i++) {
-  //         if (data.List[i].Type === 0) {
-  //           button0.active = true;
-  //           this.upgradeByPointInfo = data.List[i];
-  //         } else {
-  //           button1.active = true;
-  //           this.upgradeByMoneyInfo = data.List[i];
-  //         }
-  //       }
-  //     } else if (data.Code === 2) {
-  //       this.upgradeByPointInfo.RanchGrade = "S";
-  //       this.upgradeByMoneyInfo.RanchGrade = "S";
-  //     } else {
-  //       Msg.show(data.Message);
-  //       return;
-  //     }
-  //     clearTimeout(this.timer3);
-  //     this.houseStateNode.active = true;
-  //     this.houseStateNode.opacity = 0;
-  //     this.houseStateNode.runAction(cc.fadeIn(0.3));
+  showHouseUpgrade() {
+    this.houseStateNode = cc.find("bg/house/houseState", this.node);
+    Func.GetRanchUpGradeMoney().then(data => {
+      if (data.Code === 1) {
+        let length = data.List.length || 0;
+        let button0 = cc.find("button0", this.houseStateNode);
+        let button1 = cc.find("button1", this.houseStateNode);
+        for (let i = 0; i < length; i++) {
+          if (data.List[i].Type === 0) {
+            button0.active = true;
+            this.upgradeByPointInfo = data.List[i];
+          } else {
+            button1.active = true;
+            this.upgradeByMoneyInfo = data.List[i];
+          }
+        }
+      } else if (data.Code === 2) {
+        this.upgradeByPointInfo.RanchGrade = "S";
+        this.upgradeByMoneyInfo.RanchGrade = "S";
+      } else {
+        Msg.show(data.Message);
+        return;
+      }
+      clearTimeout(this.timer3);
+      this.houseStateNode.active = true;
+      this.houseStateNode.opacity = 0;
+      this.houseStateNode.runAction(cc.fadeIn(0.3));
 
-  //     var action = cc.sequence(
-  //       cc.fadeOut(0.3),
-  //       cc.callFunc(() => {
-  //         this.houseStateNode.active = false;
-  //       }, this)
-  //     );
-  //     this.timer3 = setTimeout(() => {
-  //       this.houseStateNode.runAction(action);
-  //       // this.houseStateNode.active = false;
-  //     }, 2000);
-  //   });
-  // },
-  // upgradeByPoint() {
-  //   if (this.upgradeByPointInfo.RanchGrade === "S") {
-  //     Msg.show("已经升到满级");
-  //   } else {
-  //     Alert.show(
-  //       "是否使用" + this.upgradeByPointInfo.Money + "积分将牧场升级到" + this.upgradeByPointInfo.RanchGrade + "级",
-  //       () => {
-  //         this.upgradeHouse(this.upgradeByPointInfo.Type);
-  //         this.updateMoney();
-  //       },
-  //       null,
-  //       "升级"
-  //     );
-  //   }
-  // },
-  // upgradeByMoney() {
-  //   if (this.upgradeByPointInfo.RanchGrade === "S") {
-  //     Msg.show("已经升到满级");
-  //   } else {
-  //     Alert.show(
-  //       "是否使用" + this.upgradeByMoneyInfo.Money + "个牧场币将牧场升级到" + this.upgradeByMoneyInfo.RanchGrade + "级",
-  //       () => {
-  //         this.upgradeHouse(this.upgradeByMoneyInfo.Type);
-  //         this.updateMoney();
-  //       },
-  //       null,
-  //       "升级"
-  //     );
-  //   }
-  // },
-  //升级房屋操作
-  // upgradeHouse(payType) {
-  //   Func.UpgradeHouse(payType).then(data => {
-  //     if (data.Code === 1) {
-  //       switch (data.Model) {
-  //         case "B":
-  //           cc.loader.loadRes("house/house_2", cc.SpriteFrame, (err, spriteFrame) => {
-  //             this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-  //             Msg.show(data.Message);
-  //           });
-  //           break;
-  //         case "A":
-  //           cc.loader.loadRes("house/house_3", cc.SpriteFrame, (err, spriteFrame) => {
-  //             this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-  //             Msg.show(data.Message);
-  //           });
-  //           break;
-  //       }
-  //     }
-  //   });
-  // },
+      var action = cc.sequence(
+        cc.fadeOut(0.3),
+        cc.callFunc(() => {
+          this.houseStateNode.active = false;
+        }, this)
+      );
+      this.timer3 = setTimeout(() => {
+        this.houseStateNode.runAction(action);
+        // this.houseStateNode.active = false;
+      }, 2000);
+    });
+  },
+  upgradeByPoint() {
+    if (this.upgradeByPointInfo.RanchGrade === "S") {
+      Msg.show("已经升到满级");
+    } else {
+      Alert.show(
+        "是否使用" + this.upgradeByPointInfo.Money + "积分将牧场升级到" + this.upgradeByPointInfo.RanchGrade + "级",
+        () => {
+          this.upgradeHouse(this.upgradeByPointInfo.Type);
+          this.updateMoney();
+        },
+        null,
+        "升级"
+      );
+    }
+  },
+  upgradeByMoney() {
+    if (this.upgradeByPointInfo.RanchGrade === "S") {
+      Msg.show("已经升到满级");
+    } else {
+      Alert.show(
+        "是否使用" + this.upgradeByMoneyInfo.Money + "个牧场币将牧场升级到" + this.upgradeByMoneyInfo.RanchGrade + "级",
+        () => {
+          this.upgradeHouse(this.upgradeByMoneyInfo.Type);
+          this.updateMoney();
+        },
+        null,
+        "升级"
+      );
+    }
+  },
+  // 升级房屋操作
+  upgradeHouse(payType) {
+    Func.UpgradeHouse(payType).then(data => {
+      if (data.Code === 1) {
+        switch (data.Model) {
+          case "B":
+            cc.loader.loadRes("house/house_2", cc.SpriteFrame, (err, spriteFrame) => {
+              this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+              Msg.show(data.Message);
+            });
+            break;
+          case "A":
+            cc.loader.loadRes("house/house_3", cc.SpriteFrame, (err, spriteFrame) => {
+              this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+              Msg.show(data.Message);
+            });
+            break;
+        }
+      }
+    });
+  },
+  //初始化房屋图片 （未加入到init中，后台没有数据）
+  initHouse(rank) {
+    switch (rank) {
+      case "C":
+        cc.loader.loadRes("house/house_1", cc.SpriteFrame, (err, spriteFrame) => {
+          this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
+        break;
+      case "B":
+        cc.loader.loadRes("house/house_2", cc.SpriteFrame, (err, spriteFrame) => {
+          this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
+        break;
+      case "A":
+        cc.loader.loadRes("house/house_3", cc.SpriteFrame, (err, spriteFrame) => {
+          this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
+        break;
+    }
+  },
   //更新 饲料tip的数量
   updateFeedCount() {
     Func.GetFeedCount().then(data => {
@@ -595,7 +619,7 @@ cc.Class({
 
   start: function() {
     this.init();
-    this.chickFunc = this._chick.chickFunc;
+    // this.chickFunc = this._chick.chickFunc;
     Func.GetWholeData().then(data => {
       // console.log(data);
       if (data.Code === 1) {
@@ -658,36 +682,7 @@ cc.Class({
       }
       this.operate = -1;
     }
-  },
-  showSickAnim: function() {
-    this._chick._chickStatus.sick = true;
-    this._chick._chickStatus.hungry = false;
-    this._chick._chickStatus.shit = false;
-    this.chickFunc.playChickAnim.call(this._chick);
-  },
-  showSickHungryAnim: function() {
-    this._chick._chickStatus.sick = true;
-    this._chick._chickStatus.hungry = true;
-    this._chick._chickStatus.shit = false;
-    this.chickFunc.playChickAnim.call(this._chick);
-  },
-  showShitSickAnim: function() {
-    this._chick._chickStatus.sick = true;
-    this._chick._chickStatus.shit = true;
-    this._chick._chickStatus.hungry = false;
-    this.chickFunc.playChickAnim.call(this._chick);
-  },
-  showShitHungryAnim: function() {
-    this._chick._chickStatus.hungry = true;
-    this._chick._chickStatus.shit = true;
-    this._chick._chickStatus.sick = false;
-    this.chickFunc.playChickAnim.call(this._chick);
-  },
-  showHungrySickShitAnim: function() {
-    this._chick._chickStatus.hungry = true;
-    this._chick._chickStatus.shit = true;
-    this._chick._chickStatus.sick = true;
-    this.chickFunc.playChickAnim.call(this._chick);
   }
+
   //update(dt) {}
 });

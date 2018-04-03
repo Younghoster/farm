@@ -9,7 +9,7 @@ var Chick = cc.Class({
   properties: {},
 
   // 鸡的状态
-  _Id: null,
+  cId: null,
   _parentNode: null,
   _chickNode: null,
   // cc.Animation 动画实例
@@ -61,15 +61,15 @@ var Chick = cc.Class({
     this._stateNode.active = false;
 
     //初始化小鸡Id为-1
-    this._Id = -1;
+    this.cId = -1;
     //获得小鸡的ID （小鸡列表点击小鸡 把Id赋值过来）
   },
   setId(Id) {
-    this._Id = Id;
+    this.cId = Id;
   },
   //初始化鸡的状态 播放不同的动画
   initData() {
-    Func.GetChickById(this._Id).then(data => {
+    Func.GetChickById(this.cId).then(data => {
       if (data.Code === 1) {
         let chick_data = data.Model;
         let shitStatus = chick_data.Shit;
@@ -146,6 +146,7 @@ var Chick = cc.Class({
 
   onLoad() {
     this.init();
+    this.node.on("click", this.showChickState, this);
     this.schedule(this.walking, 1);
     //方法导出给index.js
     this.chickFunc = {
@@ -213,9 +214,14 @@ var Chick = cc.Class({
 
   //显示小鸡的状态
   showChickState: function() {
-    cc.director.loadScene("chickDetail");
+    let id = this.cId;
+    cc.director.loadScene("chickDetail", () => {
+      let scene = cc.find("Canvas");
+      let chickDetailJs = scene.getComponent("chickDetail");
+      chickDetailJs.Id = id;
+    });
     // this.feedStateNode.active = false;
-    // Func.GetChickValueById(this._Id)
+    // Func.GetChickValueById(this.cId)
     // .then(data => {
     //   if (data.Code == 1) {
     //     var sp = data.StarvationValue;
@@ -257,7 +263,7 @@ var Chick = cc.Class({
   walking() {
     let x, y, direction, speed;
     //上下左右限定范围
-    let range = [0, -300, -200, 200];
+    let range = [0, -300, -280, 280];
     //小鸡当前的位置
     x = this.node.x;
     y = this.node.y;

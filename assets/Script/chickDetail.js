@@ -1,7 +1,10 @@
+var Data = require("Data");
+var Func = Data.func;
 cc.Class({
   extends: cc.Component,
 
   properties: {},
+  Id: null,
   bindNode() {
     this.backButton = cc.find("bg-f3/bg/backIndex", this.node);
     this.idLabel = cc.find("bg-f3/bg/info/id", this.node).getComponent(cc.Label);
@@ -26,6 +29,23 @@ cc.Class({
   },
   initData() {
     this.growNode.cascadeOpacity = false;
+    this.initChickData();
+  },
+  initChickData() {
+    Func.GetChickValueById(this.Id).then(data => {
+      if (data.Code === 1) {
+        this.assignChickData(data);
+      }
+    });
+  },
+  assignChickData(data) {
+    this.idLabel.string = `编号：${this.Id}`;
+    this.sexLabel.string = `性别：${data.Sex}`;
+    this.hungryLabel.string = `饥饿度：${data.StarvationValue}`;
+    this.healthLabel.string = `健康值：${data.HealthValue}`;
+    this.collectButton.active = data.CallBack;
+    this.growProgressBar.progress = data.Proportion / 100;
+    this.growLabel.string = `${data.Proportion}/100`;
   },
   bindEvent() {
     this.backButton.on("click", () => {
@@ -48,13 +68,13 @@ cc.Class({
       this.content2Node.active = true;
     });
   },
-  onLoad() {
+  onLoad() {},
+
+  start() {
     this.bindNode();
     this.bindEvent();
     this.initData();
-  },
-
-  start() {}
+  }
 
   // update (dt) {},
 });
