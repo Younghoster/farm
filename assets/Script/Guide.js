@@ -3,52 +3,114 @@
 var GuideSystem = {
   step: 0,
   scene: null,
+  isSetName: false,
   guide: function guide() {
     var _this = this;
-
     this.scene = cc.find("Canvas");
-    cc.loader.loadRes("Prefab/guide", cc.Prefab, function(err, prefab) {
-      if (err) {
-        console.log(err);
-        return;
+    this.setName().then(function() {
+      cc.loader.loadRes("Prefab/guide", cc.Prefab, function(err, prefab) {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        var oldGuideNode = cc.find("guide", _this.scene);
+        oldGuideNode ? oldGuideNode.removeFromParent() : false;
+        var guideNode = cc.instantiate(prefab);
+        var guideMaskNode = cc.find("mask-guide", guideNode);
+        var modalSprite = cc.find("modal", guideMaskNode).getComponent(cc.Sprite);
+        var circleNode = cc.find("circle", guideMaskNode);
+        switch (_this.step) {
+          case 0:
+            _this.guideStep0(guideNode, guideMaskNode, modalSprite, circleNode);
+            break;
+          case 1:
+            _this.guideStep1(guideNode, guideMaskNode, modalSprite, circleNode);
+            break;
+          case 2:
+            _this.guideStep2(guideNode, guideMaskNode, modalSprite, circleNode);
+            break;
+          case 3:
+            _this.guideStep3(guideNode, guideMaskNode, modalSprite, circleNode);
+            break;
+          case 4:
+            _this.guideStep4(guideNode, guideMaskNode, modalSprite, circleNode);
+            break;
+          case 5:
+            _this.guideStep5(guideNode, guideMaskNode, modalSprite, circleNode);
+            break;
+          case 6:
+            _this.guideStep6(guideNode, guideMaskNode, modalSprite, circleNode);
+            break;
+          case 7:
+            _this.guideStep7(guideNode, guideMaskNode, modalSprite, circleNode);
+            break;
+          case 8:
+            _this.guideStep8(guideNode, guideMaskNode, modalSprite, circleNode);
+            break;
+        }
+        _this.step++;
+        _this.scene.addChild(guideNode, 99);
+      });
+    });
+  },
+  //设置昵称
+  setName() {
+    var that = this;
+
+    return new Promise((resolve, reject) => {
+      if (!this.isSetName) {
+        Alert.show("0", null, null, null, null, null, "Prefab/Modal/Usercenter/NameEdit", function() {
+          var self = this;
+          cc.loader.loadRes(Alert._newPrefabUrl, cc.Prefab, function(error, prefab) {
+            if (error) {
+              cc.error(error);
+              return;
+            }
+            // 实例
+            var alert = cc.instantiate(prefab);
+            // Alert 持有
+            Alert._alert = alert;
+            //动画加载
+            self.ready();
+            // 父视图
+            Alert._alert.parent = cc.find("Canvas");
+            // 展现 alert
+            self.startFadeIn();
+            //自定义事件
+            var saveButton = cc.find("alertBackground/enterButton", alert);
+            var introLabel = cc.find("alertBackground/intro/tel", alert).getComponent(cc.Label);
+            introLabel.string = "请输入您的昵称";
+            //保存
+            saveButton.on("click", () => {
+              let name = cc.find("alertBackground/input/editbox", alert);
+              let title = cc.find("alertBackground/intro/detailLabel", alert).getComponent(cc.Label);
+              let intro = cc.find("alertBackground/intro/tel", alert);
+              intro.getComponent(cc.Label).string = "请输入您的昵称";
+              that.SaveEditName(name.getComponent(cc.EditBox).string).then(data => {
+                if (data.Code == 1 || data.Code == 0) {
+                  alert.removeFromParent();
+                  Msg.show("修改成功");
+                  that.isSetName = true;
+                  setTimeout(() => {
+                    resolve(true);
+                  }, 2000);
+                } else if (data.Code == "333") {
+                  intro.getComponent(cc.Label).string = "您修改的昵称已经存在！";
+                } else if (data.Code == "000") {
+                  intro.getComponent(cc.Label).string = "您的牧场币不足200！无法修改！";
+                }
+
+                intro.getComponent(cc.Label).fontSize = 28;
+                intro.getComponent(cc.Label).lineHeight = 80;
+              });
+            });
+            //取消
+            self.newButtonEvent(alert, "close");
+          });
+        });
+      } else {
+        resolve(true);
       }
-      var oldGuideNode = cc.find("guide", _this.scene);
-      oldGuideNode ? oldGuideNode.removeFromParent() : false;
-      var guideNode = cc.instantiate(prefab);
-      var guideMaskNode = cc.find("mask-guide", guideNode);
-      var modalSprite = cc.find("modal", guideMaskNode).getComponent(cc.Sprite);
-      var circleNode = cc.find("circle", guideMaskNode);
-      switch (_this.step) {
-        case 0:
-          _this.guideStep0(guideNode, guideMaskNode, modalSprite, circleNode);
-          break;
-        case 1:
-          _this.guideStep1(guideNode, guideMaskNode, modalSprite, circleNode);
-          break;
-        case 2:
-          _this.guideStep2(guideNode, guideMaskNode, modalSprite, circleNode);
-          break;
-        case 3:
-          _this.guideStep3(guideNode, guideMaskNode, modalSprite, circleNode);
-          break;
-        case 4:
-          _this.guideStep4(guideNode, guideMaskNode, modalSprite, circleNode);
-          break;
-        case 5:
-          _this.guideStep5(guideNode, guideMaskNode, modalSprite, circleNode);
-          break;
-        case 6:
-          _this.guideStep6(guideNode, guideMaskNode, modalSprite, circleNode);
-          break;
-        case 7:
-          _this.guideStep7(guideNode, guideMaskNode, modalSprite, circleNode);
-          break;
-        case 8:
-          _this.guideStep8(guideNode, guideMaskNode, modalSprite, circleNode);
-          break;
-      }
-      _this.step++;
-      _this.scene.addChild(guideNode, 99);
     });
   },
   guideStep0: function guideStep0(guideNode, guideMaskNode, modalSprite, circleNode) {
@@ -358,6 +420,32 @@ var GuideSystem = {
       xhr.open("POST", Config.apiUrl + "/T_Base_User/UpdateUserLoginTime");
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); //缺少这句，后台无法获取参数
       xhr.send("OpenID=" + Config.openID);
+    });
+  },
+  //修改姓名
+  SaveEditName(updatename) {
+    return new Promise(function(resolve, reject) {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            reject(response);
+          }
+        }
+      };
+      // POST方法1
+      xhr.open(
+        "POST",
+        Config.apiUrl + "/T_Base_User/UpdateName?openId=" + Config.openID + "&updatename=" + updatename,
+        true
+      );
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); //缺少这句，后台无法获取参数
+      xhr.send();
     });
   }
 };

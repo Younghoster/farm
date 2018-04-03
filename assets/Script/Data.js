@@ -751,7 +751,7 @@ var func = {
     });
   },
   //获得该用户的鸡的列表
-  GetChickList() {
+  GetChickList(status = 2) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -771,7 +771,7 @@ var func = {
       // POST方法
       xhr.open("POST", Config.apiUrl + "/T_Base_Chicken/GetModelList", true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); //缺少这句，后台无法获取参数
-      xhr.send("openID=" + this.openID);
+      xhr.send("openID=" + this.openID + "&Status=" + status);
     });
   },
   //通过Id找到鸡对象（状态及相应的值）
