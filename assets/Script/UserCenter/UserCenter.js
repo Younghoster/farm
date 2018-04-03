@@ -94,17 +94,17 @@ cc.Class({
           }
           //农作物
           case 6: {
-            imgSrc = "Modal/Repertory/img-hatchEgg";
+            imgSrc = "Modal/Repertory/img-ym";
             break;
           }
           //肥料
           case 7: {
-            imgSrc = "Modal/Repertory/img-hatchEgg";
+            imgSrc = "Modal/Repertory/img-hf";
             break;
           }
           //粪便
           case 8: {
-            imgSrc = "Modal/Repertory/img-hatchEgg";
+            imgSrc = "Modal/Repertory/img-db";
             break;
           }
           default: {
