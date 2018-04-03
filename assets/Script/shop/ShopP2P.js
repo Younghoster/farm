@@ -309,7 +309,10 @@ cc.Class({
     cc.director.loadScene("index");
   },
   //切换系统商城
-  gotoPage() {
+  gotoPageShopPoint() {
+    cc.director.loadScene("shopPoint");
+  },
+  gotoPageShop() {
     cc.director.loadScene("shop");
   }
 

@@ -257,6 +257,29 @@ var func = {
       xhr.send();
     });
   },
+  //获得积分商城的商品
+  GetPointGoodList(index, size) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            console.log("获取商城数据失败");
+            reject(response);
+          }
+        }
+      };
+      // GET方法
+      xhr.open("GET", Config.apiUrl + "/T_Base_Property/GetPointListByPage?page=" + index + "&size=" + size, true);
+      xhr.setRequestHeader("Content-Type", "json");
+      xhr.send();
+    });
+  },
   //获得交易市场的商品
   GetSellList(type, index, size) {
     return new Promise((resolve, reject) => {
@@ -1422,6 +1445,38 @@ var func = {
       // GET方法
       xhr.open("Get", Config.apiUrl + "/T_Farm_Land/GetList?openID=" + this.openID, true);
       xhr.setRequestHeader("Content-Type", "json");
+      xhr.send();
+    });
+  },
+  //添加农作物
+  addCrops(landId, propertyId) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            reject(response);
+          }
+        }
+      };
+      xhr.open(
+        "POST",
+        Config.apiUrl +
+          "/T_Farm_Land/SowSeeds?openId=" +
+          this.openID +
+          "&landId=" +
+          landId +
+          "&propertyId=" +
+          propertyId,
+        true
+      );
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.send();
     });
   }
