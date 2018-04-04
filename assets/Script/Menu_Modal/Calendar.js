@@ -13,25 +13,9 @@ cc.Class({
   todayNode: null, //item 节点
   // use this for initialization
   onLoad: function() {
-    Func.GetSignList()
-      .then(data => {
-        if (data.Code === 1) {
-          this.signList = data.List;
-          this.renderCalendar();
-
-          if (this.todayNode.getChildByName("item_do").active) {
-            var signButton = cc.find("btn-sign", this.node.parent);
-            cc.loader.loadRes("btn-hasSign", cc.SpriteFrame, function(err, spriteFrame) {
-              signButton.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-            });
-          }
-        } else {
-          Alert.show(data.Message);
-        }
-      })
-      .catch(reason => {
-        Alert.show(reason.Message);
-      });
+    this.func = {
+      initCalendar: this.initCalendar
+    };
   },
   //渲染日历（）
   renderCalendar() {
@@ -75,7 +59,11 @@ cc.Class({
       });
     }
   },
-
+  //为日历赋值（后台获取的数据）
+  initCalendar(list) {
+    this.signList = list;
+    this.renderCalendar();
+  },
   // 获取那年那月有多少天
   getMonthsDay(year, month) {
     var year = year;
@@ -116,34 +104,5 @@ cc.Class({
 
     var newDate = new Date(year, month, 1);
     return newDate.getDay();
-  },
-
-  // 关闭模态框
-  closeModal() {
-    var self = this;
-    console.log("close modal");
-    //删除 爷爷节点
-    var action = cc.fadeOut(0.3);
-    self.parentNode.runAction(action);
-    setTimeout(() => {
-      self.parentNode.active = false;
-    }, 400);
-
-    // scrollView.removeFromParent();
-    // this.node.removeChild(Modal);
-  },
-
-  signIn() {
-    this.todayNode.getChildByName("item_do").active = true;
-    this.todayNode.getChildByName("item_undo").active = false;
-    Func.PostSign().then(data => {
-      if (data.Code === 1) {
-        var signButton = cc.find("btn-sign", this.node.parent);
-        cc.loader.loadRes("btn-hasSign", cc.SpriteFrame, function(err, spriteFrame) {
-          signButton.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        Msg.show("签到成功! 积分增加" + data.Point + ",牧场币增加" + data.RachMoney, 0.3, 3000);
-      }
-    });
   }
 });
