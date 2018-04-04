@@ -83,7 +83,7 @@ cc.Class({
 
         break;
       case 3: //成熟的肉鸡
-        iconSrc = "Shop/guifeiji";
+        iconSrc = "Shop/icon-asset04";
         iconSrc2 = "Shop/guifeiji_";
         break;
       case 4: //饲料
@@ -115,16 +115,16 @@ cc.Class({
         iconSrc2 = "Shop/icon-egg_";
         break;
       case 12: //自动清洁机
-        iconSrc = "Shop/icon-egg";
-        iconSrc2 = "Shop/icon-egg_";
+        iconSrc = "Shop/icon-bot";
+        iconSrc2 = "Shop/icon-bot";
         break;
       case 13: //产蛋鸡
-        iconSrc = "Shop/guifeiji";
+        iconSrc = "Shop/icon-asset04";
         iconSrc2 = "Shop/guifeiji_";
         break;
       case 14: //改名卡
-        iconSrc = "Shop/icon-egg";
-        iconSrc2 = "Shop/icon-egg_";
+        iconSrc = "Shop/icon-name";
+        iconSrc2 = "Shop/icon-name_";
         break;
       default: {
         iconSrc = "Shop/icon-1";
