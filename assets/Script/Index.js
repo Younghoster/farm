@@ -142,7 +142,7 @@ cc.Class({
 
           cc.loader.loadRes("Prefab/Chick", cc.Prefab, (err, prefab) => {
             var chickNode = cc.instantiate(prefab);
-            chickNode.setPosition(i * 90 - 260, Math.random() * -300 - 100);
+            chickNode.setPosition(Math.random() * 700 - 350, Math.random() * -300 - 100);
             var chickJs = chickNode.getComponent("Chick");
             this.scene.addChild(chickNode);
             chickJs.setId(data.List[i].ID);

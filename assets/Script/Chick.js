@@ -269,7 +269,6 @@ var Chick = cc.Class({
   walking() {
     let x, y, direction, speed;
     //上下左右限定范围
-    let range = [0, -300, -280, 280];
     //小鸡当前的位置
     x = this.node.x;
     y = this.node.y;
@@ -280,67 +279,36 @@ var Chick = cc.Class({
     } else {
       direction = Math.floor(Math.random() * 4);
     }
-
+    x < -350 ? (direction = 3) : false;
+    x > 350 ? (direction = 2) : false;
+    y < -400 ? (direction = 0) : false;
+    y > -100 ? (direction = 1) : false;
     this.BoomDirection = direction;
     switch (direction) {
       //向上移动
       case 0:
-        if (y + speed <= range[0]) {
-          y += speed;
-          //播放动画
-          this.playChickWalkUp();
-        } else {
-          y -= speed;
-          //播放动画
-          this.playChickWalkDown();
-        }
+        y += speed;
+        //播放动画
+        this.playChickWalkUp();
         break;
       //向下移动
       case 1:
-        if (y - speed >= range[1]) {
-          y -= speed;
-          //播放动画
-          this.playChickWalkDown();
-        } else {
-          y += speed;
-          //播放动画
-          this.playChickWalkUp();
-        }
+        y -= speed;
+        //播放动画
+        this.playChickWalkDown();
         break;
       //向左移动
       case 2:
-        if (x - speed >= range[2]) {
-          x -= speed;
-          //播放动画
-          this.playChickWalkLeft();
-        } else {
-          x += speed;
-          //播放动画
-          this.playChickWalkRight();
-        }
+        x -= speed;
+        //播放动画
+        this.playChickWalkLeft();
         break;
       //向右移动
       case 3:
-        if (x + speed <= range[3]) {
-          x += speed;
-          //播放动画
-          this.playChickWalkRight();
-        } else {
-          x -= speed;
-          //播放动画
-          this.playChickWalkLeft();
-        }
+        x += speed;
+        //播放动画
+        this.playChickWalkRight();
         break;
-      //向斜左移动
-      // case 4:
-      //   x -= speed;
-      //   y -= speed;
-      //   break;
-      // //向斜右移动
-      // case 5:
-      //   x += speed;
-      //   y += speed;
-      //   break;
     }
     this.node.runAction(cc.moveTo(1, x, y));
     // console.log(`x = ${x} ,y = ${y}`);
