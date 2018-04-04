@@ -34,6 +34,8 @@ var Chick = cc.Class({
   _hpValue: 0,
   _status: null, //判断小鸡是否活着
   chickFunc: null,
+  isBoom: 0,
+  BoomDirection: 0,
   init: function() {
     //鸡的状态初始化
     this._chickStatus = {
@@ -155,6 +157,10 @@ var Chick = cc.Class({
       setId: this.setId,
       initData: this.initData
     };
+    cc.director.getCollisionManager().enabled = true;
+    // cc.director.getCollisionManager().enabledDebugDraw = true;
+    // cc.director.getCollisionManager().enabledDrawBoundingBox = true;
+    this.touchingNumber = 0;
   },
   //小鸡说话
   sayHello() {
@@ -269,7 +275,13 @@ var Chick = cc.Class({
     y = this.node.y;
     speed = 10;
     //在0~5中随机生成一个整数(上、下、左、右、斜左、斜右)
-    direction = Math.round(Math.random() * 3);
+    if (this.isBoom) {
+      direction = this.BoomDirection;
+    } else {
+      direction = Math.floor(Math.random() * 4);
+    }
+
+    this.BoomDirection = direction;
     switch (direction) {
       //向上移动
       case 0:
@@ -332,6 +344,58 @@ var Chick = cc.Class({
     }
     this.node.runAction(cc.moveTo(1, x, y));
     // console.log(`x = ${x} ,y = ${y}`);
+  },
+
+  onCollisionEnter: function(other, self) {
+    // this.node.color = cc.Color.GREEN;
+    this.touchingNumber++;
+    this.isBoom = 1;
+    if (self.world.aabb.x > other.world.aabb.x) {
+      this.BoomDirection = 3;
+    } else {
+      this.BoomDirection = 2;
+    }
+  },
+
+  onCollisionStay: function(other, self) {
+    // console.log('on collision stay');
+    this.isBoom = 1;
+    if (self.world.aabb.x > other.world.aabb.x && self.world.aabb.y > other.world.aabb.y) {
+      if (this.BoomDirection == 3) {
+        this.BoomDirection = 0;
+      } else {
+        this.BoomDirection = 3;
+      }
+    } else if (self.world.aabb.x > other.world.aabb.x && self.world.aabb.y < other.world.aabb.y) {
+      if (this.BoomDirection == 3) {
+        this.BoomDirection = 1;
+      } else {
+        this.BoomDirection = 3;
+      }
+    } else if (self.world.aabb.x < other.world.aabb.x && self.world.aabb.y > other.world.aabb.y) {
+      if (this.BoomDirection == 0) {
+        this.BoomDirection = 2;
+      } else {
+        this.BoomDirection = 0;
+      }
+    } else if (self.world.aabb.x < other.world.aabb.x && self.world.aabb.y < other.world.aabb.y) {
+      if (this.BoomDirection == 1) {
+        this.BoomDirection = 2;
+      } else {
+        this.BoomDirection = 1;
+      }
+    }
+  },
+
+  onCollisionExit: function() {
+    //碰撞后的状态显示
+
+    this.dataList = JSON.parse(cc.sys.localStorage.getItem("FarmData")); //缓存机制
+    this.touchingNumber--;
+    if (this.touchingNumber === 0) {
+      this.node.color = cc.Color.WHITE;
+    }
+    this.isBoom = 0;
   },
 
   //小鸡的动画

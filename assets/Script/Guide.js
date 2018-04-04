@@ -54,11 +54,13 @@ var GuideSystem = {
     });
   },
   //设置昵称
-  setName() {
+  setName: function setName() {
+    var _this9 = this;
+
     var that = this;
 
-    return new Promise((resolve, reject) => {
-      if (!this.isSetName) {
+    return new Promise(function(resolve, reject) {
+      if (!_this9.isSetName) {
         Alert.show("0", null, null, null, null, null, "Prefab/Modal/Usercenter/NameEdit", function() {
           var self = this;
           cc.loader.loadRes(Alert._newPrefabUrl, cc.Prefab, function(error, prefab) {
@@ -81,17 +83,17 @@ var GuideSystem = {
             var introLabel = cc.find("alertBackground/intro/tel", alert).getComponent(cc.Label);
             introLabel.string = "请输入您的昵称";
             //保存
-            saveButton.on("click", () => {
-              let name = cc.find("alertBackground/input/editbox", alert);
-              let title = cc.find("alertBackground/intro/detailLabel", alert).getComponent(cc.Label);
-              let intro = cc.find("alertBackground/intro/tel", alert);
+            saveButton.on("click", function() {
+              var name = cc.find("alertBackground/input/editbox", alert);
+              var title = cc.find("alertBackground/intro/detailLabel", alert).getComponent(cc.Label);
+              var intro = cc.find("alertBackground/intro/tel", alert);
               intro.getComponent(cc.Label).string = "请输入您的昵称";
-              that.SaveEditName(name.getComponent(cc.EditBox).string).then(data => {
+              that.SaveEditName(name.getComponent(cc.EditBox).string).then(function(data) {
                 if (data.Code == 1 || data.Code == 0) {
                   alert.removeFromParent();
                   Msg.show("修改成功");
                   that.isSetName = true;
-                  setTimeout(() => {
+                  setTimeout(function() {
                     resolve(true);
                   }, 2000);
                 } else if (data.Code == "333") {
@@ -113,6 +115,7 @@ var GuideSystem = {
       }
     });
   },
+
   guideStep0: function guideStep0(guideNode, guideMaskNode, modalSprite, circleNode) {
     cc.loader.loadRes("guide/pic", cc.SpriteFrame, function(err, spriteFrame) {
       modalSprite.spriteFrame = spriteFrame;
@@ -400,11 +403,11 @@ var GuideSystem = {
       xhr.send("openID=" + Config.openID + "&count=" + count + "&prId=" + prId);
     });
   },
-  UpdateUserLoginTime: function() {
+  UpdateUserLoginTime: function UpdateUserLoginTime() {
     return new Promise(function(resolve, reject) {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+        if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 400) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
             response = JSON.parse(response);
@@ -423,11 +426,11 @@ var GuideSystem = {
     });
   },
   //修改姓名
-  SaveEditName(updatename) {
+  SaveEditName: function SaveEditName(updatename) {
     return new Promise(function(resolve, reject) {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+        if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 400) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
             response = JSON.parse(response);
