@@ -130,6 +130,7 @@ cc.Class({
 
   //只运行一次
   initChick() {
+    let self = this;
     //获取正常的鸡
     Func.GetChickList(1).then(data => {
       if (data.Code == 1) {
@@ -142,7 +143,7 @@ cc.Class({
 
           cc.loader.loadRes("Prefab/Chick", cc.Prefab, (err, prefab) => {
             var chickNode = cc.instantiate(prefab);
-            chickNode.setPosition(Math.random() * 700 - 350, Math.random() * -300 - 100);
+            chickNode.setPosition(self.setChickPositionX(i), Math.random() * -300 - 100);
             var chickJs = chickNode.getComponent("Chick");
             this.scene.addChild(chickNode);
             chickJs.setId(data.List[i].ID);
@@ -156,6 +157,13 @@ cc.Class({
         !Config.firstLogin ? Msg.show("您的牧场暂无小鸡") : false;
       }
     });
+  },
+  setChickPositionX(i) {
+    if (i > 6) {
+      return (i - 6) * 100 - 350;
+    } else {
+      return (i + 1) * 100 - 350;
+    }
   },
   //收取鸡蛋
   collectEgg() {
