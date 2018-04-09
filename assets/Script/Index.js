@@ -290,25 +290,6 @@ cc.Class({
       }
     });
   },
-  //孵化小鸡
-  hatchEgg() {
-    Func.HatchEgg().then(data => {
-      if (data.Code === 1) {
-        cc.loader.loadRes("Prefab/Chick", cc.Prefab, (err, prefab) => {
-          let chickNode = cc.instantiate(prefab);
-          let chickJs = chickNode.getComponent("Chick");
-          chickNode.setPosition(0, -140);
-          this.scene.addChild(chickNode);
-          chickJs.setId(data.Model);
-          chickJs._chickAnim.play("chick_born");
-          chickJs._chickAnim.on("finished", chickJs.chickFunc.initData, this._chick);
-          Msg.show("孵化成功");
-        });
-      } else {
-        Msg.show(data.Message);
-      }
-    });
-  },
   //显示饲料槽状态
   showFeedState() {
     // if (this._chick._stateNode != null) this._chick._stateNode.active = false;
@@ -394,6 +375,7 @@ cc.Class({
       }, 2000);
     });
   },
+  //积分升级房屋
   upgradeByPoint() {
     if (this.upgradeByPointInfo.RanchGrade === "S") {
       Msg.show("已经升到满级");
@@ -409,6 +391,7 @@ cc.Class({
       );
     }
   },
+  // 牧场币升级房屋
   upgradeByMoney() {
     if (this.upgradeByPointInfo.RanchGrade === "S") {
       Msg.show("已经升到满级");
