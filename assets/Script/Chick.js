@@ -36,6 +36,7 @@ var Chick = cc.Class({
   chickFunc: null,
   isBoom: 0,
   BoomDirection: 0,
+  walkTimer: null,
   init: function() {
     //鸡的状态初始化
     this._chickStatus = {
@@ -74,7 +75,6 @@ var Chick = cc.Class({
         this._chickStatus.sick = sickStatus;
         this._chickStatus.hungry = hungryStatus;
         this._status = chick_data.Status;
-
         this.playAnim();
       } else {
         Msg.show('服务器忙');
@@ -85,7 +85,11 @@ var Chick = cc.Class({
   onLoad() {
     this.init();
     this.node.on('click', this.showChickState, this);
-    this.schedule(this.walking, 1);
+    this.walkTimer = Math.random() * 3 + 3;
+    this.walking();
+    setTimeout(() => {
+      this.schedule(this.walking, this.walkTimer);
+    }, this.walkTimer);
     //方法导出给index.js
     this.chickFunc = {
       playChickAnim: this.playAnim,
@@ -119,17 +123,17 @@ var Chick = cc.Class({
     //小鸡当前的位置
     x = this.node.x;
     y = this.node.y;
-    speed = 10;
+    speed = this.walkTimer * 10;
     //在0~5中随机生成一个整数(上、下、左、右、斜左、斜右)
     if (this.isBoom) {
       direction = this.BoomDirection;
     } else {
       direction = Math.floor(Math.random() * 4);
     }
-    x < -150 ? (direction = 3) : false;
-    x > 300 ? (direction = 2) : false;
-    y < -430 ? (direction = 0) : false;
-    y > -100 ? (direction = 1) : false;
+    x - speed < -150 ? (direction = 3) : false;
+    x + speed > 300 ? (direction = 2) : false;
+    y - speed < -430 ? (direction = 0) : false;
+    y + speed > -100 ? (direction = 1) : false;
     this.BoomDirection = direction;
     switch (direction) {
       //向上移动
@@ -157,7 +161,7 @@ var Chick = cc.Class({
         this.playChickWalkRight();
         break;
     }
-    this.node.runAction(cc.moveTo(1, x, y));
+    this.node.runAction(cc.moveTo(this.walkTimer, x, y));
     // console.log(`x = ${x} ,y = ${y}`);
   },
 

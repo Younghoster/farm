@@ -195,12 +195,12 @@ var func = {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
-            console.log('清理成功');
+           
             response = JSON.parse(response);
             resolve(response);
           } else {
             var response = xhr.responseText;
-            console.log('签到失败');
+            
             reject(response);
           }
         }
