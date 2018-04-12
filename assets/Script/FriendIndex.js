@@ -9,9 +9,8 @@ cc.Class({
   friendOpenID: null,
   bindNode() {
     this.backButton = cc.find('bg/btn-back', this.node);
-    this.clearLabel = cc.find('wave/mask/layout/value', this.node).getComponent(cc.Label);
-    this.wave1Node = cc.find('wave/mask/wave1', this.node);
-    this.wave2Node = cc.find('wave/mask/wave2', this.node);
+    this.clearProgressBar = cc.find('clearBar/clear_bar', this.node).getComponent(cc.ProgressBar);
+
     this.handNode = cc.find('Hand', this.node);
     this.handAnim = this.handNode.getComponent(cc.Animation);
     this.eggNode = cc.find('bg/house/shouquEgg', this.node);
@@ -28,9 +27,8 @@ cc.Class({
   initData(data) {
     // 清洁度设置
     this._clearValue = data.RanchModel.RanchCleanliness;
-    this.clearLabel.string = this._clearValue + '%';
-    this.wave1Node.y = this._clearValue;
-    this.wave2Node.y = this._clearValue;
+
+    this.clearProgressBar.progress = this._clearValue / 150;
 
     //经验值
     this.level = cc.find('div_header/Lv/level', this.node).getComponent(cc.Label);

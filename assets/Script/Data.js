@@ -195,12 +195,12 @@ var func = {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
-           
+
             response = JSON.parse(response);
             resolve(response);
           } else {
             var response = xhr.responseText;
-            
+
             reject(response);
           }
         }
@@ -481,6 +481,54 @@ var func = {
       xhr.send('openID=' + this.openID);
     });
   },
+  // 升级产蛋棚   
+  UpgradeEggsShed(payType) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+           
+            reject(response);
+          }
+        }
+      };
+      // POST方法
+      xhr.open('POST', Config.apiUrl + '/T_Base_LayEggsShed/LayEggsShedUpGrade', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
+      xhr.send('openID=' + this.openID + '&payType=' + payType);
+    });
+  },
+   //获得产蛋棚 升级需要多少钱
+  GeteggsShedUpGradeMoney() {
+    // Loading.show();
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            console.log('获取数据失败');
+            reject(response);
+          }
+        }
+      };
+      // GET方法
+      xhr.open('GET', Config.apiUrl + '/T_Base_Ranch/GetRanchUpGradeMoney?openId=' + this.openID, true);
+      xhr.setRequestHeader('Content-Type', 'json');
+      xhr.send();
+    });
+  },
   //升级牧场
   UpgradeHouse(payType) {
     return new Promise((resolve, reject) => {
@@ -537,12 +585,12 @@ var func = {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
-            console.log('清理成功');
+           
             response = JSON.parse(response);
             resolve(response);
           } else {
             var response = xhr.responseText;
-            console.log('签到失败');
+           
             reject(response);
           }
         }
@@ -600,8 +648,7 @@ var func = {
     });
   },
   //购买商品接口
-  PostBuy(prId, count) {
-    count = count || 1;
+  PostBuy(prId, count = 1) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -797,7 +844,7 @@ var func = {
       xhr.send('openID=' + this.openID + '&Status=' + status);
     });
   },
-  
+
   //通过Id找到鸡对象（状态及相应的值）
   GetChickById(Id) {
     return new Promise((resolve, reject) => {

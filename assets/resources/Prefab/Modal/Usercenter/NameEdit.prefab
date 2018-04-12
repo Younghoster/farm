@@ -191,7 +191,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "516f676f-2182-450b-b800-6a39b9b28cc3"
     },
     "fileId": "62QX4jlFdIm6W/aCjI206n",
     "sync": false
@@ -362,7 +362,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "516f676f-2182-450b-b800-6a39b9b28cc3"
     },
     "fileId": "52BFwL7ixCELrNJaRfFBFa",
     "sync": false
@@ -546,7 +546,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "516f676f-2182-450b-b800-6a39b9b28cc3"
     },
     "fileId": "0aIIrW6gBHyZyXjfUr/j5c",
     "sync": false
@@ -793,7 +793,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "516f676f-2182-450b-b800-6a39b9b28cc3"
     },
     "fileId": "c2A7DIsKFPDpsxdwWFdfT/",
     "sync": false
@@ -880,7 +880,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "516f676f-2182-450b-b800-6a39b9b28cc3"
     },
     "fileId": "a9HVfNnqFD46cP2zg4pcn0",
     "sync": false
@@ -922,7 +922,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "516f676f-2182-450b-b800-6a39b9b28cc3"
     },
     "fileId": "3dKE05A+NMO5gGT/ZDU5T6",
     "sync": false
@@ -1019,7 +1019,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 300,
+      "width": 450,
       "height": 60
     },
     "_rotationX": 0,
@@ -1112,7 +1112,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "516f676f-2182-450b-b800-6a39b9b28cc3"
     },
     "fileId": "9ai1nESbNK0JDaDk6AxRrd",
     "sync": false
@@ -1123,7 +1123,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "516f676f-2182-450b-b800-6a39b9b28cc3"
     },
     "fileId": "1aggHYjBFMsoyJaOWKJcw+",
     "sync": false
@@ -1271,7 +1271,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "516f676f-2182-450b-b800-6a39b9b28cc3"
     },
     "fileId": "259FyyEYZJI76JNiYEtZN4",
     "sync": false
@@ -1358,7 +1358,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "516f676f-2182-450b-b800-6a39b9b28cc3"
     },
     "fileId": "87n+P6mjRD+L4EiOuMwO9A",
     "sync": false
@@ -1452,7 +1452,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "516f676f-2182-450b-b800-6a39b9b28cc3"
     },
     "fileId": "011rFUoNFBpLG7uufxkvmE",
     "sync": false
@@ -1513,7 +1513,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "516f676f-2182-450b-b800-6a39b9b28cc3"
     },
     "fileId": "8d7cws1IFPwLRmc72KXSSP",
     "sync": false

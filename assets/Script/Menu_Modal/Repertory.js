@@ -125,18 +125,9 @@ cc.Class({
     let countLabel = cc.find('icon-tip/count', goodsNode).getComponent(cc.Label);
     let nameLabel = cc.find('name', goodsNode).getComponent(cc.Label);
     //获取物品数据
-    let type = goods.Type;
+    let PropName = goods.PropName;
     let count = goods.Count;
-    switch (type) {
-      //1 代表可孵化的鸡蛋
-      case 1:
-        //加载图片
-        cc.loader.loadRes('Modal/Repertory/img-hatchEgg', cc.SpriteFrame, function(err, spriteFrame) {
-          goodSprite.spriteFrame = spriteFrame;
-        });
-        nameLabel.string = '鸡蛋(可孵化)';
-        this.bindGoodsEvent(goodsNode, this.hatchEgg, '孵化');
-        break;
+    switch (PropName) {
       case 2:
         cc.loader.loadRes('Modal/Repertory/img-egg', cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
@@ -178,11 +169,25 @@ cc.Class({
           '下架'
         );
         break;
-      case 4:
+      case '饲料':
         cc.loader.loadRes('Modal/Repertory/feed', cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
-        nameLabel.string = '饲料';
+        nameLabel.string = PropName;
+        this.bindGoodsEvent(goodsNode, this.feed, '添加饲料槽');
+        break;
+      case '改名卡':
+        cc.loader.loadRes('Modal/Repertory/icon-name', cc.SpriteFrame, function(err, spriteFrame) {
+          goodSprite.spriteFrame = spriteFrame;
+        });
+        nameLabel.string = PropName;
+        this.bindGoodsEvent(goodsNode, this.feed, '添加饲料槽');
+        break;
+      case '超级肥料':
+        cc.loader.loadRes('Modal/Repertory/img-hf', cc.SpriteFrame, function(err, spriteFrame) {
+          goodSprite.spriteFrame = spriteFrame;
+        });
+        nameLabel.string = PropName;
         this.bindGoodsEvent(goodsNode, this.feed, '添加饲料槽');
         break;
       case 5:

@@ -72,6 +72,7 @@ cc.Class({
     this.houseNode = cc.find('bg/house', this.node);
     this.moneyLabel = cc.find('div_header/gold/money', this.node).getComponent(cc.Label);
     this.eggMoreNode = cc.find('eggMore', this.node);
+    this.eggCountLabel = cc.find('count', this.eggMoreNode).getComponent(cc.Label);
     //天气
     this.wether = this.node.getChildByName('div_wether');
     //饲料数量
@@ -82,6 +83,8 @@ cc.Class({
     this.updateWether();
     //新手指引step
     this.step = 0;
+
+    this.shitBoxNode = cc.find('shit-box', this.node);
 
     this.chickList = [];
   },
@@ -95,6 +98,7 @@ cc.Class({
     //金币设置
     var RanchMoney = data.UserModel.RanchMoney;
     let RanchRank = data.RanchModel.RanchRank;
+    let eggsShedRank = data.EggsShed.ShedRank;
     var moneyLabel = cc.find('div_header/gold/money', this.node).getComponent(cc.Label);
     moneyLabel.string = '￥' + RanchMoney;
     //经验值
@@ -105,16 +109,26 @@ cc.Class({
     //初始化饲料tip的数量
     this.feedCountLabel.string = data.UserModel.Allfeed == null ? 0 : data.UserModel.Allfeed;
 
-    //初始化是否显示鸡蛋
-    // this.eggNode.active = data.RanchModel.EggCount > 0 ? true : false;
-
+    //初始化产蛋棚是否显示鸡蛋
+    this.eggNode.active = data.EggsShed.EggCount > 0 ? true : false;
+    //初始化牧场是否显示鸡蛋
+    this.eggMoreNode.active = data.RanchModel.EggCount > 0 ? true : false;
+    this.eggCountLabel.string = `x${data.RanchModel.EggCount}`;
     let upOrDown = true;
     this.schedule(() => {
       let action = upOrDown ? cc.moveBy(0.5, 0, 20) : cc.moveBy(0.5, 0, -20);
       this.eggNode.runAction(action);
       upOrDown = !upOrDown;
     }, 0.5);
-
+    // 初始化 粪便
+    for (let i = 0; i < 5; i++) {
+      cc.loader.loadRes('Prefab/Index/shit', cc.Prefab, (err, prefab) => {
+        let shitNode = cc.instantiate(prefab);
+        shitNode.setPosition(Tool.random(0, 400), Tool.random(0, 200));
+        this.shitBoxNode.addChild(shitNode);
+      });
+    }
+    // 初始化跳动的箭头
     Func.GetFeedTroughFull().then(data => {
       if (data.Code === 1) {
         this.arrowNode.active = !data.Model;
@@ -122,6 +136,7 @@ cc.Class({
     });
 
     this.initChick();
+    this.initHouse(RanchRank);
   },
 
   //只运行一次
@@ -330,7 +345,7 @@ cc.Class({
     feedProgressBar.progress = value / capacity;
     Tool.setBarColor(feedBar, value / capacity);
   },
-  //显示房屋升级弹出框
+  //显示产蛋棚升级弹出框
   showHouseUpgrade() {
     this.houseStateNode = cc.find('bg/house/houseState', this.node);
     Func.GetRanchUpGradeMoney().then(data => {
@@ -427,17 +442,17 @@ cc.Class({
   //初始化房屋图片 （未加入到init中，后台没有数据）
   initHouse(rank) {
     switch (rank) {
-      case 'C':
+      case 1:
         cc.loader.loadRes('house/house_1', cc.SpriteFrame, (err, spriteFrame) => {
           this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
         break;
-      case 'B':
+      case 2:
         cc.loader.loadRes('house/house_2', cc.SpriteFrame, (err, spriteFrame) => {
           this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
         break;
-      case 'A':
+      case 3:
         cc.loader.loadRes('house/house_3', cc.SpriteFrame, (err, spriteFrame) => {
           this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });

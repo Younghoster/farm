@@ -2,21 +2,21 @@ var Tool = {
   setBarColor: function(bar, value) {
     var Node = bar;
     if (value < 0.6) {
-      Node.color = cc.color("#FF4A4A");
+      Node.color = cc.color('#FF4A4A');
     } else if (value < 0.8) {
-      Node.color = cc.color("#FFB70B");
+      Node.color = cc.color('#FFB70B');
     } else {
-      Node.color = cc.color("#74DA72");
+      Node.color = cc.color('#74DA72');
     }
   },
   setLabelColor: function(label, value) {
     var node = label.node;
     if (value < 0.6) {
-      Node.color = cc.color("#FF4A4A");
+      Node.color = cc.color('#FF4A4A');
     } else if (value < 0.8) {
-      Node.color = cc.color("#FFB70B");
+      Node.color = cc.color('#FFB70B');
     } else {
-      Node.color = cc.color("#74DA72");
+      Node.color = cc.color('#74DA72');
     }
   },
   closeModal: function(node) {
@@ -32,6 +32,9 @@ var Tool = {
       }
       return result;
     };
+  },
+  random(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
   }
   //跳动的动画(节点、时间)
   // animateUpOrDown(node, time, y) {
