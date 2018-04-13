@@ -71,7 +71,7 @@ cc.Class({
         let updateBg = cc.find("item01", RepertoryByCenter).getComponent(cc.Sprite);
         let updateCount = cc.find("label", RepertoryByCenter).getComponent(cc.Label);
         let imgSrc;
-        switch (data.Model.WarehouseList[i].Type) {
+        switch (data.Model.WarehouseList[i].PropertyTypeID) {
           case 1: {
             imgSrc = "Modal/Repertory/img-hatchEgg";
             break;
@@ -105,6 +105,16 @@ cc.Class({
           //粪便
           case 8: {
             imgSrc = "Modal/Repertory/img-db";
+            break;
+          }
+          //超级肥料
+          case 9: {
+            imgSrc = "Modal/Repertory/img-hf";
+            break;
+          }
+          //改名卡
+          case 14: {
+            imgSrc = "Modal/Repertory/icon-name";
             break;
           }
           default: {
@@ -145,25 +155,28 @@ cc.Class({
           ? ((imgSrc = "Modal/Repertory/icon-asset01"), (name_1.string = "牧场币"))
           : ((imgSrc = "Modal/Repertory/icon-asset02"), (name_1.string = "积分"));
 
-        switch (data.Model.BuyPropertyList[i].PropName) {
-          case "饲料": {
+        switch (data.Model.BuyPropertyList[i].PropertyTypeID) {
+          //普通饲料
+          case 4: {
             imgSrc_ = "Modal/Repertory/icon-1";
             break;
           }
-          case "鸡蛋": {
-            imgSrc_ = "Modal/Repertory/icon-asset05";
+          //超级肥料
+          case 9: {
+            imgSrc_ = "Modal/Repertory/icon-1";
             break;
           }
-          case "初级成长剂": {
-            imgSrc_ = "Modal/Repertory/icon-8";
+          //改名卡
+          case 14: {
+            imgSrc_ = "Modal/Repertory/icon-1";
             break;
           }
-          case "中级成长剂": {
-            imgSrc_ = "Modal/Repertory/icon-9";
+          //产蛋鸡
+          case 13: {
+            imgSrc_ = "Modal/Repertory/icon-asset04";
             break;
           }
-          case "高级成长剂": {
-            imgSrc_ = "Modal/Repertory/icon-10";
+          default: {
             break;
           }
         }
@@ -174,7 +187,7 @@ cc.Class({
         cc.loader.loadRes(imgSrc_, cc.SpriteFrame, (err, spriteFrame) => {
           icon_2.spriteFrame = spriteFrame;
         });
-        num_1.string = "-" + data.Model.BuyPropertyList[i].BuyValues;
+        num_1.string = "-" + data.Model.BuyPropertyList[i].PropValue;
         num_2.string = "+" + data.Model.BuyPropertyList[i].Count;
         name_2.string = data.Model.BuyPropertyList[i].PropName;
         day.string = utils.fn.formatNumToDate(data.Model.BuyPropertyList[i].CreateTime);

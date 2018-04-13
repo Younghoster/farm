@@ -1,6 +1,6 @@
-var Data = require('Data');
+var Data = require("Data");
 var Func = Data.func;
-var ToolJs = require('Tool');
+var ToolJs = require("Tool");
 var Tool = ToolJs.Tool;
 var Chick = cc.Class({
   name: Chick,
@@ -37,6 +37,8 @@ var Chick = cc.Class({
   isBoom: 0,
   BoomDirection: 0,
   walkTimer: null,
+  Loop: null,
+  action: null,
   init: function() {
     //鸡的状态初始化
     this._chickStatus = {
@@ -53,8 +55,8 @@ var Chick = cc.Class({
     this._animTreat = this.node.getComponent(cc.Animation)._clips[2];
     this._animHungry = this.node.getComponent(cc.Animation)._clips[3];
     this._animSick = this.node.getComponent(cc.Animation)._clips[4];
-    this._parentNode = cc.find('Canvas');
-    this.feedStateNode = cc.find('feedState', this._parentNode);
+    this._parentNode = cc.find("Canvas");
+    this.feedStateNode = cc.find("feedState", this._parentNode);
     this._shitCount = 0;
     //初始化小鸡Id为-1
     this.cId = -1;
@@ -77,19 +79,17 @@ var Chick = cc.Class({
         this._status = chick_data.Status;
         this.playAnim();
       } else {
-        Msg.show('服务器忙');
+        Msg.show("服务器忙");
       }
     });
   },
 
   onLoad() {
+    let self = this;
     this.init();
-    this.node.on('click', this.showChickState, this);
+    this.node.on("click", this.showChickState, this);
     this.walkTimer = Math.random() * 3 + 3;
-    this.walking();
-    setTimeout(() => {
-      this.schedule(this.walking, this.walkTimer);
-    }, this.walkTimer);
+    this.playWalk("start");
     //方法导出给index.js
     this.chickFunc = {
       playChickAnim: this.playAnim,
@@ -106,9 +106,9 @@ var Chick = cc.Class({
   //显示小鸡的状态
   showChickState: function() {
     let id = this.cId;
-    cc.director.loadScene('chickDetail', () => {
-      let scene = cc.find('Canvas');
-      let chickDetailJs = scene.getComponent('chickDetail');
+    cc.director.loadScene("chickDetail", () => {
+      let scene = cc.find("Canvas");
+      let chickDetailJs = scene.getComponent("chickDetail");
       chickDetailJs.Id = id;
     });
   },
@@ -161,23 +161,43 @@ var Chick = cc.Class({
         this.playChickWalkRight();
         break;
     }
-    this.node.runAction(cc.moveTo(this.walkTimer, x, y));
+    this.action = cc.moveTo(this.walkTimer, x, y);
+    this.node.runAction(this.action);
     // console.log(`x = ${x} ,y = ${y}`);
   },
-
+  playWalk(state) {
+    if (state == "stop") {
+      this.unscheduleAllCallbacks();
+      this.node.stopAction(this.action);
+    } else if (state == "start") {
+      this.walking();
+      setTimeout(() => {
+        this.schedule(this.walking, this.walkTimer);
+      }, this.walkTimer);
+    }
+  },
   onCollisionEnter: function(other, self) {
     // this.node.color = cc.Color.GREEN;
     this.touchingNumber++;
     this.isBoom = 1;
-    if (self.world.aabb.x > other.world.aabb.x) {
-      this.BoomDirection = 3;
+    this.playWalk("stop");
+    if (Math.abs(self.world.aabb.x - other.world.aabb.x) > 35) {
+      if (self.world.aabb.x > other.world.aabb.x) {
+        this.BoomDirection = 3;
+      } else {
+        this.BoomDirection = 2;
+      }
     } else {
-      this.BoomDirection = 2;
+      if (self.world.aabb.y > other.world.aabb.y) {
+        this.BoomDirection = 0;
+      } else {
+        this.BoomDirection = 1;
+      }
     }
+    this.playWalk("start");
   },
 
   onCollisionStay: function(other, self) {
-    // console.log('on collision stay');
     this.isBoom = 1;
     if (self.world.aabb.x > other.world.aabb.x && self.world.aabb.y > other.world.aabb.y) {
       if (this.BoomDirection == 3) {
@@ -209,7 +229,7 @@ var Chick = cc.Class({
   onCollisionExit: function() {
     //碰撞后的状态显示
 
-    this.dataList = JSON.parse(cc.sys.localStorage.getItem('FarmData')); //缓存机制
+    this.dataList = JSON.parse(cc.sys.localStorage.getItem("FarmData")); //缓存机制
     this.touchingNumber--;
     if (this.touchingNumber === 0) {
       this.node.color = cc.Color.WHITE;
@@ -219,55 +239,55 @@ var Chick = cc.Class({
 
   //小鸡的动画
   playChickWalkDown: function() {
-    this._chickAnim.play('chick_walk_down');
+    this._chickAnim.play("chick_walk_down");
   },
   playChickWalkUp: function() {
-    this._chickAnim.play('chick_walk_up');
+    this._chickAnim.play("chick_walk_up");
   },
   playChickWalkLeft: function() {
-    this._chickAnim.play('chick_walk_left');
+    this._chickAnim.play("chick_walk_left");
   },
   playChickWalkRight: function() {
-    this._chickAnim.play('chick_walk_right');
+    this._chickAnim.play("chick_walk_right");
   },
   playChickMove: function() {
     //this._chickAnim.play("chick_move");
   },
   playChickFeed: function() {
-    var anim = this._chickAnim.play('chick_feed');
+    var anim = this._chickAnim.play("chick_feed");
   },
   playChickTreat: function() {
-    let anim = this._chickAnim.play('chick_treat');
+    let anim = this._chickAnim.play("chick_treat");
     anim.repeatCount = 3;
   },
   playChickShit: function() {
-    this._chickAnim.play('chick_shit');
+    this._chickAnim.play("chick_shit");
     // Msg.show("牧场不干净了");
   },
   playChickHungry: function() {
-    this._chickAnim.play('chick_hungry');
+    this._chickAnim.play("chick_hungry");
     // Msg.show("小鸡饿了");
   },
   playChickSick: function() {
-    this._chickAnim.play('chick_sick');
+    this._chickAnim.play("chick_sick");
     // Msg.show("小鸡生病了");
   },
   playChickSickHungry: function() {
-    this._chickAnim.play('chick_sick_hungry');
+    this._chickAnim.play("chick_sick_hungry");
     // Msg.show("小鸡饿了，小鸡生病了");
   },
   playChickSickShit: function() {
     // this._chickAnim.play("chick_shit_sick");
-    this._chickAnim.play('chick_sick');
+    this._chickAnim.play("chick_sick");
     // Msg.show("牧场不干净了，小鸡生病了");
   },
   playChickShitHungry: function() {
-    this._chickAnim.play('chick_shit_hungry');
+    this._chickAnim.play("chick_shit_hungry");
     // Msg.show("牧场不干净了，小鸡饿了");
   },
   playChickShitHungrySick: function() {
     // this._chickAnim.play("chick_hungry_sick_shit");
-    this._chickAnim.play('chick_sick');
+    this._chickAnim.play("chick_sick");
     // Msg.show("牧场不干净了，小鸡生病了，小鸡饿了");
   },
   //根据小鸡的状态 播放不同的动画

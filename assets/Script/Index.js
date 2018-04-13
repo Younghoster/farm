@@ -2,9 +2,9 @@
 
 // 节点不带_   私有变量_
 
-var Data = require('Data');
+var Data = require("Data");
 var Func = Data.func;
-var ToolJs = require('Tool');
+var ToolJs = require("Tool");
 var Tool = ToolJs.Tool;
 
 cc.Class({
@@ -63,28 +63,28 @@ cc.Class({
     // this.wave1Node = cc.find('wave/mask/wave1', this.node);
     // this.wave2Node = cc.find('wave/mask/wave2', this.node);
 
-    this.MenuModal = cc.find('/div_menu/Modal_more', this.node);
+    this.MenuModal = cc.find("/div_menu/Modal_more", this.node);
     this.btnMoreSprite = this.btnMoreNode.getComponent(cc.Sprite);
-    this.handNode = cc.find('Hand', this.node);
+    this.handNode = cc.find("Hand", this.node);
     this.handAnim = this.handNode.getComponent(cc.Animation);
-    this.arrowNode = this.node.getChildByName('icon-arrow');
-    this.eggNode = cc.find('bg/house/shouquEgg', this.node);
-    this.houseNode = cc.find('bg/house', this.node);
-    this.moneyLabel = cc.find('div_header/gold/money', this.node).getComponent(cc.Label);
-    this.eggMoreNode = cc.find('eggMore', this.node);
-    this.eggCountLabel = cc.find('count', this.eggMoreNode).getComponent(cc.Label);
+    this.arrowNode = this.node.getChildByName("icon-arrow");
+    this.eggNode = cc.find("bg/house/shouquEgg", this.node);
+    this.houseNode = cc.find("bg/house", this.node);
+    this.moneyLabel = cc.find("div_header/gold/money", this.node).getComponent(cc.Label);
+    this.eggMoreNode = cc.find("eggMore", this.node);
+    this.eggCountLabel = cc.find("count", this.eggMoreNode).getComponent(cc.Label);
     //天气
-    this.wether = this.node.getChildByName('div_wether');
+    this.wether = this.node.getChildByName("div_wether");
     //饲料数量
-    this.feedCountLabel = cc.find('div_action/feed/icon-tip/count', this.node).getComponent(cc.Label);
+    this.feedCountLabel = cc.find("div_action/feed/icon-tip/count", this.node).getComponent(cc.Label);
     // var chickState = new Chick();
-    this.scene = cc.find('Canvas');
+    this.scene = cc.find("Canvas");
     this.MenuListNode.active = false;
     this.updateWether();
     //新手指引step
     this.step = 0;
 
-    this.shitBoxNode = cc.find('shit-box', this.node);
+    this.shitBoxNode = cc.find("shit-box", this.node);
 
     this.chickList = [];
   },
@@ -92,19 +92,19 @@ cc.Class({
     Config.firstLogin = data.UserModel.FirstLanding;
     // 清洁度设置
     this._clearValue = data.RanchModel.RanchCleanliness;
-    this.clearProgressBar = cc.find('clearBar/clear_bar', this.node).getComponent(cc.ProgressBar);
+    this.clearProgressBar = cc.find("clearBar/clear_bar", this.node).getComponent(cc.ProgressBar);
     this.clearProgressBar.progress = this._clearValue / 150;
 
     //金币设置
     var RanchMoney = data.UserModel.RanchMoney;
     let RanchRank = data.RanchModel.RanchRank;
     let eggsShedRank = data.EggsShed.ShedRank;
-    var moneyLabel = cc.find('div_header/gold/money', this.node).getComponent(cc.Label);
-    moneyLabel.string = '￥' + RanchMoney;
+    var moneyLabel = cc.find("div_header/gold/money", this.node).getComponent(cc.Label);
+    moneyLabel.string = "￥" + RanchMoney;
     //经验值
-    this.level = cc.find('div_header/Lv/level', this.node).getComponent(cc.Label);
-    this.level.string = 'V' + data.UserModel.Grade;
-    this.levelProgressBar = cc.find('div_header/Lv/lv_bar', this.node).getComponent(cc.ProgressBar);
+    this.level = cc.find("div_header/Lv/level", this.node).getComponent(cc.Label);
+    this.level.string = "V" + data.UserModel.Grade;
+    this.levelProgressBar = cc.find("div_header/Lv/lv_bar", this.node).getComponent(cc.ProgressBar);
     this.levelProgressBar.progress = data.UserModel.ExperienceValue / data.UserModel.GradeExperienceValue;
     //初始化饲料tip的数量
     this.feedCountLabel.string = data.UserModel.Allfeed == null ? 0 : data.UserModel.Allfeed;
@@ -122,7 +122,7 @@ cc.Class({
     }, 0.5);
     // 初始化 粪便
     for (let i = 0; i < 5; i++) {
-      cc.loader.loadRes('Prefab/Index/shit', cc.Prefab, (err, prefab) => {
+      cc.loader.loadRes("Prefab/Index/shit", cc.Prefab, (err, prefab) => {
         let shitNode = cc.instantiate(prefab);
         shitNode.setPosition(Tool.random(0, 400), Tool.random(0, 200));
         this.shitBoxNode.addChild(shitNode);
@@ -152,10 +152,10 @@ cc.Class({
         for (let i = 0; i < length; i++) {
           let element = data.List[i];
 
-          cc.loader.loadRes('Prefab/Chick', cc.Prefab, (err, prefab) => {
+          cc.loader.loadRes("Prefab/Chick", cc.Prefab, (err, prefab) => {
             var chickNode = cc.instantiate(prefab);
-            chickNode.setPosition(self.setChickPositionX(i), Math.random() * -300 - 100);
-            var chickJs = chickNode.getComponent('Chick');
+            chickNode.setPosition(self.setChickPositionX(i), Math.random() * -350 - 100);
+            var chickJs = chickNode.getComponent("Chick");
             this.scene.addChild(chickNode);
             chickJs.setId(data.List[i].ID);
             chickJs._status = data.List[i].Status;
@@ -165,13 +165,13 @@ cc.Class({
           });
         }
       } else {
-        !Config.firstLogin ? Msg.show('您的牧场暂无小鸡') : false;
+        !Config.firstLogin ? Msg.show("您的牧场暂无小鸡") : false;
       }
     });
   },
   setChickPositionX(i) {
-    if (i > 6) {
-      return (i - 6) * 100 - 350;
+    if (i > 4) {
+      return (i - 4) * 100 - 350;
     } else {
       return (i + 1) * 100 - 350;
     }
@@ -220,12 +220,12 @@ cc.Class({
         if (data.Code === 1) {
           //清洁动画
           this.handNode.active = true;
-          this.handAnim.play('hand_clear');
+          this.handAnim.play("hand_clear");
 
-          this.handAnim.on('finished', () => {
+          this.handAnim.on("finished", () => {
             this.handNode.active = false;
             //清洁成功 牧场清洁度=100%
-            this.clearLabel.string = 100 + '%';
+            this.clearLabel.string = 100 + "%";
             this.wave1Node.y = 100;
             this.wave2Node.y = 100;
           });
@@ -236,7 +236,7 @@ cc.Class({
         }
       })
       .catch(reason => {
-        Msg.show('failed:' + reason);
+        Msg.show("failed:" + reason);
       });
   },
   //点击喂食事件
@@ -249,8 +249,8 @@ cc.Class({
         // anim.repeatCount = 4;
 
         // this._chick._chickAnim.on("finished", this.chickFunc.initData, this._chick);
-      } else if (data.Code == '000') {
-        Alert.show(data.Message, this.loadSceneShop, this.feedIcon, '剩余的饲料不足');
+      } else if (data.Code == "000") {
+        Alert.show(data.Message, this.loadSceneShop, this.feedIcon, "剩余的饲料不足");
       } else if (data.Code === 333) {
         //饥饿度是满的
         Msg.show(data.Message);
@@ -267,30 +267,30 @@ cc.Class({
   addFeed() {
     Func.AddFeed().then(data => {
       if (data.Code === 1) {
-        let array = data.Model.split(',');
+        let array = data.Model.split(",");
         let value = array[0];
         let capacity = array[1];
         this.assignFeedState(value, capacity);
         this.updateFeedCount();
         //动画
-        let handFeedNode = cc.find('hand_feed', this.node);
+        let handFeedNode = cc.find("hand_feed", this.node);
         handFeedNode.active = true;
         let hanfFeedAnim = handFeedNode.getComponent(cc.Animation);
-        hanfFeedAnim.play('hand_feed');
-        hanfFeedAnim.on('finished', () => {
+        hanfFeedAnim.play("hand_feed");
+        hanfFeedAnim.on("finished", () => {
           handFeedNode.active = false;
         });
         this.arrowNode.active = false;
-      } else if (data.Code == '000') {
-        Alert.show(data.Message, this.loadSceneShop, 'icon-feed', '剩余的饲料不足');
-      } else if (data.Code == '333') {
+      } else if (data.Code == "000") {
+        Alert.show(data.Message, this.loadSceneShop, "icon-feed", "剩余的饲料不足");
+      } else if (data.Code == "333") {
         Msg.show(data.Message);
       }
     });
   },
   //升级饲料槽
   UpFeedGrade() {
-    Alert.show('确定要升级饲料槽吗?', this.upGrade, null, '升级饲料槽');
+    Alert.show("确定要升级饲料槽吗?", this.upGrade, null, "升级饲料槽");
   },
   upGrade() {
     Func.UpFeedGrade().then(data => {
@@ -336,23 +336,23 @@ cc.Class({
   },
   //赋值 饲料槽
   assignFeedState(value, capacity) {
-    this.feedStateNode = this.node.getChildByName('feedState');
-    let feedProgressBar = cc.find('layout/Bar', this.feedStateNode).getComponent(cc.ProgressBar);
-    let feedBar = feedProgressBar.node.getChildByName('bar');
-    let feedLabel = cc.find('layout/value', this.feedStateNode).getComponent(cc.Label);
+    this.feedStateNode = this.node.getChildByName("feedState");
+    let feedProgressBar = cc.find("layout/Bar", this.feedStateNode).getComponent(cc.ProgressBar);
+    let feedBar = feedProgressBar.node.getChildByName("bar");
+    let feedLabel = cc.find("layout/value", this.feedStateNode).getComponent(cc.Label);
 
-    feedLabel.string = value + '/ ' + capacity;
+    feedLabel.string = value + "/ " + capacity;
     feedProgressBar.progress = value / capacity;
     Tool.setBarColor(feedBar, value / capacity);
   },
   //显示产蛋棚升级弹出框
   showHouseUpgrade() {
-    this.houseStateNode = cc.find('bg/house/houseState', this.node);
+    this.houseStateNode = cc.find("bg/house/houseState", this.node);
     Func.GetRanchUpGradeMoney().then(data => {
       if (data.Code === 1) {
         let length = data.List.length || 0;
-        let button0 = cc.find('button0', this.houseStateNode);
-        let button1 = cc.find('button1', this.houseStateNode);
+        let button0 = cc.find("button0", this.houseStateNode);
+        let button1 = cc.find("button1", this.houseStateNode);
         for (let i = 0; i < length; i++) {
           if (data.List[i].Type === 0) {
             button0.active = true;
@@ -363,8 +363,8 @@ cc.Class({
           }
         }
       } else if (data.Code === 2) {
-        this.upgradeByPointInfo.RanchGrade = 'S';
-        this.upgradeByMoneyInfo.RanchGrade = 'S';
+        this.upgradeByPointInfo.RanchGrade = "S";
+        this.upgradeByMoneyInfo.RanchGrade = "S";
       } else {
         Msg.show(data.Message);
         return;
@@ -388,33 +388,33 @@ cc.Class({
   },
   //积分升级房屋
   upgradeByPoint() {
-    if (this.upgradeByPointInfo.RanchGrade === 'S') {
-      Msg.show('已经升到满级');
+    if (this.upgradeByPointInfo.RanchGrade === "S") {
+      Msg.show("已经升到满级");
     } else {
       Alert.show(
-        '是否使用' + this.upgradeByPointInfo.Money + '积分将牧场升级到' + this.upgradeByPointInfo.RanchGrade + '级',
+        "是否使用" + this.upgradeByPointInfo.Money + "积分将牧场升级到" + this.upgradeByPointInfo.RanchGrade + "级",
         () => {
           this.upgradeHouse(this.upgradeByPointInfo.Type);
           this.updateMoney();
         },
         null,
-        '升级'
+        "升级"
       );
     }
   },
   // 牧场币升级房屋
   upgradeByMoney() {
-    if (this.upgradeByPointInfo.RanchGrade === 'S') {
-      Msg.show('已经升到满级');
+    if (this.upgradeByPointInfo.RanchGrade === "S") {
+      Msg.show("已经升到满级");
     } else {
       Alert.show(
-        '是否使用' + this.upgradeByMoneyInfo.Money + '个牧场币将牧场升级到' + this.upgradeByMoneyInfo.RanchGrade + '级',
+        "是否使用" + this.upgradeByMoneyInfo.Money + "个牧场币将牧场升级到" + this.upgradeByMoneyInfo.RanchGrade + "级",
         () => {
           this.upgradeHouse(this.upgradeByMoneyInfo.Type);
           this.updateMoney();
         },
         null,
-        '升级'
+        "升级"
       );
     }
   },
@@ -423,14 +423,14 @@ cc.Class({
     Func.UpgradeHouse(payType).then(data => {
       if (data.Code === 1) {
         switch (data.Model) {
-          case 'B':
-            cc.loader.loadRes('house/house_2', cc.SpriteFrame, (err, spriteFrame) => {
+          case "B":
+            cc.loader.loadRes("house/house_2", cc.SpriteFrame, (err, spriteFrame) => {
               this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
               Msg.show(data.Message);
             });
             break;
-          case 'A':
-            cc.loader.loadRes('house/house_3', cc.SpriteFrame, (err, spriteFrame) => {
+          case "A":
+            cc.loader.loadRes("house/house_3", cc.SpriteFrame, (err, spriteFrame) => {
               this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
               Msg.show(data.Message);
             });
@@ -443,17 +443,17 @@ cc.Class({
   initHouse(rank) {
     switch (rank) {
       case 1:
-        cc.loader.loadRes('house/house_1', cc.SpriteFrame, (err, spriteFrame) => {
+        cc.loader.loadRes("house/house_1", cc.SpriteFrame, (err, spriteFrame) => {
           this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
         break;
       case 2:
-        cc.loader.loadRes('house/house_2', cc.SpriteFrame, (err, spriteFrame) => {
+        cc.loader.loadRes("house/house_2", cc.SpriteFrame, (err, spriteFrame) => {
           this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
         break;
       case 3:
-        cc.loader.loadRes('house/house_3', cc.SpriteFrame, (err, spriteFrame) => {
+        cc.loader.loadRes("house/house_3", cc.SpriteFrame, (err, spriteFrame) => {
           this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
         break;
@@ -472,41 +472,41 @@ cc.Class({
   //更新天气情况
   updateWether() {
     Func.GetWetherData(1, 1).then(res => {
-      let wetherItem1 = cc.find('soiltem', this.wether).getComponent(cc.Label);
-      let wetherItem2 = cc.find('div/date', this.wether).getComponent(cc.Label);
-      let wetherIcon = cc.find('div/icon', this.wether).getComponent(cc.Sprite);
-      let bgNode = cc.find('bg', this.node);
-      let rainNode = cc.find('ParticleRain', this.node);
+      let wetherItem1 = cc.find("soiltem", this.wether).getComponent(cc.Label);
+      let wetherItem2 = cc.find("div/date", this.wether).getComponent(cc.Label);
+      let wetherIcon = cc.find("div/icon", this.wether).getComponent(cc.Sprite);
+      let bgNode = cc.find("bg", this.node);
+      let rainNode = cc.find("ParticleRain", this.node);
 
-      let time = res.data.weatherdata[0].intime.split(' ');
-      let date = time[0].split('-');
-      wetherItem1.string = res.data.weatherdata[0].soiltem + '℃';
-      wetherItem2.string = date[1] + '月' + date[2] + '日';
+      let time = res.data.weatherdata[0].intime.split(" ");
+      let date = time[0].split("-");
+      wetherItem1.string = res.data.weatherdata[0].soiltem + "℃";
+      wetherItem2.string = date[1] + "月" + date[2] + "日";
       //根据天气情况 判断牧场的背景
       Func.GetCurrentWeather().then(res => {
         if (res.data.rain !== 0) {
           //下雨
-          cc.loader.loadRes('weather/bg-rain', cc.SpriteFrame, function(err, spriteFrame) {
+          cc.loader.loadRes("weather/bg-rain", cc.SpriteFrame, function(err, spriteFrame) {
             bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
           });
-          cc.loader.loadRes('weather/rain', cc.SpriteFrame, function(err, spriteFrame) {
+          cc.loader.loadRes("weather/rain", cc.SpriteFrame, function(err, spriteFrame) {
             wetherIcon.spriteFrame = spriteFrame;
           });
           rainNode.active = true;
         } else if (res.data.light === 2 || res.data.light === 3) {
           //阴天
-          cc.loader.loadRes('weather/bg-cloud', cc.SpriteFrame, function(err, spriteFrame) {
+          cc.loader.loadRes("weather/bg-cloud", cc.SpriteFrame, function(err, spriteFrame) {
             bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
           });
-          cc.loader.loadRes('weather/overcast', cc.SpriteFrame, function(err, spriteFrame) {
+          cc.loader.loadRes("weather/overcast", cc.SpriteFrame, function(err, spriteFrame) {
             wetherIcon.spriteFrame = spriteFrame;
           });
           rainNode.active = false;
         } else if (res.data.light === 1) {
-          cc.loader.loadRes('weather/bg', cc.SpriteFrame, function(err, spriteFrame) {
+          cc.loader.loadRes("weather/bg", cc.SpriteFrame, function(err, spriteFrame) {
             bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
           });
-          cc.loader.loadRes('weather/sun', cc.SpriteFrame, function(err, spriteFrame) {
+          cc.loader.loadRes("weather/sun", cc.SpriteFrame, function(err, spriteFrame) {
             wetherIcon.spriteFrame = spriteFrame;
           });
           rainNode.active = false;
@@ -521,7 +521,7 @@ cc.Class({
     return new Promise((resolve, reject) => {
       if (!this.MenuListNode.active) {
         //弹出
-        cc.loader.loadRes('btn-retract', cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes("btn-retract", cc.SpriteFrame, function(err, spriteFrame) {
           self.btnMoreSprite.spriteFrame = spriteFrame;
         });
         var fadeIn = cc.fadeIn(0.3);
@@ -537,7 +537,7 @@ cc.Class({
         this.MenuListNode.runAction(action);
       } else {
         //收回
-        cc.loader.loadRes('btn-more', cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes("btn-more", cc.SpriteFrame, function(err, spriteFrame) {
           self.btnMoreSprite.spriteFrame = spriteFrame;
         });
 
@@ -565,36 +565,36 @@ cc.Class({
   },
   //跳转天气数据列表
   gotoWetherPage() {
-    cc.director.loadScene('weatherInfo');
+    cc.director.loadScene("weatherInfo");
   },
   //点击充值 跳转场景
   rechargeEvent: function() {
-    cc.director.loadScene('recharge');
+    cc.director.loadScene("recharge");
   },
   loadSceneShop() {
-    cc.director.loadScene('shop');
+    cc.director.loadScene("shop");
   },
   loadSceneMonitor() {
-    cc.director.loadScene('monitor');
+    cc.director.loadScene("monitor");
   },
   showUserCenter: function() {
-    cc.director.loadScene('UserCenter/userCenter');
+    cc.director.loadScene("UserCenter/userCenter");
   },
   gotoFarm: function() {
-    cc.director.loadScene('farm');
+    cc.director.loadScene("farm");
   },
   loadSceneRepertory() {
-    cc.director.loadScene('repertory');
+    cc.director.loadScene("repertory");
   },
   loadSceneFarm() {
-    cc.director.loadScene('Farm/farm');
+    cc.director.loadScene("Farm/farm");
   },
 
   onLoad: function() {
-    var openID = window.location.href.split('=')[1];
-    window.Config.openID = openID || 'dedbc83d62104d6da8d4a3c0188dc419';
+    var openID = window.location.href.split("=")[1];
+    window.Config.openID = openID || "484e16827b914a8eafcd3bd658fd9476";
     Func.openID = window.Config.openID;
-    Config.newSocket = new WebSocket('ws://service.linedin.cn:5530/');
+    Config.newSocket = new WebSocket("ws://service.linedin.cn:5530/");
 
     // let ws = new WebSocket("wss://127.0.0.1:5520");
     // ws.onopen = function(event) {
@@ -632,7 +632,7 @@ cc.Class({
 
         this.repertoryCallBack();
       } else {
-        console.log('首页数据加载失败');
+        console.log("首页数据加载失败");
       }
     });
 
@@ -661,14 +661,14 @@ cc.Class({
   },
   //读取/暂存消息数量
   getStorageCount() {
-    var messageCount = cc.find('div_menu/Menu/MenuList/menuScroll/view/content/message/point01', this.node);
-    var messageCount2 = cc.find('div_menu/more/point01', this.node);
+    var messageCount = cc.find("div_menu/Menu/MenuList/menuScroll/view/content/message/point01", this.node);
+    var messageCount2 = cc.find("div_menu/more/point01", this.node);
     // let StorageCount = cc.sys.localStorage.getItem(Func.openID); //获取缓存
     Func.GetRecordCount().then(data => {
       if (data.Code === 1) {
         if (data.Model > 0) {
-          cc.find('label', messageCount).getComponent(cc.Label).string = data.Model;
-          cc.find('label', messageCount2).getComponent(cc.Label).string = data.Model;
+          cc.find("label", messageCount).getComponent(cc.Label).string = data.Model;
+          cc.find("label", messageCount2).getComponent(cc.Label).string = data.Model;
           messageCount.active = true;
           messageCount2.active = true;
         } else {
@@ -676,7 +676,7 @@ cc.Class({
           messageCount2.active = false;
         }
       } else {
-        console.log('首页数据加载失败');
+        console.log("首页数据加载失败");
       }
     });
   },
@@ -688,7 +688,7 @@ cc.Class({
     // });
 
     Config.newSocket.onmessage = function(evt) {
-      var obj = eval('(' + evt.data + ')');
+      var obj = eval("(" + evt.data + ")");
       if (obj.name == Func.openID) {
         self.getStorageCount();
       }
