@@ -76,22 +76,57 @@ cc.Class({
     //  获取正常的小鸡及已收取的小鸡
     Func.GetChickList(3).then(data => {
       if (data.Code === 1) {
-        for (let i = 0; i < data.List.length; i++) {
-          cc.loader.loadRes('Prefab/chickDetail/chickItem', cc.Prefab, (err, prefab) => {
-            let itemNode = cc.instantiate(prefab);
-            let idLbael = cc.find('id', itemNode).getComponent(cc.Label);
-
-            idLbael.string = data.List[i].ID;
-            this.contentNode.addChild(itemNode);
-
-            itemNode.on('click', () => {
-              this.Id = data.List[i].ID;
-              this.initChickData();
-            });
-          });
-        }
+        this.assignChickList(data.List);
       }
     });
+  },
+  assignChickList(list) {
+    for (let i = 0; i < list.length; i++) {
+      cc.loader.loadRes('Prefab/chickDetail/chickItem', cc.Prefab, (err, prefab) => {
+        let itemNode = cc.instantiate(prefab);
+        let idLbael = cc.find('id', itemNode).getComponent(cc.Label);
+        let imgNode = cc.find('img', itemNode);
+
+        cc.loader.loadRes('', cc.SpriteFrame, (err, spriteFrame) => {
+          imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
+
+        idLbael.string = list.ID;
+        this.contentNode.addChild(itemNode);
+
+        itemNode.on('click', () => {
+          this.Id = list[i].ID;
+          this.initChickData();
+        });
+      });
+    }
+  },
+  //根据小鸡状态 显示不同的图片
+  showChickState(sick, hungry, shit) {
+    if (sick) {
+      //生病状态
+      !hungry && !shit ? this.playChickSick() : false;
+      //生病+饥饿状态
+      hungry && !shit ? this.playChickSickHungry() : false;
+      //生病+肮脏状态
+      !hungry && shit ? this.playChickSickShit() : false;
+    }
+    if (hungry) {
+      //饥饿状态
+      !sick && !shit ? this.playChickHungry() : false;
+      //饥饿+肮脏状态
+      !sick && shit ? this.playChickShitHungry() : false;
+      //饥饿+生病状态
+      sick && shit ? this.playChickSickHungry() : false;
+    }
+    if (shit) {
+      //肮脏状态
+      !hungry && !sick ? this.playChickShit() : false;
+      //肮脏+饥饿状态
+      hungry && !sick ? this.playChickShitHungry() : false;
+      //肮脏+生病状态
+      !hungry && sick ? this.playChickSickShit() : false;
+    }
   },
   //小鸡数据赋值
   assignChickInfo(data) {
