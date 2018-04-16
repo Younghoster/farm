@@ -43,7 +43,7 @@ cc.Class({
       if (data.Code === 1) {
         // 数据的年份 月份
         let year = data.List[0].signtime.match(/\d+/g)[0];
-        let month = data.List[0].signtime.match(/\d+/g)[1];
+        let month = data.List[0].signtime.match(/\d+/g)[1] - 1;
         this.canlendarJs.func.initCalendar.call(this.canlendarJs, data.List, year, month);
         //已签到 按钮变灰
         if (this.canlendarJs.todayNode.getChildByName('item_do').active) {

@@ -1,6 +1,7 @@
 var Data = require('Data');
 var Func = Data.func;
-
+//************
+// month from 0 ~ 11
 cc.Class({
   extends: cc.Component,
 
@@ -15,6 +16,7 @@ cc.Class({
   newyear: null,
   newmonth: null,
   newday: null,
+  List: null,
   onLoad: function() {
     var date = new Date();
     this.newyear = date.getFullYear();
@@ -26,7 +28,7 @@ cc.Class({
   },
   //渲染日历（）
   renderCalendar() {
-    for (let i = 0; i < 34; i++) {
+    for (let i = 0; i < 41; i++) {
       let itemNode = cc.find(`item${i}`, this.node);
       let item_doNode = cc.find('item_do', itemNode);
       item_doNode.active = false;
@@ -64,11 +66,6 @@ cc.Class({
           itemNode.getChildByName('item_undo').active = false;
         }
       }
-
-      //日期绑定签到事件
-      itemNode.on('touchend', function(event) {
-        console.log(event);
-      });
     }
   },
   //为日历赋值（后台获取的数据）
@@ -84,7 +81,7 @@ cc.Class({
   judgeDate(year, mouth) {
     let date = new Date();
     let nowYear = date.getFullYear();
-    let nowMouth = date.getMonth() + 1;
+    let nowMouth = date.getMonth();
 
     if (nowYear == year && nowMouth == mouth) {
       return true;

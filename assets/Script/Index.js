@@ -121,13 +121,13 @@ cc.Class({
       upOrDown = !upOrDown;
     }, 0.5);
     // 初始化 粪便
-    for (let i = 0; i < 5; i++) {
-      cc.loader.loadRes('Prefab/Index/shit', cc.Prefab, (err, prefab) => {
-        let shitNode = cc.instantiate(prefab);
-        shitNode.setPosition(Tool.random(0, 400), Tool.random(0, 200));
-        this.shitBoxNode.addChild(shitNode);
-      });
-    }
+    // for (let i = 0; i < 5; i++) {
+    //   cc.loader.loadRes('Prefab/Index/shit', cc.Prefab, (err, prefab) => {
+    //     let shitNode = cc.instantiate(prefab);
+    //     shitNode.setPosition(Tool.random(0, 400), Tool.random(0, 200));
+    //     this.shitBoxNode.addChild(shitNode);
+    //   });
+    // }
     // 初始化跳动的箭头
     Func.GetFeedTroughFull().then(data => {
       if (data.Code === 1) {

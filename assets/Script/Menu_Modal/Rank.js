@@ -37,12 +37,18 @@ cc.Class({
     }
   },
   page: null,
+  rank: null,
+  ctor() {
+    this.page = 1;
+    this.Rank = 1;
+  },
   //绑定节点
   bindNode() {
     this.cancelButton = cc.find('btn-close', this.node);
     this.eggNumButton = cc.find('bg-rank/btn-eggNum', this.node);
     this.cheapButton = cc.find('bg-rank/btn-cheap', this.node);
     this.contentNode = cc.find('bg-rank/scrollView/view/content', this.node);
+    this.scrollViewNode = cc.find('bg-rank/scrollView', this.node);
   },
   //绑定事件
   bindEvent() {
@@ -59,23 +65,23 @@ cc.Class({
     });
 
     //下拉刷新
-    this.content2ListNode.on('bounce-bottom', () => {
+    this.scrollViewNode.on('bounce-bottom', () => {
       this.GetEggRankList();
     });
   },
 
   //产蛋赋值
-  assignData(data, itemNode) {
+  assignData(data) {
     let advisor = data.path;
     let name = data.RealName;
-    let grade = data.Grade;
-    let rank = data.Row;
 
-    if (rank <= 3) {
+    let eggCount = data.Eggcount;
+    let itemNode;
+    if (this.rank <= 3) {
       //Top3
-      let item = cc.instantiate(this.itemTop3);
+      itemNode = cc.instantiate(this.itemTop_Perfab);
       let rankNode = cc.find('item-content/icon-no1', itemNode);
-      switch (rank) {
+      switch (this.rank) {
         case 1:
           rankNode.getComponent(cc.Sprite).spriteFrame = this.iconBtn01;
           break;
@@ -88,22 +94,34 @@ cc.Class({
       }
     } else {
       //大于3 的排名
-      let item = cc.instantiate(this.itemFriend);
+      itemNode = cc.instantiate(this.item_Perfab);
       let rankLabel = cc.find('item-content/rank/text', itemNode).getComponent(cc.Label);
-      rankLabel.string = rank;
+      rankLabel.string = this.rank;
     }
 
     let advisorSprite = cc.find('item-content/advisor-box/adviosr-mask/advisor', itemNode).getComponent(cc.Sprite);
     let nameLabel = cc.find('item-content/advisor-box/name', itemNode).getComponent(cc.Label);
     let countLabel = cc.find('item-content/box/textbox/label', itemNode).getComponent(cc.Label);
+
+    nameLabel.string = name;
+    countLabel.string = eggCount;
+
+    this.contentNode.addChild(itemNode);
   },
 
   GetEggRankList() {
-    for (let i = 0; i < 10; i++) {
-      let itemNode = cc.instantiate(this.item_Perfab);
-      this.assignData();
-      this.contentNode.addChild(itemNode);
-    }
+    Func.GetEggRankings(this.page).then(data => {
+      if (data.Code === 1) {
+        for (let i = 0; i < data.List.length; i++) {
+          let element = data.List[i];
+          ++this.rank;
+          this.assignData(element);
+        }
+        this.page++;
+      } else {
+        Msg.show(data.Message);
+      }
+    });
   },
 
   onLoad() {

@@ -80,7 +80,7 @@ var func = {
     });
   },
   //获取产蛋周期
-  GetChickenEggRecord(cId, searchTime) {
+  GetChickenEggRecord(cId, searchTime = '') {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -99,6 +99,30 @@ var func = {
       };
       // GET方法
       xhr.open('GET', `${Config.apiUrl}/T_Base_Chicken/GetChickenEggRecord?cId=${cId}&searchTime=${searchTime}`, true);
+      xhr.setRequestHeader('Content-Type', 'json');
+      xhr.send();
+    });
+  },
+  //产蛋排行榜 /T_Base_User/GetEggRankings
+  GetEggRankings(page) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+
+            reject(response);
+          }
+        }
+      };
+      // GET方法
+      xhr.open('GET', `${Config.apiUrl}/T_Base_User/GetEggRankings?page=${page}`, true);
       xhr.setRequestHeader('Content-Type', 'json');
       xhr.send();
     });

@@ -207,7 +207,7 @@ cc.Class({
       this.prevTime = `${year - 1}-${12}-1`;
     }
 
-    this.calendarJs.func.initCalendar.call(this.calendarJs, list, year, month);
+    this.calendarJs.func.initCalendar.call(this.calendarJs, list, year, month - 1);
   },
   // 绑定事件
   bindEvent() {
