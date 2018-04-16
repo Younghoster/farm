@@ -3,6 +3,8 @@ window.Config = {
   apiUrl: "http://www.jingongbao.com:4634",
   backUrl: "userCenter",
   openID: null,
+  hearderNode: null,
+  menuNode: null,
   //兑换物品的数据
   newSocket: null,
   exchangeData: {

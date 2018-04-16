@@ -75,7 +75,9 @@ cc.Class({
     //缓存数据并加载植物
     cc.sys.localStorage.setItem("FarmData", JSON.stringify(this.Value));
     for (let i = 0; i < self.Value.List.length; i++) {
-      self.fatchPlant(i, self.Value.List);
+      setTimeout(function() {
+        self.fatchPlant(i, self.Value.List);
+      }, 500);
     }
   },
   //土地点击事件

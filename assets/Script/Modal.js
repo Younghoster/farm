@@ -1,4 +1,4 @@
-var Data = require('Data');
+var Data = require("Data");
 var Func = Data.func;
 var Modal = cc.Class({
   extends: cc.Component,
@@ -53,8 +53,8 @@ var Modal = cc.Class({
     this.setModal(name);
 
     var modal_name = this._Modal.name;
-    if (modal_name == 'default') {
-      Msg.show('该功能还在开发中');
+    if (modal_name == "default") {
+      Msg.show("该功能还在开发中");
       return;
     }
     if (!this.node.getChildByName(modal_name)) {
@@ -65,7 +65,7 @@ var Modal = cc.Class({
   },
   closeModal: function() {
     var self = this;
-    console.log('close modal');
+    console.log("close modal");
     this.Modal.active = false;
 
     var action = cc.sequence(cc.fadeOut(0.3), cc.callFunc(this._Modal.removeFromParent, this._Modal));
@@ -79,58 +79,58 @@ var Modal = cc.Class({
   setModal: function(name) {
     this._Modal = {}; //初始化
     switch (name) {
-      case 'btn-friend':
+      case "btn-friend":
         // 如果不存在 加载预制资源     存在 this._Modal等于该节点
-        if (!this.node.getChildByName('FriendView')) {
+        if (!this.node.getChildByName("FriendView")) {
           this._Modal = cc.instantiate(this.friendModal_Prefab);
         } else {
-          this._Modal = this.node.getChildByName('FriendView');
+          this._Modal = this.node.getChildByName("FriendView");
         }
         break;
-      case 'btn-share':
+      case "btn-share":
         this._Modal = cc.instantiate(this.shareModal_Prefab);
-        var cancelButton = cc.find('bg-share/btn-cancel', this._Modal);
-        cancelButton.on('click', () => {
+        var cancelButton = cc.find("bg-share/btn-cancel", this._Modal);
+        cancelButton.on("click", () => {
           var action = cc.sequence(cc.fadeOut(0.3), cc.callFunc(this._Modal.removeFromParent, this._Modal));
           this._Modal.runAction(action);
         });
         break;
-      case 'sign':
-        if (!this.node.getChildByName('signIn')) {
+      case "sign":
+        if (!this.node.getChildByName("signIn")) {
           this._Modal = cc.instantiate(this.signInModal_Prefab);
         } else {
-          this._Modal = this.node.getChildByName('signIn');
+          this._Modal = this.node.getChildByName("signIn");
         }
         break;
-      case 'message':
+      case "message":
         // this._Modal.name = "default"; //开发中
         this._Modal = cc.instantiate(this.messageModal_Prefab);
         //容器
         break;
-      case 'me':
-        this._Modal.name = 'default'; //开发中
+      case "me":
+        this._Modal.name = "default"; //开发中
         break;
-      case 'activity':
-        if (!this.node.getChildByName('rank')) {
+      case "activity":
+        if (!this.node.getChildByName("rank")) {
           this._Modal = cc.instantiate(this.rankModal_Prefab);
         } else {
-          this._Modal = this.node.getChildByName('rank');
+          this._Modal = this.node.getChildByName("rank");
         }
         break;
       //兑换回收小鸡
-      case 'btn-recover':
-        if (!this.node.getChildByName('recover')) {
+      case "btn-recover":
+        if (!this.node.getChildByName("recover")) {
           this._Modal = cc.instantiate(this.recoverModal_Prefab);
         } else {
-          this._Modal = this.node.getChildByName('recover');
+          this._Modal = this.node.getChildByName("recover");
         }
         break;
       //产蛋棚
-      case 'shouquEgg':
-        if (!this.node.getChildByName('eggHouse')) {
+      case "shouquEgg":
+        if (!this.node.getChildByName("eggHouse")) {
           this._Modal = cc.instantiate(this.eggHouseModal_Prefab);
         } else {
-          this._Modal = this.node.getChildByName('eggHouse');
+          this._Modal = this.node.getChildByName("eggHouse");
         }
         break;
     }
@@ -139,14 +139,14 @@ var Modal = cc.Class({
   RunAction(type) {
     var action = null;
     switch (type) {
-      case 'fadeIn':
+      case "fadeIn":
         this._Modal.active = true;
         this._Modal.opacity = 0;
         action = cc.fadeIn(0.3);
         this._Modal.runAction(action);
         break;
-      case 'moveIn':
-        var shareNode = cc.find('bg-share', this._Modal);
+      case "moveIn":
+        var shareNode = cc.find("bg-share", this._Modal);
         action = cc.moveTo(0.3, cc.p(0, -474));
         shareNode.runAction(action);
         break;
