@@ -32,7 +32,7 @@ cc.Class({
     //仓库跳转后执行相应操作
   },
   //Chick.js
-  _chick: null,
+  chickJs: null,
   operate: null,
   _clearValue: null,
   clearLabel: null,
@@ -85,6 +85,7 @@ cc.Class({
     this.step = 0;
 
     this.shitBoxNode = cc.find('shit-box', this.node);
+    this.chickJs = chickNode.getComponent('Chick');
 
     this.chickList = [];
   },
@@ -93,7 +94,7 @@ cc.Class({
     // 清洁度设置
     this._clearValue = data.RanchModel.RanchCleanliness;
     this.clearProgressBar = cc.find('clearBar/clear_bar', this.node).getComponent(cc.ProgressBar);
-    this.clearProgressBar.progress = this._clearValue / 150;
+    this.clearProgressBar.progress = this._clearValue / 100;
 
     //金币设置
     var RanchMoney = data.UserModel.RanchMoney;
@@ -155,11 +156,11 @@ cc.Class({
           cc.loader.loadRes('Prefab/Chick', cc.Prefab, (err, prefab) => {
             var chickNode = cc.instantiate(prefab);
             chickNode.setPosition(self.setChickPositionX(i), Math.random() * -350 - 100);
-            var chickJs = chickNode.getComponent('Chick');
+
             this.scene.addChild(chickNode);
-            chickJs.setId(data.List[i].ID);
-            chickJs._status = data.List[i].Status;
-            chickJs.initData();
+            this.chickJs.setId(data.List[i].ID);
+            this.chickJs._status = data.List[i].Status;
+            this.chickJs.initData();
 
             this.chickList.push(chickNode);
           });
@@ -195,7 +196,7 @@ cc.Class({
   },
   //收取贵妃鸡
   // collectChick() {
-  //   Func.CollectChick(this._chick._Id).then(data => {
+  //   Func.CollectChick(this._chick.cId).then(data => {
   //     if (data.Code == 1) {
   //       let action = cc.sequence(
   //         cc.fadeOut(0.3),
@@ -239,26 +240,25 @@ cc.Class({
         Msg.show('failed:' + reason);
       });
   },
-  //点击喂食事件
+  //点击喂食事件 集体喂食 接口需要重新设置
   showFeedAlert: function() {
-    var self = this;
-    Func.PostOwnFeeds(this._chick._Id).then(data => {
-      if (data.Code === 1) {
-        this.updateFeedCount();
-        // var anim = self._chick._chickAnim.play("chick_feed");
-        // anim.repeatCount = 4;
-
-        // this._chick._chickAnim.on("finished", this.chickFunc.initData, this._chick);
-      } else if (data.Code == '000') {
-        Alert.show(data.Message, this.loadSceneShop, this.feedIcon, '剩余的饲料不足');
-      } else if (data.Code === 333) {
-        //饥饿度是满的
-        Msg.show(data.Message);
-      } else if (data.Code === 444) {
-        //鸡死了
-        Msg.show(data.Message);
-      }
-    });
+    // var self = this;
+    // Func.PostOwnFeeds(this.chickJs.cId).then(data => {
+    //   if (data.Code === 1) {
+    //     this.updateFeedCount();
+    //     // var anim = self._chick._chickAnim.play("chick_feed");
+    //     // anim.repeatCount = 4;
+    //     // this._chick._chickAnim.on("finished", this.chickFunc.initData, this._chick);
+    //   } else if (data.Code == '000') {
+    //     Alert.show(data.Message, this.loadSceneShop, this.feedIcon, '剩余的饲料不足');
+    //   } else if (data.Code === 333) {
+    //     //饥饿度是满的
+    //     Msg.show(data.Message);
+    //   } else if (data.Code === 444) {
+    //     //鸡死了
+    //     Msg.show(data.Message);
+    //   }
+    // });
     // .catch(reason => {
     //   Msg.show("failed:" + reason);
     // });

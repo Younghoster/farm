@@ -28,15 +28,6 @@ cc.Class({
   },
   //渲染日历（）
   renderCalendar() {
-    for (let i = 0; i < 41; i++) {
-      let itemNode = cc.find(`item${i}`, this.node);
-      let item_doNode = cc.find('item_do', itemNode);
-      item_doNode.active = false;
-      let item_undoNode = cc.find('item_undo', itemNode);
-      item_undoNode.acitve = true;
-      let dayLabel = cc.find('day', item_undoNode).getComponent(cc.Label);
-      dayLabel.string = '';
-    }
     // 获取这月有多少天
     var currentDay = this.getMonthsDay(this.newyear, this.newmonth);
     // 获取当月第一天星期几
@@ -75,7 +66,19 @@ cc.Class({
     this.newmonth = month;
 
     this.judgeDate(this.newyear, this.newmonth) ? false : (this.newday = null);
+    this.resetCalendar();
     this.renderCalendar();
+  },
+  resetCalendar() {
+    for (var i = 0; i < 41; i++) {
+      let itemNode = this.node.getChildByName(`item${i}`);
+      let item_doNode = cc.find('item_do', itemNode);
+      item_doNode.active = false;
+      let item_undoNode = cc.find('item_undo', itemNode);
+      item_undoNode.active = true;
+      let dayLabel = cc.find('day', item_undoNode).getComponent(cc.Label);
+      dayLabel.string = '';
+    }
   },
   //判断是否是本月
   judgeDate(year, mouth) {
