@@ -1,15 +1,6 @@
-// Learn cc.Class:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/class/index.html
-// Learn Attribute:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/reference/attributes/index.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
-var Data = require('Data');
+var Data = require("Data");
 var Func = Data.func;
-var ToolJs = require('Tool');
+var ToolJs = require("Tool");
 var Tool = ToolJs.Tool;
 cc.Class({
   extends: cc.Component,
@@ -44,28 +35,28 @@ cc.Class({
   },
   //绑定节点
   bindNode() {
-    this.cancelButton = cc.find('btn-close', this.node);
-    this.eggNumButton = cc.find('bg-rank/btn-eggNum', this.node);
-    this.cheapButton = cc.find('bg-rank/btn-cheap', this.node);
-    this.contentNode = cc.find('bg-rank/scrollView/view/content', this.node);
-    this.scrollViewNode = cc.find('bg-rank/scrollView', this.node);
+    this.cancelButton = cc.find("btn-close", this.node);
+    this.eggNumButton = cc.find("bg-rank/btn-eggNum", this.node);
+    this.cheapButton = cc.find("bg-rank/btn-cheap", this.node);
+    this.contentNode = cc.find("bg-rank/scrollView/view/content", this.node);
+    this.scrollViewNode = cc.find("bg-rank/scrollView", this.node);
   },
   //绑定事件
   bindEvent() {
     //关闭按钮
-    this.cancelButton.on('click', () => {
+    this.cancelButton.on("click", () => {
       Tool.closeModal(this.node);
     });
     //产蛋榜
-    this.eggNumButton.on('click', () => {
+    this.eggNumButton.on("click", () => {
       this.contentNode.removeAllChildren();
-      this.eggNumButton.color = cc.color('#FFEF4D');
-      this.cheapButton.color = cc.color('#FFDE00');
+      this.eggNumButton.color = cc.color("#FFEF4D");
+      this.cheapButton.color = cc.color("#FFDE00");
       this.GetEggRankList();
     });
 
     //下拉刷新
-    this.scrollViewNode.on('bounce-bottom', () => {
+    this.scrollViewNode.on("bounce-bottom", () => {
       this.GetEggRankList();
     });
   },
@@ -80,7 +71,7 @@ cc.Class({
     if (this.rank <= 3) {
       //Top3
       itemNode = cc.instantiate(this.itemTop_Perfab);
-      let rankNode = cc.find('item-content/icon-no1', itemNode);
+      let rankNode = cc.find("item-content/icon-no1", itemNode);
       switch (this.rank) {
         case 1:
           rankNode.getComponent(cc.Sprite).spriteFrame = this.iconBtn01;
@@ -95,13 +86,13 @@ cc.Class({
     } else {
       //大于3 的排名
       itemNode = cc.instantiate(this.item_Perfab);
-      let rankLabel = cc.find('item-content/rank/text', itemNode).getComponent(cc.Label);
+      let rankLabel = cc.find("item-content/rank/text", itemNode).getComponent(cc.Label);
       rankLabel.string = this.rank;
     }
 
-    let advisorSprite = cc.find('item-content/advisor-box/adviosr-mask/advisor', itemNode).getComponent(cc.Sprite);
-    let nameLabel = cc.find('item-content/advisor-box/name', itemNode).getComponent(cc.Label);
-    let countLabel = cc.find('item-content/box/textbox/label', itemNode).getComponent(cc.Label);
+    let advisorSprite = cc.find("item-content/advisor-box/adviosr-mask/advisor", itemNode).getComponent(cc.Sprite);
+    let nameLabel = cc.find("item-content/advisor-box/name", itemNode).getComponent(cc.Label);
+    let countLabel = cc.find("item-content/box/textbox/label", itemNode).getComponent(cc.Label);
 
     nameLabel.string = name;
     countLabel.string = eggCount;
@@ -116,6 +107,10 @@ cc.Class({
           let element = data.List[i];
           ++this.rank;
           this.assignData(element);
+          if (data.List[i].OpenID == Config.openID) {
+            this.myRank = cc.find("bg-rank/layout/rank_value_", this.node).getComponent(cc.Label);
+            this.myRank.string = i + 1;
+          }
         }
         this.page++;
       } else {

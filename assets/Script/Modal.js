@@ -25,10 +25,7 @@ var Modal = cc.Class({
       default: null,
       type: cc.Prefab
     },
-    shareModal_Prefab: {
-      default: null,
-      type: cc.Prefab
-    },
+
     rankModal_Prefab: {
       default: null,
       type: cc.Prefab
@@ -59,7 +56,8 @@ var Modal = cc.Class({
     }
     if (!this.node.getChildByName(modal_name)) {
       //Modal如果不存在 将Modal预制资源添加到Canvas
-      this.node.addChild(this._Modal, 2);
+      console.log(this.node.name);
+      cc.find("Canvas", this.node.parent).addChild(this._Modal, 2);
     }
     this.RunAction(data); //默认
   },
@@ -86,14 +84,6 @@ var Modal = cc.Class({
         } else {
           this._Modal = this.node.getChildByName("FriendView");
         }
-        break;
-      case "btn-share":
-        this._Modal = cc.instantiate(this.shareModal_Prefab);
-        var cancelButton = cc.find("bg-share/btn-cancel", this._Modal);
-        cancelButton.on("click", () => {
-          var action = cc.sequence(cc.fadeOut(0.3), cc.callFunc(this._Modal.removeFromParent, this._Modal));
-          this._Modal.runAction(action);
-        });
         break;
       case "sign":
         if (!this.node.getChildByName("signIn")) {
