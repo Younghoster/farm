@@ -1,6 +1,7 @@
-var Data = require("Data");
+var Data = require('Data');
 var Func = Data.func;
-
+//************
+// month from 0 ~ 11
 cc.Class({
   extends: cc.Component,
 
@@ -12,57 +13,80 @@ cc.Class({
   },
   todayNode: null, //item 节点
   // use this for initialization
+  newyear: null,
+  newmonth: null,
+  newday: null,
+  List: null,
   onLoad: function() {
+    var date = new Date();
+    this.newyear = date.getFullYear();
+    this.newmonth = date.getMonth();
+    this.newday = date.getDate();
     this.func = {
       initCalendar: this.initCalendar
     };
   },
   //渲染日历（）
   renderCalendar() {
-    var date = new Date();
-    var newyear = date.getFullYear();
-    var newmonth = date.getMonth();
-    var newday = date.getDate();
-
+    for (let i = 0; i < 41; i++) {
+      let itemNode = cc.find(`item${i}`, this.node);
+      let item_doNode = cc.find('item_do', itemNode);
+      item_doNode.active = false;
+      let item_undoNode = cc.find('item_undo', itemNode);
+      item_undoNode.acitve = true;
+      let dayLabel = cc.find('day', item_undoNode).getComponent(cc.Label);
+      dayLabel.string = '';
+    }
     // 获取这月有多少天
-    var currentDay = this.getMonthsDay(newyear, newmonth);
+    var currentDay = this.getMonthsDay(this.newyear, this.newmonth);
     // 获取当月第一天星期几
-    var firstDay = this.getMonthFirst(newyear, newmonth);
-    var lastMonth = newmonth - 1 >= 0 ? newmonth - 1 : 12;
-    var lastDay = this.getMonthsDay(newyear, lastMonth);
+    var firstDay = this.getMonthFirst(this.newyear, this.newmonth);
+    var lastMonth = this.newmonth - 1 >= 0 ? this.newmonth - 1 : 12;
+    var lastDay = this.getMonthsDay(this.newyear, lastMonth);
     var newlastDay = lastDay;
     //几号
     var newCurrentDay = 1;
+    console.log(this.newyear + ' ' + this.newmonth);
 
     for (var i = firstDay; i < currentDay + firstDay; i++) {
       var itemNode = this.node.getChildByName(`item${i}`);
-      var dayNode = itemNode.getChildByName("item_undo").getChildByName("day"); //日期节点(item)
-      if (newCurrentDay == newday) {
+      var dayNode = itemNode.getChildByName('item_undo').getChildByName('day'); //日期节点(item)
+      if (newCurrentDay == this.newday) {
         dayNode.color = new cc.Color(65, 205, 225);
         this.todayNode = this.node.getChildByName(`item${i}`);
       }
       dayNode.getComponent(cc.Label).string = newCurrentDay++;
 
-      for (let j = 0; j < this.signList.length; j++) {
+      for (let j = 0; j < this.List.length; j++) {
         //是否签到
-        const state = this.signList[j].IsSign;
+        const state = this.List[j].IsSign;
         //如果签到了 设置为签到状态
         if (i == j + firstDay && state) {
-          itemNode.getChildByName("item_do").active = true;
-          itemNode.getChildByName("item_undo").active = false;
+          itemNode.getChildByName('item_do').active = true;
+          itemNode.getChildByName('item_undo').active = false;
         }
       }
-
-      //日期绑定签到事件
-      itemNode.on("touchend", function(event) {
-        console.log(event);
-      });
     }
   },
   //为日历赋值（后台获取的数据）
-  initCalendar(list) {
-    this.signList = list;
+  initCalendar(list, year, month) {
+    this.List = list;
+    this.newyear = year;
+    this.newmonth = month;
+
+    this.judgeDate(this.newyear, this.newmonth) ? false : (this.newday = null);
     this.renderCalendar();
+  },
+  //判断是否是本月
+  judgeDate(year, mouth) {
+    let date = new Date();
+    let nowYear = date.getFullYear();
+    let nowMouth = date.getMonth();
+
+    if (nowYear == year && nowMouth == mouth) {
+      return true;
+    }
+    return false;
   },
   // 获取那年那月有多少天
   getMonthsDay(year, month) {

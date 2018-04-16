@@ -336,7 +336,7 @@
     },
     "_children": [],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 10
@@ -521,7 +521,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -122.5,
+      "x": 0,
       "y": 220
     },
     "_skewX": 0,
@@ -567,7 +567,7 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 8,
+    "_alignFlags": 16,
     "_left": 75,
     "_right": 0,
     "_top": 0,
@@ -1605,6 +1605,15 @@
     },
     "item_Perfab": {
       "__uuid__": "9a5f67e8-64dd-471d-8bad-24c0a7772792"
+    },
+    "iconBtn01": {
+      "__uuid__": "e8c74901-c58d-402c-ae85-afbcfdcbba92"
+    },
+    "iconBtn02": {
+      "__uuid__": "0c52ae4d-529c-444f-baf0-cc76dae30f8b"
+    },
+    "iconBtn03": {
+      "__uuid__": "6a4701cf-59b7-402e-9ab4-4afbb97a8ddc"
     }
   },
   {

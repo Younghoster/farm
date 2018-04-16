@@ -35,7 +35,8 @@ var Tool = {
   },
   random(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
-  }
+  },
+  formatDate() {}
   //跳动的动画(节点、时间)
   // animateUpOrDown(node, time, y) {
 

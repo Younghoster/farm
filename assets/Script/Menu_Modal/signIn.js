@@ -1,4 +1,4 @@
-var Data = require("Data");
+var Data = require('Data');
 var Func = Data.func;
 cc.Class({
   extends: cc.Component,
@@ -20,32 +20,35 @@ cc.Class({
   },
 
   signIn() {
-    this.canlendarJs.todayNode.getChildByName("item_do").active = true;
-    this.canlendarJs.todayNode.getChildByName("item_undo").active = false;
+    this.canlendarJs.todayNode.getChildByName('item_do').active = true;
+    this.canlendarJs.todayNode.getChildByName('item_undo').active = false;
     Func.PostSign().then(data => {
       if (data.Code === 1) {
-        var signButton = cc.find("bg/btn-sign", this.node);
-        cc.loader.loadRes("btn-hasSign", cc.SpriteFrame, function(err, spriteFrame) {
+        var signButton = cc.find('bg/btn-sign', this.node);
+        cc.loader.loadRes('btn-hasSign', cc.SpriteFrame, function(err, spriteFrame) {
           signButton.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
-        Msg.show("签到成功! 积分增加" + data.Point + ",牧场币增加" + data.RachMoney, 0.3, 3000);
+        Msg.show('签到成功! 积分增加' + data.Point + ',牧场币增加' + data.RachMoney, 0.3, 3000);
       }
     });
   },
 
   onLoad() {
-    this.calendarNode = cc.find("bg/calendar", this.node);
-    this.canlendarJs = this.calendarNode.getComponent("Calendar");
+    this.calendarNode = cc.find('bg/calendar', this.node);
+    this.canlendarJs = this.calendarNode.getComponent('Calendar');
   },
 
   start() {
     Func.GetSignList().then(data => {
       if (data.Code === 1) {
-        this.canlendarJs.func.initCalendar.call(this.canlendarJs, data.List);
+        // 数据的年份 月份
+        let year = data.List[0].signtime.match(/\d+/g)[0];
+        let month = data.List[0].signtime.match(/\d+/g)[1] - 1;
+        this.canlendarJs.func.initCalendar.call(this.canlendarJs, data.List, year, month);
         //已签到 按钮变灰
-        if (this.canlendarJs.todayNode.getChildByName("item_do").active) {
-          var signButton = cc.find("bg/btn-sign", this.node);
-          cc.loader.loadRes("btn-hasSign", cc.SpriteFrame, function(err, spriteFrame) {
+        if (this.canlendarJs.todayNode.getChildByName('item_do').active) {
+          var signButton = cc.find('bg/btn-sign', this.node);
+          cc.loader.loadRes('btn-hasSign', cc.SpriteFrame, function(err, spriteFrame) {
             signButton.getComponent(cc.Sprite).spriteFrame = spriteFrame;
             signButton.getComponent(cc.Button).interactable = false;
           });
