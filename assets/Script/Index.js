@@ -53,7 +53,6 @@ cc.Class({
     // this.wave1Node = cc.find('wave/mask/wave1', this.node);
     // this.wave2Node = cc.find('wave/mask/wave2', this.node);
 
-<<<<<<< HEAD
     this.MenuModal = cc.find("/div_menu/Modal_more", this.node);
     this.handNode = cc.find("Hand", this.node);
     this.handAnim = this.handNode.getComponent(cc.Animation);
@@ -63,29 +62,12 @@ cc.Class({
 
     this.eggMoreNode = cc.find("eggMore", this.node);
     this.eggCountLabel = cc.find("count", this.eggMoreNode).getComponent(cc.Label);
-=======
-    this.MenuModal = cc.find('/div_menu/Modal_more', this.node);
-    this.btnMoreSprite = this.btnMoreNode.getComponent(cc.Sprite);
-    this.handNode = cc.find('Hand', this.node);
-    this.handAnim = this.handNode.getComponent(cc.Animation);
-    this.arrowNode = this.node.getChildByName('icon-arrow');
-    this.eggNode = cc.find('bg/house/shouquEgg', this.node);
-    this.houseNode = cc.find('bg/house', this.node);
-    this.moneyLabel = cc.find('div_header/gold/money', this.node).getComponent(cc.Label);
-    this.eggMoreNode = cc.find('eggMore', this.node);
-    this.eggCountLabel = cc.find('count', this.eggMoreNode).getComponent(cc.Label);
->>>>>>> a2898df4d193bec12a23384af9e0459ba790769b
     //天气
     this.wether = this.node.getChildByName('div_wether');
     //饲料数量
     this.feedCountLabel = cc.find('div_action/feed/icon-tip/count', this.node).getComponent(cc.Label);
     // var chickState = new Chick();
-<<<<<<< HEAD
     this.scene = cc.find("Canvas");
-=======
-    this.scene = cc.find('Canvas');
-    this.MenuListNode.active = false;
->>>>>>> a2898df4d193bec12a23384af9e0459ba790769b
     this.updateWether();
     //新手指引step
     this.step = 0;
@@ -511,53 +493,11 @@ cc.Class({
       });
     });
   },
-<<<<<<< HEAD
-=======
-  //显示菜单栏 动画
-  showMenu: function() {
-    var self = this;
-
-    return new Promise((resolve, reject) => {
-      if (!this.MenuListNode.active) {
-        //弹出
-        cc.loader.loadRes('btn-retract', cc.SpriteFrame, function(err, spriteFrame) {
-          self.btnMoreSprite.spriteFrame = spriteFrame;
-        });
-        var fadeIn = cc.fadeIn(0.3);
-        this.MenuModal.runAction(fadeIn);
-        this.MenuListNode.active = !this.MenuListNode.active;
-        var action = cc.sequence(
-          cc.moveTo(0.3, cc.p(0, -50)),
-          cc.callFunc(() => {
-            resolve(1);
-          })
-        );
-
-        this.MenuListNode.runAction(action);
-      } else {
-        //收回
-        cc.loader.loadRes('btn-more', cc.SpriteFrame, function(err, spriteFrame) {
-          self.btnMoreSprite.spriteFrame = spriteFrame;
-        });
->>>>>>> a2898df4d193bec12a23384af9e0459ba790769b
 
   //跳转天气数据列表
   gotoWetherPage() {
     cc.director.loadScene('weatherInfo');
   },
-<<<<<<< HEAD
-=======
-  //点击充值 跳转场景
-  rechargeEvent: function() {
-    cc.director.loadScene('recharge');
-  },
-  loadSceneShop() {
-    cc.director.loadScene('shop');
-  },
-  loadSceneMonitor() {
-    cc.director.loadScene('monitor');
-  },
->>>>>>> a2898df4d193bec12a23384af9e0459ba790769b
   showUserCenter: function() {
     cc.director.loadScene('UserCenter/userCenter');
   },
@@ -638,45 +578,6 @@ cc.Class({
 
     // })
   },
-<<<<<<< HEAD
-
-=======
-  //读取/暂存消息数量
-  getStorageCount() {
-    var messageCount = cc.find('div_menu/Menu/MenuList/menuScroll/view/content/message/point01', this.node);
-    var messageCount2 = cc.find('div_menu/more/point01', this.node);
-    // let StorageCount = cc.sys.localStorage.getItem(Func.openID); //获取缓存
-    Func.GetRecordCount().then(data => {
-      if (data.Code === 1) {
-        if (data.Model > 0) {
-          cc.find('label', messageCount).getComponent(cc.Label).string = data.Model;
-          cc.find('label', messageCount2).getComponent(cc.Label).string = data.Model;
-          messageCount.active = true;
-          messageCount2.active = true;
-        } else {
-          messageCount.active = false;
-          messageCount2.active = false;
-        }
-      } else {
-        console.log('首页数据加载失败');
-      }
-    });
-  },
-  //socket监听消息变化
-  socketNotice() {
-    var self = this;
-    // Config.newSocket.on(Func.openID, data => {
-    //   self.getStorageCount();
-    // });
-
-    Config.newSocket.onmessage = function(evt) {
-      var obj = eval('(' + evt.data + ')');
-      if (obj.name == Func.openID) {
-        self.getStorageCount();
-      }
-    };
-  },
->>>>>>> a2898df4d193bec12a23384af9e0459ba790769b
   //仓库回调函数（0表示孵化操作）
   repertoryCallBack() {
     if (this.operate != null) {
