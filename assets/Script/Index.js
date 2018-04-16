@@ -53,27 +53,26 @@ cc.Class({
     // this.wave1Node = cc.find('wave/mask/wave1', this.node);
     // this.wave2Node = cc.find('wave/mask/wave2', this.node);
 
-    this.MenuModal = cc.find('/div_menu/Modal_more', this.node);
-    this.handNode = cc.find('Hand', this.node);
+    this.MenuModal = cc.find("/div_menu/Modal_more", this.node);
+    this.handNode = cc.find("Hand", this.node);
     this.handAnim = this.handNode.getComponent(cc.Animation);
-    this.arrowNode = this.node.getChildByName('icon-arrow');
-    this.eggNode = cc.find('bg/house/shouquEgg', this.node);
-    this.houseNode = cc.find('bg/house', this.node);
+    this.arrowNode = this.node.getChildByName("icon-arrow");
+    this.eggNode = cc.find("bg/house/shouquEgg", this.node);
+    this.houseNode = cc.find("bg/house", this.node);
 
-    this.eggMoreNode = cc.find('eggMore', this.node);
-    this.eggCountLabel = cc.find('count', this.eggMoreNode).getComponent(cc.Label);
+    this.eggMoreNode = cc.find("eggMore", this.node);
+    this.eggCountLabel = cc.find("count", this.eggMoreNode).getComponent(cc.Label);
     //天气
     this.wether = this.node.getChildByName("div_wether");
     //饲料数量
     this.feedCountLabel = cc.find("div_action/feed/icon-tip/count", this.node).getComponent(cc.Label);
     // var chickState = new Chick();
-    this.scene = cc.find('Canvas');
+    this.scene = cc.find("Canvas");
     this.updateWether();
     //新手指引step
     this.step = 0;
 
-    this.shitBoxNode = cc.find('shit-box', this.node);
-    this.chickJs = chickNode.getComponent('Chick');
+    this.shitBoxNode = cc.find("shit-box", this.node);
 
     this.chickList = [];
   },
@@ -81,7 +80,7 @@ cc.Class({
     Config.firstLogin = data.UserModel.FirstLanding;
     // 清洁度设置
     this._clearValue = data.RanchModel.RanchCleanliness;
-    this.clearProgressBar = cc.find('clearBar/clear_bar', this.node).getComponent(cc.ProgressBar);
+    this.clearProgressBar = cc.find("clearBar/clear_bar", this.node).getComponent(cc.ProgressBar);
     this.clearProgressBar.progress = this._clearValue / 100;
     //产蛋棚等级
     let eggsShedRank = data.EggsShed.ShedRank;
@@ -135,6 +134,7 @@ cc.Class({
             var chickNode = cc.instantiate(prefab);
             chickNode.setPosition(self.setChickPositionX(i), Math.random() * -350 - 100);
             this.scene.addChild(chickNode);
+            this.chickJs = chickNode.getComponent('Chick');
             this.chickJs.setId(data.List[i].ID);
             this.chickJs._status = data.List[i].Status;
             this.chickJs.initData();
