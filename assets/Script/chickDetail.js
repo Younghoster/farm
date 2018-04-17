@@ -45,6 +45,7 @@ cc.Class({
     //按钮
     this.leftButton = cc.find('left', this.content1Node);
     this.rightButton = cc.find('right', this.content1Node);
+    this.yearMonthLabel = cc.find('yearMonth', this.content1Node).getComponent(cc.Label);
   },
   initData() {
     this.growNode.cascadeOpacity = false;
@@ -64,13 +65,7 @@ cc.Class({
     // 初始化小鸡 产蛋记录
     this.initEggRecord();
   },
-  initChickInfo() {
-    Func.GetChickValueById(this.Id).then(data => {
-      if (data.Code === 1) {
-        this.assignChickInfo(data);
-      }
-    });
-  },
+
   //初始化小鸡列表
   initChickList() {
     //  获取正常的小鸡及已收取的小鸡
@@ -80,18 +75,18 @@ cc.Class({
       }
     });
   },
+  //小鸡列表赋值
   assignChickList(list) {
     for (let i = 0; i < list.length; i++) {
       cc.loader.loadRes('Prefab/chickDetail/chickItem', cc.Prefab, (err, prefab) => {
         let itemNode = cc.instantiate(prefab);
         let idLbael = cc.find('id', itemNode).getComponent(cc.Label);
         let imgNode = cc.find('img', itemNode);
+        let hungry = list[i].Hungry || false;
+        let shit = list[i].Shit || false;
+        this.showChickState(imgNode, hungry, shit);
 
-        cc.loader.loadRes('', cc.SpriteFrame, (err, spriteFrame) => {
-          imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-
-        idLbael.string = list.ID;
+        idLbael.string = list[i].ID;
         this.contentNode.addChild(itemNode);
 
         itemNode.on('click', () => {
@@ -102,31 +97,35 @@ cc.Class({
     }
   },
   //根据小鸡状态 显示不同的图片
-  showChickState(sick, hungry, shit) {
-    if (sick) {
-      //生病状态
-      !hungry && !shit ? this.playChickSick() : false;
-      //生病+饥饿状态
-      hungry && !shit ? this.playChickSickHungry() : false;
-      //生病+肮脏状态
-      !hungry && shit ? this.playChickSickShit() : false;
-    }
+  showChickState(imgNode, hungry, shit) {
     if (hungry) {
       //饥饿状态
-      !sick && !shit ? this.playChickHungry() : false;
+      !shit ? cc.loader.loadRes('chickDetail/hungry', cc.SpriteFrame, (err, spriteFrame) => {
+        imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+      }) : false;
       //饥饿+肮脏状态
-      !sick && shit ? this.playChickShitHungry() : false;
-      //饥饿+生病状态
-      sick && shit ? this.playChickSickHungry() : false;
+      shit ? cc.loader.loadRes('chickDetail/hungry_shit', cc.SpriteFrame, (err, spriteFrame) => {
+        imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+      }) : false;
     }
     if (shit) {
       //肮脏状态
-      !hungry && !sick ? this.playChickShit() : false;
+      !hungry ? cc.loader.loadRes('chickDetail/shit', cc.SpriteFrame, (err, spriteFrame) => {
+        imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+      }) : false;
       //肮脏+饥饿状态
-      hungry && !sick ? this.playChickShitHungry() : false;
-      //肮脏+生病状态
-      !hungry && sick ? this.playChickSickShit() : false;
+      hungry ? cc.loader.loadRes('chickDetail/hungry_shit', cc.SpriteFrame, (err, spriteFrame) => {
+        imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+      }) : false;
+
     }
+  },
+  initChickInfo() {
+    Func.GetChickValueById(this.Id).then(data => {
+      if (data.Code === 1) {
+        this.assignChickInfo(data);
+      }
+    });
   },
   //小鸡数据赋值
   assignChickInfo(data) {
@@ -135,12 +134,12 @@ cc.Class({
     this.hungryLabel.string = `饥饿度：${data.StarvationValue}`;
     this.healthLabel.string = `健康值：${data.HealthValue}`;
 
-    this.growProgressBar.progress = Math.round(data.Proportion) / 100;
-    this.growLabel.string = `${Math.round(data.Proportion)}/100`;
+    this.growProgressBar.progress = Math.round(data.Happy) / 100;
+    this.growLabel.string = `${Math.round(data.Happy)}/100`;
 
     this.collectButton.on('click', () => {
       //收取贵妃鸡
-      Func.CollectChick(this._chick._Id).then(data => {
+      Func.CollectChick(this.Id).then(data => {
         if (data.Code == 1) {
           let action = cc.sequence(
             cc.fadeOut(0.3),
@@ -231,17 +230,19 @@ cc.Class({
     let month = parseInt(list[0].eggtime.match(/\d+/g)[1]);
 
     let nextYear, nextMonth, prevYear, PrevMonth;
-    if (month < 12) {
-      this.nextTime = `${year}-${month + 1}-1`;
-    } else {
-      this.nextTime = `${year + 1}-${1}-1`;
-    }
-    if (month > 1) {
-      this.prevTime = `${year}-${month - 1}-1`;
-    } else {
-      this.prevTime = `${year - 1}-${12}-1`;
-    }
-
+    // if (month < 12) {
+    //   this.nextTime = `${year}-${month + 1}-1`;
+    // } else {
+    //   this.nextTime = `${year + 1}-${1}-1`;
+    // }
+    month < 12 ? this.nextTime = `${year}-${month + 1}-1` : this.nextTime = `${year + 1}-${1}-1`;
+    // if (month > 1) {
+    //   this.prevTime = `${year}-${month - 1}-1`;
+    // } else {
+    //   this.prevTime = `${year - 1}-${12}-1`;
+    // }
+    month > 1 ? this.prevTime = `${year}-${month - 1}-1` : this.prevTime = `${year - 1}-${12}-1`
+    this.yearMonthLabel.string = `${year}年${month}月`;
     this.calendarJs.func.initCalendar.call(this.calendarJs, list, year, month - 1);
   },
   // 绑定事件
