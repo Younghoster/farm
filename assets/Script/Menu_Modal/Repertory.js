@@ -126,7 +126,7 @@ cc.Class({
     let nameLabel = cc.find('name', goodsNode).getComponent(cc.Label);
     //获取物品数据
     let PropertyTypeID = goods.PropertyTypeID;
-    let PropName = goods.PropName;
+    let PropName = goods.PropName || goods.TypeName;
     let count = goods.Count;
     switch (PropertyTypeID) {
       // 鸡蛋
@@ -199,7 +199,7 @@ cc.Class({
         break;
       //玉米种子
       case 15:
-        cc.loader.loadRes('Modal/Repertory/img-ym', cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes('Modal/Repertory/ymzz1', cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
         break;
