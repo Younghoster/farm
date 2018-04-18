@@ -56,7 +56,7 @@ cc.Class({
         x += speed;
         break;
     }
-    console.log(x);
+    // console.log(x);
     this.action = cc.moveTo(this.walkTimer, x, y);
     this.node.runAction(this.action);
     // console.log(`x = ${x} ,y = ${y}`);

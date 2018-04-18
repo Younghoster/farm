@@ -1,6 +1,6 @@
 var func = {
   //获取所有数据（index页面）"dedbc83d62104d6da8d4a3c0188dc419",
-  openID: '484e16827b914a8eafcd3bd658fd9476',
+  openID: 'f79ed645ad624cf5bbfecc2e67f23020',
   GetWholeData(openID = this.openID) {
     // Loading.show();
     return new Promise((resolve, reject) => {
@@ -127,31 +127,7 @@ var func = {
       xhr.send();
     });
   },
-  // 获取产蛋棚信息
-  getEggLayInfo() {
-    return new Promise((resolve, reject) => {
-      var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
-          if (xhr.status == 200) {
-            var response = xhr.responseText;
-            response = JSON.parse(response);
 
-            resolve(response);
-          } else {
-            var response = xhr.responseText;
-            response = JSON.parse(response);
-
-            reject(response);
-          }
-        }
-      };
-      // POST方法
-      xhr.open('GET', Config.apiUrl + '/T_Base_LayEggsShed/GetModel?openID=' + this.openID, true);
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
-      xhr.send();
-    });
-  },
   //获取用户信息（header)
   GetUserGrade() {
     return new Promise((resolve, reject) => {
@@ -577,6 +553,31 @@ var func = {
       xhr.send('openID=' + this.openID);
     });
   },
+  // 获取产蛋棚坑位的信息
+  getEggLayInfo() {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+
+            reject(response);
+          }
+        }
+      };
+      // POST方法
+      xhr.open('GET', Config.apiUrl + '/T_Base_LayEggsShed/GetPageList?openID=' + this.openID, true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
+      xhr.send();
+    });
+  },
   // 升级产蛋棚
   UpgradeEggsShed(payType) {
     return new Promise((resolve, reject) => {
@@ -601,7 +602,31 @@ var func = {
       xhr.send('openID=' + this.openID + '&payType=' + payType);
     });
   },
-  //获得产蛋棚 升级需要多少钱
+  //获取升级产蛋棚需要多少钱
+  GetLayUpGrade(grade) {
+    // Loading.show();
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            console.log('获取数据失败');
+            reject(response);
+          }
+        }
+      };
+      // GET方法
+      xhr.open('GET', Config.apiUrl + '/T_Base_LayEggsShed/GetLayUpGrade?grade=' + grade, true);
+      xhr.setRequestHeader('Content-Type', 'json');
+      xhr.send();
+    });
+  },
+  //获得牧场 升级需要多少钱
   GeteggsShedUpGradeMoney() {
     // Loading.show();
     return new Promise((resolve, reject) => {
@@ -825,7 +850,7 @@ var func = {
     });
   },
   //收取鸡蛋
-  CollectEgg() {
+  CollectEgg(eggID) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -843,7 +868,7 @@ var func = {
       };
       xhr.open('POST', Config.apiUrl + '/T_Base_User/CollectEgg', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
-      xhr.send('openID=' + this.openID);
+      xhr.send(`openID=${this.openID}&EggID=${eggID}`);
     });
   },
   //收取贵妃鸡

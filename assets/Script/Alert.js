@@ -8,7 +8,7 @@ var Alert = {
   _icon: null, // Alert头部图标
   _animSpeed: 0.3, // 动画速度
   _titleLabel: null,
-  _newPrefabUrl: "Prefab/Alert1",
+  _newPrefabUrl: 'Prefab/Alert1',
   _newPrefabCallBack: null
 };
 
@@ -42,7 +42,7 @@ Alert.show = function(
 
   // 加载 prefab 创建
   if (newPrefabUrl == undefined) {
-    cc.loader.loadRes("Prefab/Alert1", cc.Prefab, function(error, prefab) {
+    cc.loader.loadRes('Prefab/Alert1', cc.Prefab, function(error, prefab) {
       if (error) {
         cc.error(error);
         return;
@@ -54,12 +54,12 @@ Alert.show = function(
       // Alert 持有
       Alert._alert = alert;
       // 获取子节点
-      Alert._detailLabel = cc.find("alertBackground/detailLabel", alert).getComponent(cc.Label);
-      Alert._cancelButton = cc.find("alertBackground/New Node/cancelButton", alert);
-      Alert._enterButton = cc.find("alertBackground/New Node/enterButton", alert);
-      Alert._bgButton = cc.find("bg", alert);
-      Alert._icon = cc.find("alertBackground/icon", alert).getComponent(cc.Sprite);
-      Alert._titleLabel = cc.find("alertBackground/title", alert).getComponent(cc.Label);
+      Alert._detailLabel = cc.find('alertBackground/detailLabel', alert).getComponent(cc.Label);
+      Alert._cancelButton = cc.find('alertBackground/New Node/cancelButton', alert);
+      Alert._enterButton = cc.find('alertBackground/New Node/enterButton', alert);
+      Alert._bgButton = cc.find('bg', alert);
+      Alert._icon = cc.find('alertBackground/icon', alert).getComponent(cc.Sprite);
+      Alert._titleLabel = cc.find('alertBackground/title', alert).getComponent(cc.Label);
 
       self.ready();
       //设置图标
@@ -70,12 +70,12 @@ Alert.show = function(
       }
 
       // 添加点击事件
-      Alert._enterButton.on("click", self.onButtonClicked, self);
-      Alert._cancelButton.on("click", self.onButtonClicked, self);
-      Alert._bgButton.on("click", self.onButtonClicked, self);
+      Alert._enterButton.on('click', self.onButtonClicked, self);
+      Alert._cancelButton.on('click', self.onButtonClicked, self);
+      Alert._bgButton.on('click', self.onButtonClicked, self);
 
       // 父视图
-      Alert._alert.parent = cc.find("Canvas");
+      cc.find('Canvas').addChild(Alert._alert, 3);
 
       // 展现 alert
       self.startFadeIn();
@@ -94,7 +94,7 @@ Alert.show = function(
 
     // 内容
     Alert._detailLabel.string = detailString;
-    Alert._titleLabel.string = title || "标题";
+    Alert._titleLabel.string = title || '标题';
     // 是否需要取消按钮
     if (needCancel || needCancel == undefined) {
       // 显示
@@ -138,7 +138,7 @@ Alert.show = function(
 
   // 按钮点击事件
   self.onButtonClicked = function(event) {
-    if (event.target.name == "enterButton") {
+    if (event.target.name == 'enterButton') {
       if (self._enterCallBack) {
         self._enterCallBack();
       }
@@ -149,7 +149,7 @@ Alert.show = function(
   self.newButtonEvent = function(prefab, buttonUrl, event) {
     if (!event && prefab && buttonUrl) {
       var cancelButton = cc.find(buttonUrl, prefab);
-      cancelButton.on("click", function() {
+      cancelButton.on('click', function() {
         var action = cc.sequence(cc.fadeOut(0.3), cc.callFunc(prefab.removeFromParent, prefab));
         prefab.runAction(action);
       });
