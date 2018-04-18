@@ -40,8 +40,11 @@ cc.Class({
     var cancelButton = cc.find("close", this.node);
     //关闭模态框
     cancelButton.on("click", () => {
-      var action = cc.sequence(cc.fadeOut(0.3), cc.callFunc(this.node.removeFromParent, this.node));
+      var action = cc.fadeOut(0.3);
       this.node.runAction(action);
+      setTimeout(() => {
+        this.node.active = false;
+      }, 400);
       this.clearData();
       this.hasMore = true;
     });

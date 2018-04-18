@@ -2073,7 +2073,7 @@
     "pageSize": 5,
     "itemBox": null,
     "hasMore": true,
-    "tabId": 0
+    "TabId": 1
   },
   {
     "__type__": "cc.PrefabInfo",

@@ -7,7 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
-var Data = require('Data');
+var Data = require("Data");
 var Func = Data.func;
 cc.Class({
   extends: cc.Component,
@@ -44,15 +44,11 @@ cc.Class({
   },
   closeModal() {
     var self = this;
-    console.log('close modal');
-    var action = cc.sequence(
-      cc.fadeOut(0.3),
-      cc.callFunc(() => {
-        this.node.active = false;
-      }, this.node)
-    );
+    var action = cc.fadeOut(0.3);
     this.node.runAction(action);
-
+    setTimeout(() => {
+      this.node.active = false;
+    }, 400);
     // scrollView.removeFromParent();
     // this.node.removeChild(Modal);
   },
@@ -64,7 +60,7 @@ cc.Class({
     Func.GetFriendsList(this.friend_page).then(data => {
       if (data.Code === 1) {
         var friendList = data.List;
-        this.contentNode = cc.find('bg-repertory/friendList/view/content', this.node);
+        this.contentNode = cc.find("bg-repertory/friendList/view/content", this.node);
         for (let i = 0; i < friendList.length; i++) {
           this.assignFriendData(friendList[i]);
         }
@@ -105,7 +101,7 @@ cc.Class({
   bindEvent() {
     //滚动到底部加载数据
     this.friendListNode.on(
-      'bounce-bottom',
+      "bounce-bottom",
       () => {
         if (this.option === 1) {
           this.updateData();
@@ -118,9 +114,9 @@ cc.Class({
 
     //input 如果为空 加载好友数据
     this.inputNode.on(
-      'text-changed',
+      "text-changed",
       () => {
-        if (this.inputEditBox.string == '') {
+        if (this.inputEditBox.string == "") {
           this.contentNode.removeAllChildren();
           this.option = 1;
           this.friend_page = 1;
@@ -148,7 +144,7 @@ cc.Class({
       if (rank <= 3) {
         //Top3
         var item = cc.instantiate(this.itemTop3);
-        var rankNode = cc.find('item-content/icon-no2', item);
+        var rankNode = cc.find("item-content/icon-no2", item);
         switch (rank) {
           case 1:
             rankNode.getComponent(cc.Sprite).spriteFrame = this.iconBtn01;
@@ -163,13 +159,13 @@ cc.Class({
       } else {
         //大于3 的排名
         var item = cc.instantiate(this.itemFriend);
-        var rankLabel = cc.find('item-content/rank/text', item).getComponent(cc.Label);
+        var rankLabel = cc.find("item-content/rank/text", item).getComponent(cc.Label);
         rankLabel.string = rank;
       }
 
-      var healthNode = cc.find('item-content/status/health', item);
-      var cleanNode = cc.find('item-content/status/clean', item);
-      var feedNode = cc.find('item-content/status/feed', item);
+      var healthNode = cc.find("item-content/status/health", item);
+      var cleanNode = cc.find("item-content/status/clean", item);
+      var feedNode = cc.find("item-content/status/feed", item);
 
       if (clean) {
         cleanNode.active = true;
@@ -182,15 +178,15 @@ cc.Class({
       var item = cc.instantiate(this.itemBoth);
     }
 
-    var advisorSprite = cc.find('item-content/advisor-box/adviosr-mask/advisor', item).getComponent(cc.Sprite);
-    var nameLabel = cc.find('item-content/advisor-box/name', item).getComponent(cc.Label);
-    var gradeLabel = cc.find('item-content/level-box/textbox/label', item).getComponent(cc.Label);
+    var advisorSprite = cc.find("item-content/advisor-box/adviosr-mask/advisor", item).getComponent(cc.Sprite);
+    var nameLabel = cc.find("item-content/advisor-box/name", item).getComponent(cc.Label);
+    var gradeLabel = cc.find("item-content/level-box/textbox/label", item).getComponent(cc.Label);
 
     nameLabel.string = name;
-    gradeLabel.string = 'Lv.' + grade;
+    gradeLabel.string = "Lv." + grade;
 
-    item.on('click', () => {
-      cc.director.loadScene('FriendIndex');
+    item.on("click", () => {
+      cc.director.loadScene("FriendIndex");
     });
     this.contentNode.addChild(item);
   },
@@ -204,21 +200,21 @@ cc.Class({
 
     var item = cc.instantiate(this.itemSearch);
 
-    var advisorSprite = cc.find('item-content/advisor-box/adviosr-mask/advisor', item).getComponent(cc.Sprite);
-    var nameLabel = cc.find('item-content/advisor-box/name', item).getComponent(cc.Label);
-    var gradeLabel = cc.find('item-content/level-box/textbox/label', item).getComponent(cc.Label);
-    let addButton = cc.find('item-content/add', item);
+    var advisorSprite = cc.find("item-content/advisor-box/adviosr-mask/advisor", item).getComponent(cc.Sprite);
+    var nameLabel = cc.find("item-content/advisor-box/name", item).getComponent(cc.Label);
+    var gradeLabel = cc.find("item-content/level-box/textbox/label", item).getComponent(cc.Label);
+    let addButton = cc.find("item-content/add", item);
 
     nameLabel.string = name;
-    gradeLabel.string = 'Lv.' + grade;
+    gradeLabel.string = "Lv." + grade;
     addButton.on(
-      'click',
+      "click",
       () => {
         Func.AddFriend(openIds).then(data => {
           if (data.Code === 1) {
             Msg.show(data.Message);
 
-            if (data.Message == '请求成功！') {
+            if (data.Message == "请求成功！") {
               let str = "{name:'" + openIds + "'}";
               Config.newSocket.send(str);
             }
@@ -233,10 +229,10 @@ cc.Class({
     this.contentNode.addChild(item);
   },
   onLoad() {
-    this.friendListNode = cc.find('bg-repertory/friendList', this.node);
-    this.inputNode = cc.find('bg-repertory/form/input', this.node);
+    this.friendListNode = cc.find("bg-repertory/friendList", this.node);
+    this.inputNode = cc.find("bg-repertory/form/input", this.node);
     this.inputEditBox = this.inputNode.getComponent(cc.EditBox);
-    this.contentNode = cc.find('bg-repertory/friendList/view/content', this.node);
+    this.contentNode = cc.find("bg-repertory/friendList/view/content", this.node);
     this.friend_page = 1;
     this.search_page = 1;
     this.option = 1; // 1代表好友列表  2.代表非好友列表
