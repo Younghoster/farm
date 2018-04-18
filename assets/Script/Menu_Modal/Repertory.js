@@ -177,7 +177,7 @@ cc.Class({
         this.bindGoodsEvent(goodsNode, this.feed, "添加饲料槽");
         break;
       case "玉米种子":
-        cc.loader.loadRes("Modal/Repertory/img-ym", cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes("Modal/Repertory/ymzz1", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
         nameLabel.string = PropName;

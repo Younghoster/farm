@@ -44,7 +44,7 @@ cc.Class({
         let goodsLabel = cc.find("price-box/goods_label", goodsNode).getComponent(cc.Label);
         let priceLabel = cc.find("price-box/bg-price/price", goodsNode).getComponent(cc.Label);
         let count = goods.Count;
-        self.selectIcon(goods.PropertyTypeID, goodSprite);
+        self.selectIcon(goods, goodSprite);
         cc.find("pic-box/pic", goodsNode).getComponent(cc.Widget).bottom = 0;
         let str = goods.RearingDays ? goods.RearingDays + "天" : "";
         goodsLabel.string = str + goods.PropName + "x" + count;
@@ -74,16 +74,16 @@ cc.Class({
       }
     }
   },
-  selectIcon(id, goodSprite, isSystemShop) {
+  selectIcon(data, goodSprite, isSystemShop) {
     let iconSrc, iconSrc2;
-    switch (id) {
+    switch (data.PropertyTypeID) {
       case 1: //可以孵化的蛋
         iconSrc = "Shop/icon-egg";
         iconSrc2 = "Shop/icon-egg_";
 
         break;
       case 3: //成熟的肉鸡
-        iconSrc = "Shop/icon-asset04";
+        iconSrc = "Shop/guifeiji_";
         iconSrc2 = "Shop/guifeiji_";
         break;
       case 4: //饲料
@@ -91,40 +91,36 @@ cc.Class({
         iconSrc2 = "Shop/icon-1_";
         break;
       case 6: //种子
-        iconSrc = "Shop/icon-egg";
-        iconSrc2 = "Shop/icon-egg_";
+        iconSrc = "Modal/Repertory/ymzz";
+        iconSrc2 = "Modal/Repertory/ymzz2";
         break;
       case 7: //普通肥料
-        iconSrc = "Shop/fertilizer";
-        iconSrc2 = "Shop/icon-egg_";
+        iconSrc = "Modal/Repertory/sd-fl1";
+        iconSrc2 = "Modal/Repertory/fl3";
         break;
       case 8: //粪便
-        iconSrc = "Shop/icon-egg";
-        iconSrc2 = "Shop/icon-egg_";
         break;
       case 9: //超级肥料
-        iconSrc = "Shop/fertilizer";
-        iconSrc2 = "Shop/icon-egg_";
+        iconSrc = "Modal/Repertory/sd-fl1";
+        iconSrc2 = "Modal/Repertory/fl3";
         break;
       case 10: //高级肥料
-        iconSrc = "Shop/icon-egg";
-        iconSrc2 = "Shop/icon-egg_";
+        iconSrc = "Modal/Repertory/sd-fl1";
+        iconSrc2 = "Modal/Repertory/fl3";
         break;
       case 11: //超级饲料
-        iconSrc = "Shop/icon-egg";
-        iconSrc2 = "Shop/icon-egg_";
         break;
       case 12: //自动清洁机
-        iconSrc = "Shop/icon-bot";
-        iconSrc2 = "Shop/icon-bot";
+        iconSrc = "Modal/Repertory/icon-bot";
+        iconSrc2 = "Modal/Repertory/icon-bot";
         break;
       case 13: //产蛋鸡
-        iconSrc = "Shop/icon-asset04";
+        iconSrc = "Shop/guifeiji";
         iconSrc2 = "Shop/guifeiji_";
         break;
       case 14: //改名卡
-        iconSrc = "Shop/renameCard";
-        iconSrc2 = "Shop/icon-name_";
+        iconSrc = "Modal/Repertory/icon-name";
+        iconSrc2 = "Modal/Repertory/gmk2.png";
         break;
       default: {
         iconSrc = "Shop/icon-1";
@@ -150,11 +146,15 @@ cc.Class({
     let value = cc.find("bg/money/value", obj);
     let confirm = cc.find("bg/btn-group/enterButton", obj);
     let valueComp = cc.find("bg/money/value", obj).getComponent(cc.Label);
+    let valueCoin = cc.find("bg/money/coin", obj).getComponent(cc.Sprite);
     let icon = cc.find("guifeiji", obj).getComponent(cc.Sprite);
     let title = cc.find("bg/name", obj).getComponent(cc.Label);
     let goodSprite = cc.find("guifeiji", obj).getComponent(cc.Sprite);
     let count = 1;
-    self.selectIcon(data.PropertyTypeID, goodSprite, 1);
+    self.selectIcon(data, goodSprite, 1);
+    cc.loader.loadRes("Modal/Repertory/icon-asset02", cc.SpriteFrame, function(err, spriteFrame) {
+      valueCoin.spriteFrame = spriteFrame;
+    });
     title.string = data.PropName;
     valueComp.string = data.PropValue;
     //绑定input变化事件
