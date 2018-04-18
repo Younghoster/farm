@@ -46,7 +46,7 @@ cc.Class({
   arrowNode: null,
   eggNode: null,
   chickList: null,
-
+  hearderJs: null,
   init: function() {
     // this._chick = this.Chick.getComponent("Chick");
     // this.clearLabel = cc.find('wave/mask/layout/value', this.node).getComponent(cc.Label);
@@ -55,6 +55,7 @@ cc.Class({
 
     this.MenuModal = cc.find('/div_menu/Modal_more', this.node);
     this.handNode = cc.find('Hand', this.node);
+
     this.handAnim = this.handNode.getComponent(cc.Animation);
     this.arrowNode = this.node.getChildByName('icon-arrow');
     this.eggNode = cc.find('bg/house/shouquEgg', this.node);
@@ -92,7 +93,7 @@ cc.Class({
     this.feedCountLabel.string = data.UserModel.Allfeed == null ? 0 : data.UserModel.Allfeed;
 
     //初始化产蛋棚是否显示鸡蛋
-    this.eggNode.active = data.EggsShed.EggCount > 0 ? true : false;
+    // this.eggNode.active = data.EggsShed.EggCount > 0 ? true : false;
     //初始化牧场是否显示鸡蛋
     this.eggMoreNode.active = data.RanchModel.EggCount > 0 ? true : false;
     this.eggCountLabel.string = `x${data.RanchModel.EggCount}`;
@@ -477,7 +478,7 @@ cc.Class({
       wetherItem2.string = date[1] + '月' + date[2] + '日';
       //根据天气情况 判断牧场的背景
       Func.GetCurrentWeather().then(res => {
-        if (res.data.rain !== 0) {
+        if (res.data.rain == 0) {
           //下雨
           cc.loader.loadRes('weather/bg-rain', cc.SpriteFrame, function(err, spriteFrame) {
             bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
@@ -525,7 +526,8 @@ cc.Class({
   loadSceneFarm() {
     cc.director.loadScene('Farm/farm');
   },
-
+  //
+  updateLv() {},
   onLoad: function() {
     var openID = window.location.href.split('=')[1];
     window.Config.openID = openID || 'f79ed645ad624cf5bbfecc2e67f23020';

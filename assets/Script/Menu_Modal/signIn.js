@@ -1,5 +1,6 @@
 var Data = require('Data');
 var Func = Data.func;
+var Tool = require('Tool').Tool;
 cc.Class({
   extends: cc.Component,
 
@@ -28,6 +29,8 @@ cc.Class({
         cc.loader.loadRes('btn-hasSign', cc.SpriteFrame, function(err, spriteFrame) {
           signButton.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
+        //更新头部数据
+        Tool.updateHeader();
         Msg.show('签到成功! 积分增加' + data.Point + ',牧场币增加' + data.RachMoney, 0.3, 3000);
       }
     });

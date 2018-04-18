@@ -54,7 +54,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 590,
+      "width": 750,
       "height": 160
     },
     "_rotationX": 0,
@@ -63,7 +63,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 375,
       "y": -80
     },
     "_skewX": 0,
@@ -120,7 +120,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -242,
+      "x": -322,
       "y": 0
     },
     "_skewX": 0,
@@ -188,7 +188,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "9ab9ae17-eea0-434a-a166-67d77f1084bc"
     },
     "fileId": "eae1UqIK5Dj7KKYJ4DO1Ux",
     "sync": false
@@ -253,7 +253,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -39,
+      "x": -119,
       "y": 0
     },
     "_skewX": 0,
@@ -409,7 +409,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "9ab9ae17-eea0-434a-a166-67d77f1084bc"
     },
     "fileId": "75FPu8qH9P7rE3Gj3BhL6D",
     "sync": false
@@ -496,7 +496,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "9ab9ae17-eea0-434a-a166-67d77f1084bc"
     },
     "fileId": "710y8zfJ9CY4YON0qA25GO",
     "sync": false
@@ -564,7 +564,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "9ab9ae17-eea0-434a-a166-67d77f1084bc"
     },
     "fileId": "3cekjkTIFBz71Anu8Kwf7I",
     "sync": false
@@ -715,7 +715,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "9ab9ae17-eea0-434a-a166-67d77f1084bc"
     },
     "fileId": "17R9SmN0pFPr++xcFu+d/X",
     "sync": false
@@ -802,7 +802,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "9ab9ae17-eea0-434a-a166-67d77f1084bc"
     },
     "fileId": "55OsDDsiNMtLZbv61Z9vu3",
     "sync": false
@@ -870,7 +870,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "9ab9ae17-eea0-434a-a166-67d77f1084bc"
     },
     "fileId": "6bFOAErf5KD7CGUXxzerrX",
     "sync": false
@@ -1021,7 +1021,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "9ab9ae17-eea0-434a-a166-67d77f1084bc"
     },
     "fileId": "41CW0qhWZIooj579GSF5FV",
     "sync": false
@@ -1108,7 +1108,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "9ab9ae17-eea0-434a-a166-67d77f1084bc"
     },
     "fileId": "68sJU/ovVPPqfF5Vg/rrWi",
     "sync": false
@@ -1176,7 +1176,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "9ab9ae17-eea0-434a-a166-67d77f1084bc"
     },
     "fileId": "2dx2mD0BJLEqTbKQhmySdL",
     "sync": false
@@ -1268,7 +1268,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "9ab9ae17-eea0-434a-a166-67d77f1084bc"
     },
     "fileId": "02KrLXBRNEdIaY30zguL4x",
     "sync": false
@@ -1305,9 +1305,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 214,
-      "g": 214,
-      "b": 214,
+      "r": 255,
+      "g": 172,
+      "b": 11,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -1327,7 +1327,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 205,
+      "x": 285,
       "y": 0
     },
     "_skewX": 0,
@@ -1373,7 +1373,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 56,
-      "height": 40
+      "height": 80
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1407,11 +1407,11 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "兑换",
+    "_N$string": "补交兑换",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 0
+    "_N$overflow": 3
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1419,7 +1419,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "9ab9ae17-eea0-434a-a166-67d77f1084bc"
     },
     "fileId": "61Zde+4vVDf6YYOj9ZoBkW",
     "sync": false
@@ -1532,7 +1532,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "9ab9ae17-eea0-434a-a166-67d77f1084bc"
     },
     "fileId": "46GEBWdz5L4p0qoksn19bm",
     "sync": false
@@ -1595,7 +1595,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "9ab9ae17-eea0-434a-a166-67d77f1084bc"
     },
     "fileId": "2ccWYSwq9Ompt+KCLgMzyU",
     "sync": false
