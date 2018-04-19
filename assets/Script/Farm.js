@@ -19,18 +19,12 @@ cc.Class({
     this.fatchData();
     this.getToolPositon();
   },
-  //绑定节点
-  bindNode() {
-    this.moneyLabel = cc.find("div_header/gold/money", this.node).getComponent(cc.Label);
-    this.level = cc.find("div_header/me/levelbg/label", this.node).getComponent(cc.Label);
-  },
+
   //加载植物
   fatchData() {
     var self = this;
     Data.func.getFarmModalData().then(data => {
       if (data.Code === 1) {
-        //用户信息加载
-        self.getUserInfo(data);
         //土地渲染
         self.setLandOption(data);
       }
@@ -38,20 +32,6 @@ cc.Class({
     });
   },
 
-  //获取用户信息
-  getUserInfo(data) {
-    let self = this;
-    //金币设置
-    var RanchMoney = data.userModel.RanchMoney;
-    var moneyLabel = cc.find("div_header/gold/money", this.node).getComponent(cc.Label);
-    moneyLabel.string = "￥" + RanchMoney;
-    //经验值
-    this.level = cc.find("div_header/Lv/level", this.node).getComponent(cc.Label);
-    this.level.string = "V" + data.userModel.Grade;
-    this.levelProgressBar = cc.find("div_header/Lv/lv_bar", this.node).getComponent(cc.ProgressBar);
-    this.levelProgressBar.progress = data.userModel.ExperienceValue / data.userModel.GradeExperienceValue;
-    console.log(data);
-  },
   //设置土地信息
   setLandOption(data) {
     let self = this;
@@ -70,7 +50,7 @@ cc.Class({
     let self = this;
     this.Value = {
       List: data.Model,
-      toolType: 1
+      toolType: 0
     };
     //缓存数据并加载植物
     cc.sys.localStorage.setItem("FarmData", JSON.stringify(this.Value));
@@ -89,7 +69,9 @@ cc.Class({
       if (data.Code === 1) {
         setTimeout(function() {
           Data.func.getFarmModalData().then(data => {
-            self.setLocalStorageData(data);
+            if (data.Code === 1) {
+              self.setLocalStorageData(data);
+            }
           });
         }, 500);
       } else {
@@ -170,30 +152,34 @@ cc.Class({
   getToolPositon() {
     let self = this;
     let farmBox = cc.find("bg", this.node);
-    for (let i = 1; i < 5; i++) {
-      let tool = cc.find("tool/bottomTool/toolBox/btn0" + i, this.node);
-      tool.on("touchstart", function(e) {
-        self.Value.toolType = i;
+    let tool = cc.find("tool/bottomTool/toolBox/btn0" + i, this.node);
+    farmBox.on("touchstart", function(e) {
+      if (self.Value.toolType != 0) {
         cc.sys.localStorage.setItem("FarmData", JSON.stringify(self.Value)); //缓存机制
         self.Prefab = cc.instantiate(self.Tool_Prefab);
         let Img = cc.find("tool", self.Prefab).getComponent(cc.Sprite);
-        cc.loader.loadRes(self.imgSrcSelect(i), cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes(self.imgSrcSelect(self.Value.toolType), cc.SpriteFrame, function(err, spriteFrame) {
           Img.spriteFrame = spriteFrame;
         });
-        console.log(e.getLocation());
         self.Prefab.setPosition(e.getLocation().x - 150, e.getLocation().y - 150);
         farmBox.addChild(self.Prefab);
-      });
-      tool.on("touchmove", function(e) {
+      }
+    });
+    farmBox.on("touchmove", function(e) {
+      if (self.Value.toolType != 0) {
         self.Prefab.setPosition(e.getLocation().x - 150, e.getLocation().y - 150);
-      });
-      tool.on("touchend", function() {
+      }
+    });
+    farmBox.on("touchend", function() {
+      if (self.Value.toolType != 0) {
         self.Prefab.removeFromParent();
-      });
-      tool.on("touchcancel", function() {
+      }
+    });
+    farmBox.on("touchcancel", function() {
+      if (self.Value.toolType != 0) {
         self.Prefab.removeFromParent();
-      });
-    }
+      }
+    });
   },
   //工具图片显示  浇水、除草、种子、镰刀
   imgSrcSelect(i) {
@@ -220,8 +206,38 @@ cc.Class({
     }
     return src_;
   },
+  setBtnState(e) {
+    let type = e.currentTarget._name.slice(4);
+    this.animate(type);
+  },
   gotoMuChange: function() {
     cc.director.loadScene("index");
+  },
+  //按钮变化
+  animate(data) {
+    let btnStyle = cc.find("tool/bottomTool/toolBox/btn0" + data, this.node);
+    let bt1 = cc.find("tool/bottomTool/toolBox/btn01", this.node);
+    let bt2 = cc.find("tool/bottomTool/toolBox/btn02", this.node);
+    let bt3 = cc.find("tool/bottomTool/toolBox/btn03", this.node);
+    let bt4 = cc.find("tool/bottomTool/toolBox/btn04", this.node);
+    if (btnStyle.getPositionY() == 0) {
+      this.backanimate([bt1, bt2, bt3, bt4]);
+      btnStyle.setScale(1.1);
+      btnStyle.setPositionY(15);
+      this.Value.toolType = Number(data);
+      cc.sys.localStorage.setItem("FarmData", JSON.stringify(this.Value)); //缓存机制
+    } else {
+      this.backanimate([bt1, bt2, bt3, bt4]);
+      this.Value.toolType = 0;
+      cc.sys.localStorage.setItem("FarmData", JSON.stringify(this.Value)); //缓存机制
+    }
+    console.log(this.Value.toolType);
+  },
+  backanimate(e) {
+    for (let i = 0; i < e.length; i++) {
+      e[i].setScale(1);
+      e[i].setPositionY(0);
+    }
   },
   update(dt) {
     // this.fatchData();

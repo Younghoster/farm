@@ -196,6 +196,13 @@ cc.Class({
         nameLabel.string = PropName;
         this.bindGoodsEvent(goodsNode, this.feed, "添加饲料槽");
         break;
+      case "机器人":
+        cc.loader.loadRes("Modal/Repertory/img-hf", cc.SpriteFrame, function(err, spriteFrame) {
+          goodSprite.spriteFrame = spriteFrame;
+        });
+        nameLabel.string = PropName;
+        this.bindGoodsEvent(goodsNode, this.feed, "添加饲料槽");
+        break;
       case 5:
         cc.loader.loadRes("Modal/Repertory/feed", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
