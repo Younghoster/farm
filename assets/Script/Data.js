@@ -866,9 +866,9 @@ var func = {
           }
         }
       };
-      xhr.open('POST', Config.apiUrl + '/T_Base_User/CollectEgg', true);
+      xhr.open('POST', Config.apiUrl + '/T_Base_LayEggsShed/CollectingEggs', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
-      xhr.send(`openID=${this.openID}&EggID=${eggID}`);
+      xhr.send(`openID=${this.openID}&EggId=${eggID}`);
     });
   },
   //收取贵妃鸡
@@ -949,7 +949,7 @@ var func = {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
-            console.log('清理成功');
+           
             response = JSON.parse(response);
             resolve(response);
           } else {
@@ -974,7 +974,7 @@ var func = {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
-            console.log('清理成功');
+            
             response = JSON.parse(response);
             resolve(response);
           } else {
@@ -988,6 +988,30 @@ var func = {
       xhr.open('POST', Config.apiUrl + '/T_Base_Chicken/ChickenAndRanch', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
       xhr.send('cid=' + Id);
+    });
+  },
+  // / T_Base_Chicken/ GetChickenOwnerShipListByPage
+  GetRecoverData(page) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+
+            reject(response);
+          }
+        }
+      };
+      // GET方法
+      xhr.open('GET', `${Config.apiUrl}/T_Base_Chicken/GetChickenOwnerShipListByPage?openID=${this.openID}&page=${page}`, true);
+      xhr.setRequestHeader('Content-Type', 'json');
+      xhr.send();
     });
   },
   //获取用户中心数据

@@ -125,15 +125,15 @@ cc.Class({
     let countLabel = cc.find("icon-tip/count", goodsNode).getComponent(cc.Label);
     let nameLabel = cc.find("name", goodsNode).getComponent(cc.Label);
     //获取物品数据
-    let PropName = goods.PropName;
+    let PropertyTypeID = goods.PropertyTypeID;
+    let PropName = goods.PropName || goods.TypeName;
     let count = goods.Count;
-    switch (PropName) {
+    switch (PropertyTypeID) {
+      // 鸡蛋
       case 2:
         cc.loader.loadRes("Modal/Repertory/img-egg", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
-        var name = "鸡蛋";
-        nameLabel.string = name;
         this.bindGoodsEvent(
           goodsNode,
           () => {
@@ -148,13 +148,34 @@ cc.Class({
           "下架"
         );
         break;
-
-      case 3:
+      // 普通饲料
+      case 4:
+        cc.loader.loadRes("Modal/Repertory/feed", cc.SpriteFrame, function(err, spriteFrame) {
+          goodSprite.spriteFrame = spriteFrame;
+        });
+        this.bindGoodsEvent(goodsNode, this.feed, "添加饲料槽");
+        break;
+      // 成长加速剂
+      case 5:
+        cc.loader.loadRes("Modal/Repertory/feed", cc.SpriteFrame, function(err, spriteFrame) {
+          goodSprite.spriteFrame = spriteFrame;
+        });
+        this.bindGoodsEvent(goodsNode, () => Msg.show("暂时还未开通该道具功能"), "使用");
+        break;
+      //粪便
+      case 8:
+      // 超级肥料
+      case 9:
+        cc.loader.loadRes("Modal/Repertory/img-hf", cc.SpriteFrame, function(err, spriteFrame) {
+          goodSprite.spriteFrame = spriteFrame;
+        });
+        // this.bindGoodsEvent(goodsNode, this.feed, '添加饲料槽');
+        break;
+      // 产蛋鸡
+      case 13:
         cc.loader.loadRes("Modal/Repertory/img-hen", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
-        var name = "贵妃鸡";
-        nameLabel.string = name;
         this.bindGoodsEvent(
           goodsNode,
           () => {
@@ -169,48 +190,21 @@ cc.Class({
           "下架"
         );
         break;
-      case "饲料":
-        cc.loader.loadRes("Modal/Repertory/feed", cc.SpriteFrame, function(err, spriteFrame) {
-          goodSprite.spriteFrame = spriteFrame;
-        });
-        nameLabel.string = PropName;
-        this.bindGoodsEvent(goodsNode, this.feed, "添加饲料槽");
-        break;
-      case "玉米种子":
-        cc.loader.loadRes("Modal/Repertory/ymzz1", cc.SpriteFrame, function(err, spriteFrame) {
-          goodSprite.spriteFrame = spriteFrame;
-        });
-        nameLabel.string = PropName;
-        break;
-      case "改名卡":
+      //改名卡
+      case 14:
         cc.loader.loadRes("Modal/Repertory/icon-name", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
-        nameLabel.string = PropName;
-        this.bindGoodsEvent(goodsNode, this.feed, "添加饲料槽");
+        // this.bindGoodsEvent(goodsNode, this.feed, '添加饲料槽');
         break;
-      case "超级肥料":
-        cc.loader.loadRes("Modal/Repertory/img-hf", cc.SpriteFrame, function(err, spriteFrame) {
+      //玉米种子
+      case 15:
+        cc.loader.loadRes("Modal/Repertory/ymzz1", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
-        nameLabel.string = PropName;
-        this.bindGoodsEvent(goodsNode, this.feed, "添加饲料槽");
-        break;
-      case "机器人":
-        cc.loader.loadRes("Modal/Repertory/img-hf", cc.SpriteFrame, function(err, spriteFrame) {
-          goodSprite.spriteFrame = spriteFrame;
-        });
-        nameLabel.string = PropName;
-        this.bindGoodsEvent(goodsNode, this.feed, "添加饲料槽");
-        break;
-      case 5:
-        cc.loader.loadRes("Modal/Repertory/feed", cc.SpriteFrame, function(err, spriteFrame) {
-          goodSprite.spriteFrame = spriteFrame;
-        });
-        nameLabel.string = "成长剂";
-        this.bindGoodsEvent(goodsNode, () => Msg.show("暂时还未开通该道具功能"), "使用");
         break;
     }
+    nameLabel.string = PropName;
     countLabel.string = count;
   },
   // 绑定点击事件及回调函数(f1,f2,f3表示三个回调函数，name1，name2,name3表示按钮文字)
