@@ -18,6 +18,9 @@ cc.Class({
     var self = this;
     this.fatchData();
     this.getToolPositon();
+    this.fn = {
+      setLocalStorageData: this.setLocalStorageData
+    };
   },
 
   //加载植物
@@ -88,6 +91,7 @@ cc.Class({
     let PrefabPlant_md = cc.find("plant-md", Prefab);
     let PrefabPlant_lg = cc.find("plant-lg", Prefab);
     let PrefabPlant_ok = cc.find("plant-ok", Prefab);
+    let PrefabExtend = cc.find("extend", Prefab);
     let PrefabPlant_tip = cc.find("New Node/reap", Prefab);
     //提示图标的类型切换
     self.setTipType(ValueList[i], PrefabPlant_tip);
@@ -95,6 +99,10 @@ cc.Class({
     let itemPos = itemBox.getPosition();
     let pos = itemBox.getNodeToWorldTransformAR(itemPos);
 
+    if (ValueList[i].IsLock) {
+      //拓展
+      PrefabExtend.active = true;
+    }
     if (ValueList[i].CropsStatus == 1) {
       //小树苗
       PrefabPlant_xs.active = true;
@@ -188,18 +196,26 @@ cc.Class({
 
     switch (i) {
       case 1: {
-        src_ = "Farm/jiaoshui";
+        src_ = "Farm/bozhong";
         break;
       }
       case 2: {
-        src_ = "Farm/chucao";
+        src_ = "Farm/jiaoshui";
         break;
       }
       case 3: {
-        src_ = "Farm/zhongzi";
+        src_ = "Farm/chucao";
         break;
       }
       case 4: {
+        src_ = "Farm/chuchong";
+        break;
+      }
+      case 5: {
+        src_ = "Farm/zhongzi";
+        break;
+      }
+      case 6: {
         src_ = "Farm/liandao";
         break;
       }
@@ -207,7 +223,7 @@ cc.Class({
     return src_;
   },
   setBtnState(e) {
-    let type = e.currentTarget._name.slice(4);
+    let type = e.currentTarget._name.slice(11);
     this.animate(type);
   },
   gotoMuChange: function() {
@@ -215,19 +231,21 @@ cc.Class({
   },
   //按钮变化
   animate(data) {
-    let btnStyle = cc.find("tool/bottomTool/toolBox/btn0" + data, this.node);
-    let bt1 = cc.find("tool/bottomTool/toolBox/btn01", this.node);
-    let bt2 = cc.find("tool/bottomTool/toolBox/btn02", this.node);
-    let bt3 = cc.find("tool/bottomTool/toolBox/btn03", this.node);
-    let bt4 = cc.find("tool/bottomTool/toolBox/btn04", this.node);
+    let btnStyle = cc.find("tool/layout/farm_icon_0" + data, this.node);
+    let bt1 = cc.find("tool/layout/farm_icon_01", this.node);
+    let bt2 = cc.find("tool/layout/farm_icon_02", this.node);
+    let bt3 = cc.find("tool/layout/farm_icon_03", this.node);
+    let bt4 = cc.find("tool/layout/farm_icon_04", this.node);
+    let bt5 = cc.find("tool/layout/farm_icon_05", this.node);
+    let bt6 = cc.find("tool/layout/farm_icon_06", this.node);
     if (btnStyle.getPositionY() == 0) {
-      this.backanimate([bt1, bt2, bt3, bt4]);
+      this.backanimate([bt1, bt2, bt3, bt4, bt5, bt6]);
       btnStyle.setScale(1.1);
       btnStyle.setPositionY(15);
       this.Value.toolType = Number(data);
       cc.sys.localStorage.setItem("FarmData", JSON.stringify(this.Value)); //缓存机制
     } else {
-      this.backanimate([bt1, bt2, bt3, bt4]);
+      this.backanimate([bt1, bt2, bt3, bt4, bt5, bt6]);
       this.Value.toolType = 0;
       cc.sys.localStorage.setItem("FarmData", JSON.stringify(this.Value)); //缓存机制
     }
