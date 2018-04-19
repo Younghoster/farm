@@ -22,7 +22,7 @@ cc.Class({
     moneyLabel.string = '￥' + RanchMoney;
     //经验值
     this.level = cc.find('Lv/level', this.node).getComponent(cc.Label);
-    this.level.string = 'V' + data.Model.Grade;
+    this.level.string = 'LV.' + data.Model.Grade;
     this.levelProgressBar = cc.find('Lv/lv_bar', this.node).getComponent(cc.ProgressBar);
     this.levelProgressBar.progress = data.Model.ExperienceValue / data.Model.GradeExperienceValue;
   },

@@ -74,7 +74,7 @@ cc.Class({
     this.step = 0;
 
     this.shitBoxNode = cc.find('shit-box', this.node);
-    this.ranchGradeNode = cc.find('ranch-grade/grade', this.node);
+    this.ranchRankNode = cc.find('ranch-rank', this.node);
 
     this.chickList = [];
   },
@@ -120,7 +120,7 @@ cc.Class({
 
     this.initChick();
     this.initEggShed(eggsShedRank);
-    // this.initRanchGrade(RanchRank);
+    this.initRanchGrade(RanchRank);
   },
 
   //只运行一次
@@ -177,23 +177,6 @@ cc.Class({
       }
     });
   },
-  //收取贵妃鸡
-  // collectChick() {
-  //   Func.CollectChick(this._chick.cId).then(data => {
-  //     if (data.Code == 1) {
-  //       let action = cc.sequence(
-  //         cc.fadeOut(0.3),
-  //         cc.callFunc(() => {
-  //           this.Chick.active = false;
-  //         }, this)
-  //       );
-  //       this.Chick.runAction(action);
-  //       Msg.show(data.Message);
-  //     } else {
-  //       Msg.show(data.Message);
-  //     }
-  //   });
-  // },
 
   //点击清理事件
   showClearAlert: function() {
@@ -329,103 +312,23 @@ cc.Class({
     feedProgressBar.progress = value / capacity;
     Tool.setBarColor(feedBar, value / capacity);
   },
-  //显示牧场升级弹出框
-  showRanchUpgrade() {
-    this.houseStateNode = cc.find('bg/ranch-grade/houseState', this.node);
-    Func.GetRanchUpGradeMoney().then(data => {
-      if (data.Code === 1) {
-        let length = data.List.length || 0;
-        let button0 = cc.find('button0', this.houseStateNode);
-        let button1 = cc.find('button1', this.houseStateNode);
-        for (let i = 0; i < length; i++) {
-          if (data.List[i].Type === 0) {
-            button0.active = true;
-            this.upgradeByPointInfo = data.List[i];
-          } else {
-            button1.active = true;
-            this.upgradeByMoneyInfo = data.List[i];
-          }
-        }
-      } else if (data.Code === 2) {
-        this.upgradeByPointInfo.RanchGrade = 'S';
-        this.upgradeByMoneyInfo.RanchGrade = 'S';
-      } else {
-        Msg.show(data.Message);
-        return;
-      }
-      clearTimeout(this.timer3);
-      this.houseStateNode.active = true;
-      this.houseStateNode.opacity = 0;
-      this.houseStateNode.runAction(cc.fadeIn(0.3));
-
-      var action = cc.sequence(
-        cc.fadeOut(0.3),
-        cc.callFunc(() => {
-          this.houseStateNode.active = false;
-        }, this)
-      );
-      this.timer3 = setTimeout(() => {
-        this.houseStateNode.runAction(action);
-        // this.houseStateNode.active = false;
-      }, 2000);
-    });
-  },
-  //积分升级牧场
-  upgradeByPoint() {
-    if (this.upgradeByPointInfo.RanchGrade === 'S') {
-      Msg.show('已经升到满级');
-    } else {
-      Alert.show(
-        '是否使用' + this.upgradeByPointInfo.Money + '积分将牧场升级到' + this.upgradeByPointInfo.RanchGrade + '级',
-        () => {
-          this.upgradeHouse(this.upgradeByPointInfo.Type);
-          // this.updateMoney();
-        },
-        null,
-        '升级'
-      );
-    }
-  },
-  // 牧场币升级牧场
-  upgradeByMoney() {
-    if (this.upgradeByPointInfo.RanchGrade === 'S') {
-      Msg.show('已经升到满级');
-    } else {
-      Alert.show(
-        '是否使用' + this.upgradeByMoneyInfo.Money + '个牧场币将牧场升级到' + this.upgradeByMoneyInfo.RanchGrade + '级',
-        () => {
-          this.upgradeHouse(this.upgradeByMoneyInfo.Type);
-          // this.updateMoney();
-        },
-        null,
-        '升级'
-      );
-    }
-  },
-  // 升级牧场操作
-  upgradeHouse(payType) {
-    Func.UpgradeHouse(payType).then(data => {
-      if (data.Code === 1) {
-        switch (data.Model) {
-          case 'B':
-            this.ranchGradeNode.getComponent(cc.Label).string = '二级牧场';
-            break;
-          case 'A':
-            this.ranchGradeNode.getComponent(cc.Label).string = '三级牧场';
-            break;
-        }
-      }
-    });
-  },
-
   // 初始化牧场等级
   initRanchGrade(rank) {
     switch (rank) {
       case 1:
+        cc.loader.loadRes('index/tip1', cc.SpriteFrame, (err, spriteFrame) => {
+          this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
         break;
       case 2:
+        cc.loader.loadRes('index/tip2', cc.SpriteFrame, (err, spriteFrame) => {
+          this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
         break;
       case 3:
+        cc.loader.loadRes('index/tip3', cc.SpriteFrame, (err, spriteFrame) => {
+          this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
         break;
 
       default:
@@ -552,7 +455,8 @@ cc.Class({
       showMenu: this.showMenu,
       loadSceneShop: this.loadSceneShop,
       loadSceneRepertory: this.loadSceneRepertory,
-      initEggShed: this.initEggShed
+      initEggShed: this.initEggShed,
+      initRanchGrade: this.initRanchGrade
     };
   },
 
