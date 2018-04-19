@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var Msg = {
   _text: null,
@@ -17,11 +17,11 @@ Msg.show = function(text, animSpeed, timeout) {
 
   this._animSpeed = animSpeed ? animSpeed : this._animSpeed;
   this._timeout = timeout ? timeout : this._timeout;
-  cc.loader.loadRes("Prefab/Msg", cc.Prefab, function(err, Prefab) {
+  cc.loader.loadRes('Prefab/Msg', cc.Prefab, function(err, Prefab) {
     _this.MsgNode = cc.instantiate(Prefab);
-    var msgLabel = cc.find("message", _this.MsgNode).getComponent(cc.Label);
+    var msgLabel = cc.find('message', _this.MsgNode).getComponent(cc.Label);
     msgLabel.string = text;
-    var parentNode = cc.find("Canvas");
+    var parentNode = cc.find('Canvas');
     parentNode.addChild(_this.MsgNode, 5);
 
     _this.MsgNode.opacity = 0;
@@ -35,7 +35,7 @@ Msg.show = function(text, animSpeed, timeout) {
       }, _this)
     );
     _this._timer = setTimeout(function() {
-      console.log("20s");
+      console.log('20s');
       _this.MsgNode.runAction(action);
     }, _this._timeout);
   });
