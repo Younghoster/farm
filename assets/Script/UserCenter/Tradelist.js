@@ -57,9 +57,19 @@ cc.Class({
             imgSrc_ = "Modal/Repertory/icon-1";
             break;
           }
+          //玉米种子
+          case 6: {
+            imgSrc_ = "Modal/Repertory/ymzz_xs";
+            break;
+          }
+          //普通肥料
+          case 7: {
+            imgSrc_ = "Modal/Repertory/hf_xs";
+            break;
+          }
           //超级肥料
           case 9: {
-            imgSrc_ = "Modal/Repertory/icon-1";
+            imgSrc_ = "Modal/Repertory/hf_xs";
             break;
           }
           //改名卡
