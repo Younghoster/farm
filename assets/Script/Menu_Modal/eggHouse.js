@@ -17,6 +17,7 @@ cc.Class({
     for (let i = 0; i < 10; i++) {
       this.holeNodeList[i] = cc.find(`hole${i}`, this.contentNode);
     }
+    this.animNode = cc.find('anim', this.node);
   },
 
   bindEvent() {

@@ -1,0 +1,49 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "eggBroken",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.08333333333333333,
+  "sample": 60,
+  "speed": 0.05,
+  "wrapMode": 1,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "ff9e5c1a-3233-4145-99a0-c84dd6b3ef26"
+            }
+          },
+          {
+            "frame": 0.016666666666666666,
+            "value": {
+              "__uuid__": "07a96db6-e77b-488c-b2c6-104254515cad"
+            }
+          },
+          {
+            "frame": 0.03333333333333333,
+            "value": {
+              "__uuid__": "b8c84ff5-aba3-4f49-9413-59971e1c3b1e"
+            }
+          },
+          {
+            "frame": 0.05,
+            "value": {
+              "__uuid__": "e6a5fc76-bb4b-4d32-9012-dbc4d39b7cd1"
+            }
+          },
+          {
+            "frame": 0.06666666666666667,
+            "value": {
+              "__uuid__": "6b3e2177-620a-44a6-aba6-6b3c8906dec6"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}
