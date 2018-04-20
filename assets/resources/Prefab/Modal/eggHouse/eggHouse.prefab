@@ -31,14 +31,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 221
+        "__id__": 222
       },
       {
-        "__id__": 222
+        "__id__": 223
       }
     ],
     "_prefab": {
-      "__id__": 223
+      "__id__": 224
     },
     "_id": "",
     "_opacity": 255,
@@ -6321,11 +6321,11 @@
     "_active": false,
     "_components": [
       {
-        "__id__": 219
+        "__id__": 220
       }
     ],
     "_prefab": {
-      "__id__": 220
+      "__id__": 221
     },
     "_id": "",
     "_opacity": 255,
@@ -6816,10 +6816,13 @@
       },
       {
         "__id__": 217
+      },
+      {
+        "__id__": 218
       }
     ],
     "_prefab": {
-      "__id__": 218
+      "__id__": 219
     },
     "_id": "",
     "_opacity": 255,
@@ -6838,8 +6841,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 258,
-      "height": 280
+      "width": 191,
+      "height": 234
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -6866,7 +6869,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "e6a5fc76-bb4b-4d32-9012-dbc4d39b7cd1"
+      "__uuid__": "ff9e5c1a-3233-4145-99a0-c84dd6b3ef26"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -6891,15 +6894,63 @@
       "__id__": 215
     },
     "_enabled": true,
-    "_defaultClip": {
-      "__uuid__": "06133d86-0307-4c31-a080-e1dcb0095094"
-    },
+    "_defaultClip": null,
     "_clips": [
       {
         "__uuid__": "06133d86-0307-4c31-a080-e1dcb0095094"
       }
     ],
-    "playOnLoad": true
+    "playOnLoad": false
+  },
+  {
+    "__type__": "cc.Button",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 215
+    },
+    "_enabled": true,
+    "transition": 0,
+    "pressedColor": {
+      "__type__": "cc.Color",
+      "r": 211,
+      "g": 211,
+      "b": 211,
+      "a": 255
+    },
+    "hoverColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "duration": 0.1,
+    "zoomScale": 1.2,
+    "pressedSprite": null,
+    "hoverSprite": null,
+    "clickEvents": [],
+    "_N$interactable": true,
+    "_N$enableAutoGrayEffect": false,
+    "_N$normalColor": {
+      "__type__": "cc.Color",
+      "r": 214,
+      "g": 214,
+      "b": 214,
+      "a": 255
+    },
+    "_N$disabledColor": {
+      "__type__": "cc.Color",
+      "r": 124,
+      "g": 124,
+      "b": 124,
+      "a": 255
+    },
+    "_N$normalSprite": null,
+    "_N$disabledSprite": null,
+    "_N$target": {
+      "__id__": 215
+    }
   },
   {
     "__type__": "cc.PrefabInfo",
