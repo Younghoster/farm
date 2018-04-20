@@ -18,6 +18,9 @@ cc.Class({
       this.holeNodeList[i] = cc.find(`hole${i}`, this.contentNode);
     }
     this.animNode = cc.find('anim', this.node);
+    this.eggNode = cc.find('egg', this.animNode);
+    this.eggAnim = this.eggNode.getComponent(cc.Animation);
+    this.breakButton = cc.find('btn', this.animNode);
   },
 
   bindEvent() {
@@ -78,6 +81,7 @@ cc.Class({
           cc.loader.loadRes('eggHouse/img5', cc.SpriteFrame, (err, spriteFrame) => {
             holeSprite.spriteFrame = spriteFrame;
           });
+
           break;
         // 变质蛋
         case 4:
@@ -98,7 +102,14 @@ cc.Class({
             switch (data.Model) {
               case -1:
                 //金蛋
-
+                this.animNode.active = true;
+                this.breakButton.on('click', () => {
+                  this.breakButton.active = false;
+                  this.eggAnim.play('eggBroken');
+                  this.eggNode.on('click', () => {
+                    this.animNode.runAction(cc.fadeOut(0.3));
+                  });
+                });
                 break;
               case 0:
                 //变质的鸡蛋
@@ -178,6 +189,7 @@ cc.Class({
       }
     });
   },
+  //牧场币升级
   upgradeByMoney() {
     Func.UpgradeEggsShed(1).then(data => {
       if (data.Code === 1) {
