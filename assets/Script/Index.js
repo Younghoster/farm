@@ -135,17 +135,20 @@ cc.Class({
         for (let i = 0; i < length; i++) {
           let element = data.List[i];
 
-          cc.loader.loadRes("Prefab/Chick", cc.Prefab, (err, prefab) => {
-            var chickNode = cc.instantiate(prefab);
-            chickNode.setPosition(self.setChickPositionX(i), Math.random() * -350 - 100);
-            this.scene.addChild(chickNode);
-            this.chickJs = chickNode.getComponent("Chick");
-            this.chickJs.setId(data.List[i].ID);
-            this.chickJs._status = data.List[i].Status;
-            this.chickJs.initData();
+          // cc.loader.loadRes('Prefab/Chick', cc.Prefab, (err, prefab) => {
+          var chickNode = cc.find(`Chick${i}`, this.node);
+          chickNode.active = true;
 
-            this.chickList.push(chickNode);
-          });
+          chickNode.setPosition(self.setChickPositionX(i), Math.random() * -350 - 100);
+          let feedNode = cc.find('feed', chickNode);
+          feedNode.active = !element.IsHunger;
+          // this.scene.addChild(chickNode);
+          this.chickJs = chickNode.getComponent('Chick');
+          this.chickJs.setId(data.List[i].ID);
+          this.chickJs._status = data.List[i].Status;
+
+          this.chickList.push(chickNode);
+          // });
         }
       } else {
         !Config.firstLogin ? Msg.show("您的牧场暂无小鸡") : false;
