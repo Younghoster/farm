@@ -763,9 +763,7 @@
       "__id__": 10
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "4bbdb3ce-f952-4760-8751-a5552d0dea80"
-    },
+    "_spriteFrame": null,
     "_type": 1,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -6514,7 +6512,7 @@
     },
     "_children": [],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 181
@@ -11467,7 +11465,7 @@
     "target": {
       "__id__": 319
     },
-    "component": "Hearder",
+    "component": "Header",
     "handler": "gotoUserCenter",
     "customEventData": ""
   },
@@ -12872,7 +12870,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 435
