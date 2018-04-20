@@ -163,7 +163,14 @@ cc.Class({
         this.bindGoodsEvent(goodsNode, () => Msg.show("暂时还未开通该道具功能"), "使用");
         break;
       //粪便
+      // 普通肥料
+      case 7:
+        cc.loader.loadRes("Modal/Repertory/img-hf", cc.SpriteFrame, function(err, spriteFrame) {
+          goodSprite.spriteFrame = spriteFrame;
+        });
+        break;
       case 8:
+        break;
       // 超级肥料
       case 9:
         cc.loader.loadRes("Modal/Repertory/img-hf", cc.SpriteFrame, function(err, spriteFrame) {
@@ -192,13 +199,13 @@ cc.Class({
         break;
       //改名卡
       case 14:
-        cc.loader.loadRes("Modal/Repertory/icon-name", cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes("Modal/Repertory/gmk1", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
         // this.bindGoodsEvent(goodsNode, this.feed, '添加饲料槽');
         break;
       //玉米种子
-      case 15:
+      case 6:
         cc.loader.loadRes("Modal/Repertory/ymzz1", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
