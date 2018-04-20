@@ -4846,8 +4846,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 85,
-      "height": 196
+      "width": 116,
+      "height": 100
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -4855,7 +4855,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 332.5,
+      "x": 317,
       "y": 0
     },
     "_skewX": 0,
