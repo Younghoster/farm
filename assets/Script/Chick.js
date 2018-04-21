@@ -111,6 +111,7 @@ var Chick = cc.Class({
     let id = this.cId;
     cc.director.loadScene('chickDetail', () => {
       let scene = cc.find('Canvas');
+      Tool.RunAction(scene, 'fadeIn', 0.3);
       let chickDetailJs = scene.getComponent('chickDetail');
       chickDetailJs.Id = id;
     });
