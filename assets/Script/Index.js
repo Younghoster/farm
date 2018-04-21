@@ -76,6 +76,8 @@ cc.Class({
     this.ranchRankNode = cc.find('ranch-rank', this.node);
 
     this.chickList = [];
+    let canvas = cc.find('Canvas');
+    Tool.RunAction(canvas, 'fadeIn', 0.3);
   },
   initData(data) {
     Config.firstLogin = data.UserModel.FirstLanding;
@@ -103,13 +105,17 @@ cc.Class({
       upOrDown = !upOrDown;
     }, 0.5);
     // 初始化 粪便
-    // for (let i = 0; i < 5; i++) {
-    //   cc.loader.loadRes('Prefab/Index/shit', cc.Prefab, (err, prefab) => {
-    //     let shitNode = cc.instantiate(prefab);
-    //     shitNode.setPosition(Tool.random(0, 400), Tool.random(0, 200));
-    //     this.shitBoxNode.addChild(shitNode);
-    //   });
-    // }
+    for (let i = 0; i < data.RanchModel.FaecesCount; i++) {
+      cc.loader.loadRes('Prefab/Index/shit', cc.Prefab, (err, prefab) => {
+        let shitNode = cc.instantiate(prefab);
+        shitNode.setPosition(Tool.random(0, 400), Tool.random(0, 200));
+        this.shitBoxNode.addChild(shitNode);
+      });
+    }
+
+    //初始化 机器人是否显示
+    this.botNode = cc.find('bot', this.node);
+    this.botNode.active = data.RanchModel.IsHasCleaningMachine;
     // 初始化跳动的箭头
     Func.GetFeedTroughFull().then(data => {
       if (data.Code === 1) {
@@ -146,6 +152,7 @@ cc.Class({
           this.chickJs = chickNode.getComponent('Chick');
           this.chickJs.setId(data.List[i].ID);
           this.chickJs._status = data.List[i].Status;
+          Msg.show('喂食成功');
 
           this.chickList.push(chickNode);
           // });
@@ -194,9 +201,8 @@ cc.Class({
           this.handAnim.on('finished', () => {
             this.handNode.active = false;
             //清洁成功 牧场清洁度=100%
-            this.clearLabel.string = 100 + '%';
-            this.wave1Node.y = 100;
-            this.wave2Node.y = 100;
+
+            this.clearProgressBar.progress = 1;
           });
           // this.handAnim.on("finished", this.chickFunc.initData, this._chick);
         } else {
@@ -235,6 +241,7 @@ cc.Class({
             feedNode.active = list[i].IsHunger;
           }
         }
+        Msg.show('喂食成功');
       } else {
       }
     });

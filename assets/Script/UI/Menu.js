@@ -1,6 +1,7 @@
 var Data = require("Data");
 var Func = Data.func;
-
+var ToolJs = require("Tool");
+var Tool = ToolJs.Tool;
 cc.Class({
   extends: cc.Component,
 
@@ -123,16 +124,20 @@ cc.Class({
   },
 
   loadSceneRepertory() {
-    cc.director.loadScene("repertory");
+    cc.director.loadScene("repertory", this.onLoadFadeIn);
     this.removePersist();
   },
   loadSceneShop() {
-    cc.director.loadScene("shop");
+    cc.director.loadScene("shop", this.onLoadFadeIn);
     this.removePersist();
   },
   loadSceneMonitor() {
-    cc.director.loadScene("monitor");
+    cc.director.loadScene("monitor", this.onLoadFadeIn);
     this.removePersist();
+  },
+  onLoadFadeIn() {
+    let canvas = cc.find("Canvas");
+    Tool.RunAction(canvas, "fadeIn", 0.3);
   },
   removePersist() {
     cc.game.removePersistRootNode(Config.menuNode);

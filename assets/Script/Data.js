@@ -717,9 +717,9 @@ var func = {
         }
       };
       // POST方法
-      xhr.open('POST', Config.apiUrl + '/T_Ranch_Clean/PostClean', true);
+      xhr.open('POST', Config.apiUrl + '/T_Ranch_Clean/PostRanchCleanManual', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
-      xhr.send('openID=' + this.openID + '&type=1');
+      xhr.send('openID=' + this.openID);
     });
   },
   //小鸡治疗
@@ -765,7 +765,7 @@ var func = {
       // POST方法
       xhr.open('POST', Config.apiUrl + '/T_Chicken_Feed/POSTOwnFeeds', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
-      xhr.send('openId=' + this.openID); 
+      xhr.send('openId=' + this.openID);
     });
   },
   //购买商品接口
@@ -949,7 +949,7 @@ var func = {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
-           
+
             response = JSON.parse(response);
             resolve(response);
           } else {
@@ -974,7 +974,7 @@ var func = {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
-            
+
             response = JSON.parse(response);
             resolve(response);
           } else {
@@ -1009,7 +1009,11 @@ var func = {
         }
       };
       // GET方法
-      xhr.open('GET', `${Config.apiUrl}/T_Base_Chicken/GetChickenOwnerShipListByPage?openID=${this.openID}&page=${page}`, true);
+      xhr.open(
+        'GET',
+        `${Config.apiUrl}/T_Base_Chicken/GetChickenOwnerShipListByPage?openID=${this.openID}&page=${page}`,
+        true
+      );
       xhr.setRequestHeader('Content-Type', 'json');
       xhr.send();
     });
