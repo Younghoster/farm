@@ -152,11 +152,11 @@ cc.Class({
           this.chickJs = chickNode.getComponent('Chick');
           this.chickJs.setId(data.List[i].ID);
           this.chickJs._status = data.List[i].Status;
-          Msg.show('喂食成功');
 
           this.chickList.push(chickNode);
           // });
         }
+        Msg.show('喂食成功');
       } else {
         !Config.firstLogin ? Msg.show('您的牧场暂无小鸡') : false;
       }
