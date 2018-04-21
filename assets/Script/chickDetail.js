@@ -19,7 +19,7 @@ cc.Class({
     this.idLabel = cc.find('bg-f3/bg/info/id', this.node).getComponent(cc.Label);
     this.sexLabel = cc.find('bg-f3/bg/info/sex', this.node).getComponent(cc.Label);
     this.hungryLabel = cc.find('bg-f3/bg/info/hungry', this.node).getComponent(cc.Label);
-    this.healthLabel = cc.find('bg-f3/bg/info/health', this.node).getComponent(cc.Label);
+    // this.healthLabel = cc.find('bg-f3/bg/info/health', this.node).getComponent(cc.Label);
     this.collectButton = cc.find('bg-f3/bg/collect', this.node);
     this.growNode = cc.find('bg-f3/bg/grow/progressBar', this.node);
     this.growProgressBar = cc.find('bg-f3/bg/grow/progressBar', this.node).getComponent(cc.ProgressBar);
@@ -100,24 +100,31 @@ cc.Class({
   showChickState(imgNode, hungry, shit) {
     if (hungry) {
       //饥饿状态
-      !shit ? cc.loader.loadRes('chickDetail/hungry', cc.SpriteFrame, (err, spriteFrame) => {
-        imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-      }) : false;
+      !shit
+        ? cc.loader.loadRes('chickDetail/hungry', cc.SpriteFrame, (err, spriteFrame) => {
+            imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+          })
+        : false;
       //饥饿+肮脏状态
-      shit ? cc.loader.loadRes('chickDetail/hungry_shit', cc.SpriteFrame, (err, spriteFrame) => {
-        imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-      }) : false;
+      shit
+        ? cc.loader.loadRes('chickDetail/hungry_shit', cc.SpriteFrame, (err, spriteFrame) => {
+            imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+          })
+        : false;
     }
     if (shit) {
       //肮脏状态
-      !hungry ? cc.loader.loadRes('chickDetail/shit', cc.SpriteFrame, (err, spriteFrame) => {
-        imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-      }) : false;
+      !hungry
+        ? cc.loader.loadRes('chickDetail/shit', cc.SpriteFrame, (err, spriteFrame) => {
+            imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+          })
+        : false;
       //肮脏+饥饿状态
-      hungry ? cc.loader.loadRes('chickDetail/hungry_shit', cc.SpriteFrame, (err, spriteFrame) => {
-        imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-      }) : false;
-
+      hungry
+        ? cc.loader.loadRes('chickDetail/hungry_shit', cc.SpriteFrame, (err, spriteFrame) => {
+            imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+          })
+        : false;
     }
   },
   initChickInfo() {
@@ -132,7 +139,7 @@ cc.Class({
     this.idLabel.string = `编号：${this.Id}`;
     this.sexLabel.string = `性别：${data.Sex ? '小姐姐' : '小哥哥'}`;
     this.hungryLabel.string = `饥饿度：${data.StarvationValue}`;
-    this.healthLabel.string = `健康值：${data.HealthValue}`;
+    // this.healthLabel.string = `健康值：${data.HealthValue}`;
 
     this.growProgressBar.progress = Math.round(data.Happy) / 100;
     this.growLabel.string = `${Math.round(data.Happy)}/100`;
@@ -235,13 +242,13 @@ cc.Class({
     // } else {
     //   this.nextTime = `${year + 1}-${1}-1`;
     // }
-    month < 12 ? this.nextTime = `${year}-${month + 1}-1` : this.nextTime = `${year + 1}-${1}-1`;
+    month < 12 ? (this.nextTime = `${year}-${month + 1}-1`) : (this.nextTime = `${year + 1}-${1}-1`);
     // if (month > 1) {
     //   this.prevTime = `${year}-${month - 1}-1`;
     // } else {
     //   this.prevTime = `${year - 1}-${12}-1`;
     // }
-    month > 1 ? this.prevTime = `${year}-${month - 1}-1` : this.prevTime = `${year - 1}-${12}-1`
+    month > 1 ? (this.prevTime = `${year}-${month - 1}-1`) : (this.prevTime = `${year - 1}-${12}-1`);
     this.yearMonthLabel.string = `${year}年${month}月`;
     this.calendarJs.func.initCalendar.call(this.calendarJs, list, year, month - 1);
   },
