@@ -1,6 +1,7 @@
-var Data = require('Data');
+var Data = require("Data");
 var Func = Data.func;
-
+var ToolJs = require("Tool");
+var Tool = ToolJs.Tool;
 cc.Class({
   extends: cc.Component,
 
@@ -9,7 +10,7 @@ cc.Class({
   start() {
     Config.hearderNode = this.node;
     cc.game.addPersistRootNode(this.node);
-    this.moneyLabel = cc.find('gold/money', this.node).getComponent(cc.Label);
+    this.moneyLabel = cc.find("gold/money", this.node).getComponent(cc.Label);
     this.init();
     func: {
       init: this.init;
@@ -18,12 +19,12 @@ cc.Class({
   setHeardData(data) {
     let RanchMoney = data.Model.RanchMoney;
     let RanchRank = data.Model.RanchRank;
-    let moneyLabel = cc.find('gold/money', this.node).getComponent(cc.Label);
-    moneyLabel.string = '￥' + RanchMoney;
+    let moneyLabel = cc.find("gold/money", this.node).getComponent(cc.Label);
+    moneyLabel.string = "￥" + RanchMoney;
     //经验值
-    this.level = cc.find('Lv/level', this.node).getComponent(cc.Label);
-    this.level.string = 'LV.' + data.Model.Grade;
-    this.levelProgressBar = cc.find('Lv/lv_bar', this.node).getComponent(cc.ProgressBar);
+    this.level = cc.find("Lv/level", this.node).getComponent(cc.Label);
+    this.level.string = "LV." + data.Model.Grade;
+    this.levelProgressBar = cc.find("Lv/lv_bar", this.node).getComponent(cc.ProgressBar);
     this.levelProgressBar.progress = data.Model.ExperienceValue / data.Model.GradeExperienceValue;
   },
   init() {
@@ -39,12 +40,16 @@ cc.Class({
     this.moneyLabel.string = data.Model;
   },
   rechargeEvent: function() {
-    cc.director.loadScene('recharge');
+    cc.director.loadScene("recharge", this.onLoadFadeIn);
     this.removePersist();
   },
   gotoUserCenter: function() {
-    cc.director.loadScene('userCenter');
+    cc.director.loadScene("userCenter", this.onLoadFadeIn);
     this.removePersist();
+  },
+  onLoadFadeIn() {
+    let canvas = cc.find("Canvas");
+    Tool.RunAction(canvas, "fadeIn", 0.3);
   },
   removePersist() {
     cc.game.removePersistRootNode(Config.menuNode);

@@ -1,5 +1,6 @@
 var Data = require("Data");
-
+var ToolJs = require("Tool");
+var Tool = ToolJs.Tool;
 cc.Class({
   extends: cc.Component,
   properties: {
@@ -21,6 +22,8 @@ cc.Class({
     this.fn = {
       setLocalStorageData: this.setLocalStorageData
     };
+    let canvas = cc.find("Canvas");
+    Tool.RunAction(canvas, "fadeIn", 0.3);
   },
 
   //加载植物
@@ -102,6 +105,7 @@ cc.Class({
     if (ValueList[i].IsLock) {
       //拓展
       PrefabExtend.active = true;
+      Tool.RunAction(PrefabExtend, "fadeIn", 0.3);
     }
     if (ValueList[i].CropsStatus == 1) {
       //小树苗
@@ -109,12 +113,14 @@ cc.Class({
       PrefabPlant_md.active = false;
       PrefabPlant_lg.active = false;
       PrefabPlant_ok.active = false;
+      Tool.RunAction(PrefabPlant_xs, "fadeIn", 0.3);
     } else if (ValueList[i].CropsStatus == 2) {
       //中端
       PrefabPlant_xs.active = false;
       PrefabPlant_md.active = true;
       PrefabPlant_lg.active = false;
       PrefabPlant_ok.active = false;
+      Tool.RunAction(PrefabPlant_md, "fadeIn", 0.3);
     } else if (ValueList[i].CropsStatus == 3) {
       //成熟
       PrefabPlant_xs.active = false;
@@ -122,6 +128,7 @@ cc.Class({
       PrefabPlant_lg.active = true;
       PrefabPlant_ok.active = false;
       PrefabPlant_tip.active = false;
+      Tool.RunAction(PrefabPlant_lg, "fadeIn", 0.3);
     } else if (ValueList[i].CropsStatus == 4) {
       //成熟
       PrefabPlant_xs.active = false;
@@ -129,6 +136,8 @@ cc.Class({
       PrefabPlant_lg.active = false;
       PrefabPlant_ok.active = true;
       PrefabPlant_tip.active = true; //显示可收割
+      Tool.RunAction(PrefabPlant_ok, "fadeIn", 0.3);
+      Tool.RunAction(PrefabPlant_tip, "fadeIn", 0.3);
     }
     //重置名字赋值
     Prefab.name = "Prefab" + i;
