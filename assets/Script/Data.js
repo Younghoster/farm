@@ -849,7 +849,7 @@ var func = {
       xhr.send('openID=' + this.openID);
     });
   },
-  //收取鸡蛋
+  //收取产蛋棚鸡蛋
   CollectEgg(eggID) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
@@ -869,6 +869,28 @@ var func = {
       xhr.open('POST', Config.apiUrl + '/T_Base_LayEggsShed/CollectingEggs', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
       xhr.send(`openID=${this.openID}&EggId=${eggID}`);
+    });
+  },
+  //收取牧场鸡蛋 
+  CollectRanchEgg() {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            console.log('获取鸡蛋失败');
+            reject(response);
+          }
+        }
+      };
+      xhr.open('POST', Config.apiUrl + '/T_Base_Ranch/PostCollectRankEgg', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
+      xhr.send(`openID=${this.openID}`);
     });
   },
   //收取贵妃鸡
