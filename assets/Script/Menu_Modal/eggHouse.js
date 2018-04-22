@@ -98,16 +98,32 @@ cc.Class({
       holeNode.on('click', () => {
         Func.CollectEgg(eggID).then(data => {
           if (data.Code === 1) {
-            this.initData();
+            //收取成功后 把蛋去掉（页面上）
+            cc.loader.loadRes('eggHouse/img3', cc.SpriteFrame, (err, spriteFrame) => {
+              holeSprite.spriteFrame = spriteFrame;
+            });
+            let timerBar = cc.find('timerBar', holeNode);
+            timerBar.active = false;
             switch (data.Model) {
               case -1:
                 //金蛋
                 this.animNode.active = true;
+                this.animNode.runAction(cc.fadeIn(0.3));
+                this.breakButton.active = true;
+                cc.loader.loadRes('eggHouse/egg0', cc.SpriteFrame, (err, spriteFrame) => {
+                  this.eggNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                });
                 this.breakButton.on('click', () => {
                   this.breakButton.active = false;
                   this.eggAnim.play('eggBroken');
                   this.eggNode.on('click', () => {
-                    this.animNode.runAction(cc.fadeOut(0.3));
+                    let action = cc.sequence(
+                      cc.fadeOut(0.3),
+                      cc.callFunc(() => {
+                        this.animNode.active = false;
+                      })
+                    );
+                    this.animNode.runAction(action);
                   });
                 });
                 break;

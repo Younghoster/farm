@@ -871,7 +871,7 @@ var func = {
       xhr.send(`openID=${this.openID}&EggId=${eggID}`);
     });
   },
-  //收取牧场鸡蛋 
+  //收取牧场鸡蛋
   CollectRanchEgg() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
@@ -1012,7 +1012,7 @@ var func = {
       xhr.send('cid=' + Id);
     });
   },
-  // / T_Base_Chicken/ GetChickenOwnerShipListByPage
+  // 获取兑换列表
   GetRecoverData(page) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
@@ -1033,7 +1033,7 @@ var func = {
       // GET方法
       xhr.open(
         'GET',
-        `${Config.apiUrl}/T_Base_Chicken/GetChickenOwnerShipListByPage?openID=${this.openID}&page=${page}`,
+        `${Config.apiUrl}/T_Base_Chicken/GetChickenOwnerShipListByPage?openID=${this.openID}&page=${page}&pagesize=4`,
         true
       );
       xhr.setRequestHeader('Content-Type', 'json');

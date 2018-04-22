@@ -65,14 +65,15 @@ cc.Class({
     //绑定兑换事件
     btn.on('click', () => {
       //接口未完成
-      Func.recoverChick().then(data => {
-        if (data.Code === 1) {
-          this.initData();
-          Msg.show('兑换成功');
-        } else {
-          Msg.show(data.Message);
-        }
-      });
+      // Func.recoverChick().then(data => {
+      //   if (data.Code === 1) {
+      //     this.initData();
+      //     Msg.show('兑换成功');
+      //   } else {
+      //     Msg.show(data.Message);
+      //   }
+      // });
+      Msg.show('接口还在开发中');
     });
 
     this.contentNode.addChild(itemNode);

@@ -223,8 +223,10 @@ cc.Class({
         // 更新小鸡头顶饥饿状态
         this.updateChickList();
         Msg.show('喂食成功');
+      } else if (data.Code == -2) {
+        Alert.show(data.Message, this.loadSceneShop, 'icon-feed', '剩余的饲料不足');
       } else if (data.Code == 2) {
-        Alert.show(data.Message, this.loadSceneShop, this.feedIcon, '剩余的饲料不足');
+        Msg.show(data.Message);
       }
     });
   },
