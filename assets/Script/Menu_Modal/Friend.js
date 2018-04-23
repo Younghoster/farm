@@ -186,9 +186,19 @@ cc.Class({
     gradeLabel.string = "Lv." + grade;
 
     item.on("click", () => {
-      cc.director.loadScene("FriendIndex");
+      cc.director.loadScene("FriendIndex", this.onLoadFadeIn);
+      this.removePersist();
     });
     this.contentNode.addChild(item);
+  },
+
+  onLoadFadeIn() {
+    let canvas = cc.find("Canvas");
+    Tool.RunAction(canvas, "fadeIn", 0.3);
+  },
+  removePersist() {
+    cc.game.removePersistRootNode(Config.menuNode);
+    cc.game.removePersistRootNode(Config.hearderNode);
   },
   assignNoFriendData(data) {
     const element = data;
