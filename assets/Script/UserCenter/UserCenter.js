@@ -20,9 +20,17 @@ cc.Class({
   btnGoTradeEvent() {
     cc.director.loadScene("tradelist");
   },
+  btnGocoupon() {
+    Config.backUrl = "userCenter";
+    cc.director.loadScene("CouPonList");
+  },
   btnGoAddressList() {
     Config.backUrl = "userCenter";
     cc.director.loadScene("AddressList");
+  },
+  btnGotorep() {
+    Config.backUrl = "userCenter";
+    cc.director.loadScene("repertory");
   },
   outLogin() {
     window.location = "http://jingongbao.com:4634";
@@ -32,7 +40,6 @@ cc.Class({
 
     Data.func.GetUserData(1, 4).then(data => {
       this.setData(data);
-      this.setRepertory(data);
       this.setBuyPropertyList(data);
     });
     this.EditName();
@@ -61,81 +68,7 @@ cc.Class({
       console.log(data.Message);
     }
   },
-  //获取仓库数据  类型  1.系统鸡蛋. 2.不可以孵化的蛋 3.贵妃鸡， 4.饲料，5.高级成长鸡
-  setRepertory(data) {
-    if (data.Code == 1) {
-      for (let i = 0; i < data.Model.WarehouseList.length; i++) {
-        const RepertoryByCenter = cc.instantiate(this.RepertoryByCenter_Prefab);
-        const PrefabParent = cc.find("scrollview/view/layout/myAssets1/pageview/view/content", this.node);
-        const Count = cc.find("label", RepertoryByCenter);
-        let updateBg = cc.find("item01", RepertoryByCenter).getComponent(cc.Sprite);
-        let updateCount = cc.find("label", RepertoryByCenter).getComponent(cc.Label);
-        let imgSrc;
-        switch (data.Model.WarehouseList[i].PropertyTypeID) {
-          case 1: {
-            imgSrc = "Modal/Repertory/img-hatchEgg";
-            break;
-          }
-          case 2: {
-            imgSrc = "Modal/Repertory/img-egg";
-            break;
-          }
-          case 3: {
-            imgSrc = "Modal/Repertory/img-hen";
-            break;
-          }
-          case 4: {
-            imgSrc = "Modal/Repertory/feed";
-            break;
-          }
-          case 5: {
-            imgSrc = "Modal/Repertory/img-hen";
-            break;
-          }
-          //农作物
-          case 6: {
-            imgSrc = "Modal/Repertory/img-ym";
-            break;
-          }
-          //肥料
-          case 7: {
-            imgSrc = "Modal/Repertory/img-hf";
-            break;
-          }
-          //粪便
-          case 8: {
-            imgSrc = "Modal/Repertory/img-db";
-            break;
-          }
-          //超级肥料
-          case 9: {
-            imgSrc = "Modal/Repertory/img-hf";
-            break;
-          }
-          //改名卡
-          case 14: {
-            imgSrc = "Modal/Repertory/gmk1";
-            break;
-          }
-          default: {
-            imgSrc = "Modal/Repertory/img-hatchEgg";
-            break;
-          }
-        }
 
-        cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
-          updateBg.spriteFrame = spriteFrame;
-        });
-
-        updateCount.string = "×" + data.Model.WarehouseList[i].Count;
-        data.Model.WarehouseList[i].Count == 0 ? (RepertoryByCenter.active = false) : (RepertoryByCenter.active = true);
-
-        PrefabParent.addChild(RepertoryByCenter);
-      }
-    } else {
-      console.log(data.Message);
-    }
-  },
   setBuyPropertyList(data) {
     //PropType  0：积分  1：牧场币
     if (data.Code == 1) {
