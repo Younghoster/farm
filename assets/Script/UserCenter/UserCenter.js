@@ -186,6 +186,11 @@ cc.Class({
             imgSrc_ = "Modal/Repertory/icon-asset04";
             break;
           }
+          //自动清洁机
+          case 12: {
+            imgSrc_ = "Modal/Repertory/icon-bot-xs";
+            break;
+          }
           default: {
             break;
           }

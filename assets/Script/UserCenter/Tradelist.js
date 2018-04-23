@@ -33,6 +33,9 @@ cc.Class({
       let nodata = cc.find("scrollview/view/layout/sprite/label", this.node).getComponent(cc.Label);
       nodata.string = "没有更多内容";
       return (this.hasMore = false);
+    } else if (data.Model.BuyPropertyList.length < 15) {
+      let nodata = cc.find("scrollview/view/layout/sprite/label", this.node).getComponent(cc.Label);
+      nodata.string = "没有更多内容";
     }
     if (data.Code == 1) {
       for (let i = 0; i < data.Model.BuyPropertyList.length; i++) {
@@ -80,6 +83,11 @@ cc.Class({
           //产蛋鸡
           case 13: {
             imgSrc_ = "Modal/Repertory/icon-asset04";
+            break;
+          }
+          //自动清洁机
+          case 12: {
+            imgSrc_ = "Modal/Repertory/icon-bot-xs";
             break;
           }
         }

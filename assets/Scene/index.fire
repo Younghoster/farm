@@ -6066,7 +6066,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "line",
+    "_name": "New Sprite(Splash)",
     "_objFlags": 0,
     "_parent": {
       "__id__": 152
