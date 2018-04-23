@@ -1,6 +1,7 @@
 var Data = require('Data');
 var Func = Data.func;
 var Tool = require('Tool').Tool;
+var DateFormat = require('utils').fn;
 cc.Class({
   extends: cc.Component,
 
@@ -47,11 +48,23 @@ cc.Class({
     let msgLabel = cc.find('info/msg/value', itemNode).getComponent(cc.Label);
     let msgKeyNode = cc.find('info/msg/key', itemNode);
     let msgKeyLabel = msgKeyNode.getComponent(cc.Label);
+    let timeLabel = cc.find('info/time/value', itemNode).getComponent(cc.Label);
     let btn = cc.find('btn', itemNode);
     let btnLabel = cc.find('label', btn).getComponent(cc.Label);
 
+    let createTime = data.CreateTime.match(/\d+/g)[0];
+    let endTime = parseInt(createTime) + 48 * 60 * 60 * 1000;
+    let nowDate = Date.parse(new Date());
+    let time = DateFormat.timeDiff(nowDate, endTime);
+
     idLabel.string = data.ID;
-    eggCountLabel.string = data.EggCount;
+    eggCountLabel.Zstring = data.EggCount;
+    if (time) {
+      timeLabel.string = `${time.days * 24 + time.hours}小时${time.mins}分钟`;
+    } else {
+      timeLabel.string = '已超出兑换时间';
+    }
+
     if (data.Money > 0) {
       msgLabel.string = `${data.Money}个牧场币`;
     } else {
