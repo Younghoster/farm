@@ -3990,7 +3990,7 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 4,
+    "_alignFlags": 44,
     "_left": 0,
     "_right": 0,
     "_top": 0,
@@ -4003,7 +4003,7 @@
     "_isAbsBottom": true,
     "_isAbsHorizontalCenter": true,
     "_isAbsVerticalCenter": true,
-    "_originalWidth": 0,
+    "_originalWidth": 750,
     "_originalHeight": 0
   },
   {
