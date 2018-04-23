@@ -213,7 +213,7 @@ cc.Class({
   },
 
   onLoad() {
-    this.friendOpenID = 'fe37fb9bedcf48ea954964f4e9117c51';
+    console.log('onload');
   },
 
   start() {
