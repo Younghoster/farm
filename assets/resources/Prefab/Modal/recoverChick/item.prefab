@@ -1681,7 +1681,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 56,
+      "width": 80,
       "height": 80
     },
     "_rotationX": 0,
@@ -1719,7 +1719,7 @@
     "_N$string": "补交兑换",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "微软雅黑",
     "_N$overflow": 3
   },
   {
