@@ -18,27 +18,16 @@ cc.Class({
   },
 
   bindData() {
-    // Func.GetRanchUpGradeMoney().then(data => {
-    //   if (data.Code === 1) {
-    //     let length = data.List.length || 0;
-    //     for (let i = 0; i < length; i++) {
-    //       if (data.List[i].Type === 0) {
-    //         this.upgradeByPointInfo = data.List[i];
-    //       } else {
-    //         this.upgradeByMoneyInfo = data.List[i];
-    //       }
-    //     }
-    //     this.messageLabel.string = `将牧场lv.${this.upgradeByPointInfo.RanchGrade - 1}升级为lv.${parseInt(
-    //       this.upgradeByPointInfo.RanchGrade
-    //     )},`;
-    //     this.label.string = `需要花费 ${this.upgradeByPointInfo.Money} 积分或花费 ${
-    //       this.upgradeByMoneyInfo.Money
-    //     } 牧场币`;
-    //   } else if (data.Code === 2) {
-    //   } else {
-    //     Msg.show(data.Message);
-    //   }
-    // });
+    Func.GetNextUnlockLand().then(data => {
+      if (data.Code === 1) {
+        this.messageLabel.string = `拓建当前土地您需要花费`;
+        // this.label.string = `需要花费 ${this.upgradeByPointInfo.Money} 积分或花费 ${
+        //   this.upgradeByMoneyInfo.Money
+        // } 牧场币`;
+      } else {
+        Msg.show(data.Message);
+      }
+    });
   },
   bindEvent() {
     this.closeButton.on("click", () => {

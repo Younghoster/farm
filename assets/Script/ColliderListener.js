@@ -17,33 +17,57 @@ cc.Class({
     this.touchingNumber++;
 
     this.dataList = JSON.parse(cc.sys.localStorage.getItem("FarmData")); //缓存机制
-    let FarmJs = cc.find("Canvas");
+    this.FarmJs = cc.find("Canvas");
     let id = Number(other.node.name.slice(4));
-    let propertyId = 12;
+    let propertyId = 12; //种子ID
+    let type = 7; //肥料ID
     if (this.dataList.toolType == 1) {
-      let landId = this.dataList.List[id].ID;
-      let CropsID = this.dataList.List[id].CropsID;
-      let IsLock = this.dataList.List[id].IsLock;
-      if (CropsID == 0 && !IsLock) {
-        Data.func.addCrops(landId, propertyId).then(data => {
-          if (data.Code === 1) {
-            setTimeout(function() {
-              Data.func.getFarmModalData().then(data2 => {
-                // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
-                console.log(data2);
-                FarmJs.emit("say-hello", {
-                  data: data2.Model
-                });
-              });
-            }, 500);
-          } else {
-            Msg.show(data.Message);
-          }
-        });
-      }
+      this.crops(id, propertyId);
+    } else if (this.dataList.toolType == 5) {
+      this.CropsSertilize(id, type);
     }
   },
-
+  //播种
+  crops(id, propertyId) {
+    let self = this;
+    let landId = this.dataList.List[id].ID;
+    let CropsID = this.dataList.List[id].CropsID;
+    let IsLock = this.dataList.List[id].IsLock;
+    if (CropsID == 0 && !IsLock) {
+      Data.func.addCrops(landId, propertyId).then(data => {
+        if (data.Code === 1) {
+          setTimeout(function() {
+            Data.func.getFarmModalData().then(data2 => {
+              // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
+              console.log(data2);
+              self.FarmJs.emit("say-hello", {
+                data: data2.Model
+              });
+            });
+          }, 500);
+        } else {
+          Msg.show(data.Message);
+        }
+      });
+    }
+  },
+  //施肥
+  CropsSertilize(id, type) {
+    let self = this;
+    let cropsId = this.dataList.List[id].CropsID;
+    let CropsID = this.dataList.List[id].CropsID;
+    let IsLock = this.dataList.List[id].IsLock;
+    let CropsStatus = this.dataList.List[id].CropsStatus;
+    if (CropsStatus !== 0 && !IsLock) {
+      Data.func.CropsSertilize(CropsID, type).then(data => {
+        if (data.Code === 0) {
+          Msg.show("施肥成功！");
+        } else {
+          Msg.show(data.Message);
+        }
+      });
+    }
+  },
   onCollisionStay: function(other) {
     // console.log('on collision stay');
   },

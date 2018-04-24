@@ -21,12 +21,13 @@ cc.Class({
   Prefab: null,
   onLoad() {
     var self = this;
+    //初始化加载
     this.fatchData();
     this.getToolPositon();
     let canvas = cc.find("Canvas");
     Tool.RunAction(canvas, "fadeIn", 0.3);
+    //更新数据监听
     this.node.on("say-hello", function(event) {
-      // self.setLocalStorageData(event.detail.data.Model);
       let List = event.detail.data;
       for (let i = 0; i < List.length; i++) {
         self.fatchPlant(i, List);
@@ -34,7 +35,7 @@ cc.Class({
     });
   },
 
-  //加载植物
+  //加载植物数据
   fatchData() {
     var self = this;
     Data.func.getFarmModalData().then(data => {
@@ -86,6 +87,13 @@ cc.Class({
     let PrefabPlant_ok = cc.find("plant-ok", Prefab);
     let PrefabExtend = cc.find("extend", Prefab);
     let PrefabPlant_tip = cc.find("New Node/reap", Prefab);
+    //初始化清空显示
+    PrefabPlant_xs.active = false;
+    PrefabPlant_md.active = false;
+    PrefabPlant_lg.active = false;
+    PrefabPlant_ok.active = false;
+    PrefabExtend.active = false;
+    PrefabPlant_tip.active = false;
     //提示图标的类型切换
     self.setTipType(ValueList[i], PrefabPlant_tip);
     let itemBox = cc.find("bg/mapNew/item" + i, this.node);
@@ -103,30 +111,17 @@ cc.Class({
     if (ValueList[i].CropsStatus == 1) {
       //小树苗
       PrefabPlant_xs.active = true;
-      PrefabPlant_md.active = false;
-      PrefabPlant_lg.active = false;
-      PrefabPlant_ok.active = false;
       Tool.RunAction(PrefabPlant_xs, "fadeIn", 0.3);
     } else if (ValueList[i].CropsStatus == 2) {
       //中端
-      PrefabPlant_xs.active = false;
       PrefabPlant_md.active = true;
-      PrefabPlant_lg.active = false;
-      PrefabPlant_ok.active = false;
       Tool.RunAction(PrefabPlant_md, "fadeIn", 0.3);
     } else if (ValueList[i].CropsStatus == 3) {
       //成熟
-      PrefabPlant_xs.active = false;
-      PrefabPlant_md.active = false;
       PrefabPlant_lg.active = true;
-      PrefabPlant_ok.active = false;
-      PrefabPlant_tip.active = false;
       Tool.RunAction(PrefabPlant_lg, "fadeIn", 0.3);
     } else if (ValueList[i].CropsStatus == 4) {
       //成熟
-      PrefabPlant_xs.active = false;
-      PrefabPlant_md.active = false;
-      PrefabPlant_lg.active = false;
       PrefabPlant_ok.active = true;
       PrefabPlant_tip.active = true; //显示可收割
       Tool.RunAction(PrefabPlant_ok, "fadeIn", 0.3);
@@ -161,22 +156,20 @@ cc.Class({
   //监听触摸
   getToolPositon() {
     let self = this;
-
     for (let i = 1; i < 7; i++) {
-      if (i == 1 || i == 5) {
-        this.showChooseMove(i);
-      } else {
+      if (i !== 1 && i !== 5) {
         let tool = cc.find("tool/layout/farm_icon_0" + i, this.node);
         this.addListenMove(i, tool);
       }
     }
   },
-  showChooseMove(i) {},
+  //添加触摸事件
   addListenMove(i, tool) {
     let self = this;
     let farmBox = cc.find("bg", this.node);
-
+    let bg_farm = cc.find("bg_farm", this.node);
     tool.on("touchstart", function(e) {
+      bg_farm.opacity = 0; //种子选择的浮窗
       self.Value.toolType = i;
       if (self.Value.toolType != 0) {
         cc.sys.localStorage.setItem("FarmData", JSON.stringify(self.Value)); //缓存机制
@@ -198,11 +191,17 @@ cc.Class({
       if (self.Value.toolType != 0) {
         self.Prefab.removeFromParent();
       }
+      bg_farm.active = false; //种子选择的浮窗
+      bg_farm.opacity = 1;
+      bg_farm.removeAllChildren();
     });
     tool.on("touchcancel", function() {
       if (self.Value.toolType != 0) {
         self.Prefab.removeFromParent();
       }
+      bg_farm.active = false; //种子选择的浮窗
+      bg_farm.opacity = 1;
+      bg_farm.removeAllChildren();
     });
   },
   //工具图片显示  浇水、除草、种子、镰刀
@@ -241,50 +240,33 @@ cc.Class({
   gotoMuChange: function() {
     cc.director.loadScene("index");
   },
+  //播种和施肥触发事件
   setBtnShowSeed(e) {
     let self = this;
     let seedBox = cc.find("bg_farm", this.node);
-    switch (e.target._name) {
-      case "farm_icon_01": {
-        if (!seedBox.active) {
-          for (let i = 0; i < 4; i++) {
-            let prefab = cc.instantiate(self.ItemSeed_Prefab);
-            let Img = cc.find("ymzz", prefab).getComponent(cc.Sprite);
-            let Label = cc.find("label", prefab).getComponent(cc.Label);
-            cc.loader.loadRes("Modal/Repertory/ymzz", cc.SpriteFrame, function(err, spriteFrame) {
-              Img.spriteFrame = spriteFrame;
-            });
-            Label.string = "玉米";
-            self.addListenMove(1, prefab);
-            seedBox.addChild(prefab);
-          }
-          Tool.RunAction(seedBox, "fadeIn", 0.3);
+    if (!seedBox.active) {
+      for (let i = 0; i < 4; i++) {
+        let prefab = cc.instantiate(self.ItemSeed_Prefab);
+        let Img = cc.find("ymzz", prefab).getComponent(cc.Sprite);
+        let ImgSrc;
+        let Label = cc.find("label", prefab).getComponent(cc.Label);
+        if (e.target._name == "farm_icon_01") {
+          ImgSrc = "Modal/Repertory/ymzz";
+          Label.string = "玉米";
         } else {
-          seedBox.active = false;
-          seedBox.removeAllChildren();
+          ImgSrc = "Modal/Repertory/sd-fl1";
+          Label.string = "肥料";
         }
-        break;
+        cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function(err, spriteFrame) {
+          Img.spriteFrame = spriteFrame;
+        });
+        self.addListenMove(1, prefab);
+        seedBox.addChild(prefab);
       }
-      case "farm_icon_05": {
-        if (!seedBox.active) {
-          for (let i = 0; i < 4; i++) {
-            let prefab = cc.instantiate(self.ItemSeed_Prefab);
-            let Img = cc.find("ymzz", prefab).getComponent(cc.Sprite);
-            let Label = cc.find("label", prefab).getComponent(cc.Label);
-            cc.loader.loadRes("Modal/Repertory/sd-fl1", cc.SpriteFrame, function(err, spriteFrame) {
-              Img.spriteFrame = spriteFrame;
-            });
-            Label.string = "肥料";
-            self.addListenMove(5, prefab);
-            seedBox.addChild(prefab);
-          }
-          Tool.RunAction(seedBox, "fadeIn", 0.3);
-        } else {
-          seedBox.active = false;
-          seedBox.removeAllChildren();
-        }
-        break;
-      }
+      Tool.RunAction(seedBox, "fadeIn", 0.3);
+    } else {
+      seedBox.active = false;
+      seedBox.removeAllChildren();
     }
   },
   backanimate(e) {

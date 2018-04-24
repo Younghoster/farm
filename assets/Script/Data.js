@@ -1052,13 +1052,13 @@ var func = {
             resolve(response);
           } else {
             var response = xhr.responseText;
-            console.log('获取鸡蛋失败');
+            console.log("获取鸡蛋失败");
             reject(response);
           }
         }
       };
-      xhr.open('POST', Config.apiUrl + '/T_Base_Chicken/BuyChickenOwnership', true);
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
+      xhr.open("POST", Config.apiUrl + "/T_Base_Chicken/BuyChickenOwnership", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); //缺少这句，后台无法获取参数
       xhr.send(`openID=${this.openID}&cid=${cid}`);
     });
   },
@@ -1754,7 +1754,7 @@ var func = {
     });
   },
   //植物施肥
-  CropsSertilize(cropsId, landId) {
+  CropsSertilize(cropsId, type) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -1775,6 +1775,28 @@ var func = {
         Config.apiUrl + "/T_Farm_Crops/CropsSertilize?openId=" + this.openID + "&cropsId=" + cropsId + "&type=" + type,
         true
       );
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.send();
+    });
+  },
+  //获取用户解锁下一块土地的牧场币，积分，用户等级
+  GetNextUnlockLand() {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            reject(response);
+          }
+        }
+      };
+      xhr.open("POST", Config.apiUrl + "/T_Farm_Land/GetNextUnlockLand?openId=" + this.openID, true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.send();
     });
