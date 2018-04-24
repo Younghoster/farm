@@ -11,6 +11,10 @@ cc.Class({
     Item_Prefab: {
       default: null,
       type: cc.Prefab
+    },
+    ItemSeed_Prefab: {
+      default: null,
+      type: cc.Prefab
     }
   },
   Value: null,
@@ -19,11 +23,15 @@ cc.Class({
     var self = this;
     this.fatchData();
     this.getToolPositon();
-    this.fn = {
-      setLocalStorageData: this.setLocalStorageData
-    };
     let canvas = cc.find("Canvas");
     Tool.RunAction(canvas, "fadeIn", 0.3);
+    this.node.on("say-hello", function(event) {
+      // self.setLocalStorageData(event.detail.data.Model);
+      let List = event.detail.data;
+      for (let i = 0; i < List.length; i++) {
+        self.fatchPlant(i, List);
+      }
+    });
   },
 
   //加载植物
@@ -66,25 +74,7 @@ cc.Class({
       }, 500);
     }
   },
-  //土地点击事件
-  landClickEvent(e) {
-    let self = this;
-    let landId = this.Value.List[Number(e.currentTarget._name.slice(4))].ID;
-    let propertyId = 12;
-    Data.func.addCrops(landId, propertyId).then(data => {
-      if (data.Code === 1) {
-        setTimeout(function() {
-          Data.func.getFarmModalData().then(data => {
-            if (data.Code === 1) {
-              self.setLocalStorageData(data);
-            }
-          });
-        }, 500);
-      } else {
-        Msg.show(data.Message);
-      }
-    });
-  },
+
   //加载农作物
   fatchPlant(i, ValueList) {
     var self = this;
@@ -106,6 +96,9 @@ cc.Class({
       //拓展
       PrefabExtend.active = true;
       Tool.RunAction(PrefabExtend, "fadeIn", 0.3);
+      PrefabExtend.on("click", function(e) {
+        console.log(ValueList[i].ID);
+      });
     }
     if (ValueList[i].CropsStatus == 1) {
       //小树苗
@@ -158,7 +151,7 @@ cc.Class({
       });
       obj.active = true;
     } else if (ValueList.CropsIsFertilization && ValueList.CropsStatus != 0) {
-      cc.loader.loadRes("Farm/worm", cc.SpriteFrame, function(err, spriteFrame) {
+      cc.loader.loadRes("Farm/fertilize", cc.SpriteFrame, function(err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
@@ -168,31 +161,45 @@ cc.Class({
   //监听触摸
   getToolPositon() {
     let self = this;
+
+    for (let i = 1; i < 7; i++) {
+      if (i == 1 || i == 5) {
+        this.showChooseMove(i);
+      } else {
+        let tool = cc.find("tool/layout/farm_icon_0" + i, this.node);
+        this.addListenMove(i, tool);
+      }
+    }
+  },
+  showChooseMove(i) {},
+  addListenMove(i, tool) {
+    let self = this;
     let farmBox = cc.find("bg", this.node);
-    let tool = cc.find("tool/bottomTool/toolBox/btn0" + i, this.node);
-    farmBox.on("touchstart", function(e) {
+
+    tool.on("touchstart", function(e) {
+      self.Value.toolType = i;
       if (self.Value.toolType != 0) {
         cc.sys.localStorage.setItem("FarmData", JSON.stringify(self.Value)); //缓存机制
         self.Prefab = cc.instantiate(self.Tool_Prefab);
         let Img = cc.find("tool", self.Prefab).getComponent(cc.Sprite);
-        cc.loader.loadRes(self.imgSrcSelect(self.Value.toolType), cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes(self.imgSrcSelect(i), cc.SpriteFrame, function(err, spriteFrame) {
           Img.spriteFrame = spriteFrame;
         });
-        self.Prefab.setPosition(e.getLocation().x - 150, e.getLocation().y - 150);
-        farmBox.addChild(self.Prefab);
+        self.Prefab.setPosition(e.getLocation().x - 100, e.getLocation().y - 100);
+        farmBox.addChild(self.Prefab, 9);
       }
     });
-    farmBox.on("touchmove", function(e) {
+    tool.on("touchmove", function(e) {
       if (self.Value.toolType != 0) {
-        self.Prefab.setPosition(e.getLocation().x - 150, e.getLocation().y - 150);
+        self.Prefab.setPosition(e.getLocation().x - 100, e.getLocation().y - 100);
       }
     });
-    farmBox.on("touchend", function() {
+    tool.on("touchend", function() {
       if (self.Value.toolType != 0) {
         self.Prefab.removeFromParent();
       }
     });
-    farmBox.on("touchcancel", function() {
+    tool.on("touchcancel", function() {
       if (self.Value.toolType != 0) {
         self.Prefab.removeFromParent();
       }
@@ -231,34 +238,54 @@ cc.Class({
     }
     return src_;
   },
-  setBtnState(e) {
-    let type = e.currentTarget._name.slice(11);
-    this.animate(type);
-  },
   gotoMuChange: function() {
     cc.director.loadScene("index");
   },
-  //按钮变化
-  animate(data) {
-    let btnStyle = cc.find("tool/layout/farm_icon_0" + data, this.node);
-    let bt1 = cc.find("tool/layout/farm_icon_01", this.node);
-    let bt2 = cc.find("tool/layout/farm_icon_02", this.node);
-    let bt3 = cc.find("tool/layout/farm_icon_03", this.node);
-    let bt4 = cc.find("tool/layout/farm_icon_04", this.node);
-    let bt5 = cc.find("tool/layout/farm_icon_05", this.node);
-    let bt6 = cc.find("tool/layout/farm_icon_06", this.node);
-    if (btnStyle.getPositionY() == 0) {
-      this.backanimate([bt1, bt2, bt3, bt4, bt5, bt6]);
-      btnStyle.setScale(1.1);
-      btnStyle.setPositionY(15);
-      this.Value.toolType = Number(data);
-      cc.sys.localStorage.setItem("FarmData", JSON.stringify(this.Value)); //缓存机制
-    } else {
-      this.backanimate([bt1, bt2, bt3, bt4, bt5, bt6]);
-      this.Value.toolType = 0;
-      cc.sys.localStorage.setItem("FarmData", JSON.stringify(this.Value)); //缓存机制
+  setBtnShowSeed(e) {
+    let self = this;
+    let seedBox = cc.find("bg_farm", this.node);
+    switch (e.target._name) {
+      case "farm_icon_01": {
+        if (!seedBox.active) {
+          for (let i = 0; i < 4; i++) {
+            let prefab = cc.instantiate(self.ItemSeed_Prefab);
+            let Img = cc.find("ymzz", prefab).getComponent(cc.Sprite);
+            let Label = cc.find("label", prefab).getComponent(cc.Label);
+            cc.loader.loadRes("Modal/Repertory/ymzz", cc.SpriteFrame, function(err, spriteFrame) {
+              Img.spriteFrame = spriteFrame;
+            });
+            Label.string = "玉米";
+            self.addListenMove(1, prefab);
+            seedBox.addChild(prefab);
+          }
+          Tool.RunAction(seedBox, "fadeIn", 0.3);
+        } else {
+          seedBox.active = false;
+          seedBox.removeAllChildren();
+        }
+        break;
+      }
+      case "farm_icon_05": {
+        if (!seedBox.active) {
+          for (let i = 0; i < 4; i++) {
+            let prefab = cc.instantiate(self.ItemSeed_Prefab);
+            let Img = cc.find("ymzz", prefab).getComponent(cc.Sprite);
+            let Label = cc.find("label", prefab).getComponent(cc.Label);
+            cc.loader.loadRes("Modal/Repertory/sd-fl1", cc.SpriteFrame, function(err, spriteFrame) {
+              Img.spriteFrame = spriteFrame;
+            });
+            Label.string = "肥料";
+            self.addListenMove(5, prefab);
+            seedBox.addChild(prefab);
+          }
+          Tool.RunAction(seedBox, "fadeIn", 0.3);
+        } else {
+          seedBox.active = false;
+          seedBox.removeAllChildren();
+        }
+        break;
+      }
     }
-    console.log(this.Value.toolType);
   },
   backanimate(e) {
     for (let i = 0; i < e.length; i++) {
