@@ -140,7 +140,13 @@ cc.Class({
     var rank = element.Row || i;
     var clean = element.IsClean;
     var feed = element.IsFeed;
+    var water = element.IsWater || false;
+    var steal = element.IsSteal || false;
+    var weed = element.IsWeed || false;
+    var worm = element.IsWorm || false;
     let openIds = element.OpenID;
+
+    let i = 0;
 
     // 判断加载哪一个prefab
     if (!sort) {
@@ -166,15 +172,37 @@ cc.Class({
         rankLabel.string = rank;
       }
 
-      var healthNode = cc.find('item-content/status/health', item);
+      //icon赋值
       var cleanNode = cc.find('item-content/status/clean', item);
       var feedNode = cc.find('item-content/status/feed', item);
+      var waterNode = cc.find('item-content/status/water', item);
+      var stealNode = cc.find('item-content/status/steal', item);
+      var weedNode = cc.find('item-content/status/weed', item);
+      var wormNode = cc.find('item-content/status/worm', item);
 
-      if (clean) {
+      if (clean && i < 4) {
         cleanNode.active = true;
+        i++;
       }
-      if (feed) {
+      if (feed && i < 4) {
         feedNode.active = true;
+        i++;
+      }
+      if (water && i < 4) {
+        waterNode.active = true;
+        i++;
+      }
+      if (steal && i < 4) {
+        stealNode.active = true;
+        i++;
+      }
+      if (weed && i < 4) {
+        weedNode.active = true;
+        i++;
+      }
+      if (worm && i < 4) {
+        wormNode.active = true;
+        i++;
       }
     } else {
       //搜索好友 排名不显示

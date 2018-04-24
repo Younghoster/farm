@@ -27,14 +27,16 @@ cc.Class({
   initData(data) {
     // 清洁度设置
     this._clearValue = data.RanchModel.RanchCleanliness;
-
-    this.clearProgressBar.progress = this._clearValue / 150;
+    this.clearProgressBar = cc.find('clearBar/clear_bar', this.node).getComponent(cc.ProgressBar);
+    this.clearLabel = cc.find('clearBar/value', this.node).getComponent(cc.Label);
+    this.clearProgressBar.progress = this._clearValue / 100;
+    this.clearLabel.string = this._clearValue + '%';
 
     //经验值
-    this.level = cc.find('div_header/Lv/level', this.node).getComponent(cc.Label);
-    this.level.string = 'V' + data.UserModel.Grade;
-    this.levelProgressBar = cc.find('div_header/Lv/lv_bar', this.node).getComponent(cc.ProgressBar);
-    this.levelProgressBar.progress = data.UserModel.ExperienceValue / data.UserModel.GradeExperienceValue;
+    this.level = cc.find('Lv/level', this.node).getComponent(cc.Label);
+    this.level.string = 'LV.' + data.Model.Grade;
+    this.levelProgressBar = cc.find('Lv/lv_bar', this.node).getComponent(cc.ProgressBar);
+    this.levelProgressBar.progress = data.Model.ExperienceValue / data.Model.GradeExperienceValue;
 
     //初始化鸡蛋
     this.eggNode.active = data.RanchModel.EggCount > 0 ? true : false;

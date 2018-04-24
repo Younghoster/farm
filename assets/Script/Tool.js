@@ -2,21 +2,21 @@ var Tool = {
   setBarColor: function(bar, value) {
     var Node = bar;
     if (value < 0.6) {
-      Node.color = cc.color("#FF4A4A");
+      Node.color = cc.color('#FF4A4A');
     } else if (value < 0.8) {
-      Node.color = cc.color("#FFB70B");
+      Node.color = cc.color('#FFB70B');
     } else {
-      Node.color = cc.color("#74DA72");
+      Node.color = cc.color('#74DA72');
     }
   },
   setLabelColor: function(label, value) {
     var node = label.node;
     if (value < 0.6) {
-      Node.color = cc.color("#FF4A4A");
+      Node.color = cc.color('#FF4A4A');
     } else if (value < 0.8) {
-      Node.color = cc.color("#FFB70B");
+      Node.color = cc.color('#FFB70B');
     } else {
-      Node.color = cc.color("#74DA72");
+      Node.color = cc.color('#74DA72');
     }
   },
   //关闭模态
@@ -30,19 +30,24 @@ var Tool = {
   },
   //更新头部数据（money和经验值）
   updateHeader() {
-    let headerJs = cc.find("div_header").getComponent("Header");
+    let headerJs = cc.find('div_header').getComponent('Header');
     headerJs.init.call(headerJs);
   },
   RunAction(node, type, time) {
     var action = null;
     switch (type) {
-      case "fadeIn":
+      case 'fadeIn':
         node.active = true;
         node.opacity = 0;
         action = cc.fadeIn(time);
         node.runAction(action);
         break;
     }
+  },
+  //移除常驻资源
+  removePersist() {
+    cc.game.removePersistRootNode(Config.menuNode);
+    cc.game.removePersistRootNode(Config.hearderNode);
   }
 };
 

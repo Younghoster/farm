@@ -84,7 +84,9 @@ cc.Class({
     // 清洁度设置
     this._clearValue = data.RanchModel.RanchCleanliness;
     this.clearProgressBar = cc.find('clearBar/clear_bar', this.node).getComponent(cc.ProgressBar);
+    this.clearLabel = cc.find('clearBar/value', this.node).getComponent(cc.Label);
     this.clearProgressBar.progress = this._clearValue / 100;
+    this.clearLabel.string = this._clearValue + '%';
     //产蛋棚等级
     let eggsShedRank = data.EggsShed.ShedRank;
     let RanchRank = data.RanchModel.RanchRank;

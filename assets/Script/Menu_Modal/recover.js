@@ -56,8 +56,9 @@ cc.Class({
     let endTime = parseInt(createTime) + 48 * 60 * 60 * 1000;
     let nowDate = Date.parse(new Date());
     let time = DateFormat.timeDiff(nowDate, endTime);
+    let cid = data.ID;
 
-    idLabel.string = data.ID;
+    idLabel.string = cid;
     eggCountLabel.Zstring = data.EggCount;
     if (time) {
       timeLabel.string = `${time.days * 24 + time.hours}小时${time.mins}分钟`;
@@ -78,15 +79,14 @@ cc.Class({
     //绑定兑换事件
     btn.on('click', () => {
       //接口未完成
-      // Func.recoverChick().then(data => {
-      //   if (data.Code === 1) {
-      //     this.initData();
-      //     Msg.show('兑换成功');
-      //   } else {
-      //     Msg.show(data.Message);
-      //   }
-      // });
-      Msg.show('接口还在开发中');
+      Func.recoverChick(cid).then(data => {
+        if (data.Code === 1) {
+          itemNode.removeFromParent();
+          Msg.show('兑换成功,已存入仓库中');
+        } else {
+          Msg.show(data.Message);
+        }
+      });
     });
 
     this.contentNode.addChild(itemNode);
