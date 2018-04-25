@@ -1741,7 +1741,7 @@ var func = {
       xhr.open(
         "POST",
         Config.apiUrl +
-          "/T_Farm_Crops/UnlockLand?openId=" +
+          "/T_Farm_Land/UnlockLand?openId=" +
           this.openID +
           "&spendType=" +
           spendType +
@@ -1796,8 +1796,8 @@ var func = {
           }
         }
       };
-      xhr.open("POST", Config.apiUrl + "/T_Farm_Land/GetNextUnlockLand?openId=" + this.openID, true);
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.open("GET", Config.apiUrl + "/T_Farm_Land/GetNextUnlockLand?openId=" + this.openID, true);
+      xhr.setRequestHeader("Content-Type", "json");
       xhr.send();
     });
   }

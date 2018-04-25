@@ -40,7 +40,7 @@ cc.Class({
             Data.func.getFarmModalData().then(data2 => {
               // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
               console.log(data2);
-              self.FarmJs.emit("say-hello", {
+              self.FarmJs.emit("updataPlant", {
                 data: data2.Model
               });
             });
