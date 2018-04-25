@@ -11,6 +11,7 @@ cc.Class({
   nextTime: null,
   //流转记录 page
   recordPage: null,
+  chickList: null,
   ctor() {
     this.recordPage = 1;
   },
@@ -72,6 +73,7 @@ cc.Class({
     Func.GetChickList(3).then(data => {
       if (data.Code === 1) {
         this.assignChickList(data.List);
+        this.chickList = data.List;
       }
     });
   },
@@ -89,11 +91,25 @@ cc.Class({
         idLbael.string = list[i].ID;
         this.contentNode.addChild(itemNode);
 
+        if (this.Id == list[i].ID) {
+          itemNode.setScale(1.3, 1.3);
+        }
+
         itemNode.on('click', () => {
           this.Id = list[i].ID;
           this.initChickData();
+          for (let i = 0; i < this.chickList.length; i++) {
+            const element = this.chickList[i];
+            this.contentNode.children[i].setScale(1, 1);
+          }
+          itemNode.setScale(1.3, 1.3);
         });
       });
+    }
+  },
+  //切换小鸡选中效果
+  switchChickActive(id) {
+    if (this.Id === id) {
     }
   },
   //根据小鸡状态 显示不同的图片
@@ -291,6 +307,7 @@ cc.Class({
       this.initEggRecord();
     });
   },
+
   onLoad() {},
 
   start() {

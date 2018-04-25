@@ -4,7 +4,6 @@ var Tool = require('Tool').Tool;
 var DateFormat = require('utils').fn;
 cc.Class({
   extends: cc.Component,
-
   properties: {
     item_prefab: {
       default: null,
@@ -82,6 +81,10 @@ cc.Class({
       Func.recoverChick(cid).then(data => {
         if (data.Code === 1) {
           itemNode.removeFromParent();
+          if (this.contentNode.children.length <= 3) {
+            this.page++;
+            this.initData();
+          }
           Msg.show('兑换成功,已存入仓库中');
         } else {
           Msg.show(data.Message);

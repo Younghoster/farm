@@ -8,7 +8,7 @@
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
 
-var Data = require("Data");
+var Data = require('Data');
 var Func = Data.func;
 cc.Class({
   extends: cc.Component,
@@ -27,27 +27,30 @@ cc.Class({
   //初始化的数据
   data: null,
   bindNode() {
-    this.scrollviewNode = cc.find("bg/ScrollView", this.node);
+    this.scrollviewNode = cc.find('bg/ScrollView', this.node);
     this.scrollView = this.scrollviewNode.getComponent(cc.ScrollView);
     //Label节点绑定
-    this.temLabel = cc.find("div-title/tem", this.node).getComponent(cc.Label);
-    this.timeLabel = cc.find("div-title/div-time/time", this.node).getComponent(cc.Label);
-    this.windsLabel = cc.find("div-title/layout/winds/value", this.node).getComponent(cc.Label);
-    this.winddLabel = cc.find("div-title/layout/windd/value", this.node).getComponent(cc.Label);
-    this.humLabel = cc.find("div-title/layout/hum/value", this.node).getComponent(cc.Label);
-    this.lightLabel = cc.find("Grid/light/value", this.node).getComponent(cc.Label);
-    this.rainLabel = cc.find("Grid/rain/value", this.node).getComponent(cc.Label);
-    this.paLabel = cc.find("Grid/pa/value", this.node).getComponent(cc.Label);
-    this.co2Label = cc.find("Grid/co2/value", this.node).getComponent(cc.Label);
-    this.soiltemLabel = cc.find("Grid/soiltem/value", this.node).getComponent(cc.Label);
-    this.soilwaterLabel = cc.find("Grid/soilwater/value", this.node).getComponent(cc.Label);
-    this.ecLabel = cc.find("Grid/ec/value", this.node).getComponent(cc.Label);
-    this.noiLabel = cc.find("Grid/noi/value", this.node).getComponent(cc.Label);
-    this.powerLabel = cc.find("Grid/power/value", this.node).getComponent(cc.Label);
+    this.temLabel = cc.find('div-title/tem', this.node).getComponent(cc.Label);
+    this.timeLabel = cc.find('div-title/div-time/time', this.node).getComponent(cc.Label);
+    this.windsLabel = cc.find('Grid/winds/value', this.node).getComponent(cc.Label);
+    this.winddLabel = cc.find('Grid/windd/value', this.node).getComponent(cc.Label);
+    this.humLabel = cc.find('Grid/hum/value', this.node).getComponent(cc.Label);
+    this.pmLabel = cc.find('Grid/pm/value', this.node).getComponent(cc.Label);
+    this.pmTipLabel = cc.find('Grid/pm/tip/text', this.node).getComponent(cc.Label);
+    this.rainLabel = cc.find('Grid/rain/value', this.node).getComponent(cc.Label);
+    this.paLabel = cc.find('Grid/pa/value', this.node).getComponent(cc.Label);
+    this.co2Label = cc.find('Grid/co2/value', this.node).getComponent(cc.Label);
+    this.soiltemLabel = cc.find('Grid/soiltem/value', this.node).getComponent(cc.Label);
+    this.soilwaterLabel = cc.find('Grid/soilwater/value', this.node).getComponent(cc.Label);
+    this.ecLabel = cc.find('Grid/ec/value', this.node).getComponent(cc.Label);
+    this.noiLabel = cc.find('Grid/noi/value', this.node).getComponent(cc.Label);
+    this.noiTipLabel = cc.find('Grid/noi/tip/text', this.node).getComponent(cc.Label);
+    this.powerLabel = cc.find('Grid/power/value', this.node).getComponent(cc.Label);
+
     //内容节点（插入数据）
-    this.contentNode = cc.find("bg/ScrollView/view/content", this.node);
+    this.contentNode = cc.find('bg/ScrollView/view/content', this.node);
     //背景图片节点
-    this.bgNode = cc.find("div-title", this.node);
+    this.bgNode = cc.find('div-title', this.node);
   },
   onLoad() {
     this.bindNode();
@@ -59,7 +62,7 @@ cc.Class({
     });
     this.updateWeather();
     //滑动到最右侧 加载数据
-    this.scrollviewNode.on("bounce-right", this.updateData, this);
+    this.scrollviewNode.on('bounce-right', this.updateData, this);
     //同步滑动
     // this.titleScrollNode.on("scrolling", this.titleScrollEvent, this);
     // this.scrollviewNode.on("scrolling", this.scrollEvent, this);
@@ -75,10 +78,10 @@ cc.Class({
           resolve(data[0]);
           //时间item
           let itemNode = cc.instantiate(this.item_perfab);
-          let timeLabel = cc.find("value", itemNode).getComponent(cc.Label);
+          let timeLabel = cc.find('value', itemNode).getComponent(cc.Label);
           timeLabel.string = info.intime;
           itemNode.on(
-            "click",
+            'click',
             event => {
               this.assignData(info);
             },
@@ -96,16 +99,16 @@ cc.Class({
     Func.GetCurrentWeather().then(res => {
       if (res.data.rain !== 0) {
         //下雨
-        cc.loader.loadRes("weather/img-rain", cc.SpriteFrame, (err, spriteFrame) => {
+        cc.loader.loadRes('weather/img-rain', cc.SpriteFrame, (err, spriteFrame) => {
           this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
       } else if (res.data.light === 2 || res.data.light === 3) {
         //阴天
-        cc.loader.loadRes("weather/img-cloud", cc.SpriteFrame, (err, spriteFrame) => {
+        cc.loader.loadRes('weather/img-cloud', cc.SpriteFrame, (err, spriteFrame) => {
           this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
       } else if (res.data.light === 1) {
-        cc.loader.loadRes("weather/img-sun", cc.SpriteFrame, (err, spriteFrame) => {
+        cc.loader.loadRes('weather/img-sun', cc.SpriteFrame, (err, spriteFrame) => {
           this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
       }
@@ -113,11 +116,11 @@ cc.Class({
   },
   //赋值
   assignData(data) {
-    this.temLabel.string = data.tem + "℃";
+    this.temLabel.string = data.tem + '℃';
     this.timeLabel.string = data.intime;
     this.windsLabel.string = data.winds;
     this.winddLabel.string = data.windd;
-    this.lightLabel.string = data.light;
+    this.pmLabel.string = data.light;
     this.rainLabel.string = data.rain;
     this.paLabel.string = data.pa;
     this.co2Label.string = data.co2;
@@ -126,6 +129,20 @@ cc.Class({
     this.ecLabel.string = data.ec;
     this.noiLabel.string = data.noi;
     this.powerLabel.string = data.power;
+    this.humLabel.string = data.hum;
+
+    //负氧离子指数
+    let noitip = '';
+    if (data.noi > 5000) {
+      noitip = '优';
+    } else if (data.noi > 2000 && data.noi <= 5000) {
+      noitip = '良';
+    } else if (data.noi > 500 && data.noi <= 2000) {
+      noitip = '中';
+    } else {
+      noitip = '差';
+    }
+    this.noiTipLabel.string = noitip;
   },
   // //title 移动事件
   // titleScrollEvent() {
@@ -143,7 +160,7 @@ cc.Class({
   // },
   start() {},
   loadSceneIndex() {
-    cc.director.loadScene("index");
+    cc.director.loadScene('index');
   }
   //   update(dt) {
   //     //console.log(this.scrollviewNode.getComponent(cc.ScrollView).getContentPosition());
