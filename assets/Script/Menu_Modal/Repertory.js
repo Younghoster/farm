@@ -1,8 +1,8 @@
-var Data = require('Data');
+var Data = require("Data");
 var Func = Data.func;
-var ToolJs = require('Tool');
+var ToolJs = require("Tool");
 var Tool = ToolJs.Tool;
-var AlertshelfJs = require('AlertShelf');
+var AlertshelfJs = require("AlertShelf");
 var Alertshelf = AlertshelfJs.Alertshelf;
 
 cc.Class({
@@ -33,15 +33,15 @@ cc.Class({
     chickNode: null
   },
   loadSceneIndex() {
-    cc.director.loadScene('index');
+    cc.director.loadScene("index");
   },
   //加载系统道具
   leftBtnEvent() {
     //样式切换
     this.leftLineNode.active = true;
     this.rightLineNode.active = false;
-    this.leftLabelNode.color = cc.color('#FF4C4C');
-    this.rightLabelNode.color = cc.color('#444444');
+    this.leftLabelNode.color = cc.color("#FF4C4C");
+    this.rightLabelNode.color = cc.color("#444444");
 
     this.GetSystemListByPage();
   },
@@ -50,30 +50,30 @@ cc.Class({
     //样式切换
     this.leftLineNode.active = false;
     this.rightLineNode.active = true;
-    this.leftLabelNode.color = cc.color('#444444');
-    this.rightLabelNode.color = cc.color('#FF4C4C');
+    this.leftLabelNode.color = cc.color("#444444");
+    this.rightLabelNode.color = cc.color("#FF4C4C");
 
     this.GetRepertoryList();
   },
 
   onLoad() {
-    this.leftNode = cc.find('bg/tab/left', this.node);
-    this.rightNode = cc.find('bg/tab/right', this.node);
-    this.leftLineNode = cc.find('line', this.leftNode);
-    this.rightLineNode = cc.find('line', this.rightNode);
-    this.leftLabelNode = cc.find('label', this.leftNode);
-    this.rightLabelNode = cc.find('label', this.rightNode);
+    this.leftNode = cc.find("bg/tab/left", this.node);
+    this.rightNode = cc.find("bg/tab/right", this.node);
+    this.leftLineNode = cc.find("line", this.leftNode);
+    this.rightLineNode = cc.find("line", this.rightNode);
+    this.leftLabelNode = cc.find("label", this.leftNode);
+    this.rightLabelNode = cc.find("label", this.rightNode);
 
-    this.chickNode = cc.find('Chick', this.node);
+    this.chickNode = cc.find("Chick", this.node);
 
-    this.leftNode.on('click', this.leftBtnEvent, this);
-    this.rightNode.on('click', this.rightBtnEvent, this);
+    this.leftNode.on("click", this.leftBtnEvent, this);
+    this.rightNode.on("click", this.rightBtnEvent, this);
 
     this.GetSystemListByPage();
   },
   //系统仓库数据
   GetSystemListByPage() {
-    this.goodsListNode = cc.find('bg/bg-f3/PageView/view/content/page_1/goodsList', this.node);
+    this.goodsListNode = cc.find("bg/bg-f3/PageView/view/content/page_1/goodsList", this.node);
     this.goodsListNode.removeAllChildren();
     Func.GetSystemListByPage().then(data => {
       let list = data.List;
@@ -101,7 +101,7 @@ cc.Class({
   },
   //流通物品
   GetRepertoryList() {
-    this.goodsListNode = cc.find('bg/bg-f3/PageView/view/content/page_1/goodsList', this.node);
+    this.goodsListNode = cc.find("bg/bg-f3/PageView/view/content/page_1/goodsList", this.node);
     this.goodsListNode.removeAllChildren();
     Func.GetRepertoryList().then(data => {
       let list = data.List;
@@ -121,9 +121,9 @@ cc.Class({
   //根据不同的type 加载不同的图片，文字，数量 绑定回调函数
   assignData(goods, goodsNode) {
     //获取组件
-    let goodSprite = cc.find('img', goodsNode).getComponent(cc.Sprite);
-    let countLabel = cc.find('icon-tip/count', goodsNode).getComponent(cc.Label);
-    let nameLabel = cc.find('name', goodsNode).getComponent(cc.Label);
+    let goodSprite = cc.find("img", goodsNode).getComponent(cc.Sprite);
+    let countLabel = cc.find("icon-tip/count", goodsNode).getComponent(cc.Label);
+    let nameLabel = cc.find("name", goodsNode).getComponent(cc.Label);
     //获取物品数据
     let PropertyTypeID = goods.PropertyTypeID;
     let PropName = goods.PropName || goods.TypeName;
@@ -131,7 +131,7 @@ cc.Class({
     switch (PropertyTypeID) {
       // 鸡蛋
       case 2:
-        cc.loader.loadRes('Modal/Repertory/img-egg', cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes("Modal/Repertory/img-egg", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
         this.bindGoodsEvent(
@@ -139,52 +139,52 @@ cc.Class({
           () => {
             this.shelfEvent(name, 2, goodsNode);
           },
-          '上架',
+          "上架",
           () => {
             this.exChange(name, 2);
           },
-          '兑换',
+          "兑换",
           () => false,
-          '下架'
+          "下架"
         );
         break;
       // 普通饲料
       case 4:
-        cc.loader.loadRes('Modal/Repertory/feed', cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes("Modal/Repertory/feed", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
-        this.bindGoodsEvent(goodsNode, this.feed, '添加饲料槽');
+        this.bindGoodsEvent(goodsNode, this.feed, "添加饲料槽");
         break;
       // 成长加速剂
       case 5:
-        cc.loader.loadRes('Modal/Repertory/feed', cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes("Modal/Repertory/feed", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
-        this.bindGoodsEvent(goodsNode, () => Msg.show('暂时还未开通该道具功能'), '使用');
+        this.bindGoodsEvent(goodsNode, () => Msg.show("暂时还未开通该道具功能"), "使用");
         break;
+      // 普通肥料
       case 7:
-        cc.loader.loadRes('Modal/Repertory/img-hf', cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes("Shop/hf", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
         break;
       //粪便
       case 8:
-        cc.loader.loadRes('Modal/Repertory/img-db', cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes("Modal/Repertory/img-db", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
         break;
-      // 普通肥料
 
       // 超级肥料
       case 9:
-        cc.loader.loadRes('Modal/Repertory/img-hf', cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes("Shop/cjhf_ck", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
         // this.bindGoodsEvent(goodsNode, this.feed, '添加饲料槽');
         break;
       // 产蛋鸡
       case 13:
-        cc.loader.loadRes('Modal/Repertory/img-hen', cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes("Modal/Repertory/img-hen", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
         this.bindGoodsEvent(
@@ -192,25 +192,25 @@ cc.Class({
           () => {
             this.shelfEvent(name, 1, goodsNode);
           },
-          '上架',
+          "上架",
           () => {
             this.exChange(name, 3);
           },
-          '兑换',
+          "兑换",
           () => false,
-          '下架'
+          "下架"
         );
         break;
       //改名卡
       case 14:
-        cc.loader.loadRes('Modal/Repertory/gmk1', cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes("Modal/Repertory/gmk1", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
         // this.bindGoodsEvent(goodsNode, this.feed, '添加饲料槽');
         break;
       //玉米种子
       case 6:
-        cc.loader.loadRes('Modal/Repertory/ymzz1', cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes("Modal/Repertory/ymzz1", cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
         break;
@@ -221,7 +221,7 @@ cc.Class({
   // 绑定点击事件及回调函数(f1,f2,f3表示三个回调函数，name1，name2,name3表示按钮文字)
   bindGoodsEvent(goodsNode, f1, name1, f2, name2, f3, name3) {
     goodsNode.on(
-      'click',
+      "click",
       event => {
         //绑定this到goodsNode上 （红、白、灰三个按钮的回调）
         this.goodsEvent.call(goodsNode, [f1, f2, f3], [name1, name2, name3]);
@@ -229,7 +229,7 @@ cc.Class({
       this
     );
     goodsNode.on(
-      'maskClick',
+      "maskClick",
       event => {
         //绑定this到goodsNode上 （红、白、灰三个按钮的回调）
         this.goodsEvent.call(goodsNode, [f1, f2, f3], [name1, name2, name3]);
@@ -248,35 +248,35 @@ cc.Class({
     let name2 = arguments[1][1];
     let name3 = arguments[1][2];
     //this 绑定在goodsNode（该物品上）
-    let spriteFrame = cc.find('img', this).getComponent(cc.Sprite).spriteFrame;
-    let name = cc.find('name', this).getComponent(cc.Label).string;
+    let spriteFrame = cc.find("img", this).getComponent(cc.Sprite).spriteFrame;
+    let name = cc.find("name", this).getComponent(cc.Label).string;
     //获得js的上下文
-    let that = cc.find('Canvas').getComponent('Repertory');
+    let that = cc.find("Canvas").getComponent("Repertory");
     //获得组件
     let modalNode = cc.instantiate(that.modal_Perfab);
-    let bgNode = cc.find('bg', modalNode);
-    let imgNode = cc.find('div/img', modalNode);
+    let bgNode = cc.find("bg", modalNode);
+    let imgNode = cc.find("div/img", modalNode);
     let imgSprite = imgNode.getComponent(cc.Sprite);
-    let modalNameLabel = cc.find('div/name', modalNode).getComponent(cc.Label);
-    let btnGroupNode = cc.find('div/btn-group', modalNode);
+    let modalNameLabel = cc.find("div/name", modalNode).getComponent(cc.Label);
+    let btnGroupNode = cc.find("div/btn-group", modalNode);
     //赋值 图片和道具名称
     imgSprite.spriteFrame = spriteFrame;
     modalNameLabel.string = name;
     //加入按钮
     if (f1) {
       let btnRedNode = cc.instantiate(that.btnRed_Prefab);
-      let btnLabel = cc.find('label', btnRedNode).getComponent(cc.Label);
+      let btnLabel = cc.find("label", btnRedNode).getComponent(cc.Label);
       btnLabel.string = name1;
       btnGroupNode.addChild(btnRedNode);
-      btnRedNode.on('click', f1, that);
-      btnRedNode.on('maskClick', f1, that);
+      btnRedNode.on("click", f1, that);
+      btnRedNode.on("maskClick", f1, that);
     }
     if (f2) {
       let btnWhiteNode = cc.instantiate(that.btnWhite_Prefab);
-      let btnLabel = cc.find('label', btnWhiteNode).getComponent(cc.Label);
+      let btnLabel = cc.find("label", btnWhiteNode).getComponent(cc.Label);
       btnLabel.string = name2;
       btnGroupNode.addChild(btnWhiteNode);
-      btnWhiteNode.on('click', f2, that);
+      btnWhiteNode.on("click", f2, that);
     }
     // if (f3) {
     //   let btnGrayNode = cc.instantiate(that.btnGray_Prefab);
@@ -290,24 +290,24 @@ cc.Class({
     modalNode.opacity = 0;
     modalNode.runAction(cc.fadeIn(0.3));
     //关闭模态框
-    bgNode.on('click', () => {
+    bgNode.on("click", () => {
       Tool.closeModal(modalNode);
     });
     that.node.addChild(modalNode);
   },
   //孵化小鸡回调
   hatchEgg() {
-    cc.director.loadScene('index', () => {
-      let sceneNode = cc.find('Canvas');
-      let indexJs = sceneNode.getComponent('Index');
+    cc.director.loadScene("index", () => {
+      let sceneNode = cc.find("Canvas");
+      let indexJs = sceneNode.getComponent("Index");
       indexJs.operate = 0;
     });
   },
   //添加饲料槽
   feed() {
-    cc.director.loadScene('index', () => {
-      let sceneNode = cc.find('Canvas');
-      let indexJs = sceneNode.getComponent('Index');
+    cc.director.loadScene("index", () => {
+      let sceneNode = cc.find("Canvas");
+      let indexJs = sceneNode.getComponent("Index");
       indexJs.operate = 1;
     });
   },
@@ -319,7 +319,7 @@ cc.Class({
   },
   //上架事件（点击确定的回调）
   OnShelf(type, goodsNode) {
-    Msg.show('接口还在开发中');
+    Msg.show("接口还在开发中");
     // let countLabel = cc.find('icon-tip/count', goodsNode).getComponent(cc.Label);
     // //获取输入框的价格及数量
     // let unitprice = Alertshelf._price;
@@ -343,7 +343,7 @@ cc.Class({
   },
   //兑换事件
   exChange(name, type) {
-    Msg.show('接口还在开发中');
+    Msg.show("接口还在开发中");
     //放到Config.js做中转
     // Config.exchangeData.actualName = name;
     // Config.exchangeData.actualCount = 1;
