@@ -21,6 +21,7 @@ cc.Class({
     this.eggNode = cc.find('egg', this.animNode);
     this.eggAnim = this.eggNode.getComponent(cc.Animation);
     this.breakButton = cc.find('btn', this.animNode);
+    this.sceneNode = cc.find('Canvas');
   },
 
   bindEvent() {
@@ -37,6 +38,7 @@ cc.Class({
         let list = data.Model.DetailList;
         for (let i = 0; i < list.length; i++) {
           const element = list[i];
+
           this.assignData(element, this.holeNodeList[i]);
         }
       } else {
@@ -46,7 +48,8 @@ cc.Class({
   },
   assignData(data, holeNode) {
     let eggID = data.EggID;
-
+    let holeButton = holeNode.getComponent(cc.Button);
+    holeButton.interactable = this.sceneNode._components[1].name === 'Canvas<FriendIndex>' ? false : true;
     let holeSprite = holeNode.getComponent(cc.Sprite);
     let barNode = cc.find('timerBar', holeNode);
     barNode.active = false;
@@ -93,7 +96,6 @@ cc.Class({
         default:
           break;
       }
-
       //绑定收取操作
       holeNode.on('click', () => {
         Func.CollectEgg(eggID).then(data => {

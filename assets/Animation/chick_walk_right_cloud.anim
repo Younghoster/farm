@@ -1,0 +1,43 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "chick_walk_right_cloud",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.06666666666666667,
+  "sample": 60,
+  "speed": 0.067,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "2be95ebc-5fce-4830-ac4b-897e3bf5eaf2"
+            }
+          },
+          {
+            "frame": 0.016666666666666666,
+            "value": {
+              "__uuid__": "bd06af96-c0ae-4189-b82e-04b5e29a26c3"
+            }
+          },
+          {
+            "frame": 0.03333333333333333,
+            "value": {
+              "__uuid__": "7558b2c1-58d9-494a-b673-75c883113011"
+            }
+          },
+          {
+            "frame": 0.05,
+            "value": {
+              "__uuid__": "fae3454c-94a7-41b3-b7a0-9b8986726e48"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

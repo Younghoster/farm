@@ -245,16 +245,76 @@ var Chick = cc.Class({
 
   //小鸡的动画
   playChickWalkDown: function() {
-    this._chickAnim.play('chick_walk_down');
+    switch (Config.weather) {
+      //雨天
+      case -1:
+        this._chickAnim.play('chick_walk_down_rain');
+        break;
+      // 阴天
+      case 0:
+        this._chickAnim.play('chick_walk_down_cloud');
+        break;
+      case 1:
+        this._chickAnim.play('chick_walk_down');
+        break;
+
+      default:
+        break;
+    }
   },
   playChickWalkUp: function() {
-    this._chickAnim.play('chick_walk_up');
+    switch (Config.weather) {
+      //雨天
+      case -1:
+        this._chickAnim.play('chick_walk_up_rain');
+        break;
+      // 阴天
+      case 0:
+        this._chickAnim.play('chick_walk_up_cloud');
+        break;
+      case 1:
+        this._chickAnim.play('chick_walk_up');
+        break;
+
+      default:
+        break;
+    }
   },
   playChickWalkLeft: function() {
-    this._chickAnim.play('chick_walk_left');
+    switch (Config.weather) {
+      //雨天
+      case -1:
+        this._chickAnim.play('chick_walk_left_rain');
+        break;
+      // 阴天
+      case 0:
+        this._chickAnim.play('chick_walk_left_cloud');
+        break;
+      case 1:
+        this._chickAnim.play('chick_walk_left');
+        break;
+
+      default:
+        break;
+    }
   },
   playChickWalkRight: function() {
-    this._chickAnim.play('chick_walk_right');
+    switch (Config.weather) {
+      //雨天
+      case -1:
+        this._chickAnim.play('chick_walk_right_rain');
+        break;
+      // 阴天
+      case 0:
+        this._chickAnim.play('chick_walk_right_cloud');
+        break;
+      case 1:
+        this._chickAnim.play('chick_walk_right');
+        break;
+
+      default:
+        break;
+    }
   },
   playChickMove: function() {
     //this._chickAnim.play("chick_move");

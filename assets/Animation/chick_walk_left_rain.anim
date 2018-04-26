@@ -1,0 +1,43 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "chick_walk_left_rain",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.06666666666666667,
+  "sample": 60,
+  "speed": 0.067,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "351dee25-5c33-4334-8a36-d26343172731"
+            }
+          },
+          {
+            "frame": 0.016666666666666666,
+            "value": {
+              "__uuid__": "5317af24-a48b-44fa-bb65-1c7f95ea68c7"
+            }
+          },
+          {
+            "frame": 0.03333333333333333,
+            "value": {
+              "__uuid__": "c741218c-8210-4acd-8ab8-481f84171a1d"
+            }
+          },
+          {
+            "frame": 0.05,
+            "value": {
+              "__uuid__": "be6c3415-450a-439d-a306-367a480f91bb"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

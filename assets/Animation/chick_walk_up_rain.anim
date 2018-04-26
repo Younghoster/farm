@@ -1,0 +1,43 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "chick_walk_up_rain",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.06666666666666667,
+  "sample": 60,
+  "speed": 0.067,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "bb08fd84-1b30-4ce6-a781-b85330bed037"
+            }
+          },
+          {
+            "frame": 0.016666666666666666,
+            "value": {
+              "__uuid__": "a807a642-db3e-415b-a1aa-39623c60c9c5"
+            }
+          },
+          {
+            "frame": 0.03333333333333333,
+            "value": {
+              "__uuid__": "772da074-4ca7-4883-a49f-17774b3d7496"
+            }
+          },
+          {
+            "frame": 0.05,
+            "value": {
+              "__uuid__": "6df3b22b-83a1-433d-acb6-74ef1c99ef98"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}
