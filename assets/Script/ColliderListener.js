@@ -2,17 +2,7 @@ var Data = require("Data");
 cc.Class({
   extends: cc.Component,
 
-  properties: {
-    // foo: {
-    //    default: null,
-    //    url: cc.Texture2D,  // optional, default is typeof default
-    //    serializable: true, // optional, default is true
-    //    visible: true,      // optional, default is true
-    //    displayName: 'Foo', // optional
-    //    readonly: false,    // optional, default is false
-    // },
-    // ...
-  },
+  properties: {},
   dataList: null,
   // use this for initialization
   onLoad: function() {
@@ -23,20 +13,36 @@ cc.Class({
   },
 
   onCollisionEnter: function(other) {
-    this.node.color = cc.Color.GREEN;
+    other.node.color = cc.Color.GREEN;
     this.touchingNumber++;
+
     this.dataList = JSON.parse(cc.sys.localStorage.getItem("FarmData")); //缓存机制
-    let id = Number(this.node.name.slice(4));
-    let propertyId = 12;
+    this.FarmJs = cc.find("Canvas");
+    let id = Number(other.node.name.slice(4));
+    let propertyId = 12; //种子ID
+    let type = 7; //肥料ID
     if (this.dataList.toolType == 1) {
-      let landId = this.dataList.List[id].ID;
+      this.crops(id, propertyId);
+    } else if (this.dataList.toolType == 5) {
+      this.CropsSertilize(id, type);
+    }
+  },
+  //播种
+  crops(id, propertyId) {
+    let self = this;
+    let landId = this.dataList.List[id].ID;
+    let CropsID = this.dataList.List[id].CropsID;
+    let IsLock = this.dataList.List[id].IsLock;
+    if (CropsID == 0 && !IsLock) {
       Data.func.addCrops(landId, propertyId).then(data => {
         if (data.Code === 1) {
           setTimeout(function() {
-            Data.func.getFarmModalData().then(data => {
-              if (data.Code === 1) {
-                FarmJs.fn.setLocalStorageData.call(FarmJs, data);
-              }
+            Data.func.getFarmModalData().then(data2 => {
+              // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
+              console.log(data2);
+              self.FarmJs.emit("updataPlant", {
+                data: data2.Model
+              });
             });
           }, 500);
         } else {
@@ -45,21 +51,36 @@ cc.Class({
       });
     }
   },
-
+  //施肥
+  CropsSertilize(id, type) {
+    let self = this;
+    let cropsId = this.dataList.List[id].CropsID;
+    let CropsID = this.dataList.List[id].CropsID;
+    let IsLock = this.dataList.List[id].IsLock;
+    let CropsStatus = this.dataList.List[id].CropsStatus;
+    if (CropsStatus !== 0 && !IsLock) {
+      Data.func.CropsSertilize(CropsID, type).then(data => {
+        if (data.Code === 0) {
+          Msg.show("施肥成功！");
+        } else {
+          Msg.show(data.Message);
+        }
+      });
+    }
+  },
   onCollisionStay: function(other) {
     // console.log('on collision stay');
   },
 
-  onCollisionExit: function() {
+  onCollisionExit: function(other) {
     //碰撞后的状态显示
-    let FarmJs = cc.find("Canvas").getComponent("Farm");
     this.touchingNumber--;
     if (this.touchingNumber === 0) {
-      this.node.color = cc.Color.WHITE;
+      other.node.color = cc.Color.WHITE;
     }
     //找到当前预置资源
-    let id = Number(this.node.name.slice(4));
-    let ParentNodes = this.node.parent.parent;
+    let id = Number(other.node.name.slice(4));
+    let ParentNodes = other.node.parent.parent;
     let PlantNodes = cc.find("Prefab" + id, ParentNodes);
     let PlantNodesTip = cc.find("Prefab" + id + "/New Node/reap", ParentNodes);
     //是否存在预置资源
