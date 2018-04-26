@@ -8,7 +8,7 @@ cc.Class({
   onLoad: function() {
     cc.director.getCollisionManager().enabled = true;
     this.touchingNumber = 0;
-    this.CollectNumber = 4;
+    this.CollectNumber = 0;
   },
 
   onCollisionEnter: function(other) {
