@@ -51,14 +51,13 @@ cc.Class({
           self.timers = setTimeout(function() {
             Data.func.getFarmModalData().then(data2 => {
               // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
-              console.log(1);
               self.FarmJs.emit('updataPlant', {
                 data: data2.Model
               });
             });
           }, 500);
         } else {
-          Msg.show(data.Message);
+          // Msg.show(data.Message);
         }
       });
     }
@@ -75,7 +74,7 @@ cc.Class({
         if (data.Code === 1) {
           Msg.show('浇水成功！');
         } else {
-          Msg.show(data.Message);
+          // Msg.show(data.Message);
         }
       });
     }
@@ -92,7 +91,7 @@ cc.Class({
         if (data.Code === 1) {
           Msg.show('除草成功');
         } else {
-          Msg.show(data.Message);
+          // Msg.show(data.Message);
         }
       });
     }
@@ -109,7 +108,7 @@ cc.Class({
         if (data.Code === 1) {
           Msg.show('除虫成功');
         } else {
-          Msg.show(data.Message);
+          // Msg.show(data.Message);
         }
       });
     }

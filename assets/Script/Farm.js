@@ -101,9 +101,7 @@ cc.Class({
     cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.Value));
     if (self.Value.List !== null) {
       let newValueList = self.Value.List;
-      setTimeout(function() {
-        self.fatchPlant(newValueList);
-      }, 1000);
+      self.fatchPlant(newValueList);
     }
   },
 
@@ -136,9 +134,6 @@ cc.Class({
         //拓展
         PrefabExtend.active = true;
         Tool.RunAction(PrefabExtend, 'fadeIn', 0.3);
-        PrefabExtend.on('click', function(e) {
-          console.log(ValueList[i].ID);
-        });
       }
       if (ValueList[i].CropsStatus == 1) {
         //小树苗
