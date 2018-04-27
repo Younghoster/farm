@@ -129,8 +129,8 @@ cc.Class({
       case 8: //粪便
         break;
       case 9: //超级肥料
-        iconSrc = "Modal/Repertory/sd-fl1";
-        iconSrc2 = "Modal/Repertory/fl3";
+        iconSrc = "Shop/cjfl_1";
+        iconSrc2 = "Shop/cjfl2";
         break;
       case 10: //高级肥料
         iconSrc = "Modal/Repertory/sd-fl1";

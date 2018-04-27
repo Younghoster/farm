@@ -23,7 +23,10 @@ cc.Class({
     var self = this;
 
     //初始化加载数据
-    this.fatchData();
+    self.fatchData();
+    setInterval(function() {
+      self.onlyUpdataPlant();
+    }, 60000);
     //初始加载工具栏
     this.getToolPositon();
     Tool.RunAction(cc.find("Canvas"), "fadeIn", 0.3);
@@ -44,9 +47,10 @@ cc.Class({
     });
   },
 
-  //初始加载数据
+  //初始加载所有数据
   fatchData() {
     var self = this;
+    self.clearAllDom(); //清除植物数据
     Data.func.getFarmModalData().then(data => {
       if (data.Code === 1) {
         //土地渲染
@@ -55,8 +59,19 @@ cc.Class({
       self.setLocalStorageData(data);
     });
   },
+  //仅仅 更新 植物状态
+  onlyUpdataPlant() {
+    var self = this;
+    self.clearAllDom(); //清除植物数据
+    Data.func.getFarmModalData().then(data => {
+      if (data.Code === 1) {
+        //土地渲染
+        self.fatchPlant(data.Model); //重新加载植物
+      }
+    });
+  },
 
-  //设置土地状态是否可以播种
+  //仅仅更新土地
   setLandOption(data) {
     let self = this;
     for (let i = 0; i < data.Model.length; i++) {
@@ -85,13 +100,13 @@ cc.Class({
     cc.sys.localStorage.setItem("FarmData", JSON.stringify(this.Value));
     setTimeout(function() {
       self.fatchPlant(self.Value.List);
-    }, 500);
+    }, 1000);
   },
 
   //加载农作物
   fatchPlant(ValueList) {
+    var self = this;
     for (let i = 0; i < ValueList.length; i++) {
-      var self = this;
       let bg = cc.find("bg", this.node);
       let Prefab = cc.instantiate(self.Item_Prefab);
       let PrefabPlant_xs = cc.find("plant-xs", Prefab);
@@ -160,8 +175,8 @@ cc.Class({
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
-    } else if (ValueList.CropsIsFertilization && ValueList.CropsStatus != 0) {
-      cc.loader.loadRes("Farm/fertilize", cc.SpriteFrame, function(err, spriteFrame) {
+    } else if (ValueList.IsDisinsection && ValueList.CropsStatus != 0) {
+      cc.loader.loadRes("Farm/disinsection", cc.SpriteFrame, function(err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
@@ -180,13 +195,19 @@ cc.Class({
   },
 
   //添加触摸事件
-  addListenMove(i, tool) {
+  addListenMove(i, tool, otherId) {
     let self = this;
+
     let farmBox = cc.find("bg", this.node);
     let bg_farm = cc.find("bg_farm", this.node);
     tool.on("touchstart", function(e) {
       bg_farm.opacity = 0; //种子选择的浮窗
       self.Value.toolType = i;
+      if (i == 1) {
+        Config.propertyId = otherId;
+      } else if (i == 5) {
+        Config.fertilizerId = otherId;
+      }
       if (self.Value.toolType != 0) {
         cc.sys.localStorage.setItem("FarmData", JSON.stringify(self.Value)); //缓存机制
         self.Prefab = cc.instantiate(self.Tool_Prefab);
@@ -226,25 +247,51 @@ cc.Class({
     let self = this;
     let seedBox = cc.find("bg_farm", this.node);
     if (!seedBox.active) {
-      for (let i = 0; i < 4; i++) {
-        let prefab = cc.instantiate(self.ItemSeed_Prefab);
-        let Img = cc.find("ymzz", prefab).getComponent(cc.Sprite);
-        let ImgSrc;
-        let Label = cc.find("label", prefab).getComponent(cc.Label);
-        if (e.target._name == "farm_icon_01") {
-          ImgSrc = "Modal/Repertory/ymzz";
-          Label.string = "玉米";
-        } else {
-          ImgSrc = "Modal/Repertory/sd-fl1";
-          Label.string = "肥料";
-        }
-        cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function(err, spriteFrame) {
-          Img.spriteFrame = spriteFrame;
+      seedBox.active = false;
+      seedBox.removeAllChildren();
+      if (e.target._name == "farm_icon_01") {
+        Data.func.GetSeedList().then(data => {
+          if (data.Code === 1) {
+            for (let i = 0; i < data.List.length; i++) {
+              let prefab = cc.instantiate(self.ItemSeed_Prefab);
+              let Img = cc.find("ymzz", prefab).getComponent(cc.Sprite);
+              let ImgSrc;
+              let Label = cc.find("label", prefab).getComponent(cc.Label);
+              ImgSrc = "Modal/Repertory/ymzz";
+              Label.string = data.List[i].PropName + "×" + data.List[i].Count;
+              self.addListenMove(1, prefab, data.List[i].PropertyID);
+              cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function(err, spriteFrame) {
+                Img.spriteFrame = spriteFrame;
+              });
+              seedBox.addChild(prefab);
+            }
+            Tool.RunAction(seedBox, "fadeIn", 0.3);
+          }
         });
-        self.addListenMove(1, prefab);
-        seedBox.addChild(prefab);
+      } else {
+        Data.func.GetFertilizerList().then(data => {
+          if (data.Code === 1) {
+            for (let i = 0; i < data.List.length; i++) {
+              let prefab = cc.instantiate(self.ItemSeed_Prefab);
+              let Img = cc.find("ymzz", prefab).getComponent(cc.Sprite);
+              let ImgSrc;
+              let Label = cc.find("label", prefab).getComponent(cc.Label);
+              if (data.List[i].PropName == "超级肥料") {
+                ImgSrc = "Shop/cjfl_1";
+              } else {
+                ImgSrc = "Shop/fertilizer";
+              }
+              Label.string = data.List[i].PropName + "×" + data.List[i].Count;
+              self.addListenMove(5, prefab, data.List[i].PropertyTypeID);
+              cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function(err, spriteFrame) {
+                Img.spriteFrame = spriteFrame;
+              });
+              seedBox.addChild(prefab);
+            }
+            Tool.RunAction(seedBox, "fadeIn", 0.3);
+          }
+        });
       }
-      Tool.RunAction(seedBox, "fadeIn", 0.3);
     } else {
       seedBox.active = false;
       seedBox.removeAllChildren();
@@ -290,7 +337,9 @@ cc.Class({
     let bg = cc.find("bg", this.node);
     for (let i = 0; i < 12; i++) {
       let clearItem = cc.find("Prefab" + i, bg);
-      clearItem.removeFromParent();
+      if (clearItem) {
+        clearItem.removeFromParent();
+      }
     }
   },
 

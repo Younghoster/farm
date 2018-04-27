@@ -1823,6 +1823,144 @@ var func = {
       xhr.send();
     });
   },
+  //植物浇水
+  CropsWatering(cropsId) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            reject(response);
+          }
+        }
+      };
+      xhr.open("POST", Config.apiUrl + "/T_Farm_Crops/CropsWatering?cropsId=" + cropsId, true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.send();
+    });
+  },
+  //植物除草
+  CropsWeeding(cropsId) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            reject(response);
+          }
+        }
+      };
+      xhr.open("POST", Config.apiUrl + "/T_Farm_Crops/CropsWeeding?cropsId=" + cropsId, true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.send();
+    });
+  },
+  //植物除虫
+  CropsDisinsection(cropsId) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            reject(response);
+          }
+        }
+      };
+      xhr.open("POST", Config.apiUrl + "/T_Farm_Crops/CropsDisinsection?cropsId=" + cropsId, true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.send();
+    });
+  },
+  //收取农作物
+  CollectCrops(cropsId) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            reject(response);
+          }
+        }
+      };
+      xhr.open(
+        "POST",
+        Config.apiUrl + "/T_Farm_Crops/CollectCrops?openId=" + this.openID + "&cropsId=" + cropsId,
+        true
+      );
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.send();
+    });
+  },
+  //农场用户种子列表
+  GetSeedList() {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            reject(response);
+          }
+        }
+      };
+      // GET方法
+      xhr.open("Get", Config.apiUrl + "/T_Base_Warehouse/GetSeedList?openID=" + this.openID, true);
+      xhr.setRequestHeader("Content-Type", "json");
+      xhr.send();
+    });
+  },
+  //农场用户肥料列表
+  GetFertilizerList() {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            reject(response);
+          }
+        }
+      };
+      // GET方法
+      xhr.open("Get", Config.apiUrl + "/T_Base_Warehouse/GetFertilizerList?openID=" + this.openID, true);
+      xhr.setRequestHeader("Content-Type", "json");
+      xhr.send();
+    });
+  },
   //获取用户解锁下一块土地的牧场币，积分，用户等级
   GetNextUnlockLand() {
     return new Promise((resolve, reject) => {

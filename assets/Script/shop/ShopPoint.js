@@ -95,8 +95,8 @@ cc.Class({
         iconSrc2 = "Modal/Repertory/ymzz2";
         break;
       case 7: //普通肥料
-        iconSrc = "Modal/Repertory/sd-fl1";
-        iconSrc2 = "Modal/Repertory/fl3";
+        iconSrc = "Shop/fertilizer";
+        iconSrc2 = "Shop/fl2";
         break;
       case 8: //粪便
         break;
