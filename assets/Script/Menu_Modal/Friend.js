@@ -59,18 +59,20 @@ cc.Class({
 
   //绑定数据（好友列表）
   updateData() {
+    this.emptyNode = cc.find('bg-repertory/friendList/empty', this.node);
+    this.emptyNode.active = false;
     Func.GetFriendsList(this.friend_page).then(data => {
       if (data.Code === 1) {
         var friendList = data.List;
         this.contentNode = cc.find('bg-repertory/friendList/view/content', this.node);
-
         for (let i = 0; i < friendList.length; i++) {
-          this.assignFriendData(friendList[i]);
+          this.assignFriendData((1)[i]);
         }
-
+        this.emptyNode = null;
         this.friend_page++;
       } else {
-        this.emptyNode.active = true;
+        //分页加载的时候 不显示empty
+        this.emptyNode ? (this.emptyNode.active = true) : false;
       }
     });
   },
@@ -84,6 +86,8 @@ cc.Class({
     this.updateSearchData();
   },
   updateSearchData() {
+    this.emptyNode = cc.find('bg-repertory/friendList/empty', this.node);
+    this.emptyNode.active = false;
     Func.GetUserList(this.searchStr, this.search_page).then(data => {
       if (data.Code === 1) {
         var friendList = data.List;
@@ -95,8 +99,10 @@ cc.Class({
             this.assignNoFriendData(friendList[i]);
           }
         }
+        this.emptyNode = null;
         this.search_page++;
       } else {
+        this.emptyNode ? (this.emptyNode.active = true) : false;
         Msg.show(data.Message);
       }
     });
@@ -185,10 +191,10 @@ cc.Class({
         cleanNode.active = true;
         i++;
       }
-      if (feed && i < 4) {
-        feedNode.active = true;
-        i++;
-      }
+      // if (feed && i < 4) {
+      //   feedNode.active = true;
+      //   i++;
+      // }
       if (water && i < 4) {
         waterNode.active = true;
         i++;
@@ -227,7 +233,6 @@ cc.Class({
     });
     this.contentNode.addChild(item);
   },
-
   onLoadFadeIn() {
     let canvas = cc.find('Canvas');
     Tool.RunAction(canvas, 'fadeIn', 0.3);
