@@ -92,17 +92,19 @@ cc.Class({
   //缓存数据并刷新数据
   setLocalStorageData(data) {
     let self = this;
+    console.log(data);
     this.Value = {
       List: data.Model,
       toolType: 0
     };
     //缓存数据并加载植物
     cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.Value));
-    setTimeout(function() {
-      if (self.Value.List) {
-        self.fatchPlant(self.Value.List);
-      }
-    }, 1000);
+    if (self.Value.List !== null) {
+      let newValueList = self.Value.List;
+      setTimeout(function() {
+        self.fatchPlant(newValueList);
+      }, 1000);
+    }
   },
 
   //加载农作物
