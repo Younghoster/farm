@@ -1,4 +1,4 @@
-var Data = require("Data");
+var Data = require('Data');
 cc.Class({
   extends: cc.Component,
 
@@ -19,8 +19,8 @@ cc.Class({
     }, 500);
     this.touchingNumber++;
 
-    this.dataList = JSON.parse(cc.sys.localStorage.getItem("FarmData")); //缓存机制
-    this.FarmJs = cc.find("Canvas");
+    this.dataList = JSON.parse(cc.sys.localStorage.getItem('FarmData')); //缓存机制
+    this.FarmJs = cc.find('Canvas');
     let id = Number(other.node.name.slice(4));
     let propertyId = Config.propertyId; //种子ID
     let type = Config.fertilizerId; //肥料ID
@@ -51,14 +51,13 @@ cc.Class({
           self.timers = setTimeout(function() {
             Data.func.getFarmModalData().then(data2 => {
               // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
-              console.log(1);
-              self.FarmJs.emit("updataPlant", {
+              self.FarmJs.emit('updataPlant', {
                 data: data2.Model
               });
             });
           }, 500);
         } else {
-          Msg.show(data.Message);
+          // Msg.show(data.Message);
         }
       });
     }
@@ -73,9 +72,9 @@ cc.Class({
     if (CropsStatus !== 0 && !IsLock && IsWater) {
       Data.func.CropsWatering(CropsID).then(data => {
         if (data.Code === 1) {
-          Msg.show("浇水成功！");
+          Msg.show('浇水成功！');
         } else {
-          Msg.show(data.Message);
+          // Msg.show(data.Message);
         }
       });
     }
@@ -90,9 +89,9 @@ cc.Class({
     if (CropsStatus !== 0 && !IsLock && IsWeeds) {
       Data.func.CropsWeeding(CropsID).then(data => {
         if (data.Code === 1) {
-          Msg.show("除草成功");
+          Msg.show('除草成功');
         } else {
-          Msg.show(data.Message);
+          // Msg.show(data.Message);
         }
       });
     }
@@ -107,9 +106,9 @@ cc.Class({
     if (CropsStatus !== 0 && !IsLock && IsDisinsection) {
       Data.func.CropsDisinsection(CropsID).then(data => {
         if (data.Code === 1) {
-          Msg.show("除虫成功");
+          Msg.show('除虫成功');
         } else {
-          Msg.show(data.Message);
+          // Msg.show(data.Message);
         }
       });
     }
@@ -126,8 +125,8 @@ cc.Class({
           self.timers = setTimeout(function() {
             Data.func.getFarmModalData().then(data2 => {
               // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
-              Msg.show("施肥成功！");
-              self.FarmJs.emit("updataPlant", {
+              Msg.show('施肥成功！');
+              self.FarmJs.emit('updataPlant', {
                 data: data2.Model
               });
             });
@@ -149,11 +148,11 @@ cc.Class({
         if (data.Code === 1) {
           self.CollectNumber += data.Model;
           self.timers = setTimeout(function() {
-            Msg.show("× " + self.CollectNumber);
+            // Msg.show("× " + self.CollectNumber);
             self.CollectNumber = 0;
             Data.func.getFarmModalData().then(data2 => {
               // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
-              self.FarmJs.emit("updataPlant", {
+              self.FarmJs.emit('updataPlant', {
                 data: data2.Model
               });
             });
@@ -177,8 +176,8 @@ cc.Class({
     //找到当前预置资源
     let id = Number(other.node.name.slice(4));
     let ParentNodes = other.node.parent.parent;
-    let PlantNodes = cc.find("Prefab" + id, ParentNodes);
-    let PlantNodesTip = cc.find("Prefab" + id + "/New Node/reap", ParentNodes);
+    let PlantNodes = cc.find('Prefab' + id, ParentNodes);
+    let PlantNodesTip = cc.find('Prefab' + id + '/New Node/reap', ParentNodes);
     //是否存在预置资源
 
     if (PlantNodes) {
