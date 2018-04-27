@@ -69,6 +69,7 @@ cc.Class({
 
     //初始化牧场是否显示鸡蛋
     this.eggMoreNode.active = data.RanchModel.EggCount > 0 ? true : false;
+    this.eggCountLabel.string = `x${data.RanchModel.EggCount}`;
 
     //初始化产蛋棚是否显示鸡蛋
     this.eggNode.active = data.EggsShed.EggCount > 0 ? true : false;

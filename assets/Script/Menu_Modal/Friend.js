@@ -63,13 +63,14 @@ cc.Class({
       if (data.Code === 1) {
         var friendList = data.List;
         this.contentNode = cc.find('bg-repertory/friendList/view/content', this.node);
+
         for (let i = 0; i < friendList.length; i++) {
           this.assignFriendData(friendList[i]);
         }
 
         this.friend_page++;
       } else {
-        Msg.show(data.Message);
+        this.emptyNode.active = true;
       }
     });
   },
@@ -278,6 +279,7 @@ cc.Class({
     this.inputNode = cc.find('bg-repertory/form/input', this.node);
     this.inputEditBox = this.inputNode.getComponent(cc.EditBox);
     this.contentNode = cc.find('bg-repertory/friendList/view/content', this.node);
+    this.emptyNode = cc.find('bg-repertory/friendList/empty', this.node);
     this.friend_page = 1;
     this.search_page = 1;
     this.option = 1; // 1代表好友列表  2.代表非好友列表

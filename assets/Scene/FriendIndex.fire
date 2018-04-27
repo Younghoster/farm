@@ -5632,9 +5632,11 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": null,
-    "component": "Index",
-    "handler": "showFeedAlert",
+    "target": {
+      "__id__": 2
+    },
+    "component": "FriendIndex",
+    "handler": "stealEgg",
     "customEventData": ""
   },
   {
