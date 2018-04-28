@@ -192,12 +192,26 @@ cc.Class({
         cc.loader.loadRes('Shop/hf', cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
+        this.bindGoodsEvent(
+          goodsNode,
+          () => {
+            this.compound(3, 7, '肥料');
+          },
+          '合成'
+        );
         break;
       //粪便
       case 8:
         cc.loader.loadRes('Modal/Repertory/img-db', cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
+        this.bindGoodsEvent(
+          goodsNode,
+          () => {
+            this.compound(2, 8, '粪便');
+          },
+          '合成'
+        );
         break;
 
       // 超级肥料
@@ -238,6 +252,13 @@ cc.Class({
         cc.loader.loadRes('Modal/Repertory/ymzz1', cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
+        this.bindGoodsEvent(
+          goodsNode,
+          () => {
+            this.compound(1, 12, '玉米');
+          },
+          '合成'
+        );
         break;
     }
     nameLabel.string = PropName;
@@ -380,6 +401,17 @@ cc.Class({
     // }
     // Config.exchangeData.goodsType = type;
     // cc.director.loadScene('exchange');
+  },
+  //合成
+  compound(productType, makeId, makeName) {
+    cc.loader.loadRes('Prefab/Modal/Repertory/compound', cc.Prefab, (err, prefab) => {
+      let compoundNode = cc.instantiate(prefab);
+      let compoundJs = compoundNode.getComponent('compound');
+      compoundJs.productType = productType;
+      compoundJs.makeId = makeId;
+      compoundJs.makeName = makeName;
+      this.node.addChild(compoundNode);
+    });
   },
   start() {}
 

@@ -277,8 +277,8 @@ cc.Class({
         hanfFeedAnim.play('hand_feed');
         hanfFeedAnim.on('finished', () => {
           handFeedNode.active = false;
+          this.arrowNode.active = false;
         });
-        this.arrowNode.active = false;
       } else if (data.Code == '000') {
         Alert.show(data.Message, this.loadSceneShop, 'icon-feed', '剩余的饲料不足');
       } else if (data.Code == '333') {
@@ -755,7 +755,7 @@ cc.Class({
           this.hatchEgg();
           break;
         case 1:
-          this.putFeed();
+          this.addFeed();
           break;
       }
       this.operate = -1;

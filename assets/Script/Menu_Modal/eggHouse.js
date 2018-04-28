@@ -56,7 +56,7 @@ cc.Class({
   assignData(data, holeNode) {
     let eggID = data.EggID;
     let holeButton = holeNode.getComponent(cc.Button);
-    holeButton.interactable = this.isFriend;
+    holeButton.interactable = !this.isFriend;
     let holeSprite = holeNode.getComponent(cc.Sprite);
     let barNode = cc.find('timerBar', holeNode);
     barNode.active = false;

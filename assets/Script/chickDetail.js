@@ -72,8 +72,19 @@ cc.Class({
     //  获取正常的小鸡及已收取的小鸡
     Func.GetChickList(3).then(data => {
       if (data.Code === 1) {
-        this.assignChickList(data.List);
-        this.chickList = data.List;
+        let list = data.List;
+        let item = null;
+
+        for (let i = 0; i < list.length; i++) {
+          const element = list[i];
+          if (this.Id == element.ID) {
+            item = list.splice(i, 1)[0];
+            break;
+          }
+        }
+        list.unshift(item);
+        this.assignChickList(list);
+        this.chickList = list;
       }
     });
   },

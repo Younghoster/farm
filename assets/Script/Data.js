@@ -1,6 +1,7 @@
 var func = {
   //获取所有数据（index页面）"dedbc83d62104d6da8d4a3c0188dc419",
   openID: 'f79ed645ad624cf5bbfecc2e67f23020',
+
   GetWholeData(openID = this.openID) {
     // Loading.show();
     return new Promise((resolve, reject) => {
@@ -555,7 +556,6 @@ var func = {
   },
   // 获取产蛋棚坑位的信息
   getEggLayInfo(openID = this.openID) {
-
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -697,6 +697,60 @@ var func = {
       xhr.open('GET', Config.apiUrl + '/T_Base_Ranch/GetRanchUpGradeMoney?openId=' + this.openID, true);
       xhr.setRequestHeader('Content-Type', 'json');
       xhr.send();
+    });
+  },
+
+  //  合成材料获取
+  GetMakeInfo(makeType, count, id) {
+    // Loading.show();
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            console.log('获取数据失败');
+            reject(response);
+          }
+        }
+      };
+      // GET方法
+      xhr.open(
+        'GET',
+        `${Config.apiUrl}/T_Base_Convert/GetMakeInfo?makeType=${makeType}&count=${count}&id=${id}&openID=${
+          this.openID
+        }`,
+        true
+      );
+      xhr.setRequestHeader('Content-Type', 'json');
+      xhr.send();
+    });
+  },
+  // 合成
+  postCompound(makeType, count,id) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            console.log(data.Message);
+            reject(response);
+          }
+        }
+      };
+      xhr.open('POST', `${Config.apiUrl}/T_Base_Convert/Marke`, true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
+      xhr.send(`makeType=${makeType}&count=${count}&id=${id}&openID=${
+        this.openID}`);
     });
   },
   //牧场清理 type=1 自己清理
@@ -1841,8 +1895,8 @@ var func = {
           }
         }
       };
-      xhr.open("POST", Config.apiUrl + "/T_Farm_Crops/CropsWatering?cropsId=" + cropsId, true);
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.open('POST', Config.apiUrl + '/T_Farm_Crops/CropsWatering?cropsId=' + cropsId, true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.send();
     });
   },
@@ -1863,8 +1917,8 @@ var func = {
           }
         }
       };
-      xhr.open("POST", Config.apiUrl + "/T_Farm_Crops/CropsWeeding?cropsId=" + cropsId, true);
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.open('POST', Config.apiUrl + '/T_Farm_Crops/CropsWeeding?cropsId=' + cropsId, true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.send();
     });
   },
@@ -1885,8 +1939,8 @@ var func = {
           }
         }
       };
-      xhr.open("POST", Config.apiUrl + "/T_Farm_Crops/CropsDisinsection?cropsId=" + cropsId, true);
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.open('POST', Config.apiUrl + '/T_Farm_Crops/CropsDisinsection?cropsId=' + cropsId, true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.send();
     });
   },
@@ -1908,11 +1962,11 @@ var func = {
         }
       };
       xhr.open(
-        "POST",
-        Config.apiUrl + "/T_Farm_Crops/CollectCrops?openId=" + this.openID + "&cropsId=" + cropsId,
+        'POST',
+        Config.apiUrl + '/T_Farm_Crops/CollectCrops?openId=' + this.openID + '&cropsId=' + cropsId,
         true
       );
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.send();
     });
   },
@@ -1934,8 +1988,8 @@ var func = {
         }
       };
       // GET方法
-      xhr.open("Get", Config.apiUrl + "/T_Base_Warehouse/GetSeedList?openID=" + this.openID, true);
-      xhr.setRequestHeader("Content-Type", "json");
+      xhr.open('Get', Config.apiUrl + '/T_Base_Warehouse/GetSeedList?openID=' + this.openID, true);
+      xhr.setRequestHeader('Content-Type', 'json');
       xhr.send();
     });
   },
@@ -1957,8 +2011,8 @@ var func = {
         }
       };
       // GET方法
-      xhr.open("Get", Config.apiUrl + "/T_Base_Warehouse/GetFertilizerList?openID=" + this.openID, true);
-      xhr.setRequestHeader("Content-Type", "json");
+      xhr.open('Get', Config.apiUrl + '/T_Base_Warehouse/GetFertilizerList?openID=' + this.openID, true);
+      xhr.setRequestHeader('Content-Type', 'json');
       xhr.send();
     });
   },
