@@ -72,6 +72,7 @@ cc.Class({
   setBuyPropertyList(data) {
     //PropType  0：积分  1：牧场币
     this.emptyNode = cc.find('scrollview/view/layout/myAssets2/empty', this.node);
+    this.emptyNode.active = false;
     if (data.Code == 1) {
       if (data.Model.BuyPropertyList) {
         for (let i = 0; i < data.Model.BuyPropertyList.length; i++) {
@@ -148,7 +149,7 @@ cc.Class({
         this.emptyNode.active = true;
       }
     } else {
-      console.log(data.Message);
+      this.emptyNode.active = true;
     }
   },
   start() {},
