@@ -7,6 +7,8 @@ cc.Class({
   properties: {},
   holeNodeList: null,
   shedRank: null,
+  //判断是首页进入 还是好友页面进入
+  isFriend: null,
   ctor() {
     this.holeNodeList = [];
   },
@@ -31,7 +33,12 @@ cc.Class({
   },
 
   initData() {
-    Func.getEggLayInfo().then(data => {
+    this.isFriend = this.sceneNode._components[1].name === 'Canvas<FriendIndex>' ? true : false;
+    var openID;
+    if (this.isFriend) {
+      openID = this.sceneNode.getComponent('FriendIndex').friendOpenID;
+    }
+    Func.getEggLayInfo(openID).then(data => {
       if (data.Code === 1) {
         //产蛋棚等级
         this.shedRank = data.Model.model.ShedRank;
@@ -49,7 +56,7 @@ cc.Class({
   assignData(data, holeNode) {
     let eggID = data.EggID;
     let holeButton = holeNode.getComponent(cc.Button);
-    holeButton.interactable = this.sceneNode._components[1].name === 'Canvas<FriendIndex>' ? false : true;
+    holeButton.interactable = this.isFriend;
     let holeSprite = holeNode.getComponent(cc.Sprite);
     let barNode = cc.find('timerBar', holeNode);
     barNode.active = false;

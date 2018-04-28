@@ -66,7 +66,7 @@ cc.Class({
         var friendList = data.List;
         this.contentNode = cc.find('bg-repertory/friendList/view/content', this.node);
         for (let i = 0; i < friendList.length; i++) {
-          this.assignFriendData((1)[i]);
+          this.assignFriendData(friendList[i]);
         }
         this.emptyNode = null;
         this.friend_page++;
@@ -140,7 +140,7 @@ cc.Class({
   //sort = true 显示排名
   assignFriendData(data, sort) {
     const element = data;
-    var advisor = element.path;
+    var advisor = element.path || '';
     var name = element.RealName;
     var grade = element.Grade;
     //排名（字段不确定）
