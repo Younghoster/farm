@@ -75,7 +75,7 @@ Alert.show = function(
       Alert._bgButton.on('click', self.onButtonClicked, self);
 
       // 父视图
-      cc.find('Canvas').addChild(Alert._alert, 3);
+      cc.find('Canvas').parent.addChild(Alert._alert, 3);
 
       // 展现 alert
       self.startFadeIn();

@@ -14,13 +14,13 @@ var Modal = cc.Class({
     this._Modal = {}; //初始化
     // this.ParentBox = cc.find("Canvas", this.node.parent);
     //查找dom默认为根节点
-    this.ParentBox = cc.find("Canvas");
+    this.ParentBox = cc.find('Canvas');
     if (!this.ParentBox) {
       this.ParentBox = this.node.parent;
     }
     if (!this.ParentBox.getChildByName(this.Prefab.name)) {
       this._Modal = cc.instantiate(this.Prefab);
-      this.ParentBox.addChild(this._Modal);
+      this.ParentBox.parent.addChild(this._Modal);
     } else {
       this._Modal = this.ParentBox.getChildByName(this.Prefab.name);
     }
@@ -28,7 +28,7 @@ var Modal = cc.Class({
   },
   closeModal: function() {
     var self = this;
-    console.log("close modal");
+    console.log('close modal');
     this.Modal.active = false;
     var action = cc.sequence(cc.fadeOut(0.3), cc.callFunc(this._Modal.removeFromParent, this._Modal));
     this._Modal.runAction(action);
@@ -38,14 +38,14 @@ var Modal = cc.Class({
   RunAction(type) {
     var action = null;
     switch (type) {
-      case "fadeIn":
+      case 'fadeIn':
         this._Modal.active = true;
         this._Modal.opacity = 0;
         action = cc.fadeIn(0.3);
         this._Modal.runAction(action);
         break;
-      case "moveIn":
-        var shareNode = cc.find("bg-share", this._Modal);
+      case 'moveIn':
+        var shareNode = cc.find('bg-share', this._Modal);
         action = cc.moveTo(0.3, cc.p(0, -474));
         shareNode.runAction(action);
         break;
