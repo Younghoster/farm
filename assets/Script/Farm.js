@@ -21,7 +21,7 @@ cc.Class({
   Prefab: null,
   onLoad() {
     var self = this;
-
+    self.getWhether();
     //初始化加载数据
     self.fatchData();
     setInterval(function() {
@@ -46,7 +46,24 @@ cc.Class({
       self.setLocalStorageData(ListData); //重新加载土地（包括植物）
     });
   },
-
+  //获取天气
+  getWhether() {
+    let self = this;
+    let bgNode = cc.find('bg', this.node);
+    let cloud01 = cc.find('cloud01', this.node);
+    let cloud02 = cc.find('cloud02', this.node);
+    let fengcheHome = cc.find('New Node/fengcheHome', this.node);
+    let fengche = cc.find('New Node/fengche', this.node);
+    let ParticleRain = cc.find('ParticleRain', this.node);
+    if (Config.weather == -1) {
+      ParticleRain.active = true;
+    }
+    self.setWhetherIcon(bgNode, 4);
+    self.setWhetherIcon(cloud01, 5);
+    self.setWhetherIcon(cloud02, 6);
+    self.setWhetherIcon(fengcheHome, 7);
+    self.setWhetherIcon(fengche, 8);
+  },
   //初始加载所有数据
   fatchData() {
     var self = this;
@@ -77,20 +94,61 @@ cc.Class({
     let self = this;
     for (let i = 0; i < data.Model.length; i++) {
       let itemBoxNode = cc.find('bg/mapNew/item' + i, this.node);
-      let itemBox = cc.find('bg/mapNew/item' + i, this.node).getComponent(cc.Sprite);
+      let itemBox = cc.find('bg/mapNew/item' + i, this.node);
       //是否解锁土地
       if (data.Model[i].IsLock) {
-        cc.loader.loadRes('Farm/itemG', cc.SpriteFrame, (err, spriteFrame) => {
-          itemBox.spriteFrame = spriteFrame;
-        });
+        self.setWhetherIcon(itemBox, 1);
       } else {
-        cc.loader.loadRes('Farm/item', cc.SpriteFrame, (err, spriteFrame) => {
-          itemBox.spriteFrame = spriteFrame;
-        });
+        self.setWhetherIcon(itemBox, 2);
       }
     }
   },
-
+  setWhetherIcon(dom, i) {
+    let imgSrcArr = [];
+    if (Config.weather == 1) {
+      imgSrcArr[1] = 'Farm/itemG';
+      imgSrcArr[2] = 'Farm/item';
+      imgSrcArr[3] = 'Farm/extend';
+      imgSrcArr[4] = 'Farm/farmBg';
+      imgSrcArr[5] = 'index/sun/cloud01';
+      imgSrcArr[6] = 'index/sun/cloud02';
+      imgSrcArr[7] = 'Farm/fengcheHome';
+      imgSrcArr[8] = 'Farm/fengche';
+      imgSrcArr[9] = 'Farm/itemdemo-xs';
+      imgSrcArr[10] = 'Farm/itemdemo-md';
+      imgSrcArr[11] = 'Farm/itemdemo-lg';
+      imgSrcArr[12] = 'Farm/itemdemo-ok';
+    } else if (Config.weather == 0) {
+      imgSrcArr[1] = 'Farm/itemG-wind';
+      imgSrcArr[2] = 'Farm/item-wind';
+      imgSrcArr[3] = 'Farm/extend-wind';
+      imgSrcArr[4] = 'Farm/farmBg-wind';
+      imgSrcArr[5] = 'index/cloud/cloud01';
+      imgSrcArr[6] = 'index/cloud/cloud02';
+      imgSrcArr[7] = 'Farm/fengcheHome-wind';
+      imgSrcArr[8] = 'Farm/fengche-wind';
+      imgSrcArr[9] = 'Farm/itemdemo-xs-wind';
+      imgSrcArr[10] = 'Farm/itemdemo-md-wind';
+      imgSrcArr[11] = 'Farm/itemdemo-lg-wind';
+      imgSrcArr[12] = 'Farm/itemdemo-ok-wind';
+    } else if (Config.weather == -1) {
+      imgSrcArr[1] = 'Farm/itemG-rain';
+      imgSrcArr[2] = 'Farm/item-rain';
+      imgSrcArr[3] = 'Farm/extend-rain';
+      imgSrcArr[4] = 'Farm/farmBg-rain';
+      imgSrcArr[5] = 'index/rain/cloud01';
+      imgSrcArr[6] = 'index/rain/cloud02';
+      imgSrcArr[7] = 'Farm/fengcheHome-rain';
+      imgSrcArr[8] = 'Farm/fengche-rain';
+      imgSrcArr[9] = 'Farm/itemdemo-xs-rain';
+      imgSrcArr[10] = 'Farm/itemdemo-md-rain';
+      imgSrcArr[11] = 'Farm/itemdemo-lg-rain';
+      imgSrcArr[12] = 'Farm/itemdemo-ok-rain';
+    }
+    cc.loader.loadRes(imgSrcArr[i], cc.SpriteFrame, (err, spriteFrame) => {
+      dom.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+    });
+  },
   //缓存数据并刷新数据
   setLocalStorageData(data) {
     let self = this;
@@ -120,6 +178,12 @@ cc.Class({
       let PrefabPlant_ok = cc.find('plant-ok', Prefab);
       let PrefabExtend = cc.find('extend', Prefab);
       let PrefabPlant_tip = cc.find('New Node/reap', Prefab);
+      //天气图标变化
+      self.setWhetherIcon(PrefabExtend, 3);
+      self.setWhetherIcon(PrefabPlant_xs, 9);
+      self.setWhetherIcon(PrefabPlant_md, 10);
+      self.setWhetherIcon(PrefabPlant_lg, 11);
+      self.setWhetherIcon(PrefabPlant_ok, 12);
       //初始化清空显示
       PrefabPlant_xs.active = false;
       PrefabPlant_md.active = false;
