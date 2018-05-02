@@ -22,7 +22,7 @@ Msg.show = function(text, animSpeed, timeout) {
     var msgLabel = cc.find('message', _this.MsgNode).getComponent(cc.Label);
     msgLabel.string = text;
     var parentNode = cc.find('Canvas');
-    parentNode.addChild(_this.MsgNode, 5);
+    parentNode.parent.addChild(_this.MsgNode, 5);
 
     _this.MsgNode.opacity = 0;
     _this.MsgNode.runAction(cc.fadeIn(_this._animSpeed));
