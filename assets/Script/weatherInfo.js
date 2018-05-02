@@ -57,18 +57,24 @@ cc.Class({
     this.index = 1;
     this.size = 4;
     //加载数据
-    this.updateData().then(data => {
+    this.updateData(0).then(data => {
       this.assignData(data);
     });
     this.updateWeather();
     //滑动到最右侧 加载数据
-    this.scrollviewNode.on('bounce-right', this.updateData, this);
+    this.scrollviewNode.on(
+      'bounce-right',
+      () => {
+        this.updateData(1);
+      },
+      this
+    );
     //同步滑动
     // this.titleScrollNode.on("scrolling", this.titleScrollEvent, this);
     // this.scrollviewNode.on("scrolling", this.scrollEvent, this);
   },
   //加载数据
-  updateData() {
+  updateData(type) {
     return new Promise((resolve, reject) => {
       Func.GetWetherData(this.index, this.size).then(res => {
         let data = res.data.weatherdata;
@@ -76,14 +82,22 @@ cc.Class({
           let info = data[i];
           //初始化的数据(第一次加载数据时 将第一条数据返回resolve 然后填充数据)
           resolve(data[0]);
+
           //时间item
           let itemNode = cc.instantiate(this.item_perfab);
           let timeLabel = cc.find('value', itemNode).getComponent(cc.Label);
           timeLabel.string = info.intime;
+
+          if (type === 0 && i === 0) {
+            this.addActive(itemNode);
+          }
+
           itemNode.on(
             'click',
             event => {
               this.assignData(info);
+              this.removeActive();
+              this.addActive(itemNode);
             },
             this
           );
@@ -144,20 +158,26 @@ cc.Class({
     }
     this.noiTipLabel.string = noitip;
   },
-  // //title 移动事件
-  // titleScrollEvent() {
-  //   let pos_title = this.titleScrollView.getContentPosition();
-  //   let pos_content = this.scrollView.getContentPosition();
+  //选中效果
+  addActive(itemNode) {
+    itemNode.setColor(cc.color('#ff4c4c'));
+    itemNode.children.forEach(childNode => {
+      childNode.setColor(cc.color('#ffffff'));
+    });
+  },
+  //移除选中效果
+  removeActive() {
+    this.contentNode.children.forEach(childNode => {
+      childNode.setColor(cc.color('#ffffff'));
 
-  //   this.scrollView.setContentPosition(cc.v2(pos_content.x, pos_title.y));
-  // },
-  // //右侧数据内容 移动事件
-  // scrollEvent() {
-  //   let pos_title = this.titleScrollView.getContentPosition();
-  //   let pos_content = this.scrollView.getContentPosition();
+      let valueNode = cc.find('value', childNode);
+      let btnNode = cc.find('btn', childNode);
 
-  //   this.titleScrollView.setContentPosition(cc.v2(pos_title.x, pos_content.y));
-  // },
+      valueNode.setColor(cc.color('#666666'));
+      btnNode.setColor(cc.color('#ff4c4c'));
+    });
+  },
+
   start() {},
   loadSceneIndex() {
     cc.director.loadScene('index');

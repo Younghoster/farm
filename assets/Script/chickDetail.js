@@ -165,7 +165,7 @@ cc.Class({
   assignChickInfo(data) {
     this.idLabel.string = `编号：${this.Id}`;
     this.sexLabel.string = `性别：${data.Sex ? '小姐姐' : '小哥哥'}`;
-    this.hungryLabel.string = `饥饿度：${data.StarvationValue}`;
+    this.hungryLabel.string = `饱食度：${data.StarvationValue}`;
     // this.healthLabel.string = `健康值：${data.HealthValue}`;
 
     this.growProgressBar.progress = Math.round(data.Happy) / 100;

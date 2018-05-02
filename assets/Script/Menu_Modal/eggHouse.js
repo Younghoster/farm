@@ -24,6 +24,7 @@ cc.Class({
     this.eggAnim = this.eggNode.getComponent(cc.Animation);
     this.breakButton = cc.find('btn', this.animNode);
     this.sceneNode = cc.find('Canvas');
+    this.modalNode = cc.find('modal', this.animNode);
   },
 
   bindEvent() {
@@ -119,6 +120,7 @@ cc.Class({
                 this.animNode.active = true;
                 this.animNode.runAction(cc.fadeIn(0.3));
                 this.breakButton.active = true;
+
                 cc.loader.loadRes('eggHouse/egg0', cc.SpriteFrame, (err, spriteFrame) => {
                   this.eggNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
                 });
@@ -130,6 +132,16 @@ cc.Class({
                       cc.fadeOut(0.3),
                       cc.callFunc(() => {
                         this.animNode.active = false;
+                      })
+                    );
+                    this.animNode.runAction(action);
+                  });
+                  this.modalNode.on('click', () => {
+                    let action = cc.sequence(
+                      cc.fadeOut(0.3),
+                      cc.callFunc(() => {
+                        this.animNode.active = false;
+                        this.modalNode.off('click');
                       })
                     );
                     this.animNode.runAction(action);
