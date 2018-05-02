@@ -72,7 +72,15 @@ cc.Class({
     if (CropsStatus !== 0 && !IsLock && IsWater) {
       Data.func.CropsWatering(CropsID).then(data => {
         if (data.Code === 1) {
-          Msg.show('浇水成功！');
+          self.timers = setTimeout(function() {
+            Data.func.getFarmModalData().then(data2 => {
+              // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
+              Msg.show('浇水成功！');
+              self.FarmJs.emit('updataPlant', {
+                data: data2.Model
+              });
+            });
+          }, 500);
         } else {
           // Msg.show(data.Message);
         }
@@ -89,7 +97,15 @@ cc.Class({
     if (CropsStatus !== 0 && !IsLock && IsWeeds) {
       Data.func.CropsWeeding(CropsID).then(data => {
         if (data.Code === 1) {
-          Msg.show('除草成功');
+          self.timers = setTimeout(function() {
+            Data.func.getFarmModalData().then(data2 => {
+              // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
+              Msg.show('除草成功');
+              self.FarmJs.emit('updataPlant', {
+                data: data2.Model
+              });
+            });
+          }, 500);
         } else {
           // Msg.show(data.Message);
         }
@@ -106,7 +122,15 @@ cc.Class({
     if (CropsStatus !== 0 && !IsLock && IsDisinsection) {
       Data.func.CropsDisinsection(CropsID).then(data => {
         if (data.Code === 1) {
-          Msg.show('除虫成功');
+          self.timers = setTimeout(function() {
+            Data.func.getFarmModalData().then(data2 => {
+              // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
+              Msg.show('除虫成功');
+              self.FarmJs.emit('updataPlant', {
+                data: data2.Model
+              });
+            });
+          }, 500);
         } else {
           // Msg.show(data.Message);
         }

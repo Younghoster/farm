@@ -35,6 +35,7 @@ cc.Class({
     this.node.on('updataPlant', function(event) {
       let List = event.detail.data;
       self.clearAllDom(); //清除植物数据
+      self.setLocData(List);
       self.fatchPlant(List); //重新加载植物
     });
 
@@ -43,6 +44,7 @@ cc.Class({
       let ListData = event.detail.data;
       self.clearAllDom(); //清除植物数据
       self.setLandOption(ListData); //重新加载土地
+      self.setLocData(ListData);
       self.setLocalStorageData(ListData); //重新加载土地（包括植物）
     });
   },
@@ -73,7 +75,8 @@ cc.Class({
         //土地渲染
         self.setLandOption(data); //重新加载土地
       }
-      self.setLocalStorageData(data); //重新加载土地（包括植物）
+      self.setLocData(data.Model, 'all');
+      self.setLocalStorageData(data.Model); //重新加载土地（包括植物）
     });
   },
   //仅仅 更新 植物状态
@@ -104,6 +107,9 @@ cc.Class({
     }
   },
   setWhetherIcon(dom, i) {
+    if (!dom) {
+      return;
+    }
     let imgSrcArr = [];
     if (Config.weather == 1) {
       imgSrcArr[1] = 'Farm/itemG';
@@ -149,12 +155,28 @@ cc.Class({
       dom.getComponent(cc.Sprite).spriteFrame = spriteFrame;
     });
   },
+  setLocData(data, all) {
+    let self = this;
+    console.log(data);
+    if (all) {
+      this.Value = {
+        List: data,
+        toolType: 0
+      };
+    }
+    //不清除toolType工具id
+    else {
+      this.Value.List = data;
+    }
+    //缓存数据并加载植物
+    cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.Value));
+  },
   //缓存数据并刷新数据
   setLocalStorageData(data) {
     let self = this;
     console.log(data);
     this.Value = {
-      List: data.Model,
+      List: data,
       toolType: 0
     };
     //缓存数据并加载植物
@@ -171,6 +193,9 @@ cc.Class({
     for (let i = 0; i < ValueList.length; i++) {
       let bg = cc.find('bg', this.node);
       let Prefab = cc.instantiate(self.Item_Prefab);
+      if (!Prefab) {
+        return;
+      }
       //浮动小提示dom
       let PrefabPlant_xs = cc.find('plant-xs', Prefab);
       let PrefabPlant_md = cc.find('plant-md', Prefab);
@@ -258,9 +283,73 @@ cc.Class({
   getToolPositon() {
     let self = this;
     for (let i = 1; i < 7; i++) {
+      let tool = cc.find('tool/layout/farm_icon_0' + i, this.node);
       if (i !== 1 && i !== 5) {
-        let tool = cc.find('tool/layout/farm_icon_0' + i, this.node);
         this.addListenMove(i, tool);
+      }
+      if (i == 1) {
+        tool.on('touchstart', function() {
+          let seedBox = cc.find('bg_farm', self.node);
+          if (!seedBox.active) {
+            seedBox.active = false;
+            seedBox.removeAllChildren();
+            Data.func.GetSeedList().then(data => {
+              if (data.Code === 1) {
+                for (let i = 0; i < data.List.length; i++) {
+                  let prefab = cc.instantiate(self.ItemSeed_Prefab);
+                  let Img = cc.find('ymzz', prefab).getComponent(cc.Sprite);
+                  let ImgSrc;
+                  let Label = cc.find('label', prefab).getComponent(cc.Label);
+                  ImgSrc = 'Modal/Repertory/ymzz';
+                  Label.string = data.List[i].PropName + '×' + data.List[i].Count;
+                  self.addListenMove(1, prefab, data.List[i].PropertyID);
+                  cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function(err, spriteFrame) {
+                    Img.spriteFrame = spriteFrame;
+                  });
+                  seedBox.addChild(prefab);
+                }
+                Tool.RunAction(seedBox, 'fadeIn', 0.3);
+              }
+            });
+          } else {
+            seedBox.active = false;
+            seedBox.removeAllChildren();
+          }
+        });
+      }
+      if (i == 5) {
+        tool.on('touchstart', function() {
+          let seedBox = cc.find('bg_farm', self.node);
+          if (!seedBox.active) {
+            seedBox.active = false;
+            seedBox.removeAllChildren();
+            Data.func.GetFertilizerList().then(data => {
+              if (data.Code === 1) {
+                for (let i = 0; i < data.List.length; i++) {
+                  let prefab = cc.instantiate(self.ItemSeed_Prefab);
+                  let Img = cc.find('ymzz', prefab).getComponent(cc.Sprite);
+                  let ImgSrc;
+                  let Label = cc.find('label', prefab).getComponent(cc.Label);
+                  if (data.List[i].PropName == '超级肥料') {
+                    ImgSrc = 'Shop/cjfl_1';
+                  } else {
+                    ImgSrc = 'Shop/fertilizer';
+                  }
+                  Label.string = data.List[i].PropName + '×' + data.List[i].Count;
+                  self.addListenMove(5, prefab, data.List[i].PropertyTypeID);
+                  cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function(err, spriteFrame) {
+                    Img.spriteFrame = spriteFrame;
+                  });
+                  seedBox.addChild(prefab);
+                }
+                Tool.RunAction(seedBox, 'fadeIn', 0.3);
+              }
+            });
+          } else {
+            seedBox.active = false;
+            seedBox.removeAllChildren();
+          }
+        });
       }
     }
   },
@@ -314,62 +403,6 @@ cc.Class({
       bg_farm.opacity = 1;
       bg_farm.removeAllChildren();
     });
-  },
-
-  //播种和施肥触发事件
-  setBtnShowSeed(e) {
-    let self = this;
-    let seedBox = cc.find('bg_farm', this.node);
-    if (!seedBox.active) {
-      seedBox.active = false;
-      seedBox.removeAllChildren();
-      if (e.target._name == 'farm_icon_01') {
-        Data.func.GetSeedList().then(data => {
-          if (data.Code === 1) {
-            for (let i = 0; i < data.List.length; i++) {
-              let prefab = cc.instantiate(self.ItemSeed_Prefab);
-              let Img = cc.find('ymzz', prefab).getComponent(cc.Sprite);
-              let ImgSrc;
-              let Label = cc.find('label', prefab).getComponent(cc.Label);
-              ImgSrc = 'Modal/Repertory/ymzz';
-              Label.string = data.List[i].PropName + '×' + data.List[i].Count;
-              self.addListenMove(1, prefab, data.List[i].PropertyID);
-              cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function(err, spriteFrame) {
-                Img.spriteFrame = spriteFrame;
-              });
-              seedBox.addChild(prefab);
-            }
-            Tool.RunAction(seedBox, 'fadeIn', 0.3);
-          }
-        });
-      } else {
-        Data.func.GetFertilizerList().then(data => {
-          if (data.Code === 1) {
-            for (let i = 0; i < data.List.length; i++) {
-              let prefab = cc.instantiate(self.ItemSeed_Prefab);
-              let Img = cc.find('ymzz', prefab).getComponent(cc.Sprite);
-              let ImgSrc;
-              let Label = cc.find('label', prefab).getComponent(cc.Label);
-              if (data.List[i].PropName == '超级肥料') {
-                ImgSrc = 'Shop/cjfl_1';
-              } else {
-                ImgSrc = 'Shop/fertilizer';
-              }
-              Label.string = data.List[i].PropName + '×' + data.List[i].Count;
-              self.addListenMove(5, prefab, data.List[i].PropertyTypeID);
-              cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function(err, spriteFrame) {
-                Img.spriteFrame = spriteFrame;
-              });
-              seedBox.addChild(prefab);
-            }
-            Tool.RunAction(seedBox, 'fadeIn', 0.3);
-          }
-        });
-      }
-    } else {
-      seedBox.active = false;
-      seedBox.removeAllChildren();
-    }
   },
 
   //工具图片显示  浇水、除草、种子、镰刀
