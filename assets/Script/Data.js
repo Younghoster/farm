@@ -1481,7 +1481,7 @@ var func = {
       // GET方法
       xhr.open(
         'GET',
-        Config.apiUrl + '/T_Base_Exchange/GetExchangeCount?openID=' + this.openID + '&type=' + type + '&count=' + count,
+        Config.apiUrl + '/T_Base_Exchange/GetExchangeCount?openID=' + this.openID + '&type=' + type + '&count=' + count ,
         true
       );
       xhr.setRequestHeader('Content-Type', 'json');

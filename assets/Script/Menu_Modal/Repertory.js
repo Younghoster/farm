@@ -126,13 +126,9 @@ cc.Class({
           for (let i = 0; i < list.length; i++) {
             const goods = list[i];
             let goodsNode = cc.instantiate(this.goods_Prefab);
-
-            if (goods.Count > 0) {
-              this.assignData(goods, goodsNode);
-              this.goodsListNode.addChild(goodsNode);
-            }
+            this.assignData(goods, goodsNode);
+            this.goodsListNode.addChild(goodsNode);
           }
-          this.emptyNode = null;
         } else {
           this.emptyNode ? (this.emptyNode.active = true) : false;
         }
@@ -162,11 +158,11 @@ cc.Class({
         this.bindGoodsEvent(
           goodsNode,
           () => {
-            this.shelfEvent(name, 2, goodsNode);
+            this.shelfEvent(PropName, 2, goodsNode);
           },
           '上架',
           () => {
-            this.exChange(name, 2);
+            this.exChange(PropName, 2);
           },
           '兑换',
           () => false,
@@ -229,11 +225,11 @@ cc.Class({
         this.bindGoodsEvent(
           goodsNode,
           () => {
-            this.shelfEvent(name, 1, goodsNode);
+            this.shelfEvent(PropName, 1, goodsNode);
           },
           '上架',
           () => {
-            this.exChange(name, 3);
+            this.exChange(PropName, 1);
           },
           '兑换',
           () => false,
@@ -247,18 +243,26 @@ cc.Class({
         });
         // this.bindGoodsEvent(goodsNode, this.feed, '添加饲料槽');
         break;
-      //玉米种子
+      //玉米种子和玉米
       case 6:
-        cc.loader.loadRes('Modal/Repertory/ymzz1', cc.SpriteFrame, function(err, spriteFrame) {
-          goodSprite.spriteFrame = spriteFrame;
-        });
-        this.bindGoodsEvent(
-          goodsNode,
-          () => {
-            this.compound(1, 12, '玉米');
-          },
-          '合成'
-        );
+        // 玉米种子
+        if (goods.Type === 0) {
+          cc.loader.loadRes('Modal/Repertory/ymzz1', cc.SpriteFrame, function(err, spriteFrame) {
+            goodSprite.spriteFrame = spriteFrame;
+          });
+        } else {
+          //玉米
+          cc.loader.loadRes('Modal/Repertory/img-ym', cc.SpriteFrame, function(err, spriteFrame) {
+            goodSprite.spriteFrame = spriteFrame;
+          });
+          this.bindGoodsEvent(
+            goodsNode,
+            () => {
+              this.compound(1, 12, '玉米');
+            },
+            '合成'
+          );
+        }
         break;
     }
     nameLabel.string = PropName;
@@ -365,42 +369,42 @@ cc.Class({
   },
   //上架事件（点击确定的回调）
   OnShelf(type, goodsNode) {
-    Msg.show('接口还在开发中');
-    // let countLabel = cc.find('icon-tip/count', goodsNode).getComponent(cc.Label);
-    // //获取输入框的价格及数量
-    // let unitprice = Alertshelf._price;
-    // let count = Alertshelf._count;
-    // Func.OnShelf(type, unitprice, count)
-    //   .then(data => {
-    //     if (data.Code === 1) {
-    //       Msg.show(data.Message);
-    //       if (data.Model > 0) {
-    //         countLabel.string = data.Model;
-    //       } else {
-    //         goodsNode.removeFromParent();
-    //       }
-    //     } else {
-    //       Msg.show(data.Message);
-    //     }
-    //   })
-    //   .catch(data => {
-    //     Msg.show(data.Message);
-    //   });
+    // Msg.show('接口还在开发中');
+    let countLabel = cc.find('icon-tip/count', goodsNode).getComponent(cc.Label);
+    //获取输入框的价格及数量
+    let unitprice = Alertshelf._price;
+    let count = Alertshelf._count;
+    Func.OnShelf(type, unitprice, count)
+      .then(data => {
+        if (data.Code === 1) {
+          Msg.show(data.Message);
+          if (data.Model > 0) {
+            countLabel.string = data.Model;
+          } else {
+            goodsNode.removeFromParent();
+          }
+        } else {
+          Msg.show(data.Message);
+        }
+      })
+      .catch(data => {
+        Msg.show(data.Message);
+      });
   },
   //兑换事件
   exChange(name, type) {
-    Msg.show('接口还在开发中');
-    //放到Config.js做中转
-    // Config.exchangeData.actualName = name;
-    // Config.exchangeData.actualCount = 1;
-    // Config.exchangeData.virtualName = name;
-    // if (type == 2) {
-    //   Config.exchangeData.virtualCount = 2;
-    // } else if (type == 3) {
-    //   Config.exchangeData.virtualCount = 1;
-    // }
-    // Config.exchangeData.goodsType = type;
-    // cc.director.loadScene('exchange');
+    // Msg.show('接口还在开发中');
+    // 放到Config.js做中转;
+    Config.exchangeData.actualName = name;
+    Config.exchangeData.actualCount = 1;
+    Config.exchangeData.virtualName = name;
+    if (type == 2) {
+      Config.exchangeData.virtualCount = 1;
+    } else if (type == 1) {
+      Config.exchangeData.virtualCount = 1;
+    }
+    Config.exchangeData.goodsType = type;
+    cc.director.loadScene('exchange');
   },
   //合成
   compound(productType, makeId, makeName) {

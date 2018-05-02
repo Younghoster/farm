@@ -34,6 +34,9 @@ cc.Class({
     this.botNode = cc.find('bot', this.node);
     this.eggMoreNode = cc.find('eggMore', this.node);
     this.eggCountLabel = cc.find('count', this.eggMoreNode).getComponent(cc.Label);
+    //风车
+    this.windmillNode = cc.find('windmill', this.bgNode);
+    this.flabellumNode = cc.find('flabellum', this.windmillNode);
   },
   initData(data) {
     // 清洁度设置
@@ -143,6 +146,7 @@ cc.Class({
             //清洁成功 牧场清洁度=100%
 
             this.clearProgressBar.progress = 1;
+            this.clearLabel.string = '100%';
             this.shitBoxNode.removeAllChildren();
           });
           // this.handAnim.on("finished", this.chickFunc.initData, this._chick);
@@ -172,26 +176,26 @@ cc.Class({
       }
     });
   },
-  //初始化房屋图片 （未加入到init中，后台没有数据）
-  initHouse(rank) {
-    switch (rank) {
-      case 'C':
-        cc.loader.loadRes('house/house_1', cc.SpriteFrame, (err, spriteFrame) => {
-          this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        break;
-      case 'B':
-        cc.loader.loadRes('house/house_2', cc.SpriteFrame, (err, spriteFrame) => {
-          this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        break;
-      case 'A':
-        cc.loader.loadRes('house/house_3', cc.SpriteFrame, (err, spriteFrame) => {
-          this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        break;
-    }
-  },
+  // //初始化房屋图片 （未加入到init中，后台没有数据）
+  // initHouse(rank) {
+  //   switch (rank) {
+  //     case 'C':
+  //       cc.loader.loadRes('house/house_1', cc.SpriteFrame, (err, spriteFrame) => {
+  //         this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+  //       });
+  //       break;
+  //     case 'B':
+  //       cc.loader.loadRes('house/house_2', cc.SpriteFrame, (err, spriteFrame) => {
+  //         this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+  //       });
+  //       break;
+  //     case 'A':
+  //       cc.loader.loadRes('house/house_3', cc.SpriteFrame, (err, spriteFrame) => {
+  //         this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+  //       });
+  //       break;
+  //   }
+  // },
   //更新 饲料tip的数量
   updateFeedCount() {
     Func.GetFeedCount().then(data => {
@@ -251,6 +255,13 @@ cc.Class({
         cc.loader.loadRes('index/rain/hatchBox', cc.SpriteFrame, (err, spriteFrame) => {
           this.hatchBoxNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
+        //风车
+        cc.loader.loadRes('index/rain/windmill', cc.SpriteFrame, (err, spriteFrame) => {
+          this.windmillNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
+        cc.loader.loadRes('index/rain/flabellum', cc.SpriteFrame, (err, spriteFrame) => {
+          this.flabellumNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
         rainNode.active = true;
       } else if (res.data.light === 2 || res.data.light === 3) {
         //阴天
@@ -282,6 +293,13 @@ cc.Class({
         cc.loader.loadRes('index/cloud/hatchBox', cc.SpriteFrame, (err, spriteFrame) => {
           this.hatchBoxNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
+        //风车
+        cc.loader.loadRes('index/cloud/windmill', cc.SpriteFrame, (err, spriteFrame) => {
+          this.windmillNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
+        cc.loader.loadRes('index/cloud/flabellum', cc.SpriteFrame, (err, spriteFrame) => {
+          this.flabellumNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
         rainNode.active = false;
       } else if (res.data.light === 1) {
         Config.weather = 1;
@@ -311,6 +329,13 @@ cc.Class({
         //食盆
         cc.loader.loadRes('index/sun/hatchBox', cc.SpriteFrame, (err, spriteFrame) => {
           this.hatchBoxNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
+        //风车
+        cc.loader.loadRes('index/sun/windmill', cc.SpriteFrame, (err, spriteFrame) => {
+          this.windmillNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
+        cc.loader.loadRes('index/sun/flabellum', cc.SpriteFrame, (err, spriteFrame) => {
+          this.flabellumNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
         rainNode.active = false;
       }
@@ -400,6 +425,7 @@ cc.Class({
         }
         break;
       case 3:
+        this.windmillNode.active = true;
         if (Config.weather === -1) {
           cc.loader.loadRes('index/rain/tip3', cc.SpriteFrame, (err, spriteFrame) => {
             this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;

@@ -790,7 +790,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 427.52,
+      "width": 624,
       "height": 40
     },
     "_rotationX": 0,
@@ -842,7 +842,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 90,
+      "width": 0,
       "height": 30
     },
     "_rotationX": 0,
@@ -851,7 +851,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 45,
+      "x": 0,
       "y": 0
     },
     "_skewX": 0,
@@ -877,7 +877,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "周振攀",
+    "_N$string": "",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -916,7 +916,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 193.52,
+      "width": 480,
       "height": 30
     },
     "_rotationX": 0,
@@ -925,7 +925,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 201.76,
+      "x": 255,
       "y": 0
     },
     "_skewX": 0,
@@ -951,7 +951,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "15854141562",
+    "_N$string": "地址为空，请点击右侧箭头添加地址",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -999,7 +999,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 370.52,
+      "x": 567,
       "y": 0
     },
     "_skewX": 0,
@@ -1069,7 +1069,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 427.52,
+      "width": 624,
       "height": 40
     },
     "_resize": 1,
@@ -1394,7 +1394,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 144,
+      "width": 0,
       "height": 24
     },
     "_rotationX": 0,
@@ -1429,7 +1429,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "李山投资集团",
+    "_N$string": "",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",

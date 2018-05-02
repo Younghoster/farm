@@ -63,6 +63,9 @@ cc.Class({
       timeLabel.string = `${time.days * 24 + time.hours}小时${time.mins}分钟`;
     } else {
       timeLabel.string = '已超出兑换时间';
+      btnLabel.string = '兑换过期';
+      btn.color = cc.color('#999999');
+      btn.getComponent(cc.Button).interactable = false;
     }
 
     if (data.Money > 0) {
