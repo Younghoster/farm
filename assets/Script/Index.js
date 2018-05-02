@@ -110,6 +110,11 @@ cc.Class({
 
     //初始化产蛋棚是否显示鸡蛋
     this.eggNode.active = data.EggsShed.EggCount > 0 ? true : false;
+    if (data.EggsShed.IsGoldEgg) {
+      cc.loader.loadRes('index/goldegg', cc.SpriteFrame, (err, spriteFrame) => {
+        this.eggNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+      });
+    }
     //初始化牧场是否显示鸡蛋
     this.eggMoreNode.active = data.RanchModel.EggCount > 0 ? true : false;
     this.eggCountLabel.string = `x${data.RanchModel.EggCount}`;
