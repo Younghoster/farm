@@ -6,10 +6,7 @@ cc.Class({
   extends: cc.Component,
 
   properties: {},
-  friendOpenID: null,
-  ctor() {
-    this.friendOpenID = this.friendOpenID || '7f6f7f858e934ffbb20ddfc1fcb79ddf';
-  },
+
   bindNode() {
     this.backButton = cc.find('bg/btn-back', this.node);
     this.clearProgressBar = cc.find('clearBar/clear_bar', this.node).getComponent(cc.ProgressBar);
@@ -94,7 +91,7 @@ cc.Class({
   initChick() {
     let self = this;
     //获取正常的鸡
-    Func.GetChickList(1).then(data => {
+    Func.GetChickList(1, Config.friendOpenId).then(data => {
       if (data.Code == 1) {
         //初始化鸡是否显示
         let length = data.List.length;
@@ -107,7 +104,7 @@ cc.Class({
           var chickNode = cc.find(`Chick${i}`, this.node);
           chickNode.active = true;
 
-          chickNode.setPosition(self.setChickPositionX(i), Math.random() * -350 - 100);
+          chickNode.setPosition(self.setChickPositionX(i), self.setChickPositionY(i));
           let feedNode = cc.find('feed', chickNode);
           feedNode.active = element.IsHunger;
           // this.scene.addChild(chickNode);
@@ -130,11 +127,18 @@ cc.Class({
       return (i + 1) * 100 - 350;
     }
   },
+  setChickPositionY(i) {
+    if (i > 4) {
+      return -450;
+    } else {
+      return -300;
+    }
+  },
   //点击清理事件
   showClearAlert: function() {
     var self = this;
     //调用接口
-    Func.PostFriendsClean(this.friendOpenID)
+    Func.PostFriendsClean(Config.friendOpenId)
       .then(data => {
         if (data.Code === 1) {
           //清洁动画
@@ -161,7 +165,7 @@ cc.Class({
   },
   // 偷取鸡蛋
   stealEgg() {
-    Func.PostSteaEgg(this.friendOpenID).then(data => {
+    Func.PostSteaEgg(Config.friendOpenId).then(data => {
       if (data.Code == 1) {
         let action = cc.sequence(
           cc.fadeOut(0.3),
@@ -453,12 +457,15 @@ cc.Class({
   loadIndexScene() {
     cc.director.loadScene('index');
   },
-
+  gotoFriendFarm() {
+    let self = this;
+    cc.director.loadScene('FriendFarm');
+  },
   onLoad() {},
 
   start() {
     this.bindNode();
-    Func.GetWholeData(this.friendOpenID).then(data => {
+    Func.GetWholeData(Config.friendOpenId).then(data => {
       if (data.Code === 1) {
         this.initData(data);
       } else {

@@ -1,8 +1,7 @@
 var func = {
   //获取所有数据（index页面）"dedbc83d62104d6da8d4a3c0188dc419",
   openID: 'f79ed645ad624cf5bbfecc2e67f23020',
-
-  GetWholeData(openID = this.openID) {
+  GetWholeData(openID) {
     // Loading.show();
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
@@ -22,7 +21,11 @@ var func = {
         }
       };
       // GET方法
-      xhr.open('GET', Config.apiUrl + '/T_Base_User/GetWholeData?openID=' + openID, true);
+      if (openID) {
+        xhr.open('GET', Config.apiUrl + '/T_Base_User/GetWholeData?openID=' + openID, true);
+      } else {
+        xhr.open('GET', Config.apiUrl + '/T_Base_User/GetWholeData?openID=' + this.openID, true);
+      }
       xhr.setRequestHeader('Content-Type', 'json');
       xhr.send();
       // POST方法
@@ -1062,7 +1065,7 @@ var func = {
     });
   },
   //获得该用户的鸡的列表
-  GetChickList(status = 2) {
+  GetChickList(status = 2, openId) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -1080,9 +1083,14 @@ var func = {
         }
       };
       // POST方法
+
       xhr.open('POST', Config.apiUrl + '/T_Base_Chicken/GetModelList', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
-      xhr.send('openID=' + this.openID + '&Status=' + status);
+      if (openId) {
+        xhr.send('openID=' + openId + '&Status=' + status);
+      } else {
+        xhr.send('openID=' + this.openID + '&Status=' + status);
+      }
     });
   },
 
@@ -1765,7 +1773,7 @@ var func = {
     });
   },
   //农场数据
-  getFarmModalData() {
+  getFarmModalData(otherOpenId) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -1782,7 +1790,12 @@ var func = {
         }
       };
       // GET方法
-      xhr.open('Get', Config.apiUrl + '/T_Farm_Land/GetList?openID=' + this.openID, true);
+      if (otherOpenId) {
+        xhr.open('Get', Config.apiUrl + '/T_Farm_Land/GetList?openID=' + otherOpenId, true);
+      } else {
+        xhr.open('Get', Config.apiUrl + '/T_Farm_Land/GetList?openID=' + this.openID, true);
+      }
+
       xhr.setRequestHeader('Content-Type', 'json');
       xhr.send();
     });
@@ -1877,8 +1890,8 @@ var func = {
       xhr.send();
     });
   },
-  //植物浇水
-  CropsWatering(cropsId) {
+  //植物浇水&帮好友浇水
+  CropsWatering(cropsId, openId) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -1894,13 +1907,18 @@ var func = {
           }
         }
       };
-      xhr.open('POST', Config.apiUrl + '/T_Farm_Land/UserWater?cropsId=' + cropsId, true);
+      if (openId) {
+        xhr.open('POST', Config.apiUrl + '/T_Farm_Land/FriendsWater?cropsId=' + cropsId + '&openId=' + openId, true);
+      } else {
+        xhr.open('POST', Config.apiUrl + '/T_Farm_Land/UserWater?cropsId=' + cropsId, true);
+      }
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.send();
     });
   },
-  //植物除草
-  CropsWeeding(cropsId) {
+
+  //植物除草&帮好友除草
+  CropsWeeding(cropsId, openId) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -1916,13 +1934,19 @@ var func = {
           }
         }
       };
-      xhr.open('POST', Config.apiUrl + '/T_Farm_Land/UserWeed?cropsId=' + cropsId, true);
+      if (openId) {
+        xhr.open('POST', Config.apiUrl + '/T_Farm_Land/FriendsWeed?cropsId=' + cropsId + '&openId=' + openId, true);
+      } else {
+        xhr.open('POST', Config.apiUrl + '/T_Farm_Land/UserWeed?cropsId=' + cropsId, true);
+      }
+
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.send();
     });
   },
-  //植物除虫
-  CropsDisinsection(cropsId) {
+
+  //植物除虫&帮好友除虫
+  CropsDisinsection(cropsId, openId) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -1938,13 +1962,23 @@ var func = {
           }
         }
       };
-      xhr.open('POST', Config.apiUrl + '/T_Farm_Land/UserDisinsection?cropsId=' + cropsId, true);
+      if (openId) {
+        xhr.open(
+          'POST',
+          Config.apiUrl + '/T_Farm_Land/FriendsDisinsection?cropsId=' + cropsId + '&openId=' + openId,
+          true
+        );
+      } else {
+        xhr.open('POST', Config.apiUrl + '/T_Farm_Land/UserDisinsection?cropsId=' + cropsId, true);
+      }
+
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.send();
     });
   },
-  //收取农作物
-  CollectCrops(cropsId) {
+
+  //收取农作物&偷取
+  CollectCrops(cropsId, openId) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -1965,6 +1999,7 @@ var func = {
         Config.apiUrl + '/T_Farm_Crops/CollectCrops?openId=' + this.openID + '&cropsId=' + cropsId,
         true
       );
+
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.send();
     });

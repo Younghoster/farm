@@ -167,7 +167,7 @@ cc.Class({
           var chickNode = cc.find(`Chick${i}`, this.node);
           chickNode.active = true;
 
-          chickNode.setPosition(self.setChickPositionX(i), Math.random() * -350 - 100);
+          chickNode.setPosition(self.setChickPositionX(i), self.setChickPositionY(i));
           let feedNode = cc.find('feed', chickNode);
           feedNode.active = element.IsHunger;
           // this.scene.addChild(chickNode);
@@ -188,6 +188,13 @@ cc.Class({
       return (i - 4) * 100 - 350;
     } else {
       return (i + 1) * 100 - 350;
+    }
+  },
+  setChickPositionY(i) {
+    if (i > 4) {
+      return -450;
+    } else {
+      return -300;
     }
   },
   //收取牧场鸡蛋

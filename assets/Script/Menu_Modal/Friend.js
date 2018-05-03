@@ -222,13 +222,20 @@ cc.Class({
 
     nameLabel.string = name;
     gradeLabel.string = 'Lv.' + grade;
-
+    console.log();
     item.on('click', () => {
-      cc.director.loadScene('FriendIndex', () => {
-        this.onLoadFadeIn();
-        let friendIndexJs = cc.find('Canvas').getComponent('FriendIndex');
-        friendIndexJs.friendOpenID = openIds;
-      });
+      if (cc.find('Canvas').parent._name == 'index') {
+        Config.friendOpenId = openIds;
+        cc.director.loadScene('FriendIndex', () => {
+          this.onLoadFadeIn();
+        });
+      } else {
+        Config.friendOpenId = openIds;
+        cc.director.loadScene('FriendFarm', () => {
+          this.onLoadFadeIn();
+        });
+      }
+
       this.removePersist();
     });
     this.contentNode.addChild(item);

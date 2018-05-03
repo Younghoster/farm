@@ -14,7 +14,7 @@ window.Config = {
     virtualCount: null,
     goodsType: null
   },
-
+  friendOpenId: null,
   addressId: 0, //地址ID，
   propertyId: 0, //播种时种子的ID
   fertilizerId: 0, //肥料的ID
