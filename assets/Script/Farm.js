@@ -378,13 +378,13 @@ cc.Class({
         cc.loader.loadRes(self.imgSrcSelect(i), cc.SpriteFrame, function(err, spriteFrame) {
           Img.spriteFrame = spriteFrame;
         });
-        self.Prefab.setPosition(e.getLocation().x - 100, e.getLocation().y - 100);
+        self.Prefab.setPosition(e.getLocation().x - 50, e.getLocation().y + 120);
         farmBox.addChild(self.Prefab, 9);
       }
     });
     tool.on('touchmove', function(e) {
       if (self.Value.toolType != 0) {
-        self.Prefab.setPosition(e.getLocation().x - 100, e.getLocation().y - 100);
+        self.Prefab.setPosition(e.getLocation().x - 50, e.getLocation().y + 120);
       }
     });
     tool.on('touchend', function() {
