@@ -73,7 +73,7 @@ cc.Class({
     Data.func.getFarmModalData().then(data => {
       if (data.Code === 1) {
         //土地渲染
-        self.setLandOption(data); //重新加载土地
+        self.setLandOption(data.Model); //重新加载土地
       }
       self.setLocData(data.Model, 'all');
       self.setLocalStorageData(data.Model); //重新加载土地（包括植物）
@@ -95,11 +95,11 @@ cc.Class({
   //仅仅更新土地
   setLandOption(data) {
     let self = this;
-    for (let i = 0; i < data.Model.length; i++) {
+    for (let i = 0; i < data.length; i++) {
       let itemBoxNode = cc.find('bg/mapNew/item' + i, this.node);
       let itemBox = cc.find('bg/mapNew/item' + i, this.node);
       //是否解锁土地
-      if (data.Model[i].IsLock) {
+      if (data[i].IsLock) {
         self.setWhetherIcon(itemBox, 1);
       } else {
         self.setWhetherIcon(itemBox, 2);

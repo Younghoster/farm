@@ -731,7 +731,7 @@ var func = {
     });
   },
   // 合成
-  postCompound(makeType, count,id) {
+  postCompound(makeType, count, id) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -749,8 +749,7 @@ var func = {
       };
       xhr.open('POST', `${Config.apiUrl}/T_Base_Convert/Marke`, true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
-      xhr.send(`makeType=${makeType}&count=${count}&id=${id}&openID=${
-        this.openID}`);
+      xhr.send(`makeType=${makeType}&count=${count}&id=${id}&openID=${this.openID}`);
     });
   },
   //牧场清理 type=1 自己清理
@@ -1481,7 +1480,7 @@ var func = {
       // GET方法
       xhr.open(
         'GET',
-        Config.apiUrl + '/T_Base_Exchange/GetExchangeCount?openID=' + this.openID + '&type=' + type + '&count=' + count ,
+        Config.apiUrl + '/T_Base_Exchange/GetExchangeCount?openID=' + this.openID + '&type=' + type + '&count=' + count,
         true
       );
       xhr.setRequestHeader('Content-Type', 'json');
@@ -1895,7 +1894,7 @@ var func = {
           }
         }
       };
-      xhr.open('POST', Config.apiUrl + '/T_Farm_Crops/CropsWatering?cropsId=' + cropsId, true);
+      xhr.open('POST', Config.apiUrl + '/T_Farm_Land/UserWater?cropsId=' + cropsId, true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.send();
     });
@@ -1917,7 +1916,7 @@ var func = {
           }
         }
       };
-      xhr.open('POST', Config.apiUrl + '/T_Farm_Crops/CropsWeeding?cropsId=' + cropsId, true);
+      xhr.open('POST', Config.apiUrl + '/T_Farm_Land/UserWeed?cropsId=' + cropsId, true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.send();
     });
@@ -1939,7 +1938,7 @@ var func = {
           }
         }
       };
-      xhr.open('POST', Config.apiUrl + '/T_Farm_Crops/CropsDisinsection?cropsId=' + cropsId, true);
+      xhr.open('POST', Config.apiUrl + '/T_Farm_Land/UserDisinsection?cropsId=' + cropsId, true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.send();
     });
