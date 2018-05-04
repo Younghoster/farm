@@ -35,7 +35,6 @@ Msg.show = function(text, animSpeed, timeout) {
       }, _this)
     );
     _this._timer = setTimeout(function() {
-      console.log('20s');
       _this.MsgNode.runAction(action);
     }, _this._timeout);
   });

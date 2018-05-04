@@ -170,9 +170,9 @@ cc.Class({
     if (CropsStatus == 4 && !IsLock) {
       Data.func.CollectCrops(CropsID).then(data => {
         if (data.Code === 1) {
-          self.CollectNumber += data.Model;
+          self.CollectNumber += Number(data.Model);
           self.timers = setTimeout(function() {
-            // Msg.show("× " + self.CollectNumber);
+            Msg.show('收取 × ' + self.CollectNumber);
             self.CollectNumber = 0;
             Data.func.getFarmModalData().then(data2 => {
               // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);

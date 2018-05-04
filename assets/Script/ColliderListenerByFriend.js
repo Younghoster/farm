@@ -121,7 +121,7 @@ cc.Class({
         if (data.Code === 1) {
           self.CollectNumber += data.Model;
           self.timers = setTimeout(function() {
-            // Msg.show("× " + self.CollectNumber);
+            Msg.show('收取 × ' + self.CollectNumber);
             self.CollectNumber = 0;
             Data.func.getFarmModalData(Config.friendOpenId).then(data2 => {
               // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);

@@ -24,9 +24,11 @@ cc.Class({
     self.getWhether();
     //初始化加载数据
     self.fatchData();
-    setInterval(function() {
+
+    self.schedule(function() {
       self.onlyUpdataPlant();
-    }, 60000);
+      console.warn('60秒刷新一波');
+    }, 60);
     //初始加载工具栏
     this.getToolPositon();
     Tool.RunAction(cc.find('Canvas'), 'fadeIn', 0.3);
@@ -112,18 +114,18 @@ cc.Class({
     }
     let imgSrcArr = [];
     if (Config.weather == 1) {
-      imgSrcArr[1] = 'Farm/itemG';
-      imgSrcArr[2] = 'Farm/item';
-      imgSrcArr[3] = 'Farm/extend';
-      imgSrcArr[4] = 'Farm/farmBg';
-      imgSrcArr[5] = 'index/sun/cloud01';
-      imgSrcArr[6] = 'index/sun/cloud02';
-      imgSrcArr[7] = 'Farm/fengcheHome';
-      imgSrcArr[8] = 'Farm/fengche';
-      imgSrcArr[9] = 'Farm/itemdemo-xs';
+      imgSrcArr[1] = 'Farm/itemG'; //草地
+      imgSrcArr[2] = 'Farm/item'; //土地
+      imgSrcArr[3] = 'Farm/extend'; //拓建
+      imgSrcArr[4] = 'Farm/farmBg'; //农场背景
+      imgSrcArr[5] = 'index/sun/cloud01'; //云1
+      imgSrcArr[6] = 'index/sun/cloud02'; //云2
+      imgSrcArr[7] = 'Farm/fengcheHome'; //风车
+      imgSrcArr[8] = 'Farm/fengche'; //风车
+      imgSrcArr[9] = 'Farm/itemdemo-xs'; //幼苗
       imgSrcArr[10] = 'Farm/itemdemo-md';
       imgSrcArr[11] = 'Farm/itemdemo-lg';
-      imgSrcArr[12] = 'Farm/itemdemo-ok';
+      imgSrcArr[12] = 'Farm/itemdemo-ok'; //成熟植物
     } else if (Config.weather == 0) {
       imgSrcArr[1] = 'Farm/itemG-wind';
       imgSrcArr[2] = 'Farm/item-wind';
@@ -157,7 +159,6 @@ cc.Class({
   },
   setLocData(data, all) {
     let self = this;
-    console.log(data);
     if (all) {
       this.Value = {
         List: data,
@@ -174,7 +175,6 @@ cc.Class({
   //缓存数据并刷新数据
   setLocalStorageData(data) {
     let self = this;
-    console.log(data);
     this.Value = {
       List: data,
       toolType: 0
@@ -193,64 +193,63 @@ cc.Class({
     for (let i = 0; i < ValueList.length; i++) {
       let bg = cc.find('bg', this.node);
       let Prefab = cc.instantiate(self.Item_Prefab);
-      if (!Prefab) {
-        return;
-      }
-      //浮动小提示dom
-      let PrefabPlant_xs = cc.find('plant-xs', Prefab);
-      let PrefabPlant_md = cc.find('plant-md', Prefab);
-      let PrefabPlant_lg = cc.find('plant-lg', Prefab);
-      let PrefabPlant_ok = cc.find('plant-ok', Prefab);
-      let PrefabExtend = cc.find('extend', Prefab);
-      let PrefabPlant_tip = cc.find('New Node/reap', Prefab);
-      //天气图标变化
-      self.setWhetherIcon(PrefabExtend, 3);
-      self.setWhetherIcon(PrefabPlant_xs, 9);
-      self.setWhetherIcon(PrefabPlant_md, 10);
-      self.setWhetherIcon(PrefabPlant_lg, 11);
-      self.setWhetherIcon(PrefabPlant_ok, 12);
-      //初始化清空显示
-      PrefabPlant_xs.active = false;
-      PrefabPlant_md.active = false;
-      PrefabPlant_lg.active = false;
-      PrefabPlant_ok.active = false;
-      PrefabExtend.active = false;
-      PrefabPlant_tip.active = false;
-      //提示图标的类型切换
-      self.setTipType(ValueList[i], PrefabPlant_tip);
-      let itemBox = cc.find('bg/mapNew/item' + i, this.node);
-      let itemPos = itemBox.getPosition();
-      let pos = itemBox.getNodeToWorldTransformAR(itemPos);
+      if (Prefab) {
+        //浮动小提示dom
+        let PrefabPlant_xs = cc.find('plant-xs', Prefab);
+        let PrefabPlant_md = cc.find('plant-md', Prefab);
+        let PrefabPlant_lg = cc.find('plant-lg', Prefab);
+        let PrefabPlant_ok = cc.find('plant-ok', Prefab);
+        let PrefabExtend = cc.find('extend', Prefab);
+        let PrefabPlant_tip = cc.find('New Node/reap', Prefab);
+        //天气图标变化
+        self.setWhetherIcon(PrefabExtend, 3);
+        self.setWhetherIcon(PrefabPlant_xs, 9);
+        self.setWhetherIcon(PrefabPlant_md, 10);
+        self.setWhetherIcon(PrefabPlant_lg, 11);
+        self.setWhetherIcon(PrefabPlant_ok, 12);
+        //初始化清空显示
+        PrefabPlant_xs.active = false;
+        PrefabPlant_md.active = false;
+        PrefabPlant_lg.active = false;
+        PrefabPlant_ok.active = false;
+        PrefabExtend.active = false;
+        PrefabPlant_tip.active = false;
+        //提示图标的类型切换
+        self.setTipType(ValueList[i], PrefabPlant_tip);
+        let itemBox = cc.find('bg/mapNew/item' + i, this.node);
+        let itemPos = itemBox.getPosition();
+        let pos = itemBox.getNodeToWorldTransformAR(itemPos);
 
-      if (ValueList[i].IsLock) {
-        //拓展
-        PrefabExtend.active = true;
-        Tool.RunAction(PrefabExtend, 'fadeIn', 0.3);
+        if (ValueList[i].IsLock) {
+          //拓展
+          PrefabExtend.active = true;
+          Tool.RunAction(PrefabExtend, 'fadeIn', 0.3);
+        }
+        if (ValueList[i].CropsStatus == 1) {
+          //小树苗
+          PrefabPlant_xs.active = true;
+          Tool.RunAction(PrefabPlant_xs, 'fadeIn', 0.3);
+        } else if (ValueList[i].CropsStatus == 2) {
+          //中端
+          PrefabPlant_md.active = true;
+          Tool.RunAction(PrefabPlant_md, 'fadeIn', 0.3);
+        } else if (ValueList[i].CropsStatus == 3) {
+          //成熟
+          PrefabPlant_lg.active = true;
+          Tool.RunAction(PrefabPlant_lg, 'fadeIn', 0.3);
+        } else if (ValueList[i].CropsStatus == 4) {
+          //成熟
+          PrefabPlant_ok.active = true;
+          PrefabPlant_tip.active = true; //显示可收割
+          Tool.RunAction(PrefabPlant_ok, 'fadeIn', 0.3);
+          Tool.RunAction(PrefabPlant_tip, 'fadeIn', 0.3);
+        }
+        //重置名字赋值
+        Prefab.name = 'Prefab' + i;
+        //定位于碰撞事件触发的点
+        Prefab.setPosition(pos.tx, pos.ty);
+        bg.addChild(Prefab);
       }
-      if (ValueList[i].CropsStatus == 1) {
-        //小树苗
-        PrefabPlant_xs.active = true;
-        Tool.RunAction(PrefabPlant_xs, 'fadeIn', 0.3);
-      } else if (ValueList[i].CropsStatus == 2) {
-        //中端
-        PrefabPlant_md.active = true;
-        Tool.RunAction(PrefabPlant_md, 'fadeIn', 0.3);
-      } else if (ValueList[i].CropsStatus == 3) {
-        //成熟
-        PrefabPlant_lg.active = true;
-        Tool.RunAction(PrefabPlant_lg, 'fadeIn', 0.3);
-      } else if (ValueList[i].CropsStatus == 4) {
-        //成熟
-        PrefabPlant_ok.active = true;
-        PrefabPlant_tip.active = true; //显示可收割
-        Tool.RunAction(PrefabPlant_ok, 'fadeIn', 0.3);
-        Tool.RunAction(PrefabPlant_tip, 'fadeIn', 0.3);
-      }
-      //重置名字赋值
-      Prefab.name = 'Prefab' + i;
-      //定位于碰撞事件触发的点
-      Prefab.setPosition(pos.tx, pos.ty);
-      bg.addChild(Prefab);
     }
   },
 
@@ -259,6 +258,13 @@ cc.Class({
     //浇水tip
     if (ValueList.IsDry && ValueList.CropsStatus != 0) {
       cc.loader.loadRes('Farm/water', cc.SpriteFrame, function(err, spriteFrame) {
+        obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+      });
+      obj.active = true;
+    }
+    //播种tip
+    if (!ValueList.IsLock && ValueList.CropsStatus == 0) {
+      cc.loader.loadRes('Farm/seed', cc.SpriteFrame, function(err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
