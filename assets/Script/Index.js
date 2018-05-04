@@ -749,7 +749,6 @@ cc.Class({
     this.init();
     // this.chickFunc = this._chick.chickFunc;
     Func.GetWholeData().then(data => {
-      // console.log(data);
       if (data.Code === 1) {
         this.initData(data);
         // 新手指引
@@ -761,29 +760,6 @@ cc.Class({
         console.log('首页数据加载失败');
       }
     });
-
-    // var ws = new WebSocket('ws://localhost:3000/ws');
-    // ws.onmessage = function (e) {
-
-    //   console.log(e.data);
-    // };
-    // ws.onerror = function (err) {
-    //   console.log('_error');
-    //   console.log(err);
-    // };
-    // ws.onopen = function () {
-
-    //   ws.send('连接已打开');
-    // };
-    // ws.onclose = function () {
-    //   console.log('_close');
-    // };
-
-    // this.eggMoreNode.on("click", () => {
-
-    //   ws.send('egg click');
-
-    // })
   },
   //仓库回调函数（0表示孵化操作）
   repertoryCallBack() {
