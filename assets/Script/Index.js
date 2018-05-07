@@ -743,6 +743,7 @@ cc.Class({
       initEggShed: this.initEggShed,
       initRanchGrade: this.initRanchGrade
     };
+    this.addPersist();
   },
 
   start: function() {
@@ -776,8 +777,15 @@ cc.Class({
     }
   },
   removePersist() {
-    cc.game.removePersistRootNode(Config.menuNode);
-    cc.game.removePersistRootNode(Config.hearderNode);
+    Config.menuNode.active = false;
+    Config.hearderNode.active = false;
+  },
+  addPersist() {
+    Config.backIndexUrl = 'index';
+    if (Config.menuNode) {
+      Config.menuNode.active = true;
+      Config.hearderNode.active = true;
+    }
   }
   //update(dt) {}
 });

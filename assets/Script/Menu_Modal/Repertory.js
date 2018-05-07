@@ -33,7 +33,7 @@ cc.Class({
     chickNode: null
   },
   loadSceneIndex() {
-    cc.director.loadScene('index');
+    cc.director.loadScene(Config.backIndexUrl);
   },
   //加载系统道具
   leftBtnEvent() {

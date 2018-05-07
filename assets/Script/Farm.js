@@ -20,8 +20,16 @@ cc.Class({
   Value: null,
   Prefab: null,
   onLoad() {
-    var self = this;
+    let self = this;
+    this.func = {
+      getWeed: this.getWeed,
+      touchstart: this.touchstart,
+      touchmove: this.touchmove
+    };
+    // farmGuid.getPrefab(1);
+    self.addPersist();
     self.getWhether();
+
     //初始化加载数据
     self.fatchData();
 
@@ -97,9 +105,12 @@ cc.Class({
   //仅仅更新土地
   setLandOption(data) {
     let self = this;
+    let mapNew = cc.find('bg/mapNew', this.node);
+    self.setWhetherIcon(mapNew, 13);
     for (let i = 0; i < data.length; i++) {
       let itemBoxNode = cc.find('bg/mapNew/item' + i, this.node);
       let itemBox = cc.find('bg/mapNew/item' + i, this.node);
+
       //是否解锁土地
       if (data[i].IsLock) {
         self.setWhetherIcon(itemBox, 1);
@@ -126,6 +137,7 @@ cc.Class({
       imgSrcArr[10] = 'Farm/itemdemo-md';
       imgSrcArr[11] = 'Farm/itemdemo-lg';
       imgSrcArr[12] = 'Farm/itemdemo-ok'; //成熟植物
+      imgSrcArr[13] = 'Farm/mapNew';
     } else if (Config.weather == 0) {
       imgSrcArr[1] = 'Farm/itemG-wind';
       imgSrcArr[2] = 'Farm/item-wind';
@@ -139,6 +151,7 @@ cc.Class({
       imgSrcArr[10] = 'Farm/itemdemo-md-wind';
       imgSrcArr[11] = 'Farm/itemdemo-lg-wind';
       imgSrcArr[12] = 'Farm/itemdemo-ok-wind';
+      imgSrcArr[13] = 'Farm/mapNew-wind';
     } else if (Config.weather == -1) {
       imgSrcArr[1] = 'Farm/itemG-rain';
       imgSrcArr[2] = 'Farm/item-rain';
@@ -152,6 +165,7 @@ cc.Class({
       imgSrcArr[10] = 'Farm/itemdemo-md-rain';
       imgSrcArr[11] = 'Farm/itemdemo-lg-rain';
       imgSrcArr[12] = 'Farm/itemdemo-ok-rain';
+      imgSrcArr[13] = 'Farm/mapNew-rain';
     }
     cc.loader.loadRes(imgSrcArr[i], cc.SpriteFrame, (err, spriteFrame) => {
       dom.getComponent(cc.Sprite).spriteFrame = spriteFrame;
@@ -219,7 +233,6 @@ cc.Class({
         let itemBox = cc.find('bg/mapNew/item' + i, this.node);
         let itemPos = itemBox.getPosition();
         let pos = itemBox.getNodeToWorldTransformAR(itemPos);
-
         if (ValueList[i].IsLock) {
           //拓展
           PrefabExtend.active = true;
@@ -284,7 +297,36 @@ cc.Class({
       obj.active = true;
     }
   },
-
+  //种子列表
+  getSeed() {
+    let self = this;
+    let seedBox = cc.find('bg_farm', self.node);
+    if (!seedBox.active) {
+      seedBox.active = false;
+      seedBox.removeAllChildren();
+      Data.func.GetSeedList().then(data => {
+        if (data.Code === 1) {
+          for (let i = 0; i < data.List.length; i++) {
+            let prefab = cc.instantiate(self.ItemSeed_Prefab);
+            let Img = cc.find('ymzz', prefab).getComponent(cc.Sprite);
+            let ImgSrc;
+            let Label = cc.find('label', prefab).getComponent(cc.Label);
+            ImgSrc = 'Modal/Repertory/ymzz';
+            Label.string = data.List[i].PropName + '×' + data.List[i].Count;
+            self.addListenMove(1, prefab, data.List[i].PropertyID);
+            cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function(err, spriteFrame) {
+              Img.spriteFrame = spriteFrame;
+            });
+            seedBox.addChild(prefab, 999);
+          }
+          Tool.RunAction(seedBox, 'fadeIn', 0.3);
+        }
+      });
+    } else {
+      seedBox.active = false;
+      seedBox.removeAllChildren();
+    }
+  },
   //菜单按钮监听触摸
   getToolPositon() {
     let self = this;
@@ -295,32 +337,7 @@ cc.Class({
       }
       if (i == 1) {
         tool.on('touchstart', function() {
-          let seedBox = cc.find('bg_farm', self.node);
-          if (!seedBox.active) {
-            seedBox.active = false;
-            seedBox.removeAllChildren();
-            Data.func.GetSeedList().then(data => {
-              if (data.Code === 1) {
-                for (let i = 0; i < data.List.length; i++) {
-                  let prefab = cc.instantiate(self.ItemSeed_Prefab);
-                  let Img = cc.find('ymzz', prefab).getComponent(cc.Sprite);
-                  let ImgSrc;
-                  let Label = cc.find('label', prefab).getComponent(cc.Label);
-                  ImgSrc = 'Modal/Repertory/ymzz';
-                  Label.string = data.List[i].PropName + '×' + data.List[i].Count;
-                  self.addListenMove(1, prefab, data.List[i].PropertyID);
-                  cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function(err, spriteFrame) {
-                    Img.spriteFrame = spriteFrame;
-                  });
-                  seedBox.addChild(prefab);
-                }
-                Tool.RunAction(seedBox, 'fadeIn', 0.3);
-              }
-            });
-          } else {
-            seedBox.active = false;
-            seedBox.removeAllChildren();
-          }
+          self.getSeed();
         });
       }
       if (i == 5) {
@@ -367,48 +384,68 @@ cc.Class({
     let farmBox = cc.find('bg', this.node);
     let bg_farm = cc.find('bg_farm', this.node);
     tool.on('touchstart', function(e) {
-      bg_farm.opacity = 0; //种子选择的浮窗
-      self.Value.toolType = i;
-      //播种时传入种子ID
-      if (i == 1) {
-        Config.propertyId = otherId;
-      }
-      //施肥时传入肥料类型
-      else if (i == 5) {
-        Config.fertilizerId = otherId;
-      }
-      if (self.Value.toolType != 0) {
-        cc.sys.localStorage.setItem('FarmData', JSON.stringify(self.Value)); //缓存机制
-        self.Prefab = cc.instantiate(self.Tool_Prefab);
-        let Img = cc.find('tool', self.Prefab).getComponent(cc.Sprite);
-        cc.loader.loadRes(self.imgSrcSelect(i), cc.SpriteFrame, function(err, spriteFrame) {
-          Img.spriteFrame = spriteFrame;
-        });
-        self.Prefab.setPosition(e.getLocation().x - 50, e.getLocation().y + 120);
-        farmBox.addChild(self.Prefab, 9);
-      }
+      self.touchstart(i, e.getLocation().x - 50, e.getLocation().y + 120, otherId);
     });
     tool.on('touchmove', function(e) {
-      if (self.Value.toolType != 0) {
-        self.Prefab.setPosition(e.getLocation().x - 50, e.getLocation().y + 120);
-      }
+      self.touchmove(i, e.getLocation().x - 50, e.getLocation().y);
     });
     tool.on('touchend', function() {
-      if (self.Value.toolType != 0) {
-        self.Prefab.removeFromParent();
-      }
-      bg_farm.active = false; //种子选择的浮窗
-      bg_farm.opacity = 1;
-      bg_farm.removeAllChildren();
+      self.touchend(i);
     });
     tool.on('touchcancel', function() {
-      if (self.Value.toolType != 0) {
-        self.Prefab.removeFromParent();
-      }
-      bg_farm.active = false; //种子选择的浮窗
-      bg_farm.opacity = 1;
-      bg_farm.removeAllChildren();
+      self.touchcancel(i);
     });
+  },
+  touchstart(i, posX, posY, otherId) {
+    let self = this;
+    let bg_farm = cc.find('bg_farm', this.node);
+    let farmBox = cc.find('bg', this.node);
+    bg_farm.opacity = 0; //种子选择的浮窗
+    self.Value.toolType = i;
+    //播种时传入种子ID
+    if (i == 1) {
+      Config.propertyId = otherId;
+    }
+    //施肥时传入肥料类型
+    else if (i == 5) {
+      Config.fertilizerId = otherId;
+    }
+    if (self.Value.toolType != 0) {
+      cc.sys.localStorage.setItem('FarmData', JSON.stringify(self.Value)); //缓存机制
+      self.Prefab = cc.instantiate(self.Tool_Prefab);
+      let Img = cc.find('tool', self.Prefab).getComponent(cc.Sprite);
+      cc.loader.loadRes(self.imgSrcSelect(i), cc.SpriteFrame, function(err, spriteFrame) {
+        Img.spriteFrame = spriteFrame;
+      });
+      self.Prefab.setPosition(posX, posY);
+      farmBox.addChild(self.Prefab, 9);
+    }
+  },
+  touchmove(i, posX, posY) {
+    let self = this;
+    if (self.Value.toolType != 0) {
+      self.Prefab.setPosition(posX, posY);
+    }
+  },
+  touchend(i) {
+    let self = this;
+    let bg_farm = cc.find('bg_farm', this.node);
+    if (self.Value.toolType != 0) {
+      self.Prefab.removeFromParent();
+    }
+    bg_farm.active = false; //种子选择的浮窗
+    bg_farm.opacity = 1;
+    bg_farm.removeAllChildren();
+  },
+  touchcancel(i) {
+    let self = this;
+    let bg_farm = cc.find('bg_farm', this.node);
+    if (self.Value.toolType != 0) {
+      self.Prefab.removeFromParent();
+    }
+    bg_farm.active = false; //种子选择的浮窗
+    bg_farm.opacity = 1;
+    bg_farm.removeAllChildren();
   },
 
   //工具图片显示  浇水、除草、种子、镰刀
@@ -461,7 +498,13 @@ cc.Class({
   },
 
   start() {},
-
+  addPersist() {
+    Config.backIndexUrl = 'farm';
+    if (Config.menuNode) {
+      Config.menuNode.active = true;
+      Config.hearderNode.active = true;
+    }
+  },
   update(dt) {
     // this.fatchData();
   }

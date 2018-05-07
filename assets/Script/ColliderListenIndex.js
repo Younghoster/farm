@@ -22,7 +22,10 @@ cc.Class({
   },
 
   onCollisionEnter: function(other) {
-    // this.node.color = cc.Color.GREEN;
+    console.log(other.name.substring(0, 4));
+    if (other.name.substring(0, 4) == 'tool') {
+      this.node.color = cc.Color.GREEN;
+    }
     this.touchingNumber++;
   },
 
@@ -32,10 +35,9 @@ cc.Class({
 
   onCollisionExit: function() {
     //碰撞后的状态显示
-
+    this.node.color = cc.Color.WHITE;
     this.touchingNumber--;
     if (this.touchingNumber === 0) {
-      //   this.node.color = cc.Color.WHITE;
     }
   }
 

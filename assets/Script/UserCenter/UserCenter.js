@@ -15,7 +15,7 @@ cc.Class({
     }
   },
   btnBackEvent() {
-    cc.director.loadScene('index');
+    cc.director.loadScene(Config.backIndexUrl);
   },
   btnGoTradeEvent() {
     cc.director.loadScene('tradelist');

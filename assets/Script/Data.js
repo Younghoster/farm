@@ -2004,6 +2004,33 @@ var func = {
       xhr.send();
     });
   },
+  //偷取农作物
+  FriendsStealCrops(friendsopenId) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            reject(response);
+          }
+        }
+      };
+      xhr.open(
+        'POST',
+        Config.apiUrl + '/T_Farm_Land/FriendsStealCrops?openId=' + this.openID + '&friendsopenId=' + friendsopenId,
+        true
+      );
+
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.send();
+    });
+  },
   //农场用户种子列表
   GetSeedList() {
     return new Promise((resolve, reject) => {

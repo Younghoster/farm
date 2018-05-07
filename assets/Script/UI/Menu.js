@@ -1,6 +1,6 @@
-var Data = require("Data");
+var Data = require('Data');
 var Func = Data.func;
-var ToolJs = require("Tool");
+var ToolJs = require('Tool');
 var Tool = ToolJs.Tool;
 cc.Class({
   extends: cc.Component,
@@ -21,9 +21,13 @@ cc.Class({
     }
   },
   start() {
-    Config.menuNode = this.node;
+    if (!Config.menuNode) {
+      Config.menuNode = this.node;
+      cc.game.addPersistRootNode(this.node);
+    }
+
     this.btnMoreSprite = this.btnMoreNode.getComponent(cc.Sprite);
-    cc.game.addPersistRootNode(this.node);
+
     this.getStorageCount(); //初始化消息数量
     this.socketNotice(); //socket监听消息变化
   },
@@ -34,7 +38,7 @@ cc.Class({
     return new Promise((resolve, reject) => {
       if (!this.MenuListNode.active) {
         //弹出
-        cc.loader.loadRes("btn-retract", cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes('btn-retract', cc.SpriteFrame, function(err, spriteFrame) {
           self.btnMoreSprite.spriteFrame = spriteFrame;
         });
         var fadeIn = cc.fadeIn(0.3);
@@ -50,7 +54,7 @@ cc.Class({
         this.MenuListNode.runAction(action);
       } else {
         //收回
-        cc.loader.loadRes("btn-more", cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes('btn-more', cc.SpriteFrame, function(err, spriteFrame) {
           self.btnMoreSprite.spriteFrame = spriteFrame;
         });
 
@@ -71,7 +75,7 @@ cc.Class({
     var self = this;
     return new Promise((resolve, reject) => {
       //收回
-      cc.loader.loadRes("btn-more", cc.SpriteFrame, function(err, spriteFrame) {
+      cc.loader.loadRes('btn-more', cc.SpriteFrame, function(err, spriteFrame) {
         self.btnMoreSprite.spriteFrame = spriteFrame;
       });
 
@@ -89,14 +93,14 @@ cc.Class({
   },
   //读取/暂存消息数量
   getStorageCount() {
-    var messageCount = cc.find("Menu/MenuList/menuScroll/view/content/message/point01", this.node);
-    var messageCount2 = cc.find("more/point01", this.node);
+    var messageCount = cc.find('Menu/MenuList/menuScroll/view/content/message/point01', this.node);
+    var messageCount2 = cc.find('more/point01', this.node);
     // let StorageCount = cc.sys.localStorage.getItem(Func.openID); //获取缓存
     Func.GetRecordCount().then(data => {
       if (data.Code === 1) {
         if (data.Model > 0) {
-          cc.find("label", messageCount).getComponent(cc.Label).string = data.Model;
-          cc.find("label", messageCount2).getComponent(cc.Label).string = data.Model;
+          cc.find('label', messageCount).getComponent(cc.Label).string = data.Model;
+          cc.find('label', messageCount2).getComponent(cc.Label).string = data.Model;
           messageCount.active = true;
           messageCount2.active = true;
         } else {
@@ -104,7 +108,7 @@ cc.Class({
           messageCount2.active = false;
         }
       } else {
-        console.log("首页数据加载失败");
+        console.log('首页数据加载失败');
       }
     });
   },
@@ -116,7 +120,7 @@ cc.Class({
     // });
 
     Config.newSocket.onmessage = function(evt) {
-      var obj = eval("(" + evt.data + ")");
+      var obj = eval('(' + evt.data + ')');
       if (obj.name == Func.openID) {
         self.getStorageCount();
       }
@@ -124,24 +128,24 @@ cc.Class({
   },
 
   loadSceneRepertory() {
-    cc.director.loadScene("repertory", this.onLoadFadeIn);
+    cc.director.loadScene('repertory', this.onLoadFadeIn);
     this.removePersist();
   },
   loadSceneShop() {
-    cc.director.loadScene("shop", this.onLoadFadeIn);
+    cc.director.loadScene('shop', this.onLoadFadeIn);
     this.removePersist();
   },
   loadSceneMonitor() {
-    cc.director.loadScene("monitor", this.onLoadFadeIn);
+    cc.director.loadScene('monitor', this.onLoadFadeIn);
     this.removePersist();
   },
   onLoadFadeIn() {
-    let canvas = cc.find("Canvas");
-    Tool.RunAction(canvas, "fadeIn", 0.3);
+    let canvas = cc.find('Canvas');
+    Tool.RunAction(canvas, 'fadeIn', 0.3);
   },
   removePersist() {
-    cc.game.removePersistRootNode(Config.menuNode);
-    cc.game.removePersistRootNode(Config.hearderNode);
+    Config.menuNode.active = false;
+    Config.hearderNode.active = false;
   }
   // update (dt) {},
 });

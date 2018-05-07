@@ -47,18 +47,18 @@ cc.Class({
     let IsLock = this.dataList.List[id].IsLock;
     if (CropsID == 0 && !IsLock) {
       Data.func.addCrops(landId, propertyId).then(data => {
-        if (data.Code === 1) {
-          self.timers = setTimeout(function() {
+        self.timers = setTimeout(function() {
+          if (data.Code == 1) {
             Data.func.getFarmModalData().then(data2 => {
               // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
               self.FarmJs.emit('updataPlant', {
                 data: data2.Model
               });
             });
-          }, 500);
-        } else {
-          // Msg.show(data.Message);
-        }
+          } else {
+            Msg.show(data.Message);
+          }
+        }, 500);
       });
     }
   },
@@ -71,8 +71,8 @@ cc.Class({
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsWater) {
       Data.func.CropsWatering(CropsID).then(data => {
-        if (data.Code === 1) {
-          self.timers = setTimeout(function() {
+        self.timers = setTimeout(function() {
+          if (data.Code === 1) {
             Data.func.getFarmModalData().then(data2 => {
               // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
               Msg.show('浇水成功！');
@@ -80,10 +80,10 @@ cc.Class({
                 data: data2.Model
               });
             });
-          }, 500);
-        } else {
-          // Msg.show(data.Message);
-        }
+          } else {
+            Msg.show(data.Message);
+          }
+        }, 500);
       });
     }
   },
@@ -96,19 +96,18 @@ cc.Class({
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsWeeds) {
       Data.func.CropsWeeding(CropsID).then(data => {
-        if (data.Code === 1) {
-          self.timers = setTimeout(function() {
+        self.timers = setTimeout(function() {
+          if (data.Code === 1) {
             Data.func.getFarmModalData().then(data2 => {
-              // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
               Msg.show('除草成功');
               self.FarmJs.emit('updataPlant', {
                 data: data2.Model
               });
             });
-          }, 500);
-        } else {
-          // Msg.show(data.Message);
-        }
+          } else {
+            Msg.show(data.Message);
+          }
+        }, 500);
       });
     }
   },
@@ -121,19 +120,18 @@ cc.Class({
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsDisinsection) {
       Data.func.CropsDisinsection(CropsID).then(data => {
-        if (data.Code === 1) {
-          self.timers = setTimeout(function() {
+        self.timers = setTimeout(function() {
+          if (data.Code === 1) {
             Data.func.getFarmModalData().then(data2 => {
-              // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
               Msg.show('除虫成功');
               self.FarmJs.emit('updataPlant', {
                 data: data2.Model
               });
             });
-          }, 500);
-        } else {
-          // Msg.show(data.Message);
-        }
+          } else {
+            Msg.show(data.Message);
+          }
+        }, 500);
       });
     }
   },
@@ -145,19 +143,18 @@ cc.Class({
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock) {
       Data.func.CropsSertilize(CropsID, type).then(data => {
-        if (data.Code === 1) {
-          self.timers = setTimeout(function() {
+        self.timers = setTimeout(function() {
+          if (data.Code === 1) {
             Data.func.getFarmModalData().then(data2 => {
-              // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
               Msg.show('施肥成功！');
               self.FarmJs.emit('updataPlant', {
                 data: data2.Model
               });
             });
-          }, 500);
-        } else {
-          Msg.show(data.Message);
-        }
+          } else {
+            Msg.show(data.Message);
+          }
+        }, 500);
       });
     }
   },
@@ -175,7 +172,6 @@ cc.Class({
             Msg.show('收取 × ' + self.CollectNumber);
             self.CollectNumber = 0;
             Data.func.getFarmModalData().then(data2 => {
-              // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
               self.FarmJs.emit('updataPlant', {
                 data: data2.Model
               });

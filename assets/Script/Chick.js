@@ -115,8 +115,8 @@ var Chick = cc.Class({
       let chickDetailJs = scene.getComponent('chickDetail');
       chickDetailJs.Id = id;
     });
-    cc.game.removePersistRootNode(Config.menuNode);
-    cc.game.removePersistRootNode(Config.hearderNode);
+    Config.menuNode.active = false;
+    Config.hearderNode.active = false;
   },
   // update(dt) {
 

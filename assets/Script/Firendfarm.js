@@ -104,9 +104,12 @@ cc.Class({
   //仅仅更新土地
   setLandOption(data) {
     let self = this;
+    let mapNew = cc.find('bg/mapNew', this.node);
+    self.setWhetherIcon(mapNew, 13);
     for (let i = 0; i < data.length; i++) {
       let itemBoxNode = cc.find('bg/mapNew/item' + i, this.node);
       let itemBox = cc.find('bg/mapNew/item' + i, this.node);
+
       //是否解锁土地
       if (data[i].IsLock) {
         self.setWhetherIcon(itemBox, 1);
@@ -121,18 +124,19 @@ cc.Class({
     }
     let imgSrcArr = [];
     if (Config.weather == 1) {
-      imgSrcArr[1] = 'Farm/itemG';
-      imgSrcArr[2] = 'Farm/item';
-      imgSrcArr[3] = 'Farm/extend';
-      imgSrcArr[4] = 'Farm/farmBg';
-      imgSrcArr[5] = 'index/sun/cloud01';
-      imgSrcArr[6] = 'index/sun/cloud02';
-      imgSrcArr[7] = 'Farm/fengcheHome';
-      imgSrcArr[8] = 'Farm/fengche';
-      imgSrcArr[9] = 'Farm/itemdemo-xs';
+      imgSrcArr[1] = 'Farm/itemG'; //草地
+      imgSrcArr[2] = 'Farm/item'; //土地
+      imgSrcArr[3] = 'Farm/extend'; //拓建
+      imgSrcArr[4] = 'Farm/farmBg'; //农场背景
+      imgSrcArr[5] = 'index/sun/cloud01'; //云1
+      imgSrcArr[6] = 'index/sun/cloud02'; //云2
+      imgSrcArr[7] = 'Farm/fengcheHome'; //风车
+      imgSrcArr[8] = 'Farm/fengche'; //风车
+      imgSrcArr[9] = 'Farm/itemdemo-xs'; //幼苗
       imgSrcArr[10] = 'Farm/itemdemo-md';
       imgSrcArr[11] = 'Farm/itemdemo-lg';
-      imgSrcArr[12] = 'Farm/itemdemo-ok';
+      imgSrcArr[12] = 'Farm/itemdemo-ok'; //成熟植物
+      imgSrcArr[13] = 'Farm/mapNew';
     } else if (Config.weather == 0) {
       imgSrcArr[1] = 'Farm/itemG-wind';
       imgSrcArr[2] = 'Farm/item-wind';
@@ -146,6 +150,7 @@ cc.Class({
       imgSrcArr[10] = 'Farm/itemdemo-md-wind';
       imgSrcArr[11] = 'Farm/itemdemo-lg-wind';
       imgSrcArr[12] = 'Farm/itemdemo-ok-wind';
+      imgSrcArr[13] = 'Farm/mapNew-wind';
     } else if (Config.weather == -1) {
       imgSrcArr[1] = 'Farm/itemG-rain';
       imgSrcArr[2] = 'Farm/item-rain';
@@ -159,6 +164,7 @@ cc.Class({
       imgSrcArr[10] = 'Farm/itemdemo-md-rain';
       imgSrcArr[11] = 'Farm/itemdemo-lg-rain';
       imgSrcArr[12] = 'Farm/itemdemo-ok-rain';
+      imgSrcArr[13] = 'Farm/mapNew-rain';
     }
     cc.loader.loadRes(imgSrcArr[i], cc.SpriteFrame, (err, spriteFrame) => {
       dom.getComponent(cc.Sprite).spriteFrame = spriteFrame;
@@ -286,9 +292,30 @@ cc.Class({
   getToolPositon() {
     let self = this;
     for (let i = 1; i < 7; i++) {
-      if (i == 2 || i == 3 || i == 4 || i == 6) {
+      if (i == 2 || i == 3 || i == 4) {
         let tool = cc.find('tool/layout/farm_icon_0' + i, this.node);
         this.addListenMove(i, tool);
+      } else if (i == 6) {
+        //偷取好友农作物
+        let tool = cc.find('tool/layout/farm_icon_0' + i, this.node);
+        tool.on('click', function(e) {
+          Data.func.FriendsStealCrops(Config.friendOpenId).then(data => {
+            if (data.Code === 1) {
+              self.CollectNumber = data.Model;
+              setTimeout(function() {
+                Msg.show('偷取 × ' + self.CollectNumber);
+                self.CollectNumber = 0;
+                Data.func.getFarmModalData(Config.friendOpenId).then(data2 => {
+                  self.clearAllDom(); //清除植物数据
+                  self.setLocData(data2.Model);
+                  self.fatchPlant(data2.Model); //重新加载植物
+                });
+              }, 500);
+            } else {
+              Msg.show(data.Message);
+            }
+          });
+        });
       }
     }
   },
@@ -394,7 +421,7 @@ cc.Class({
     cc.director.loadScene('FriendIndex');
   },
   back: function() {
-    cc.director.loadScene('index');
+    cc.director.loadScene(Config.backIndexUrl);
   },
   start() {},
 

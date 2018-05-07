@@ -31,8 +31,6 @@ cc.Class({
       self.weed(id);
     } else if (self.dataList.toolType == 4) {
       self.disinsection(id);
-    } else if (self.dataList.toolType == 6) {
-      self.collectCrops(id);
     }
   },
   //浇水
@@ -110,32 +108,7 @@ cc.Class({
       });
     }
   },
-  //收取农作物
-  collectCrops(id) {
-    let self = this;
-    let CropsID = this.dataList.List[id].CropsID;
-    let IsLock = this.dataList.List[id].IsLock;
-    let CropsStatus = this.dataList.List[id].CropsStatus;
-    if (CropsStatus == 4 && !IsLock) {
-      Data.func.CollectCrops(CropsID, Config.openID).then(data => {
-        if (data.Code === 1) {
-          self.CollectNumber += data.Model;
-          self.timers = setTimeout(function() {
-            Msg.show('收取 × ' + self.CollectNumber);
-            self.CollectNumber = 0;
-            Data.func.getFarmModalData(Config.friendOpenId).then(data2 => {
-              // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
-              self.FarmJs.emit('updataPlant', {
-                data: data2.Model
-              });
-            });
-          }, 500);
-        } else {
-          Msg.show(data.Message);
-        }
-      });
-    }
-  },
+
   onCollisionStay: function(other) {
     // console.log('on collision stay');
   },

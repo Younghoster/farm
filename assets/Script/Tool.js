@@ -46,8 +46,8 @@ var Tool = {
   },
   //移除常驻资源
   removePersist() {
-    cc.game.removePersistRootNode(Config.menuNode);
-    cc.game.removePersistRootNode(Config.hearderNode);
+    Config.menuNode.active = false;
+    Config.hearderNode.active = false;
   }
 };
 

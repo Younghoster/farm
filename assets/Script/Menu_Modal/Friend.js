@@ -245,8 +245,8 @@ cc.Class({
     Tool.RunAction(canvas, 'fadeIn', 0.3);
   },
   removePersist() {
-    cc.game.removePersistRootNode(Config.menuNode);
-    cc.game.removePersistRootNode(Config.hearderNode);
+    Config.menuNode.active = false;
+    Config.hearderNode.active = false;
   },
   assignNoFriendData(data) {
     const element = data;
