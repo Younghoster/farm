@@ -151,7 +151,7 @@ cc.Class({
   },
   onLoadFadeIn() {
     let canvas = cc.find('Canvas');
-    Tool.RunAction(canvas, 'fadeIn', 0.3);
+    Tool.RunAction(canvas, 'fadeIn', 0.15);
   },
   removePersist() {
     Config.menuNode.active = false;
