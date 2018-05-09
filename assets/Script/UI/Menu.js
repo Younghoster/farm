@@ -20,14 +20,24 @@ cc.Class({
       type: cc.Node
     }
   },
+  onLoad() {
+    let self = this;
+    this.node.on('step1', function(event) {
+      self.showMenu();
+    });
+  },
   start() {
     if (!Config.menuNode) {
       Config.menuNode = this.node;
       cc.game.addPersistRootNode(this.node);
     }
-
     this.btnMoreSprite = this.btnMoreNode.getComponent(cc.Sprite);
-
+    this.func = {
+      showMenu: this.showMenu,
+      closeMenu: this.closeMenu,
+      removePersist: this.removePersist,
+      loadSceneShop: this.loadSceneShop
+    };
     this.getStorageCount(); //初始化消息数量
     this.socketNotice(); //socket监听消息变化
   },

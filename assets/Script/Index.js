@@ -741,7 +741,10 @@ cc.Class({
       loadSceneShop: this.loadSceneShop,
       loadSceneRepertory: this.loadSceneRepertory,
       initEggShed: this.initEggShed,
-      initRanchGrade: this.initRanchGrade
+      initRanchGrade: this.initRanchGrade,
+      showFeedState: this.showFeedState,
+      addFeed: this.addFeed,
+      loadSceneFarm: this.loadSceneFarm
     };
     this.addPersist();
   },
@@ -751,6 +754,7 @@ cc.Class({
     // this.chickFunc = this._chick.chickFunc;
     Func.GetWholeData().then(data => {
       if (data.Code === 1) {
+        // GuideSystem.guide();
         this.initData(data);
         // 新手指引
         // if (Config.firstLogin) GuideSystem.guide();

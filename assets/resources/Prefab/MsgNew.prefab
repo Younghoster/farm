@@ -236,7 +236,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 220,
-      "height": 140
+      "height": -10
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -256,7 +256,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "layout",
+    "_name": "layout1",
     "_objFlags": 0,
     "_parent": {
       "__id__": 6
@@ -270,7 +270,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 16
@@ -602,7 +602,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "layout",
+    "_name": "layout2",
     "_objFlags": 0,
     "_parent": {
       "__id__": 6
@@ -616,7 +616,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 27
@@ -652,7 +652,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 0
+      "y": 25
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -777,9 +777,7 @@
       "__id__": 20
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "bf6d844d-fa8d-441f-833a-3676722e3a99"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -948,7 +946,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "layout",
+    "_name": "layout3",
     "_objFlags": 0,
     "_parent": {
       "__id__": 6
@@ -962,7 +960,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 38
@@ -998,7 +996,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -50
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1123,9 +1121,7 @@
       "__id__": 31
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "8c698a82-530f-4abe-85f8-5c1c684e1410"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -1303,7 +1299,7 @@
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 220,
-      "height": 140
+      "height": -10
     },
     "_resize": 1,
     "_N$layoutType": 2,

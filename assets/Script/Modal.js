@@ -60,5 +60,10 @@ var Modal = cc.Class({
     return action;
   },
 
-  onLoad: function() {}
+  onLoad: function() {
+    this.func = {
+      showModal: this.showModal,
+      closeModal: this.closeModal
+    };
+  }
 });

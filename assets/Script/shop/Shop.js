@@ -39,7 +39,7 @@ cc.Class({
       const goods = goodsList[i];
       if (!goods.IsDelete) {
         let goodsNode = cc.instantiate(this.goods_Prefab);
-        // goodsNode.name = goods.PropName;
+        goodsNode.name = goods.PropName;
         let goodSprite = cc.find('pic-box/pic', goodsNode).getComponent(cc.Sprite);
         let goodsLabel = cc.find('price-box/goods_label', goodsNode).getComponent(cc.Label);
         let priceLabel = cc.find('price-box/bg-price/price', goodsNode).getComponent(cc.Label);
@@ -67,6 +67,7 @@ cc.Class({
               selfAlert.startFadeIn();
               // 关闭按钮
               selfAlert.newButtonEvent(alert, 'bg/btn-group/cancelButton');
+
               self.P2PBuyData(alert, goods);
             });
           });
@@ -224,7 +225,8 @@ cc.Class({
         }
       });
       //新手指引
-      // if (Config.firstLogin) GuideSystem.guide();
+      // if (Config.firstLogin)
+      // GuideSystem.guide();
     });
   },
 

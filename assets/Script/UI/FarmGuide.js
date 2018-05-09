@@ -24,7 +24,7 @@ var farmGuid = {
   isTouch: false,
   offsetY: 0,
   textintro: null,
-  btn2: null,
+  // btn2: null, 跳过按钮
   getPrefab: function(i) {
     var self = this;
     cc.loader.loadRes('Prefab/guide', cc.Prefab, function(err, prefab) {
@@ -37,7 +37,7 @@ var farmGuid = {
       self.tip = cc.find('tip', self.prefabItem);
       self.item = cc.find('item', self.prefabItem);
       self.modalBlock = cc.find('mask-guide/modal', self.prefabItem);
-      self.btn2 = cc.find('btn2', self.prefabItem);
+      // self.btn2 = cc.find('btn2', self.prefabItem);
       self.tool = cc.find('tool', self.prefabItem);
       self.weed = cc.find('plant-weed', self.prefabItem);
       self.water = cc.find('plant-water', self.prefabItem);
@@ -79,8 +79,8 @@ var farmGuid = {
     self.weed.setPosition(self.tipPos_.tx, self.tipPos_.ty);
     self.fertilizer.setPosition(self.tipPos_.tx, self.tipPos_.ty);
     self.plantok.setPosition(self.tipPos_.tx, self.tipPos_.ty);
-    self.btn2.setPosition(600, 1250);
-    self.btn2.active = true;
+    // self.btn2.setPosition(600, 1250);
+    // self.btn2.active = true;
     self.tip.active = true;
     self.item.active = true;
     self.textintro.active = true;
@@ -290,6 +290,12 @@ var farmGuid = {
       return false;
     }
   },
+  setIcon: function(src, dom) {
+    var self = this;
+    cc.loader.loadRes(src, cc.SpriteFrame, function(err, spriteFrame) {
+      dom.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+    });
+  },
   setTxtIntro: function(src, dom, x, y) {
     var self = this;
     cc.loader.loadRes(src, cc.SpriteFrame, function(err, spriteFrame) {
@@ -298,6 +304,7 @@ var farmGuid = {
     dom.setPosition(x, y);
   },
   alertMdal: function() {
+    var self = this;
     cc.loader.loadRes('Prefab/MsgNew', cc.Prefab, function(err, prefab) {
       if (err) {
         console.log(err);
@@ -305,6 +312,21 @@ var farmGuid = {
       }
       var AlertTip = cc.instantiate(prefab);
       var parentNode = cc.find('Canvas');
+      layout1 = cc.find('New Node/layout1', AlertTip);
+      layout2 = cc.find('New Node/layout2', AlertTip);
+      layout3 = cc.find('New Node/layout3', AlertTip);
+      icon1 = cc.find('New Node/layout1/New Node/msg-ym', AlertTip);
+      icon2 = cc.find('New Node/layout2/New Node/msg-ym', AlertTip);
+      icon3 = cc.find('New Node/layout3/New Node/msg-ym', AlertTip);
+      txt1 = cc.find('New Node/layout1/label', AlertTip);
+      txt2 = cc.find('New Node/layout2/label', AlertTip);
+      txt3 = cc.find('New Node/layout3/label', AlertTip);
+      self.setIcon('Modal/Msg/msg-ym', icon1);
+      self.setIcon('Modal/Repertory/icon-asset02', icon2);
+      self.setIcon('Modal/Msg/msg-exp', icon3);
+      layout1.active = true;
+      layout2.active = true;
+      layout3.active = true;
       parentNode.parent.addChild(AlertTip, 5);
       AlertTip.opacity = 0;
       AlertTip.runAction(cc.fadeIn(0.3));
