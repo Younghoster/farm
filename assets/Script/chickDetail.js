@@ -97,13 +97,16 @@ cc.Class({
         let imgNode = cc.find('img', itemNode);
         let hungry = list[i].Hungry || false;
         let shit = list[i].Shit || false;
-        this.showChickState(imgNode, hungry, shit);
+        // this.showChickState(imgNode, hungry, shit);
 
         idLbael.string = list[i].ID;
         this.contentNode.addChild(itemNode);
 
         if (this.Id == list[i].ID) {
           itemNode.setScale(1.3, 1.3);
+          cc.loader.loadRes('chickDetail/2', cc.SpriteFrame, (err, spriteFrame) => {
+            imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+          });
         }
 
         itemNode.on('click', () => {
@@ -112,7 +115,13 @@ cc.Class({
           for (let i = 0; i < this.chickList.length; i++) {
             const element = this.chickList[i];
             this.contentNode.children[i].setScale(1, 1);
+            cc.loader.loadRes('chickDetail/1', cc.SpriteFrame, (err, spriteFrame) => {
+              cc.find('img', this.contentNode.children[i]).getComponent(cc.Sprite).spriteFrame = spriteFrame;
+            });
           }
+          cc.loader.loadRes('chickDetail/2', cc.SpriteFrame, (err, spriteFrame) => {
+            imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+          });
           itemNode.setScale(1.3, 1.3);
         });
       });

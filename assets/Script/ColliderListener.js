@@ -85,6 +85,8 @@ cc.Class({
           }
         }, 500);
       });
+    } else {
+      Msg.show('我现在不需要浇水哦~');
     }
   },
   //除草
@@ -109,6 +111,8 @@ cc.Class({
           }
         }, 500);
       });
+    } else {
+      Msg.show('我现在不需要除草哦~');
     }
   },
   //除虫
@@ -133,6 +137,8 @@ cc.Class({
           }
         }, 500);
       });
+    } else {
+      Msg.show('我现在不需要除虫哦~');
     }
   },
   //施肥
@@ -181,6 +187,8 @@ cc.Class({
           Msg.show(data.Message);
         }
       });
+    } else {
+      Msg.show('我现在还不能收取哦~');
     }
   },
   onCollisionStay: function(other) {

@@ -15,6 +15,8 @@ cc.Class({
   bindNode() {
     this.indexJs = cc.find('Canvas').getComponent('Index');
     this.closeButton = cc.find('btn-close', this.node);
+    this.label = cc.find('bg/label', this.node);
+    this.label2 = cc.find('bg/label2', this.node);
     this.contentNode = cc.find('bg/content', this.node);
     for (let i = 0; i < 10; i++) {
       this.holeNodeList[i] = cc.find(`hole${i}`, this.contentNode);
@@ -34,6 +36,7 @@ cc.Class({
   },
 
   initData() {
+    var self = this;
     this.isFriend = this.sceneNode._components[1].name === 'Canvas<FriendIndex>' ? true : false;
     var openID;
     if (this.isFriend) {
@@ -44,6 +47,25 @@ cc.Class({
         //产蛋棚等级
         this.shedRank = data.Model.model.ShedRank;
         let list = data.Model.DetailList;
+        let LabStr = self.label.getComponent(cc.Label);
+        let LabStr2 = self.label2.getComponent(cc.Label);
+        switch (this.shedRank) {
+          case 1: {
+            LabStr.string = '您的孵蛋屋等级为1级';
+            LabStr2.string = '升级下一级所需198牧场币或者20000积分';
+            break;
+          }
+          case 2: {
+            LabStr.string = '您的孵蛋屋等级为2级';
+            LabStr2.string = '升级下一级所需498牧场币或者50000积分';
+            break;
+          }
+          case 3: {
+            LabStr.string = '您的孵蛋屋已经满级！';
+            LabStr2.string = '无需升级';
+            break;
+          }
+        }
         for (let i = 0; i < list.length; i++) {
           const element = list[i];
 
