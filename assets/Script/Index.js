@@ -51,7 +51,7 @@ cc.Class({
   // 牧场等级
   RanchRank: null,
 
-  init: function() {
+  init: function () {
     // this._chick = this.Chick.getComponent("Chick");
     // this.clearLabel = cc.find('wave/mask/layout/value', this.node).getComponent(cc.Label);
     // this.wave1Node = cc.find('wave/mask/wave1', this.node);
@@ -92,7 +92,8 @@ cc.Class({
     Tool.RunAction(canvas, 'fadeIn', 0.3);
   },
   initData(data) {
-    Config.firstLogin = data.UserModel.FirstLanding;
+    Config.firstLogin = !data.UserModel.IsFinishGuid;
+    Config.guideStep = data.UserModel.GuidStep;
     // 清洁度设置
     this._clearValue = data.RanchModel.RanchCleanliness;
     this.clearProgressBar = cc.find('clearBar/clear_bar', this.node).getComponent(cc.ProgressBar);
@@ -216,7 +217,7 @@ cc.Class({
   },
 
   //点击清理事件
-  showClearAlert: function() {
+  showClearAlert: function () {
     var self = this;
     //调用接口
     Func.PostClean()
@@ -245,7 +246,7 @@ cc.Class({
       });
   },
   //点击喂食事件 集体喂食 接口需要重新设置
-  showFeedAlert: function() {
+  showFeedAlert: function () {
     Func.PostOwnFeeds().then(data => {
       if (data.Code === 1) {
         //更新饲料数量
@@ -273,34 +274,36 @@ cc.Class({
             feedNode.active = list[i].IsHunger;
           }
         }
-      } else {
-      }
+      } else {}
     });
   },
   //将饲料放入饲料槽中
   addFeed() {
-    Func.AddFeed().then(data => {
-      if (data.Code === 1) {
-        let array = data.Model.split(',');
-        let value = array[0];
-        let capacity = array[1];
-        this.assignFeedState(value, capacity);
-        this.updateFeedCount();
-        //动画
-        let handFeedNode = cc.find('hand_feed', this.node);
-        handFeedNode.active = true;
-        let hanfFeedAnim = handFeedNode.getComponent(cc.Animation);
-        hanfFeedAnim.play('hand_feed');
-        hanfFeedAnim.on('finished', () => {
-          handFeedNode.active = false;
-          this.arrowNode.active = false;
-        });
-      } else if (data.Code == '000') {
-        Alert.show(data.Message, this.loadSceneShop, 'icon-feed', '剩余的饲料不足');
-      } else if (data.Code == '333') {
-        Msg.show(data.Message);
-      }
-    });
+    if (!Config.firstLogin) {
+      Func.AddFeed().then(data => {
+        if (data.Code === 1) {
+          let array = data.Model.split(',');
+          let value = array[0];
+          let capacity = array[1];
+          this.assignFeedState(value, capacity);
+          this.updateFeedCount();
+          //动画
+          let handFeedNode = cc.find('hand_feed', this.node);
+          handFeedNode.active = true;
+          let hanfFeedAnim = handFeedNode.getComponent(cc.Animation);
+          hanfFeedAnim.play('hand_feed');
+          hanfFeedAnim.on('finished', () => {
+            handFeedNode.active = false;
+            this.arrowNode.active = false;
+          });
+        } else if (data.Code == '000') {
+          Alert.show(data.Message, this.loadSceneShop, 'icon-feed', '剩余的饲料不足');
+        } else if (data.Code == '333') {
+          Msg.show(data.Message);
+        }
+      });
+    }
+
   },
   //升级饲料槽
   UpFeedGrade() {
@@ -341,7 +344,8 @@ cc.Class({
           }, this)
         );
         this.timer2 = setTimeout(() => {
-          this.feedStateNode.runAction(action);
+          if (!Config.firstLogin)
+            this.feedStateNode.runAction(action);
         }, 3000);
       } else {
         Alert.show(data.Message);
@@ -703,7 +707,7 @@ cc.Class({
     cc.director.loadScene('weatherInfo');
     this.removePersist();
   },
-  showUserCenter: function() {
+  showUserCenter: function () {
     cc.director.loadScene('UserCenter/userCenter');
     this.removePersist();
   },
@@ -716,7 +720,7 @@ cc.Class({
     cc.director.loadScene('Farm/farm');
   },
 
-  onLoad: function() {
+  onLoad: function () {
     var openID = window.location.href.split('=')[1];
     window.Config.openID = openID || 'f79ed645ad624cf5bbfecc2e67f23020';
     Func.openID = window.Config.openID;
@@ -749,7 +753,7 @@ cc.Class({
     this.addPersist();
   },
 
-  start: function() {
+  start: function () {
     this.init();
     // this.chickFunc = this._chick.chickFunc;
     Func.GetWholeData().then(data => {
@@ -757,7 +761,7 @@ cc.Class({
         // GuideSystem.guide();
         this.initData(data);
         // 新手指引
-        // if (Config.firstLogin) GuideSystem.guide();
+        if (Config.firstLogin) GuideSystem.guide();
         //仓库回调
 
         this.repertoryCallBack();
