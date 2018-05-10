@@ -8,13 +8,14 @@ cc.Class({
 
   // 关闭模态框
   closeModal() {
-    var self = this;
+    // var self = this;
 
-    var action = cc.fadeOut(0.3);
-    this.node.runAction(action);
-    setTimeout(() => {
-      this.node.active = false;
-    }, 400);
+    // var action = cc.fadeOut(0.3);
+    // this.node.runAction(action);
+    // setTimeout(() => {
+    //   this.node.active = false;
+    // }, 400);
+    Tool.closeModal(this.node)
 
     // scrollView.removeFromParent();
     // this.node.removeChild(Modal);
@@ -26,7 +27,7 @@ cc.Class({
     Func.PostSign().then(data => {
       if (data.Code === 1) {
         var signButton = cc.find('bg/btn-sign', this.node);
-        cc.loader.loadRes('btn-hasSign', cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes('btn-hasSign', cc.SpriteFrame, function (err, spriteFrame) {
           signButton.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
         //更新头部数据
@@ -51,7 +52,7 @@ cc.Class({
         //已签到 按钮变灰
         if (this.canlendarJs.todayNode.getChildByName('item_do').active) {
           var signButton = cc.find('bg/btn-sign', this.node);
-          cc.loader.loadRes('btn-hasSign', cc.SpriteFrame, function(err, spriteFrame) {
+          cc.loader.loadRes('btn-hasSign', cc.SpriteFrame, function (err, spriteFrame) {
             signButton.getComponent(cc.Sprite).spriteFrame = spriteFrame;
             signButton.getComponent(cc.Button).interactable = false;
           });

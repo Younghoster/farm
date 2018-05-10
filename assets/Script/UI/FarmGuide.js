@@ -1,3 +1,5 @@
+'use strict';
+
 var farmGuid = {
   state: 0,
   prefabItem: null,
@@ -25,7 +27,7 @@ var farmGuid = {
   offsetY: 0,
   textintro: null,
   // btn2: null, 跳过按钮
-  getPrefab: function (i) {
+  getPrefab: function getPrefab(i) {
     var self = this;
     cc.loader.loadRes('Prefab/guide', cc.Prefab, function (err, prefab) {
       if (err) {
@@ -64,7 +66,7 @@ var farmGuid = {
     });
   },
   //设置固定的资源
-  setConstDom: function () {
+  setConstDom: function setConstDom() {
     var self = this;
     var tipBox = cc.find('bg/mapNew/item0', self.canvas);
     var tipPos = tipBox.getPosition();
@@ -87,7 +89,7 @@ var farmGuid = {
     self.textintro.active = true;
   },
   //设置position
-  setPosition_: function (src, x, y) {
+  setPosition_: function setPosition_(src, x, y) {
     var self = this;
     self.btnMoreNode = cc.find(src, self.canvas);
     self.pos = self.btnMoreNode.getPosition();
@@ -103,7 +105,7 @@ var farmGuid = {
     console.log(self.pos_6);
   },
   // 设置mask宽度和高度
-  setMaskSize_: function (e) {
+  setMaskSize_: function setMaskSize_(e) {
     var self = this;
     var height = self.btnMoreNode.height;
     var width = self.btnMoreNode.width;
@@ -117,7 +119,7 @@ var farmGuid = {
     self.clickBoxPos.width = radius + 15;
   },
   //播种
-  step1: function () {
+  step1: function step1() {
     var self = this;
     self.setPosition_('tool/layout/farm_icon_01');
     self.setTxtIntro('guide/farm-text01', self.textintro, self.pos_6.x + 180, self.pos_6.y + 120);
@@ -134,7 +136,7 @@ var farmGuid = {
     });
   },
   //浇水
-  step2: function () {
+  step2: function step2() {
     var self = this;
     self.setPosition_('tool/layout/farm_icon_02');
     self.setTxtIntro('guide/farm-text02', self.textintro, self.pos_6.x, self.pos_6.y + 80);
@@ -150,7 +152,7 @@ var farmGuid = {
     });
   },
   //除草
-  step3: function () {
+  step3: function step3() {
     var self = this;
     self.setPosition_('tool/layout/farm_icon_03');
     self.setTxtIntro('guide/farm-text04', self.textintro, self.pos_6.x, self.pos_6.y + 80);
@@ -166,7 +168,7 @@ var farmGuid = {
     });
   },
   //除虫
-  step4: function () {
+  step4: function step4() {
     var self = this;
     self.setPosition_('tool/layout/farm_icon_04');
     self.setTxtIntro('guide/farm-text06', self.textintro, self.pos_6.x, self.pos_6.y + 80);
@@ -182,7 +184,7 @@ var farmGuid = {
     });
   },
   //施肥选择肥料
-  step5: function () {
+  step5: function step5() {
     var self = this;
     self.setPosition_('tool/layout/farm_icon_05');
     self.setTxtIntro('guide/farm-text08', self.textintro, self.pos_6.x, self.pos_6.y + 80);
@@ -195,7 +197,7 @@ var farmGuid = {
     });
   },
   //施肥
-  step6: function () {
+  step6: function step6() {
     var self = this;
     self.setPosition_('tool/layout/farm_icon_05', self.pos_6.x - 60, self.pos_6.y + 150);
     self.setTxtIntro('guide/farm-text09', self.textintro, self.pos_6.x - 60, self.pos_6.y + 230);
@@ -214,7 +216,7 @@ var farmGuid = {
     });
   },
   //收割
-  step7: function () {
+  step7: function step7() {
     var self = this;
     self.setPosition_('tool/layout/farm_icon_06');
     self.setTxtIntro('guide/farm-text11', self.textintro, self.pos_6.x, self.pos_6.y + 80);
@@ -229,14 +231,16 @@ var farmGuid = {
       self.step8();
     });
   },
-  step8: function () {
+  step8: function step8() {
+    var _this = this;
+
     var self = this;
 
     self.prefabItem.removeFromParent();
 
     self.alertMdal();
-    setTimeout(() => {
-      cc.loader.loadRes('Prefab/guide', (err, prefab) => {
+    setTimeout(function () {
+      cc.loader.loadRes('Prefab/guide', function (err, prefab) {
         if (err) {
           console.log(err);
           return;
@@ -249,13 +253,12 @@ var farmGuid = {
           modalSprite.spriteFrame = spriteFrame;
         });
         circleNode.active = false;
-        guideNode.on('click', this.finishGuide, this);
-        cc.find('Canvas').parent.addChild(guideNode)
-      })
+        guideNode.on('click', _this.finishGuide, _this);
+        cc.find('Canvas').parent.addChild(guideNode);
+      });
     }, 2000);
-
   },
-  moveAddListen: function (callBack) {
+  moveAddListen: function moveAddListen(callBack) {
     var self = this;
     self.clickBoxPos.on('touchmove', function (e) {
       if (!self.isTouch) {
@@ -270,39 +273,35 @@ var farmGuid = {
       }
     });
   },
-  endAddListen: function (removedom1, removedom2, callBack) {
+  endAddListen: function endAddListen(removedom1, removedom2, callBack) {
     var self = this;
-    self.clickBoxPos.on(
-      'touchend',
-      function (e) {
-        if (self.isBoom(e.getLocation().x, e.getLocation().y)) {
-          self.offListen();
-          removedom1.active = false;
-          removedom2.active = false;
-          self.isTouch = false;
-          if (callBack) {
-            callBack();
-          }
+    self.clickBoxPos.on('touchend', function (e) {
+      if (self.isBoom(e.getLocation().x, e.getLocation().y)) {
+        self.offListen();
+        removedom1.active = false;
+        removedom2.active = false;
+        self.isTouch = false;
+        if (callBack) {
+          callBack();
         }
-      },
-      this
-    );
+      }
+    }, this);
   },
-  offListen: function () {
+  offListen: function offListen() {
     var self = this;
     self.clickBoxPos.off('touchstart');
     self.clickBoxPos.off('touchmove');
     self.clickBoxPos.off('touchend');
   },
   //跳动箭头
-  arrowJump: function (dom, x, y) {
+  arrowJump: function arrowJump(dom, x, y) {
     var self = this;
     dom.active = true;
     dom.setPosition(x, y);
     dom.stopAllActions();
     dom.runAction(cc.repeatForever(cc.jumpTo(1, x, y, 20, 1)));
   },
-  isBoom: function (x, y) {
+  isBoom: function isBoom(x, y) {
     var self = this;
     if (x > self.tipPos_.tx - 60 && x < self.tipPos_.tx + 60 && y > self.tipPos_.ty - 60 && y < self.tipPos_.ty + 60) {
       return true;
@@ -310,20 +309,20 @@ var farmGuid = {
       return false;
     }
   },
-  setIcon: function (src, dom) {
+  setIcon: function setIcon(src, dom) {
     var self = this;
     cc.loader.loadRes(src, cc.SpriteFrame, function (err, spriteFrame) {
       dom.getComponent(cc.Sprite).spriteFrame = spriteFrame;
     });
   },
-  setTxtIntro: function (src, dom, x, y) {
+  setTxtIntro: function setTxtIntro(src, dom, x, y) {
     var self = this;
     cc.loader.loadRes(src, cc.SpriteFrame, function (err, spriteFrame) {
       dom.getComponent(cc.Sprite).spriteFrame = spriteFrame;
     });
     dom.setPosition(x, y);
   },
-  alertMdal: function () {
+  alertMdal: function alertMdal() {
     var self = this;
     cc.loader.loadRes('Prefab/MsgNew', cc.Prefab, function (err, prefab) {
       if (err) {
@@ -332,15 +331,15 @@ var farmGuid = {
       }
       var AlertTip = cc.instantiate(prefab);
       var parentNode = cc.find('Canvas');
-      layout1 = cc.find('New Node/layout1', AlertTip);
-      layout2 = cc.find('New Node/layout2', AlertTip);
-      layout3 = cc.find('New Node/layout3', AlertTip);
-      icon1 = cc.find('New Node/layout1/New Node/msg-ym', AlertTip);
-      icon2 = cc.find('New Node/layout2/New Node/msg-ym', AlertTip);
-      icon3 = cc.find('New Node/layout3/New Node/msg-ym', AlertTip);
-      txt1 = cc.find('New Node/layout1/label', AlertTip);
-      txt2 = cc.find('New Node/layout2/label', AlertTip);
-      txt3 = cc.find('New Node/layout3/label', AlertTip);
+      var layout1 = cc.find('New Node/layout1', AlertTip);
+      var layout2 = cc.find('New Node/layout2', AlertTip);
+      var layout3 = cc.find('New Node/layout3', AlertTip);
+      var icon1 = cc.find('New Node/layout1/New Node/msg-ym', AlertTip);
+      var icon2 = cc.find('New Node/layout2/New Node/msg-ym', AlertTip);
+      var icon3 = cc.find('New Node/layout3/New Node/msg-ym', AlertTip);
+      var txt1 = cc.find('New Node/layout1/label', AlertTip);
+      var txt2 = cc.find('New Node/layout2/label', AlertTip);
+      var txt3 = cc.find('New Node/layout3/label', AlertTip);
       self.setIcon('Modal/Msg/msg-ym', icon1);
       self.setIcon('Modal/Repertory/icon-asset02', icon2);
       self.setIcon('Modal/Msg/msg-exp', icon3);
@@ -351,24 +350,19 @@ var farmGuid = {
       AlertTip.opacity = 0;
       AlertTip.runAction(cc.fadeIn(0.3));
       setTimeout(function () {
-        AlertTip.runAction(
-          cc.sequence(
-            cc.fadeOut(0.3),
-            cc.callFunc(function () {
-              AlertTip.destroy();
-            }, this)
-          )
-        );
+        AlertTip.runAction(cc.sequence(cc.fadeOut(0.3), cc.callFunc(function () {
+          AlertTip.destroy();
+        }, this)));
       }, 2000);
     });
   },
   //新手指引结束
 
-  finishGuide() {
-    let requires = new Promise((resolve, reject) => {
+  finishGuide: function finishGuide() {
+    var requires = new Promise(function (resolve, reject) {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+        if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 400) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
             response = JSON.parse(response);
@@ -382,14 +376,14 @@ var farmGuid = {
       };
       xhr.open('POST', Config.apiUrl + '/T_Base_User/finishGuidance', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
-      xhr.send(`openID=${Config.openID}`);
+      xhr.send('openID=' + Config.openID);
     });
-    requires.then((data) => {
+    requires.then(function (data) {
       if (data.Code === 1) {
         cc.director.loadScene('index');
       } else {
-        Msg.show('请重新点击')
+        Msg.show('请重新点击');
       }
-    })
+    });
   }
-}
+};

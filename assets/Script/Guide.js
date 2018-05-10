@@ -7,7 +7,7 @@ var GuideSystem = {
   menu: null,
   isSetName: false,
   isInit: false,
-  guide: function() {
+  guide: function guide() {
     if (!this.isInit) {
       this.stepGround = Config.guideStep || 0;
       this.setStepGround();
@@ -16,7 +16,7 @@ var GuideSystem = {
     var _this = this;
     this.scene = cc.find('Canvas');
     this.menu = cc.find('div_menu');
-    cc.loader.loadRes('Prefab/guide', cc.Prefab, function(err, prefab) {
+    cc.loader.loadRes('Prefab/guide', cc.Prefab, function (err, prefab) {
       if (err) {
         console.log(err);
         return;
@@ -73,8 +73,8 @@ var GuideSystem = {
     });
   },
 
-  guideStep0: function(guideNode, guideMaskNode, modalSprite, circleNode) {
-    cc.loader.loadRes('guide/pic', cc.SpriteFrame, function(err, spriteFrame) {
+  guideStep0: function guideStep0(guideNode, guideMaskNode, modalSprite, circleNode) {
+    cc.loader.loadRes('guide/pic', cc.SpriteFrame, function (err, spriteFrame) {
       modalSprite.spriteFrame = spriteFrame;
     });
     circleNode.active = false;
@@ -100,17 +100,17 @@ var GuideSystem = {
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
 
-    cc.loader.loadRes('guide/pic-1', cc.SpriteFrame, function(err, spriteFrame) {
+    cc.loader.loadRes('guide/pic-1', cc.SpriteFrame, function (err, spriteFrame) {
       modalSprite.spriteFrame = spriteFrame;
     });
     //绑定事件
-    guideMaskNode.once('click', function() {
-      self.menuJS.func.showMenu.call(self.menuJS).then(function() {
+    guideMaskNode.once('click', function () {
+      self.menuJS.func.showMenu.call(self.menuJS).then(function () {
         self.guide();
       });
     });
   },
-  guideStep2: function(guideNode, guideMaskNode, modalSprite, circleNode) {
+  guideStep2: function guideStep2(guideNode, guideMaskNode, modalSprite, circleNode) {
     var self = this;
     var shopNode = cc.find('div_menu/Menu/MenuList/menuScroll/view/content/shop');
 
@@ -126,18 +126,18 @@ var GuideSystem = {
     var radius = height > width ? height : width;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-2', cc.SpriteFrame, function(err, spriteFrame) {
+    cc.loader.loadRes('guide/pic-2', cc.SpriteFrame, function (err, spriteFrame) {
       modalSprite.spriteFrame = spriteFrame;
     });
     //绑定事件
-    guideMaskNode.on('click', function() {
+    guideMaskNode.on('click', function () {
       self.menuJS.func.closeMenu.call(self.menuJS);
-      setTimeout(function() {
+      setTimeout(function () {
         self.menuJS.func.loadSceneShop.call(self.menuJS);
       }, 500);
     });
   },
-  guideStep3: function(guideNode, guideMaskNode, modalSprite, circleNode) {
+  guideStep3: function guideStep3(guideNode, guideMaskNode, modalSprite, circleNode) {
     var self = this;
 
     var goodsNode = cc.find('bg/PageView/view/content/page_0/goodsList/产蛋鸡', self.scene);
@@ -154,27 +154,23 @@ var GuideSystem = {
     var radius = 110;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-3-0', cc.SpriteFrame, function(err, spriteFrame) {
+    cc.loader.loadRes('guide/pic-3-0', cc.SpriteFrame, function (err, spriteFrame) {
       modalSprite.spriteFrame = spriteFrame;
     });
     //绑定事件
-    guideMaskNode.on(
-      'click',
-      function() {
-        goodsNode.emit('maskClick');
-        self.guide();
-      },
-      this
-    );
+    guideMaskNode.on('click', function () {
+      goodsNode.emit('maskClick');
+      self.guide();
+    }, this);
   },
   //确定购买
-  guideStep4: function(guideNode, guideMaskNode, modalSprite, circleNode) {
+  guideStep4: function guideStep4(guideNode, guideMaskNode, modalSprite, circleNode) {
     var self = this;
 
     modalSprite.node.active = false;
     circleNode = cc.find('circle', guideMaskNode);
     circleNode.active = false;
-    setTimeout(function() {
+    setTimeout(function () {
       var SellNode = cc.find('Sell', self.scene);
       var enterButton = cc.find('bg/btn-group/enterButton', SellNode);
       //设置position
@@ -193,30 +189,31 @@ var GuideSystem = {
       var ModalSprite = ModalNode.getComponent(cc.Sprite);
       ModalNode.opacity = 255;
       ModalNode.color = cc.color('#ffffff');
-      cc.loader.loadRes('guide/pic-3', cc.SpriteFrame, function(err, spriteFrame) {
+      cc.loader.loadRes('guide/pic-3', cc.SpriteFrame, function (err, spriteFrame) {
         ModalSprite.spriteFrame = spriteFrame;
       });
 
-      guideMaskNode.on('click', function() {
-        //买一个蛋
-        // self.PostBuy(18, 1).then(function(data) {
-        //   if (data.Code === 1) {
-        //   } else {
-        //     Msg.show(data.Message);
-        //   }
-        // });
-        self.alertMsgNew();
-        console.log(self.step);
-        var oldGuideNode = cc.find('guide');
-        oldGuideNode ? oldGuideNode.removeFromParent() : false;
-        setTimeout(function() {
-          cc.director.loadScene('index', this.guide);
-        }, 2000);
+      guideMaskNode.on('click', function () {
+        //买一只鸡
+        self.PostBuy(18, 1).then(function (data) {
+          if (data.Code === 1) {
+            self.alertMsgNew();
+            // console.log(self.step);
+            var oldGuideNode = cc.find('guide');
+            oldGuideNode ? oldGuideNode.removeFromParent() : false;
+            setTimeout(function () {
+              cc.director.loadScene('index', this.guide);
+            }, 2000);
+          } else {
+            Msg.show(data.Message);
+          }
+        });
+
       });
     }, 500);
   },
   //显示饲料弹窗
-  guideStep5: function(guideNode, guideMaskNode, modalSprite, circleNode) {
+  guideStep5: function guideStep5(guideNode, guideMaskNode, modalSprite, circleNode) {
     var self = this;
     var goodsNode = cc.find('hatch-box', self.scene);
 
@@ -232,21 +229,17 @@ var GuideSystem = {
     var radius = 110;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-4', cc.SpriteFrame, function(err, spriteFrame) {
+    cc.loader.loadRes('guide/pic-4', cc.SpriteFrame, function (err, spriteFrame) {
       modalSprite.spriteFrame = spriteFrame;
     });
     //绑定事件
-    guideMaskNode.on(
-      'click',
-      function() {
-        self.idnexJs.func.showFeedState.call(self.idnexJs);
-        self.guide();
-      },
-      this
-    );
+    guideMaskNode.on('click', function () {
+      self.idnexJs.func.showFeedState.call(self.idnexJs);
+      self.guide();
+    }, this);
   },
   //添加饲料
-  guideStep6: function(guideNode, guideMaskNode, modalSprite, circleNode) {
+  guideStep6: function guideStep6(guideNode, guideMaskNode, modalSprite, circleNode) {
     var self = this;
     var goodsNode = cc.find('feedState/icon-addFeeds', self.scene);
 
@@ -262,26 +255,22 @@ var GuideSystem = {
     var radius = height > width ? height : width;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-5', cc.SpriteFrame, function(err, spriteFrame) {
+    cc.loader.loadRes('guide/pic-5', cc.SpriteFrame, function (err, spriteFrame) {
       modalSprite.spriteFrame = spriteFrame;
     });
     //绑定事件
-    guideMaskNode.on(
-      'click',
-      function() {
-        self.idnexJs.func.addFeed.call(self.idnexJs);
-        self.alertMsgNew();
-        console.log(self.step);
-        var oldGuideNode = cc.find('guide');
-        oldGuideNode ? oldGuideNode.removeFromParent() : false;
-        setTimeout(function() {
-          self.guide();
-        }, 2000);
-      },
-      this
-    );
+    guideMaskNode.on('click', function () {
+      self.idnexJs.func.addFeed.call(self.idnexJs);
+      self.alertMsgNew();
+      console.log(self.step);
+      var oldGuideNode = cc.find('guide');
+      oldGuideNode ? oldGuideNode.removeFromParent() : false;
+      setTimeout(function () {
+        self.guide();
+      }, 2000);
+    }, this);
   },
-  guideStep7: function(guideNode, guideMaskNode, modalSprite, circleNode) {
+  guideStep7: function guideStep7(guideNode, guideMaskNode, modalSprite, circleNode) {
     var self = this;
     var goodsNode = cc.find('bg/house/btn', self.scene);
     self.ModalJs = goodsNode.getComponent('Modal');
@@ -297,22 +286,18 @@ var GuideSystem = {
     var radius = 200;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-6', cc.SpriteFrame, function(err, spriteFrame) {
+    cc.loader.loadRes('guide/pic-6', cc.SpriteFrame, function (err, spriteFrame) {
       modalSprite.spriteFrame = spriteFrame;
     });
     //绑定事件
-    guideMaskNode.on(
-      'click',
-      function() {
-        self.ModalJs.func.showModal.call(self.ModalJs);
-        setTimeout(function() {
-          self.guide();
-        }, 500);
-      },
-      this
-    );
+    guideMaskNode.on('click', function () {
+      self.ModalJs.func.showModal.call(self.ModalJs);
+      setTimeout(function () {
+        self.guide();
+      }, 500);
+    }, this);
   },
-  guideStep8: function(guideNode, guideMaskNode, modalSprite, circleNode) {
+  guideStep8: function guideStep8(guideNode, guideMaskNode, modalSprite, circleNode) {
     var self = this;
     var goodsNode = cc.find('eggHouse/bg/content/hole0');
     //设置position
@@ -327,26 +312,22 @@ var GuideSystem = {
     var radius = height > width ? height : width;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-7', cc.SpriteFrame, function(err, spriteFrame) {
+    cc.loader.loadRes('guide/pic-7', cc.SpriteFrame, function (err, spriteFrame) {
       modalSprite.spriteFrame = spriteFrame;
     });
     //绑定事件
-    guideMaskNode.on(
-      'click',
-      function() {
-        cc.find('eggHouse').removeFromParent();
-        self.alertMsgNew();
-        console.log(self.step);
-        var oldGuideNode = cc.find('guide');
-        oldGuideNode ? oldGuideNode.removeFromParent() : false;
-        setTimeout(function() {
-          self.guide();
-        }, 2000);
-      },
-      this
-    );
+    guideMaskNode.on('click', function () {
+      cc.find('eggHouse').removeFromParent();
+      self.alertMsgNew();
+      console.log(self.step);
+      var oldGuideNode = cc.find('guide');
+      oldGuideNode ? oldGuideNode.removeFromParent() : false;
+      setTimeout(function () {
+        self.guide();
+      }, 2000);
+    }, this);
   },
-  guideStep9: function(guideNode, guideMaskNode, modalSprite, circleNode) {
+  guideStep9: function guideStep9(guideNode, guideMaskNode, modalSprite, circleNode) {
     var self = this;
     var goodsNode = cc.find('div_action/clear', self.scene);
     //设置position
@@ -361,25 +342,21 @@ var GuideSystem = {
     var radius = height > width ? height : width;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-8', cc.SpriteFrame, function(err, spriteFrame) {
+    cc.loader.loadRes('guide/pic-8', cc.SpriteFrame, function (err, spriteFrame) {
       modalSprite.spriteFrame = spriteFrame;
     });
     //绑定事件
-    guideMaskNode.on(
-      'click',
-      function() {
-        self.alertMsgNew();
-        console.log(self.step);
-        var oldGuideNode = cc.find('guide');
-        oldGuideNode ? oldGuideNode.removeFromParent() : false;
-        setTimeout(function() {
-          self.guide();
-        }, 2000);
-      },
-      this
-    );
+    guideMaskNode.on('click', function () {
+      self.alertMsgNew();
+      console.log(self.step);
+      var oldGuideNode = cc.find('guide');
+      oldGuideNode ? oldGuideNode.removeFromParent() : false;
+      setTimeout(function () {
+        self.guide();
+      }, 2000);
+    }, this);
   },
-  guideStep10: function(guideNode, guideMaskNode, modalSprite, circleNode) {
+  guideStep10: function guideStep10(guideNode, guideMaskNode, modalSprite, circleNode) {
     var self = this;
     var goodsNode = cc.find('div_action/feed', self.scene);
     //设置position
@@ -394,26 +371,22 @@ var GuideSystem = {
     var radius = height > width ? height : width;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-9', cc.SpriteFrame, function(err, spriteFrame) {
+    cc.loader.loadRes('guide/pic-9', cc.SpriteFrame, function (err, spriteFrame) {
       modalSprite.spriteFrame = spriteFrame;
     });
     //绑定事件
-    guideMaskNode.on(
-      'click',
-      function() {
-        self.alertMsgNew();
-        console.log(self.step);
-        var oldGuideNode = cc.find('guide');
-        oldGuideNode ? oldGuideNode.removeFromParent() : false;
-        setTimeout(function() {
-          self.guide();
-        }, 2000);
-      },
-      this
-    );
+    guideMaskNode.on('click', function () {
+      self.alertMsgNew();
+      console.log(self.step);
+      var oldGuideNode = cc.find('guide');
+      oldGuideNode ? oldGuideNode.removeFromParent() : false;
+      setTimeout(function () {
+        self.guide();
+      }, 2000);
+    }, this);
   },
   //跳到农场
-  guideStep11: function(guideNode, guideMaskNode, modalSprite, circleNode) {
+  guideStep11: function guideStep11(guideNode, guideMaskNode, modalSprite, circleNode) {
     var self = this;
     var goodsNode = cc.find('btn-farm', self.scene);
     //设置position
@@ -428,23 +401,19 @@ var GuideSystem = {
     var radius = 100;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-10', cc.SpriteFrame, function(err, spriteFrame) {
+    cc.loader.loadRes('guide/pic-10', cc.SpriteFrame, function (err, spriteFrame) {
       modalSprite.spriteFrame = spriteFrame;
     });
     //绑定事件
-    guideMaskNode.on(
-      'click',
-      function() {
-        self.idnexJs.func.loadSceneFarm.call(self.idnexJs);
-      },
-      this
-    );
+    guideMaskNode.on('click', function () {
+      self.idnexJs.func.loadSceneFarm.call(self.idnexJs);
+    }, this);
   },
   PostBuy: function PostBuy(prId, count) {
     count = count || 1;
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
+      xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 400) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -464,15 +433,15 @@ var GuideSystem = {
       xhr.send('openID=' + Config.openID + '&count=' + count + '&prId=' + prId);
     });
   },
-  alertMsgNew: function() {
+  alertMsgNew: function alertMsgNew() {
     var self = this;
-    cc.loader.loadRes('Prefab/MsgNew', cc.Prefab, function(err, prefab) {
+    cc.loader.loadRes('Prefab/MsgNew', cc.Prefab, function (err, prefab) {
       if (err) {
         console.log(err);
         return;
       }
       self.stepGround++;
-      self.setStep(self.stepGround).then(function(data) {
+      self.setStep(self.stepGround).then(function (data) {
         if (data.Code === 1) {
           var AlertTip = cc.instantiate(prefab);
 
@@ -482,15 +451,10 @@ var GuideSystem = {
           parentNode.parent.addChild(AlertTip, 5);
           AlertTip.opacity = 0;
           AlertTip.runAction(cc.fadeIn(0.3));
-          setTimeout(function() {
-            AlertTip.runAction(
-              cc.sequence(
-                cc.fadeOut(0.3),
-                cc.callFunc(function() {
-                  AlertTip.destroy();
-                }, this)
-              )
-            );
+          setTimeout(function () {
+            AlertTip.runAction(cc.sequence(cc.fadeOut(0.3), cc.callFunc(function () {
+              AlertTip.destroy();
+            }, this)));
           }, 2000);
           return true;
         } else {
@@ -499,7 +463,7 @@ var GuideSystem = {
       });
     });
   },
-  setAlertIcon: function(dom, type) {
+  setAlertIcon: function setAlertIcon(dom, type) {
     var self = this;
     if (type - 1) {
       var icon1, icon2, icon3, txt1, txt2, txt3, layout1, layout2, layout3;
@@ -513,63 +477,69 @@ var GuideSystem = {
       txt2 = cc.find('New Node/layout2/label', dom);
       txt3 = cc.find('New Node/layout3/label', dom);
       switch (self.step - 1) {
-        case 4: {
-          self.setIcon('Modal/Repertory/icon-1', icon1);
-          txt1.getComponent(cc.Label).string = '饲料*2';
-          self.setIcon('Modal/Msg/msg-exp', icon2);
-          txt2.getComponent(cc.Label).string = '经验值*150';
-          layout1.active = true;
-          layout2.active = true;
-          break;
-        }
-        case 6: {
-          self.setIcon('Modal/Repertory/icon-asset02', icon1);
-          txt1.getComponent(cc.Label).string = '积分*100';
-          self.setIcon('Modal/Msg/msg-exp', icon2);
-          txt2.getComponent(cc.Label).string = '经验值*100';
-          layout1.active = true;
-          layout2.active = true;
-          break;
-        }
-        case 8: {
-          self.setIcon('Modal/Repertory/icon-1', icon1);
-          txt1.getComponent(cc.Label).string = '饲料*2';
-          self.setIcon('Modal/Msg/msg-exp', icon2);
-          txt2.getComponent(cc.Label).string = '经验值*100';
-          layout1.active = true;
-          layout2.active = true;
-          break;
-        }
-        case 9: {
-          txt1.getComponent(cc.Label).string = '粪便*4';
-          self.setIcon('Modal/Msg/msg-exp', icon2);
-          txt2.getComponent(cc.Label).string = '经验值*100';
-          layout1.active = true;
-          layout2.active = true;
-          break;
-        }
-        case 10: {
-          self.setIcon('Modal/Msg/msg-exp', icon2);
-          txt2.getComponent(cc.Label).string = '经验值*100';
-          layout2.active = true;
-          break;
-        }
-        default: {
-          break;
-        }
+        case 4:
+          {
+            self.setIcon('Modal/Repertory/icon-1', icon1);
+            txt1.getComponent(cc.Label).string = '饲料*2';
+            self.setIcon('Modal/Msg/msg-exp', icon2);
+            txt2.getComponent(cc.Label).string = '经验值*150';
+            layout1.active = true;
+            layout2.active = true;
+            break;
+          }
+        case 6:
+          {
+            self.setIcon('Modal/Repertory/icon-asset02', icon1);
+            txt1.getComponent(cc.Label).string = '积分*100';
+            self.setIcon('Modal/Msg/msg-exp', icon2);
+            txt2.getComponent(cc.Label).string = '经验值*100';
+            layout1.active = true;
+            layout2.active = true;
+            break;
+          }
+        case 8:
+          {
+            self.setIcon('Modal/Repertory/icon-1', icon1);
+            txt1.getComponent(cc.Label).string = '饲料*2';
+            self.setIcon('Modal/Msg/msg-exp', icon2);
+            txt2.getComponent(cc.Label).string = '经验值*100';
+            layout1.active = true;
+            layout2.active = true;
+            break;
+          }
+        case 9:
+          {
+            txt1.getComponent(cc.Label).string = '粪便*4';
+            self.setIcon('Modal/Msg/msg-exp', icon2);
+            txt2.getComponent(cc.Label).string = '经验值*100';
+            layout1.active = true;
+            layout2.active = true;
+            break;
+          }
+        case 10:
+          {
+            self.setIcon('Modal/Msg/msg-exp', icon2);
+            txt2.getComponent(cc.Label).string = '经验值*100';
+            layout2.active = true;
+            break;
+          }
+        default:
+          {
+            break;
+          }
       }
     }
   },
-  setIcon: function(src, dom) {
+  setIcon: function setIcon(src, dom) {
     var self = this;
-    cc.loader.loadRes(src, cc.SpriteFrame, function(err, spriteFrame) {
+    cc.loader.loadRes(src, cc.SpriteFrame, function (err, spriteFrame) {
       dom.getComponent(cc.Sprite).spriteFrame = spriteFrame;
     });
   },
   UpdateUserLoginTime: function UpdateUserLoginTime() {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
+      xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 400) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -589,11 +559,13 @@ var GuideSystem = {
     });
   },
   //设置step
-  setStep(step, isSkip = 0) {
-    return new Promise((resolve, reject) => {
+  setStep: function setStep(step) {
+    var isSkip = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+    return new Promise(function (resolve, reject) {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 400) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
             response = JSON.parse(response);
@@ -607,11 +579,12 @@ var GuideSystem = {
       };
       xhr.open('POST', Config.apiUrl + '/T_Base_User/NoviceGuidance', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
-      xhr.send(`openID=${Config.openID}&step=${step}&isSkip=${isSkip}`);
+      xhr.send('openID=' + Config.openID + '&step=' + step + '&isSkip=' + isSkip);
     });
   },
+
   // 通过stepGround 设置step进行到了哪一步
-  setStepGround() {
+  setStepGround: function setStepGround() {
     switch (this.stepGround) {
       case 0:
         this.step = 0;

@@ -17,7 +17,7 @@ cc.Class({
   newmonth: null,
   newday: null,
   List: null,
-  onLoad: function() {
+  onLoad: function () {
     var date = new Date();
     this.newyear = date.getFullYear();
     this.newmonth = date.getMonth();
@@ -78,6 +78,8 @@ cc.Class({
       item_undoNode.active = true;
       let dayLabel = cc.find('day', item_undoNode).getComponent(cc.Label);
       dayLabel.string = '';
+      let dayNode = cc.find('day', item_undoNode);
+      dayNode.color = cc.color('#999999');
     }
   },
   //判断是否是本月
