@@ -88,7 +88,7 @@ cc.Class({
       }
     });
   },
-  //小鸡列表赋值
+  //小鸡列表赋值1
   assignChickList(list) {
     for (let i = 0; i < list.length; i++) {
       cc.loader.loadRes('Prefab/chickDetail/chickItem', cc.Prefab, (err, prefab) => {
