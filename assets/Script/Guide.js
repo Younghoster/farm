@@ -6,7 +6,13 @@ var GuideSystem = {
   scene: null,
   menu: null,
   isSetName: false,
+  isInit: false,
   guide: function() {
+    if (!this.isInit) {
+      this.stepGround = Config.guideStep || 0;
+      this.setStepGround();
+      this.isInit = true;
+    }
     var _this = this;
     this.scene = cc.find('Canvas');
     this.menu = cc.find('div_menu');
@@ -161,7 +167,6 @@ var GuideSystem = {
       this
     );
   },
-
   //确定购买
   guideStep4: function(guideNode, guideMaskNode, modalSprite, circleNode) {
     var self = this;
@@ -466,24 +471,32 @@ var GuideSystem = {
         console.log(err);
         return;
       }
-      var AlertTip = cc.instantiate(prefab);
-
-      var parentNode = cc.find('Canvas');
       self.stepGround++;
-      self.setAlertIcon(AlertTip, self.step);
-      parentNode.parent.addChild(AlertTip, 5);
-      AlertTip.opacity = 0;
-      AlertTip.runAction(cc.fadeIn(0.3));
-      setTimeout(function() {
-        AlertTip.runAction(
-          cc.sequence(
-            cc.fadeOut(0.3),
-            cc.callFunc(function() {
-              AlertTip.destroy();
-            }, this)
-          )
-        );
-      }, 2000);
+      self.setStep(self.stepGround).then(function(data) {
+        if (data.Code === 1) {
+          var AlertTip = cc.instantiate(prefab);
+
+          var parentNode = cc.find('Canvas');
+
+          self.setAlertIcon(AlertTip, self.step);
+          parentNode.parent.addChild(AlertTip, 5);
+          AlertTip.opacity = 0;
+          AlertTip.runAction(cc.fadeIn(0.3));
+          setTimeout(function() {
+            AlertTip.runAction(
+              cc.sequence(
+                cc.fadeOut(0.3),
+                cc.callFunc(function() {
+                  AlertTip.destroy();
+                }, this)
+              )
+            );
+          }, 2000);
+          return true;
+        } else {
+          return false;
+        }
+      });
     });
   },
   setAlertIcon: function(dom, type) {
@@ -574,5 +587,53 @@ var GuideSystem = {
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
       xhr.send('OpenID=' + Config.openID);
     });
+  },
+  //设置step
+  setStep(step, isSkip = 0) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            console.log(data.Message);
+            reject(response);
+          }
+        }
+      };
+      xhr.open('POST', Config.apiUrl + '/T_Base_User/NoviceGuidance', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
+      xhr.send(`openID=${Config.openID}&step=${step}&isSkip=${isSkip}`);
+    });
+  },
+  // 通过stepGround 设置step进行到了哪一步
+  setStepGround() {
+    switch (this.stepGround) {
+      case 0:
+        this.step = 0;
+        break;
+      case 1:
+        this.step = 5;
+        break;
+      case 2:
+        this.step = 7;
+        break;
+      case 3:
+        this.step = 9;
+        break;
+      case 4:
+        this.step = 10;
+        break;
+      case 5:
+        this.step = 11;
+        break;
+      default:
+        this.step = 0;
+        break;
+    }
   }
 };

@@ -29,10 +29,13 @@
       },
       {
         "__id__": 43
+      },
+      {
+        "__id__": 44
       }
     ],
     "_prefab": {
-      "__id__": 44
+      "__id__": 45
     },
     "_id": "",
     "_opacity": 255,
@@ -51,8 +54,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 250,
-      "height": 150
+      "width": 750,
+      "height": 1334
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -163,11 +166,11 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 45,
-    "_left": -25.000000000000114,
-    "_right": -24.999999999999886,
-    "_top": -14.999999999999886,
-    "_bottom": -15.000000000000114,
+    "_alignFlags": 0,
+    "_left": -1.1368683772161603e-13,
+    "_right": 1.1368683772161603e-13,
+    "_top": 1.1368683772161603e-13,
+    "_bottom": -1.1368683772161603e-13,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -1340,7 +1343,7 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 18,
+    "_alignFlags": 45,
     "_left": 0,
     "_right": 0,
     "_top": 0,
@@ -1353,8 +1356,8 @@
     "_isAbsBottom": true,
     "_isAbsHorizontalCenter": true,
     "_isAbsVerticalCenter": true,
-    "_originalWidth": 0,
-    "_originalHeight": 0
+    "_originalWidth": 250,
+    "_originalHeight": 150
   },
   {
     "__type__": "cc.Layout",
@@ -1366,8 +1369,8 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 300,
-      "height": 200
+      "width": 750,
+      "height": 1334
     },
     "_resize": 0,
     "_N$layoutType": 0,
@@ -1386,6 +1389,56 @@
     "_N$spacingY": 0,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0
+  },
+  {
+    "__type__": "cc.Button",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "transition": 0,
+    "pressedColor": {
+      "__type__": "cc.Color",
+      "r": 211,
+      "g": 211,
+      "b": 211,
+      "a": 255
+    },
+    "hoverColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "duration": 0.1,
+    "zoomScale": 1.2,
+    "pressedSprite": null,
+    "hoverSprite": null,
+    "clickEvents": [],
+    "_N$interactable": true,
+    "_N$enableAutoGrayEffect": false,
+    "_N$normalColor": {
+      "__type__": "cc.Color",
+      "r": 214,
+      "g": 214,
+      "b": 214,
+      "a": 255
+    },
+    "_N$disabledColor": {
+      "__type__": "cc.Color",
+      "r": 124,
+      "g": 124,
+      "b": 124,
+      "a": 255
+    },
+    "_N$normalSprite": null,
+    "_N$disabledSprite": null,
+    "_N$target": {
+      "__id__": 1
+    }
   },
   {
     "__type__": "cc.PrefabInfo",

@@ -26,14 +26,14 @@ cc.Class({
       touchstart: this.touchstart,
       touchmove: this.touchmove
     };
-    // farmGuid.getPrefab(1);
+    if (Config.firstLogin) farmGuid.getPrefab(1);
     self.addPersist();
     self.getWhether();
 
     //初始化加载数据
     self.fatchData();
 
-    self.schedule(function() {
+    self.schedule(function () {
       self.onlyUpdataPlant();
       console.warn('60秒刷新一波');
     }, 60);
@@ -42,7 +42,7 @@ cc.Class({
     Tool.RunAction(cc.find('Canvas'), 'fadeIn', 0.3);
 
     //更新于植物状态变动
-    this.node.on('updataPlant', function(event) {
+    this.node.on('updataPlant', function (event) {
       let List = event.detail.data;
       self.clearAllDom(); //清除植物数据
       self.setLocData(List);
@@ -50,7 +50,7 @@ cc.Class({
     });
 
     //更新于土地拓建
-    this.node.on('unLockLand', function(event) {
+    this.node.on('unLockLand', function (event) {
       let ListData = event.detail.data;
       self.clearAllDom(); //清除植物数据
       self.setLandOption(ListData); //重新加载土地
@@ -270,28 +270,28 @@ cc.Class({
   setTipType(ValueList, obj) {
     //浇水tip
     if (ValueList.IsDry && ValueList.CropsStatus != 0) {
-      cc.loader.loadRes('Farm/water', cc.SpriteFrame, function(err, spriteFrame) {
+      cc.loader.loadRes('Farm/water', cc.SpriteFrame, function (err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
     }
     //播种tip
     if (!ValueList.IsLock && ValueList.CropsStatus == 0) {
-      cc.loader.loadRes('Farm/seed', cc.SpriteFrame, function(err, spriteFrame) {
+      cc.loader.loadRes('Farm/seed', cc.SpriteFrame, function (err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
     }
     //除草tip
     else if (ValueList.IsWeeds && ValueList.CropsStatus != 0) {
-      cc.loader.loadRes('Farm/weed', cc.SpriteFrame, function(err, spriteFrame) {
+      cc.loader.loadRes('Farm/weed', cc.SpriteFrame, function (err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
     }
     //除虫tip
     else if (ValueList.IsDisinsection && ValueList.CropsStatus != 0) {
-      cc.loader.loadRes('Farm/disinsection', cc.SpriteFrame, function(err, spriteFrame) {
+      cc.loader.loadRes('Farm/disinsection', cc.SpriteFrame, function (err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
@@ -314,7 +314,7 @@ cc.Class({
             ImgSrc = 'Modal/Repertory/ymzz';
             Label.string = data.List[i].PropName + '×' + data.List[i].Count;
             self.addListenMove(1, prefab, data.List[i].PropertyID);
-            cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function(err, spriteFrame) {
+            cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function (err, spriteFrame) {
               Img.spriteFrame = spriteFrame;
             });
             seedBox.addChild(prefab, 999);
@@ -336,12 +336,12 @@ cc.Class({
         this.addListenMove(i, tool);
       }
       if (i == 1) {
-        tool.on('touchstart', function() {
+        tool.on('touchstart', function () {
           self.getSeed();
         });
       }
       if (i == 5) {
-        tool.on('touchstart', function() {
+        tool.on('touchstart', function () {
           let seedBox = cc.find('bg_farm', self.node);
           if (!seedBox.active) {
             seedBox.active = false;
@@ -360,7 +360,7 @@ cc.Class({
                   }
                   Label.string = data.List[i].PropName + '×' + data.List[i].Count;
                   self.addListenMove(5, prefab, data.List[i].PropertyTypeID);
-                  cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function(err, spriteFrame) {
+                  cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function (err, spriteFrame) {
                     Img.spriteFrame = spriteFrame;
                   });
                   seedBox.addChild(prefab);
@@ -383,16 +383,16 @@ cc.Class({
 
     let farmBox = cc.find('bg', this.node);
     let bg_farm = cc.find('bg_farm', this.node);
-    tool.on('touchstart', function(e) {
+    tool.on('touchstart', function (e) {
       self.touchstart(i, e.getLocation().x - 50, e.getLocation().y + 120, otherId);
     });
-    tool.on('touchmove', function(e) {
+    tool.on('touchmove', function (e) {
       self.touchmove(i, e.getLocation().x - 50, e.getLocation().y);
     });
-    tool.on('touchend', function() {
+    tool.on('touchend', function () {
       self.touchend(i);
     });
-    tool.on('touchcancel', function() {
+    tool.on('touchcancel', function () {
       self.touchcancel(i);
     });
   },
@@ -414,7 +414,7 @@ cc.Class({
       cc.sys.localStorage.setItem('FarmData', JSON.stringify(self.Value)); //缓存机制
       self.Prefab = cc.instantiate(self.Tool_Prefab);
       let Img = cc.find('tool', self.Prefab).getComponent(cc.Sprite);
-      cc.loader.loadRes(self.imgSrcSelect(i), cc.SpriteFrame, function(err, spriteFrame) {
+      cc.loader.loadRes(self.imgSrcSelect(i), cc.SpriteFrame, function (err, spriteFrame) {
         Img.spriteFrame = spriteFrame;
       });
       self.Prefab.setPosition(posX, posY);
@@ -454,30 +454,36 @@ cc.Class({
     let src_ = '';
 
     switch (i) {
-      case 1: {
-        src_ = 'Farm/bozhong';
-        break;
-      }
-      case 2: {
-        src_ = 'Farm/jiaoshui';
-        break;
-      }
-      case 3: {
-        src_ = 'Farm/chucao';
-        break;
-      }
-      case 4: {
-        src_ = 'Farm/chuchong';
-        break;
-      }
-      case 5: {
-        src_ = 'Farm/zhongzi';
-        break;
-      }
-      case 6: {
-        src_ = 'Farm/liandao';
-        break;
-      }
+      case 1:
+        {
+          src_ = 'Farm/bozhong';
+          break;
+        }
+      case 2:
+        {
+          src_ = 'Farm/jiaoshui';
+          break;
+        }
+      case 3:
+        {
+          src_ = 'Farm/chucao';
+          break;
+        }
+      case 4:
+        {
+          src_ = 'Farm/chuchong';
+          break;
+        }
+      case 5:
+        {
+          src_ = 'Farm/zhongzi';
+          break;
+        }
+      case 6:
+        {
+          src_ = 'Farm/liandao';
+          break;
+        }
     }
     return src_;
   },
@@ -493,7 +499,7 @@ cc.Class({
     }
   },
 
-  gotoMuChange: function() {
+  gotoMuChange: function () {
     cc.director.loadScene('index');
   },
 
