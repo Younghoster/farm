@@ -147,10 +147,10 @@ cc.Class({
     var rank = element.Row || i;
     var clean = element.IsClean;
     var feed = element.IsFeed;
-    var water = element.IsWater || false;
-    var steal = element.IsSteal || false;
-    var weed = element.IsWeed || false;
-    var worm = element.IsWorm || false;
+    var water = element.IsDry;
+    var steal = element.IsSteal;
+    var weed = element.IsWeeds;
+    var worm = element.IsDisinsection;
     let openIds = element.OpenID;
 
     let i = 0;
@@ -191,10 +191,6 @@ cc.Class({
         cleanNode.active = true;
         i++;
       }
-      // if (feed && i < 4) {
-      //   feedNode.active = true;
-      //   i++;
-      // }
       if (water && i < 4) {
         waterNode.active = true;
         i++;
@@ -224,6 +220,7 @@ cc.Class({
     gradeLabel.string = 'Lv.' + grade;
     console.log();
     item.on('click', () => {
+      Config.friendName = name;
       if (cc.find('Canvas').parent._name == 'index') {
         Config.friendOpenId = openIds;
         cc.director.loadScene('FriendIndex', () => {

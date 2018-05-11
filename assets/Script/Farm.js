@@ -20,6 +20,10 @@ cc.Class({
   Value: null,
   Prefab: null,
   onLoad() {
+
+    this.nameLabel = cc.find('name', this.node).getComponent(cc.Label);
+    this.nameLabel.string = `${Config.realName}的农场`;
+
     let self = this;
     this.func = {
       getWeed: this.getWeed,

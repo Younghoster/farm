@@ -56,7 +56,7 @@ cc.Class({
     // this.clearLabel = cc.find('wave/mask/layout/value', this.node).getComponent(cc.Label);
     // this.wave1Node = cc.find('wave/mask/wave1', this.node);
     // this.wave2Node = cc.find('wave/mask/wave2', this.node);
-
+    this.nameLabel = cc.find('bg/name', this.node).getComponent(cc.Label)
     this.MenuModal = cc.find('/div_menu/Modal_more', this.node);
     this.handNode = cc.find('Hand', this.node);
     this.handAnim = this.handNode.getComponent(cc.Animation);
@@ -92,6 +92,7 @@ cc.Class({
     Tool.RunAction(canvas, 'fadeIn', 0.3);
   },
   initData(data) {
+    //新手指引
     Config.firstLogin = !data.UserModel.IsFinishGuid;
     Config.guideStep = data.UserModel.GuidStep;
     // 清洁度设置
@@ -102,6 +103,9 @@ cc.Class({
     this.clearProgressBar.progress = this._clearValue / 100;
 
     this.clearLabel.string = this._clearValue + '%';
+    //名称
+    this.nameLabel.string = `${data.UserModel.RealName}的牧场`;
+    Config.realName = data.UserModel.RealName;
     //产蛋棚等级
     let eggsShedRank = data.EggsShed.ShedRank;
     let RanchRank = data.RanchModel.RanchRank;

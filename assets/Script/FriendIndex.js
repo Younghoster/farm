@@ -10,7 +10,7 @@ cc.Class({
   bindNode() {
     this.backButton = cc.find('bg/btn-back', this.node);
     this.clearProgressBar = cc.find('clearBar/clear_bar', this.node).getComponent(cc.ProgressBar);
-
+    this.nameLabel = cc.find('bg/name', this.node).getComponent(cc.Label);
     this.handNode = cc.find('Hand', this.node);
     this.handAnim = this.handNode.getComponent(cc.Animation);
     this.eggNode = cc.find('bg/house/shouquEgg', this.node);
@@ -36,8 +36,9 @@ cc.Class({
     this.flabellumNode = cc.find('flabellum', this.windmillNode);
   },
   initData(data) {
+    this.nameLabel.string = `${data.UserModel.RealName}的牧场`;
     // 清洁度设置
-    this._clearValue = data.RanchModel.RanchCleanliness;
+    this._clearValue = data.RanchModel.RanchCleanliness
     this.clearProgressBar = cc.find('clearBar/clear_bar', this.node).getComponent(cc.ProgressBar);
     this.clearLabel = cc.find('clearBar/value', this.node).getComponent(cc.Label);
     this.clearProgressBar.progress = this._clearValue / 100;
@@ -115,8 +116,6 @@ cc.Class({
           this.chickList.push(chickNode);
           // });
         }
-      } else {
-        !Config.firstLogin ? Msg.show('您的牧场暂无小鸡') : false;
       }
     });
   },
@@ -135,7 +134,7 @@ cc.Class({
     }
   },
   //点击清理事件
-  showClearAlert: function() {
+  showClearAlert: function () {
     var self = this;
     //调用接口
     Func.PostFriendsClean(Config.friendOpenId)

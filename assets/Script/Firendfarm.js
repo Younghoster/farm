@@ -20,6 +20,11 @@ cc.Class({
   Value: null,
   Prefab: null,
   onLoad() {
+    //设置好友农场名称
+    let nameLabel = cc.find('name', this.node).getComponent(cc.Label);
+    nameLabel.string = `${Config.friendName}的农场`;
+
+
     var self = this;
     //好友农场的好友ID
     self.getHearder(Config.friendOpenId);
@@ -27,7 +32,7 @@ cc.Class({
     //初始化加载数据
     self.fatchData();
 
-    self.schedule(function() {
+    self.schedule(function () {
       self.onlyUpdataPlant();
       console.warn('60秒刷新一波');
     }, 60);
@@ -36,7 +41,7 @@ cc.Class({
     Tool.RunAction(cc.find('Canvas'), 'fadeIn', 0.3);
 
     //更新于植物状态变动
-    this.node.on('updataPlant', function(event) {
+    this.node.on('updataPlant', function (event) {
       let List = event.detail.data;
       self.clearAllDom(); //清除植物数据
       self.setLocData(List);
@@ -267,21 +272,21 @@ cc.Class({
   setTipType(ValueList, obj) {
     //浇水tip
     if (ValueList.IsDry && ValueList.CropsStatus != 0) {
-      cc.loader.loadRes('Farm/water', cc.SpriteFrame, function(err, spriteFrame) {
+      cc.loader.loadRes('Farm/water', cc.SpriteFrame, function (err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
     }
     //除草tip
     else if (ValueList.IsWeeds && ValueList.CropsStatus != 0) {
-      cc.loader.loadRes('Farm/weed', cc.SpriteFrame, function(err, spriteFrame) {
+      cc.loader.loadRes('Farm/weed', cc.SpriteFrame, function (err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
     }
     //除虫tip
     else if (ValueList.IsDisinsection && ValueList.CropsStatus != 0) {
-      cc.loader.loadRes('Farm/disinsection', cc.SpriteFrame, function(err, spriteFrame) {
+      cc.loader.loadRes('Farm/disinsection', cc.SpriteFrame, function (err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
@@ -298,11 +303,11 @@ cc.Class({
       } else if (i == 6) {
         //偷取好友农作物
         let tool = cc.find('tool/layout/farm_icon_0' + i, this.node);
-        tool.on('click', function(e) {
+        tool.on('click', function (e) {
           Data.func.FriendsStealCrops(Config.friendOpenId).then(data => {
             if (data.Code === 1) {
               self.CollectNumber = data.Model;
-              setTimeout(function() {
+              setTimeout(function () {
                 Msg.show('偷取 × ' + self.CollectNumber);
                 self.CollectNumber = 0;
                 Data.func.getFarmModalData(Config.friendOpenId).then(data2 => {
@@ -326,7 +331,7 @@ cc.Class({
 
     let farmBox = cc.find('bg', this.node);
     let bg_farm = cc.find('bg_farm', this.node);
-    tool.on('touchstart', function(e) {
+    tool.on('touchstart', function (e) {
       bg_farm.opacity = 0; //种子选择的浮窗
       self.Value.toolType = i;
       //播种时传入种子ID
@@ -341,19 +346,19 @@ cc.Class({
         cc.sys.localStorage.setItem('FarmData', JSON.stringify(self.Value)); //缓存机制
         self.Prefab = cc.instantiate(self.Tool_Prefab);
         let Img = cc.find('tool', self.Prefab).getComponent(cc.Sprite);
-        cc.loader.loadRes(self.imgSrcSelect(i), cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes(self.imgSrcSelect(i), cc.SpriteFrame, function (err, spriteFrame) {
           Img.spriteFrame = spriteFrame;
         });
         self.Prefab.setPosition(e.getLocation().x - 50, e.getLocation().y + 120);
         farmBox.addChild(self.Prefab, 9);
       }
     });
-    tool.on('touchmove', function(e) {
+    tool.on('touchmove', function (e) {
       if (self.Value.toolType != 0) {
         self.Prefab.setPosition(e.getLocation().x - 50, e.getLocation().y + 120);
       }
     });
-    tool.on('touchend', function() {
+    tool.on('touchend', function () {
       if (self.Value.toolType != 0) {
         self.Prefab.removeFromParent();
       }
@@ -361,7 +366,7 @@ cc.Class({
       bg_farm.opacity = 1;
       bg_farm.removeAllChildren();
     });
-    tool.on('touchcancel', function() {
+    tool.on('touchcancel', function () {
       if (self.Value.toolType != 0) {
         self.Prefab.removeFromParent();
       }
@@ -377,30 +382,36 @@ cc.Class({
     let src_ = '';
 
     switch (i) {
-      case 1: {
-        src_ = 'Farm/bozhong';
-        break;
-      }
-      case 2: {
-        src_ = 'Farm/jiaoshui';
-        break;
-      }
-      case 3: {
-        src_ = 'Farm/chucao';
-        break;
-      }
-      case 4: {
-        src_ = 'Farm/chuchong';
-        break;
-      }
-      case 5: {
-        src_ = 'Farm/zhongzi';
-        break;
-      }
-      case 6: {
-        src_ = 'Farm/liandao';
-        break;
-      }
+      case 1:
+        {
+          src_ = 'Farm/bozhong';
+          break;
+        }
+      case 2:
+        {
+          src_ = 'Farm/jiaoshui';
+          break;
+        }
+      case 3:
+        {
+          src_ = 'Farm/chucao';
+          break;
+        }
+      case 4:
+        {
+          src_ = 'Farm/chuchong';
+          break;
+        }
+      case 5:
+        {
+          src_ = 'Farm/zhongzi';
+          break;
+        }
+      case 6:
+        {
+          src_ = 'Farm/liandao';
+          break;
+        }
     }
     return src_;
   },
@@ -416,12 +427,18 @@ cc.Class({
     }
   },
 
-  gotoMuChange: function() {
+  gotoMuChange: function () {
     let self = this;
-    cc.director.loadScene('FriendIndex');
+    cc.director.loadScene('FriendIndex', this.onLoadFadeIn);
   },
-  back: function() {
-    cc.director.loadScene(Config.backIndexUrl);
+  back: function () {
+    cc.director.loadScene(Config.backIndexUrl, this.onLoadFadeIn);
+
+
+  },
+  onLoadFadeIn() {
+    let canvas = cc.find('Canvas');
+    Tool.RunAction(canvas, 'fadeIn', 0.15);
   },
   start() {},
 
