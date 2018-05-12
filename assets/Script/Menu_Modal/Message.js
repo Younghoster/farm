@@ -99,7 +99,7 @@ cc.Class({
 
       if (data.Code) {
         let imgSrc;
-        if (data.List.length == 0) {
+        if (data.List.length == 0 && this.pageIndex == 1) {
           this.emptyNode ? (this.emptyNode.active = true) : false;
           return (this.hasMore = false);
         }
@@ -176,7 +176,7 @@ cc.Class({
 
       if (data.Code) {
         let imgSrc;
-        if (data.List.length == 0) {
+        if (data.List.length == 0 && this.pageIndex == 1) {
           this.emptyNode ? (this.emptyNode.active = true) : false;
           return (this.hasMore = false);
         }

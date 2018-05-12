@@ -29,7 +29,7 @@ var farmGuid = {
   // btn2: null, 跳过按钮
   getPrefab: function getPrefab(i) {
     var self = this;
-    cc.loader.loadRes('Prefab/guide', cc.Prefab, function (err, prefab) {
+    cc.loader.loadRes('Prefab/guide', cc.Prefab, function(err, prefab) {
       if (err) {
         console.log(err);
         return;
@@ -57,11 +57,10 @@ var farmGuid = {
       self.prefabBox.addChild(self.prefabItem);
       self.setConstDom();
       switch (i) {
-        case 1:
-          {
-            self.step1();
-            break;
-          }
+        case 1: {
+          self.step1();
+          break;
+        }
       }
     });
   },
@@ -71,7 +70,7 @@ var farmGuid = {
     var tipBox = cc.find('bg/mapNew/item0', self.canvas);
     var tipPos = tipBox.getPosition();
     self.tipPos_ = tipBox.getNodeToWorldTransformAR(tipPos);
-    cc.loader.loadRes('guide/black', cc.SpriteFrame, function (err, spriteFrame) {
+    cc.loader.loadRes('guide/black', cc.SpriteFrame, function(err, spriteFrame) {
       self.modalBlock.getComponent(cc.Sprite).spriteFrame = spriteFrame;
     });
 
@@ -124,14 +123,14 @@ var farmGuid = {
     self.setPosition_('tool/layout/farm_icon_01');
     self.setTxtIntro('guide/farm-text01', self.textintro, self.pos_6.x + 180, self.pos_6.y + 120);
     self.setMaskSize_();
-    cc.loader.loadRes('Farm/seed', cc.SpriteFrame, function (err, spriteFrame) {
+    cc.loader.loadRes('Farm/seed', cc.SpriteFrame, function(err, spriteFrame) {
       self.tip.getComponent(cc.Sprite).spriteFrame = spriteFrame;
     });
 
     self.arrow.active = true;
     self.offsetY = 110;
     self.moveAddListen();
-    self.endAddListen(self.tool, self.tip, function () {
+    self.endAddListen(self.tool, self.tip, function() {
       self.step2();
     });
   },
@@ -142,12 +141,12 @@ var farmGuid = {
     self.setTxtIntro('guide/farm-text02', self.textintro, self.pos_6.x, self.pos_6.y + 80);
     self.setMaskSize_();
     self.water.active = true;
-    cc.loader.loadRes('Farm/jiaoshui', cc.SpriteFrame, function (err, spriteFrame) {
+    cc.loader.loadRes('Farm/jiaoshui', cc.SpriteFrame, function(err, spriteFrame) {
       self.tool.getComponent(cc.Sprite).spriteFrame = spriteFrame;
     });
     self.offsetY = 160;
     self.moveAddListen();
-    self.endAddListen(self.tool, self.water, function () {
+    self.endAddListen(self.tool, self.water, function() {
       self.step3();
     });
   },
@@ -158,12 +157,12 @@ var farmGuid = {
     self.setTxtIntro('guide/farm-text04', self.textintro, self.pos_6.x, self.pos_6.y + 80);
     self.setMaskSize_();
     self.weed.active = true;
-    cc.loader.loadRes('Farm/chucao', cc.SpriteFrame, function (err, spriteFrame) {
+    cc.loader.loadRes('Farm/chucao', cc.SpriteFrame, function(err, spriteFrame) {
       self.tool.getComponent(cc.Sprite).spriteFrame = spriteFrame;
     });
     self.offsetY = 200;
     self.moveAddListen();
-    self.endAddListen(self.tool, self.weed, function () {
+    self.endAddListen(self.tool, self.weed, function() {
       self.step4();
     });
   },
@@ -174,12 +173,12 @@ var farmGuid = {
     self.setTxtIntro('guide/farm-text06', self.textintro, self.pos_6.x, self.pos_6.y + 80);
     self.setMaskSize_();
     self.disinsection.active = true;
-    cc.loader.loadRes('Farm/chuchong', cc.SpriteFrame, function (err, spriteFrame) {
+    cc.loader.loadRes('Farm/chuchong', cc.SpriteFrame, function(err, spriteFrame) {
       self.tool.getComponent(cc.Sprite).spriteFrame = spriteFrame;
     });
     self.offsetY = 200;
     self.moveAddListen();
-    self.endAddListen(self.tool, self.disinsection, function () {
+    self.endAddListen(self.tool, self.disinsection, function() {
       self.step5();
     });
   },
@@ -190,7 +189,7 @@ var farmGuid = {
     self.setTxtIntro('guide/farm-text08', self.textintro, self.pos_6.x, self.pos_6.y + 80);
     self.setMaskSize_();
     self.fertilizer.active = true;
-    self.clickBoxPos.on('touchstart', function () {
+    self.clickBoxPos.on('touchstart', function() {
       self.fertilizerList.setPosition(self.pos_6.x, self.pos_6.y + 90);
       self.fertilizerList.active = true;
       self.step6();
@@ -204,14 +203,14 @@ var farmGuid = {
     self.arrowJump(self.arrow, self.pos_6.x - 60, self.pos_6.y + 300);
     self.setMaskSize_(1);
     self.fertilizer.active = true;
-    cc.loader.loadRes('Farm/zhongzi', cc.SpriteFrame, function (err, spriteFrame) {
+    cc.loader.loadRes('Farm/zhongzi', cc.SpriteFrame, function(err, spriteFrame) {
       self.tool.getComponent(cc.Sprite).spriteFrame = spriteFrame;
     });
     self.offsetY = 140;
-    self.moveAddListen(function () {
+    self.moveAddListen(function() {
       self.fertilizerList.active = false;
     });
-    self.endAddListen(self.tool, self.fertilizer, function () {
+    self.endAddListen(self.tool, self.fertilizer, function() {
       self.step7();
     });
   },
@@ -222,12 +221,12 @@ var farmGuid = {
     self.setTxtIntro('guide/farm-text11', self.textintro, self.pos_6.x, self.pos_6.y + 80);
     self.setMaskSize_();
     self.plantok.active = true;
-    cc.loader.loadRes('Farm/liandao', cc.SpriteFrame, function (err, spriteFrame) {
+    cc.loader.loadRes('Farm/liandao', cc.SpriteFrame, function(err, spriteFrame) {
       self.tool.getComponent(cc.Sprite).spriteFrame = spriteFrame;
     });
     self.offsetY = 250;
     self.moveAddListen();
-    self.endAddListen(self.tool, self.plantok, function () {
+    self.endAddListen(self.tool, self.plantok, function() {
       self.step8();
     });
   },
@@ -239,8 +238,8 @@ var farmGuid = {
     self.prefabItem.removeFromParent();
 
     self.alertMdal();
-    setTimeout(function () {
-      cc.loader.loadRes('Prefab/guide', function (err, prefab) {
+    setTimeout(function() {
+      cc.loader.loadRes('Prefab/guide', function(err, prefab) {
         if (err) {
           console.log(err);
           return;
@@ -249,7 +248,7 @@ var farmGuid = {
         var guideMaskNode = cc.find('mask-guide', guideNode);
         var modalSprite = cc.find('modal', guideMaskNode).getComponent(cc.Sprite);
         var circleNode = cc.find('circle', guideMaskNode);
-        cc.loader.loadRes('guide/pic-11', cc.SpriteFrame, function (err, spriteFrame) {
+        cc.loader.loadRes('guide/pic-11', cc.SpriteFrame, function(err, spriteFrame) {
           modalSprite.spriteFrame = spriteFrame;
         });
         circleNode.active = false;
@@ -260,7 +259,7 @@ var farmGuid = {
   },
   moveAddListen: function moveAddListen(callBack) {
     var self = this;
-    self.clickBoxPos.on('touchmove', function (e) {
+    self.clickBoxPos.on('touchmove', function(e) {
       if (!self.isTouch) {
         self.arrowJump(self.arrow, self.tipPos_.tx, self.tipPos_.ty + self.offsetY);
       }
@@ -273,19 +272,47 @@ var farmGuid = {
       }
     });
   },
+  //设置step
+  setStep: function setStep(step) {
+    var isSkip = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+    return new Promise(function(resolve, reject) {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 400) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            console.log(data.Message);
+            reject(response);
+          }
+        }
+      };
+      xhr.open('POST', Config.apiUrl + '/T_Base_User/NoviceGuidance', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
+      xhr.send('openID=' + Config.openID + '&step=' + step + '&isSkip=0' + isSkip);
+    });
+  },
   endAddListen: function endAddListen(removedom1, removedom2, callBack) {
     var self = this;
-    self.clickBoxPos.on('touchend', function (e) {
-      if (self.isBoom(e.getLocation().x, e.getLocation().y)) {
-        self.offListen();
-        removedom1.active = false;
-        removedom2.active = false;
-        self.isTouch = false;
-        if (callBack) {
-          callBack();
+    self.clickBoxPos.on(
+      'touchend',
+      function(e) {
+        if (self.isBoom(e.getLocation().x, e.getLocation().y)) {
+          self.offListen();
+          removedom1.active = false;
+          removedom2.active = false;
+          self.isTouch = false;
+          if (callBack) {
+            callBack();
+          }
         }
-      }
-    }, this);
+      },
+      this
+    );
   },
   offListen: function offListen() {
     var self = this;
@@ -311,57 +338,69 @@ var farmGuid = {
   },
   setIcon: function setIcon(src, dom) {
     var self = this;
-    cc.loader.loadRes(src, cc.SpriteFrame, function (err, spriteFrame) {
+    cc.loader.loadRes(src, cc.SpriteFrame, function(err, spriteFrame) {
       dom.getComponent(cc.Sprite).spriteFrame = spriteFrame;
     });
   },
   setTxtIntro: function setTxtIntro(src, dom, x, y) {
     var self = this;
-    cc.loader.loadRes(src, cc.SpriteFrame, function (err, spriteFrame) {
+    cc.loader.loadRes(src, cc.SpriteFrame, function(err, spriteFrame) {
       dom.getComponent(cc.Sprite).spriteFrame = spriteFrame;
     });
     dom.setPosition(x, y);
   },
   alertMdal: function alertMdal() {
     var self = this;
-    cc.loader.loadRes('Prefab/MsgNew', cc.Prefab, function (err, prefab) {
+    cc.loader.loadRes('Prefab/MsgNew', cc.Prefab, function(err, prefab) {
       if (err) {
         console.log(err);
         return;
       }
-      var AlertTip = cc.instantiate(prefab);
-      var parentNode = cc.find('Canvas');
-      var layout1 = cc.find('New Node/layout1', AlertTip);
-      var layout2 = cc.find('New Node/layout2', AlertTip);
-      var layout3 = cc.find('New Node/layout3', AlertTip);
-      var icon1 = cc.find('New Node/layout1/New Node/msg-ym', AlertTip);
-      var icon2 = cc.find('New Node/layout2/New Node/msg-ym', AlertTip);
-      var icon3 = cc.find('New Node/layout3/New Node/msg-ym', AlertTip);
-      var txt1 = cc.find('New Node/layout1/label', AlertTip);
-      var txt2 = cc.find('New Node/layout2/label', AlertTip);
-      var txt3 = cc.find('New Node/layout3/label', AlertTip);
-      self.setIcon('Modal/Msg/msg-ym', icon1);
-      self.setIcon('Modal/Repertory/icon-asset02', icon2);
-      self.setIcon('Modal/Msg/msg-exp', icon3);
-      layout1.active = true;
-      layout2.active = true;
-      layout3.active = true;
-      parentNode.parent.addChild(AlertTip, 5);
-      AlertTip.opacity = 0;
-      AlertTip.runAction(cc.fadeIn(0.3));
-      setTimeout(function () {
-        AlertTip.runAction(cc.sequence(cc.fadeOut(0.3), cc.callFunc(function () {
-          AlertTip.destroy();
-        }, this)));
-      }, 2000);
+      self.setStep(6).then(function(data) {
+        if (data.Code === 1) {
+          var AlertTip = cc.instantiate(prefab);
+          var parentNode = cc.find('Canvas');
+          var layout1 = cc.find('New Node/layout1', AlertTip);
+          var layout2 = cc.find('New Node/layout2', AlertTip);
+          var layout3 = cc.find('New Node/layout3', AlertTip);
+          var icon1 = cc.find('New Node/layout1/New Node/msg-ym', AlertTip);
+          var icon2 = cc.find('New Node/layout2/New Node/msg-ym', AlertTip);
+          var icon3 = cc.find('New Node/layout3/New Node/msg-ym', AlertTip);
+          var txt1 = cc.find('New Node/layout1/label', AlertTip);
+          var txt2 = cc.find('New Node/layout2/label', AlertTip);
+          var txt3 = cc.find('New Node/layout3/label', AlertTip);
+          self.setIcon('Modal/Msg/msg-ym', icon1);
+          self.setIcon('Modal/Repertory/icon-asset02', icon2);
+          self.setIcon('Modal/Msg/msg-exp', icon3);
+          layout1.active = true;
+          layout2.active = true;
+          layout3.active = true;
+          parentNode.parent.addChild(AlertTip, 5);
+          AlertTip.opacity = 0;
+          AlertTip.runAction(cc.fadeIn(0.3));
+          setTimeout(function() {
+            AlertTip.runAction(
+              cc.sequence(
+                cc.fadeOut(0.3),
+                cc.callFunc(function() {
+                  AlertTip.destroy();
+                }, this)
+              )
+            );
+          }, 2000);
+          return true;
+        } else {
+          return false;
+        }
+      });
     });
   },
   //新手指引结束
 
   finishGuide: function finishGuide() {
-    var requires = new Promise(function (resolve, reject) {
+    var requires = new Promise(function(resolve, reject) {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status >= 200 && xhr.status < 400) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -378,7 +417,7 @@ var farmGuid = {
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
       xhr.send('openID=' + Config.openID);
     });
-    requires.then(function (data) {
+    requires.then(function(data) {
       if (data.Code === 1) {
         cc.director.loadScene('index');
       } else {
