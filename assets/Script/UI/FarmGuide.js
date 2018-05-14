@@ -388,6 +388,12 @@ var farmGuid = {
               )
             );
           }, 2000);
+          setTimeout(function() {
+            self.heardJs = cc.find('div_header');
+            self.heardJs.emit('upDataMoney', {
+              data: 1
+            });
+          }, 500);
           return true;
         } else {
           return false;

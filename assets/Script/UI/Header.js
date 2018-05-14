@@ -8,6 +8,7 @@ cc.Class({
   properties: {},
 
   start() {
+    let self = this;
     if (!Config.hearderNode) {
       Config.hearderNode = this.node;
       cc.game.addPersistRootNode(this.node);
@@ -18,6 +19,16 @@ cc.Class({
     func: {
       init: this.init;
     }
+    //更新于土地拓建
+    self.node.on('upDataMoney', function(event) {
+      Func.GetUserGrade().then(data => {
+        if (data.Code === 1) {
+          self.setHeardData(data);
+        } else {
+          Msg.show(data.Message);
+        }
+      });
+    });
   },
   setHeardData(data) {
     let RanchMoney = data.Model.RanchMoney;

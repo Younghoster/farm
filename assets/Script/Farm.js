@@ -306,10 +306,12 @@ cc.Class({
     let seedBox = cc.find('bg_farm', self.node);
     if (!seedBox.active) {
       seedBox.active = false;
+      let theCount = 0;
       seedBox.removeAllChildren();
       Data.func.GetSeedList().then(data => {
         if (data.Code === 1) {
           for (let i = 0; i < data.List.length; i++) {
+            theCount = theCount + data.List[i].Count;
             let prefab = cc.instantiate(self.ItemSeed_Prefab);
             let Img = cc.find('ymzz', prefab).getComponent(cc.Sprite);
             let ImgSrc;
@@ -322,7 +324,12 @@ cc.Class({
             });
             seedBox.addChild(prefab, 999);
           }
+          if (theCount == 0) {
+            Msg.show('请到商城购买种子！');
+          }
           Tool.RunAction(seedBox, 'fadeIn', 0.3);
+        } else {
+          Msg.show('请到商城购买种子！');
         }
       });
     } else {
