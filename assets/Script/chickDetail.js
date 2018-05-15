@@ -7,7 +7,7 @@ cc.Class({
     chickItem_Prefab: {
       default: null,
       type: cc.Prefab
-    },
+    }
   },
   Id: null,
   //产蛋周期 page
@@ -97,8 +97,6 @@ cc.Class({
   assignChickList(list) {
     // let loop = true
     for (let i = 0; i < list.length; i++) {
-
-
       let itemNode = cc.instantiate(this.chickItem_Prefab);
       let idLbael = cc.find('id', itemNode).getComponent(cc.Label);
       let imgNode = cc.find('img', itemNode);
@@ -130,47 +128,43 @@ cc.Class({
           imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
         itemNode.setScale(1.3, 1.3);
-
       });
     }
   },
   //切换小鸡选中效果
   switchChickActive(id) {
-    if (this.Id === id) {}
+    if (this.Id === id) {
+    }
   },
   //根据小鸡状态 显示不同的图片
   showChickState(imgNode, hungry, shit) {
     if (hungry) {
       //饥饿状态
       !shit
-        ?
-        cc.loader.loadRes('chickDetail/hungry', cc.SpriteFrame, (err, spriteFrame) => {
-          imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        }) :
-        false;
+        ? cc.loader.loadRes('chickDetail/hungry', cc.SpriteFrame, (err, spriteFrame) => {
+            imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+          })
+        : false;
       //饥饿+肮脏状态
       shit
-        ?
-        cc.loader.loadRes('chickDetail/hungry_shit', cc.SpriteFrame, (err, spriteFrame) => {
-          imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        }) :
-        false;
+        ? cc.loader.loadRes('chickDetail/hungry_shit', cc.SpriteFrame, (err, spriteFrame) => {
+            imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+          })
+        : false;
     }
     if (shit) {
       //肮脏状态
       !hungry
-        ?
-        cc.loader.loadRes('chickDetail/shit', cc.SpriteFrame, (err, spriteFrame) => {
-          imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        }) :
-        false;
+        ? cc.loader.loadRes('chickDetail/shit', cc.SpriteFrame, (err, spriteFrame) => {
+            imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+          })
+        : false;
       //肮脏+饥饿状态
       hungry
-        ?
-        cc.loader.loadRes('chickDetail/hungry_shit', cc.SpriteFrame, (err, spriteFrame) => {
-          imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        }) :
-        false;
+        ? cc.loader.loadRes('chickDetail/hungry_shit', cc.SpriteFrame, (err, spriteFrame) => {
+            imgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+          })
+        : false;
     }
   },
   initChickInfo() {
@@ -344,7 +338,10 @@ cc.Class({
     this.bindNode();
     this.bindEvent();
     this.initData();
+  },
+  goToHelp() {
+    Config.backUrl = 'index';
+    cc.director.loadScene('Help');
   }
-
   // update (dt) {},
 });

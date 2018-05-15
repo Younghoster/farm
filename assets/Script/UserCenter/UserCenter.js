@@ -24,6 +24,10 @@ cc.Class({
     Config.backUrl = 'userCenter';
     cc.director.loadScene('CouPonList');
   },
+  btnHelpCenter() {
+    Config.backUrl = 'userCenter';
+    cc.director.loadScene('Help');
+  },
   btnGoAddressList() {
     Config.backUrl = 'userCenter';
     cc.director.loadScene('AddressList');
