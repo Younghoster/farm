@@ -34,7 +34,7 @@ cc.Class({
     this.initData();
   },
   paymoney(e) {
-    console.log(Number(e.currentTarget._name.substring(3)));
+    // console.log(Number(e.currentTarget._name.substring(3)));
     Func.UserRecharge(1, e.currentTarget._name.substring(3), 0).then(data => {
       if (data.Code === 1) {
         Msg.show(data.Message);
@@ -55,6 +55,7 @@ cc.Class({
         if (data.Code === 1) {
           Func.GetUserMoney().then(data => {
             if (data.Code === 1) {
+              Msg.show(data.Message);
               this.moneyLabel.string = data.Model;
             }
           });

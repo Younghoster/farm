@@ -27,7 +27,7 @@ cc.Class({
     Func.PostSign().then(data => {
       if (data.Code === 1) {
         var signButton = cc.find('bg/btn-sign', this.node);
-        cc.loader.loadRes('btn-hasSign', cc.SpriteFrame, function (err, spriteFrame) {
+        cc.loader.loadRes('index/btn-hasSign', cc.SpriteFrame, function (err, spriteFrame) {
           signButton.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
         //更新头部数据

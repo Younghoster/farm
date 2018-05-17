@@ -61,18 +61,29 @@ cc.Class({
   updateData() {
     this.emptyNode = cc.find('bg-repertory/friendList/empty', this.node);
     this.emptyNode.active = false;
+    this.contentNode = cc.find('bg-repertory/friendList/view/content', this.node);
     Func.GetFriendsList(this.friend_page).then(data => {
       if (data.Code === 1) {
         var friendList = data.List;
-        this.contentNode = cc.find('bg-repertory/friendList/view/content', this.node);
-        for (let i = 0; i < friendList.length; i++) {
-          this.assignFriendData(friendList[i]);
+
+        if (friendList.length === 0 && this.friend_page === 1) {
+          this.emptyNode.active = true;
+
+        } else {
+          this.emptyNode.active = false;
+          for (let i = 0; i < friendList.length; i++) {
+            this.assignFriendData(friendList[i]);
+          }
+
+          this.friend_page++;
         }
-        this.emptyNode = null;
-        this.friend_page++;
+
       } else {
-        //分页加载的时候 不显示empty
-        this.emptyNode ? (this.emptyNode.active = true) : false;
+        if (this.friend_page === 1) {
+          this.emptyNode.active = true;
+        } else {
+          Msg.show('没有更多数据了');
+        }
       }
     });
   },
@@ -86,24 +97,34 @@ cc.Class({
     this.updateSearchData();
   },
   updateSearchData() {
-    this.emptyNode = cc.find('bg-repertory/friendList/empty', this.node);
+
     this.emptyNode.active = false;
     Func.GetUserList(this.searchStr, this.search_page).then(data => {
       if (data.Code === 1) {
         var friendList = data.List;
-
-        for (let i = 0; i < friendList.length; i++) {
-          if (friendList[i].IsFriends) {
-            this.assignFriendData(friendList[i], true);
-          } else {
-            this.assignNoFriendData(friendList[i]);
+        if (friendList.length === 0 && this.search_page === 1) {
+          this.emptyNode.active = true;
+        } else {
+          this.emptyNode.active = false;
+          for (let i = 0; i < friendList.length; i++) {
+            if (friendList[i].IsFriends) {
+              this.assignFriendData(friendList[i], true);
+            } else {
+              this.assignNoFriendData(friendList[i]);
+            }
           }
+          this.search_page++;
         }
-        this.emptyNode = null;
-        this.search_page++;
+
+
       } else {
-        this.emptyNode ? (this.emptyNode.active = true) : false;
-        Msg.show(data.Message);
+        if (this.search_page === 1) {
+          this.emptyNode.active = true;
+        } else {
+          Msg.show('没有更多数据了');
+        }
+
+
       }
     });
   },

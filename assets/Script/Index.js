@@ -51,7 +51,7 @@ cc.Class({
   // 牧场等级
   RanchRank: null,
 
-  init: function() {
+  init: function () {
     // this._chick = this.Chick.getComponent("Chick");
     // this.clearLabel = cc.find('wave/mask/layout/value', this.node).getComponent(cc.Label);
     // this.wave1Node = cc.find('wave/mask/wave1', this.node);
@@ -223,7 +223,7 @@ cc.Class({
   },
 
   //点击清理事件
-  showClearAlert: function() {
+  showClearAlert: function () {
     var self = this;
     //调用接口
     Func.PostClean()
@@ -252,7 +252,7 @@ cc.Class({
       });
   },
   //点击喂食事件 集体喂食 接口需要重新设置
-  showFeedAlert: function() {
+  showFeedAlert: function () {
     Func.PostOwnFeeds().then(data => {
       if (data.Code === 1) {
         //更新饲料数量
@@ -261,7 +261,7 @@ cc.Class({
         this.updateChickList();
         Msg.show('喂食成功');
       } else if (data.Code == -2) {
-        Alert.show(data.Message, this.loadSceneShop, 'icon-feed', '剩余的饲料不足');
+        Alert.show(data.Message, this.loadSceneShop, 'index/icon-feed', '剩余的饲料不足');
       } else if (data.Code == 2) {
         Msg.show(data.Message);
       }
@@ -280,8 +280,7 @@ cc.Class({
             feedNode.active = list[i].IsHunger;
           }
         }
-      } else {
-      }
+      } else {}
     });
   },
   //将饲料放入饲料槽中
@@ -304,7 +303,7 @@ cc.Class({
             this.arrowNode.active = false;
           });
         } else if (data.Code == '000') {
-          Alert.show(data.Message, this.loadSceneShop, 'icon-feed', '剩余的饲料不足');
+          Alert.show(data.Message, this.loadSceneShop, 'index/icon-feed', '剩余的饲料不足');
         } else if (data.Code == '333') {
           Msg.show(data.Message);
         }
@@ -712,7 +711,7 @@ cc.Class({
     cc.director.loadScene('weatherInfo');
     this.removePersist();
   },
-  showUserCenter: function() {
+  showUserCenter: function () {
     cc.director.loadScene('UserCenter/userCenter');
     this.removePersist();
   },
@@ -725,7 +724,7 @@ cc.Class({
     cc.director.loadScene('Farm/farm');
   },
 
-  onLoad: function() {
+  onLoad: function () {
     var openID = window.location.href.split('=')[1];
     window.Config.openID = openID || 'f79ed645ad624cf5bbfecc2e67f23020';
     Func.openID = window.Config.openID;
@@ -758,7 +757,7 @@ cc.Class({
     this.addPersist();
   },
 
-  start: function() {
+  start: function () {
     this.init();
     // this.chickFunc = this._chick.chickFunc;
     Func.GetWholeData().then(data => {

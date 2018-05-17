@@ -168,7 +168,7 @@ cc.Class({
   //移除选中效果
   removeActive() {
     this.contentNode.children.forEach(childNode => {
-      childNode.setColor(cc.color('#ffffff'));
+      childNode.setColor(cc.color('#f8f8f8'));
 
       let valueNode = cc.find('value', childNode);
       let btnNode = cc.find('btn', childNode);
