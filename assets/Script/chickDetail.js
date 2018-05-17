@@ -213,12 +213,13 @@ cc.Class({
         cc.loader.loadRes('chickDetail/collect', cc.SpriteFrame, (err, spriteFrame) => {
           this.collectButton.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
-      } else {
-        cc.loader.loadRes('chickDetail/noCollect', cc.SpriteFrame, (err, spriteFrame) => {
-          this.collectButton.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          this.collectButton.getComponent(cc.Button).interactable = false;
-        });
       }
+      // else {
+      //   cc.loader.loadRes('chickDetail/noCollect', cc.SpriteFrame, (err, spriteFrame) => {
+      //     this.collectButton.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+      //     this.collectButton.getComponent(cc.Button).interactable = false;
+      //   });
+      // }
     }
   },
   // 流转记录

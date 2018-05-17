@@ -57,7 +57,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 204.9999999999999,
+      "width": 247.98387096774178,
       "height": 316
     },
     "_rotationX": 0,
@@ -66,7 +66,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -207.50000000000006,
+      "x": 123.99193548387089,
       "y": 320
     },
     "_skewX": 0,
@@ -115,7 +115,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 204.9999999999999,
+      "width": 247.98387096774178,
       "height": 164
     },
     "_rotationX": 0,
@@ -199,9 +199,7 @@
       "__id__": 3
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "082eea48-9524-440f-a54c-eec114d6132f"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -249,7 +247,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "fbed7283-41c6-4260-b29f-8312b87fa8f3"
     },
     "fileId": "0baNe1YU9BMLFu9py+xC99",
     "sync": false
@@ -286,7 +284,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "fbed7283-41c6-4260-b29f-8312b87fa8f3"
     },
     "fileId": "7bOKS8Tu5OaJlarvnOxc9X",
     "sync": false
@@ -330,7 +328,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 204.9999999999999,
+      "width": 247.98387096774178,
       "height": 186
     },
     "_rotationX": 0,
@@ -435,7 +433,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "fbed7283-41c6-4260-b29f-8312b87fa8f3"
     },
     "fileId": "4093OrL7hCQqEaVAuMrP5x",
     "sync": false
@@ -472,7 +470,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "fbed7283-41c6-4260-b29f-8312b87fa8f3"
     },
     "fileId": "154cv1tCFIp5rXqAil3xDY",
     "sync": false
@@ -511,7 +509,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 204.9999999999999,
+      "width": 247.98387096774178,
       "height": 316
     },
     "_resize": 0,
@@ -614,7 +612,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "fbed7283-41c6-4260-b29f-8312b87fa8f3"
     },
     "fileId": "1c9YpAfyNOVK8xWyKwEsvy",
     "sync": false

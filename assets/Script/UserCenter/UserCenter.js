@@ -5,10 +5,6 @@ cc.Class({
   extends: cc.Component,
 
   properties: {
-    RepertoryByCenter_Prefab: {
-      default: null,
-      type: cc.Prefab
-    },
     PropertyList_Prefab: {
       default: null,
       type: cc.Prefab

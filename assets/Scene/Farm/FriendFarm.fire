@@ -5131,9 +5131,7 @@
       "__id__": 131
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "71140b89-1130-447b-bef5-f49028fabd6f"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -5230,9 +5228,7 @@
       "__id__": 134
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "699f64dd-9ff5-455c-be22-b479234b5f80"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -5507,9 +5503,7 @@
     "root": {
       "__id__": 137
     },
-    "asset": {
-      "__uuid__": "7c90615c-d8e2-4a27-bdcc-a8bb976b4643"
-    },
+    "asset": null,
     "fileId": "e1lfHK8MZHVI7F2KqxCOeZ",
     "sync": false
   },
@@ -5822,9 +5816,7 @@
     "root": {
       "__id__": 137
     },
-    "asset": {
-      "__uuid__": "7c90615c-d8e2-4a27-bdcc-a8bb976b4643"
-    },
+    "asset": null,
     "fileId": "b7wYi7qEpN/LN67WGYEqxQ",
     "sync": false
   },
@@ -5875,9 +5867,7 @@
     "root": {
       "__id__": 137
     },
-    "asset": {
-      "__uuid__": "7c90615c-d8e2-4a27-bdcc-a8bb976b4643"
-    },
+    "asset": null,
     "fileId": "07AQO5oY1O6ZN4nEHiABnT",
     "sync": false
   },
@@ -5954,9 +5944,7 @@
     "root": {
       "__id__": 137
     },
-    "asset": {
-      "__uuid__": "7c90615c-d8e2-4a27-bdcc-a8bb976b4643"
-    },
+    "asset": null,
     "fileId": "bahIft2ipDr7bAe/7Ynq1h",
     "sync": false
   },
@@ -6041,9 +6029,7 @@
     "root": {
       "__id__": 137
     },
-    "asset": {
-      "__uuid__": "7c90615c-d8e2-4a27-bdcc-a8bb976b4643"
-    },
+    "asset": null,
     "fileId": "c2kNJsjxNL8I4R5/C85YQa",
     "sync": false
   },
@@ -6128,9 +6114,7 @@
     "root": {
       "__id__": 137
     },
-    "asset": {
-      "__uuid__": "7c90615c-d8e2-4a27-bdcc-a8bb976b4643"
-    },
+    "asset": null,
     "fileId": "cfsaeV/0NLQ50O/i1i1LtK",
     "sync": false
   },
@@ -6207,9 +6191,7 @@
     "root": {
       "__id__": 137
     },
-    "asset": {
-      "__uuid__": "7c90615c-d8e2-4a27-bdcc-a8bb976b4643"
-    },
+    "asset": null,
     "fileId": "f3Dn9FowVIB5acrGsVAwn6",
     "sync": false
   },
@@ -6244,9 +6226,7 @@
     "root": {
       "__id__": 137
     },
-    "asset": {
-      "__uuid__": "7c90615c-d8e2-4a27-bdcc-a8bb976b4643"
-    },
+    "asset": null,
     "fileId": "cbB99r/TpMeLehf5rOEJVK",
     "sync": false
   },

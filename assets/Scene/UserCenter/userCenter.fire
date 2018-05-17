@@ -8379,9 +8379,7 @@
       "__id__": 2
     },
     "_enabled": true,
-    "RepertoryByCenter_Prefab": {
-      "__uuid__": "eaec6008-b5aa-403c-b813-d70f825a1548"
-    },
+    "RepertoryByCenter_Prefab": null,
     "PropertyList_Prefab": {
       "__uuid__": "a9b9a92b-37a2-43d6-80f5-8abcbd5966e5"
     }

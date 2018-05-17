@@ -38,7 +38,7 @@ cc.Class({
   initData(data) {
     this.nameLabel.string = `${data.UserModel.RealName}的牧场`;
     // 清洁度设置
-    this._clearValue = data.RanchModel.RanchCleanliness
+    this._clearValue = data.RanchModel.RanchCleanliness;
     this.clearProgressBar = cc.find('clearBar/clear_bar', this.node).getComponent(cc.ProgressBar);
     this.clearLabel = cc.find('clearBar/value', this.node).getComponent(cc.Label);
     this.clearProgressBar.progress = this._clearValue / 100;
@@ -134,7 +134,7 @@ cc.Class({
     }
   },
   //点击清理事件
-  showClearAlert: function () {
+  showClearAlert: function() {
     var self = this;
     //调用接口
     Func.PostFriendsClean(Config.friendOpenId)
@@ -231,15 +231,15 @@ cc.Class({
         Config.weather = -1;
 
         if (this.RanchRank == 1) {
-          cc.loader.loadRes('index/rain/bg1', cc.SpriteFrame, (err, spriteFrame) => {
+          cc.loader.loadRes('jpg/rain-bg1', cc.SpriteFrame, (err, spriteFrame) => {
             this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
           });
         } else if (this.RanchRank == 2) {
-          cc.loader.loadRes('index/rain/bg2', cc.SpriteFrame, (err, spriteFrame) => {
+          cc.loader.loadRes('jpg/rain-bg2', cc.SpriteFrame, (err, spriteFrame) => {
             this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
           });
         } else if (this.RanchRank == 3) {
-          cc.loader.loadRes('index/rain/bg3', cc.SpriteFrame, (err, spriteFrame) => {
+          cc.loader.loadRes('jpg/rain-bg3', cc.SpriteFrame, (err, spriteFrame) => {
             this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
           });
         }
@@ -270,15 +270,15 @@ cc.Class({
         //阴天
         Config.weather = 0;
         if (this.RanchRank == 1) {
-          cc.loader.loadRes('index/cloud/bg1', cc.SpriteFrame, (err, spriteFrame) => {
+          cc.loader.loadRes('jpg/cloud-bg1', cc.SpriteFrame, (err, spriteFrame) => {
             this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
           });
         } else if (this.RanchRank == 2) {
-          cc.loader.loadRes('index/cloud/bg2', cc.SpriteFrame, (err, spriteFrame) => {
+          cc.loader.loadRes('jpg/cloud-bg2', cc.SpriteFrame, (err, spriteFrame) => {
             this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
           });
         } else if (this.RanchRank == 3) {
-          cc.loader.loadRes('index/cloud/bg3', cc.SpriteFrame, (err, spriteFrame) => {
+          cc.loader.loadRes('jpg/cloud-bg3', cc.SpriteFrame, (err, spriteFrame) => {
             this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
           });
         }
@@ -307,15 +307,15 @@ cc.Class({
       } else if (res.data.light === 1) {
         Config.weather = 1;
         if (this.RanchRank == 1) {
-          cc.loader.loadRes('index/sun/bg1', cc.SpriteFrame, (err, spriteFrame) => {
+          cc.loader.loadRes('jpg/sun-bg1', cc.SpriteFrame, (err, spriteFrame) => {
             this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
           });
         } else if (this.RanchRank == 2) {
-          cc.loader.loadRes('index/sun/bg2', cc.SpriteFrame, (err, spriteFrame) => {
+          cc.loader.loadRes('jpg/sun-bg2', cc.SpriteFrame, (err, spriteFrame) => {
             this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
           });
         } else if (this.RanchRank == 3) {
-          cc.loader.loadRes('index/sun/bg3', cc.SpriteFrame, (err, spriteFrame) => {
+          cc.loader.loadRes('jpg/sun-bg3', cc.SpriteFrame, (err, spriteFrame) => {
             this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
           });
         }

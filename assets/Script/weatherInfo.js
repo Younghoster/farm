@@ -113,16 +113,16 @@ cc.Class({
     Func.GetCurrentWeather().then(res => {
       if (res.data.rain !== 0) {
         //下雨
-        cc.loader.loadRes('weather/img-rain', cc.SpriteFrame, (err, spriteFrame) => {
+        cc.loader.loadRes('jpg/img-rain', cc.SpriteFrame, (err, spriteFrame) => {
           this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
       } else if (res.data.light === 2 || res.data.light === 3) {
         //阴天
-        cc.loader.loadRes('weather/img-cloud', cc.SpriteFrame, (err, spriteFrame) => {
+        cc.loader.loadRes('jpg/img-cloud', cc.SpriteFrame, (err, spriteFrame) => {
           this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
       } else if (res.data.light === 1) {
-        cc.loader.loadRes('weather/img-sun', cc.SpriteFrame, (err, spriteFrame) => {
+        cc.loader.loadRes('jpg/img-sun', cc.SpriteFrame, (err, spriteFrame) => {
           this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
       }

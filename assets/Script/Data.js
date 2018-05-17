@@ -5,7 +5,7 @@ var func = {
     // Loading.show();
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -39,7 +39,7 @@ var func = {
   GetFeedTroughFull() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -63,7 +63,7 @@ var func = {
   GetChickenTransaction(cId, page = 1) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -87,7 +87,7 @@ var func = {
   GetChickenEggRecord(cId, searchTime = '') {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -111,7 +111,7 @@ var func = {
   GetEggRankings(page) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -136,7 +136,7 @@ var func = {
   GetUserGrade() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -160,7 +160,7 @@ var func = {
   GetFriendsList(page) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -192,7 +192,7 @@ var func = {
   GetUserList(search, page) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -221,7 +221,7 @@ var func = {
   AddFriend(openIds) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -244,7 +244,7 @@ var func = {
   ConfirmFriends(messageId, result) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -267,7 +267,7 @@ var func = {
   GetChickValueById(Id) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -291,7 +291,7 @@ var func = {
   GetSignList() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -313,7 +313,7 @@ var func = {
   GetGoodList(index, size) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -337,7 +337,7 @@ var func = {
   GetPointGoodList(index, size) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -360,7 +360,7 @@ var func = {
   GetSellList(type, index, size) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -378,12 +378,12 @@ var func = {
       xhr.open(
         'GET',
         Config.apiUrl +
-        '/T_Base_PlayerTrading/GetTradetLisByPage?type=' +
-        type +
-        '&page=' +
-        index +
-        '&pageSize=' +
-        size,
+          '/T_Base_PlayerTrading/GetTradetLisByPage?type=' +
+          type +
+          '&page=' +
+          index +
+          '&pageSize=' +
+          size,
         true
       );
       xhr.setRequestHeader('Content-Type', 'json');
@@ -394,7 +394,7 @@ var func = {
   GetShelvesList(index, size) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -412,14 +412,14 @@ var func = {
       xhr.open(
         'GET',
         Config.apiUrl +
-        '/T_Base_PlayerTrading/GetListByPage?openId=' +
-        this.openID +
-        '&type=' +
-        0 +
-        '&page=' +
-        index +
-        '&pageSize=' +
-        size,
+          '/T_Base_PlayerTrading/GetListByPage?openId=' +
+          this.openID +
+          '&type=' +
+          0 +
+          '&page=' +
+          index +
+          '&pageSize=' +
+          size,
         true
       );
       xhr.setRequestHeader('Content-Type', 'json');
@@ -430,7 +430,7 @@ var func = {
   OnShelf(type, unitprice, count) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -447,14 +447,14 @@ var func = {
       xhr.open(
         'GET',
         Config.apiUrl +
-        '/T_Base_PlayerTrading/OnShelf?openId=' +
-        this.openID +
-        '&type=' +
-        type +
-        '&unitprice=' +
-        unitprice +
-        '&count=' +
-        count,
+          '/T_Base_PlayerTrading/OnShelf?openId=' +
+          this.openID +
+          '&type=' +
+          type +
+          '&unitprice=' +
+          unitprice +
+          '&count=' +
+          count,
         true
       );
       xhr.setRequestHeader('Content-Type', 'json');
@@ -465,7 +465,7 @@ var func = {
   OffShelf(playerid) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -489,7 +489,7 @@ var func = {
     // Loading.show();
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -514,7 +514,7 @@ var func = {
     // Loading.show();
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -537,7 +537,7 @@ var func = {
   PostSign() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -561,7 +561,7 @@ var func = {
   getEggLayInfo(openID = this.openID) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -586,7 +586,7 @@ var func = {
   UpgradeEggsShed(payType) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -611,7 +611,7 @@ var func = {
     // Loading.show();
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -635,7 +635,7 @@ var func = {
     // Loading.show();
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -658,7 +658,7 @@ var func = {
   UpgradeHouse(payType) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -683,7 +683,7 @@ var func = {
     // Loading.show();
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -708,7 +708,7 @@ var func = {
     // Loading.show();
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -737,7 +737,7 @@ var func = {
   postCompound(makeType, count, id) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -759,7 +759,7 @@ var func = {
   PostClean() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -783,7 +783,7 @@ var func = {
   PostTreat(Id) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -805,7 +805,7 @@ var func = {
   PostFriendsClean(friendOpenID) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -827,7 +827,7 @@ var func = {
   PostSteaEgg(friendOpenID) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -849,7 +849,7 @@ var func = {
   PostOwnFeeds() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -873,7 +873,7 @@ var func = {
   PostBuy(prId, count = 1) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -898,7 +898,7 @@ var func = {
     buyCount = buyCount || 1;
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -916,12 +916,12 @@ var func = {
       xhr.open(
         'POST',
         Config.apiUrl +
-        '/T_Base_PlayerTrading/UserToUserBuy?openID=' +
-        this.openID +
-        '&playerid=' +
-        playerid +
-        '&buyCount=' +
-        buyCount,
+          '/T_Base_PlayerTrading/UserToUserBuy?openID=' +
+          this.openID +
+          '&playerid=' +
+          playerid +
+          '&buyCount=' +
+          buyCount,
         true
       );
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
@@ -932,7 +932,7 @@ var func = {
   HatchEgg() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -954,7 +954,7 @@ var func = {
   CollectEgg(eggID) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -976,7 +976,7 @@ var func = {
   CollectRanchEgg() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -998,7 +998,7 @@ var func = {
   CollectChick(Id) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1020,7 +1020,7 @@ var func = {
   AddFeed() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1044,7 +1044,7 @@ var func = {
   GetFeedData() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1068,7 +1068,7 @@ var func = {
   GetChickList(status = 2, openId) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1098,7 +1098,7 @@ var func = {
   GetChickById(Id) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1122,7 +1122,7 @@ var func = {
   GetRecoverData(page) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1150,7 +1150,7 @@ var func = {
   recoverChick(cid) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1172,7 +1172,7 @@ var func = {
   GetUserData(pageIndex, pageSize) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1192,12 +1192,12 @@ var func = {
       xhr.open(
         'POST',
         Config.apiUrl +
-        '/T_Base_User/PersonalCore?openId=' +
-        this.openID +
-        '&page=' +
-        pageIndex +
-        '&pagesize=' +
-        pageSize,
+          '/T_Base_User/PersonalCore?openId=' +
+          this.openID +
+          '&page=' +
+          pageIndex +
+          '&pagesize=' +
+          pageSize,
         true
       );
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
@@ -1208,7 +1208,7 @@ var func = {
   GetFeedCount() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1234,7 +1234,7 @@ var func = {
   SaveEditName(updatename) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1260,7 +1260,7 @@ var func = {
   UserMessage(pageIndex, pageSize) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1280,12 +1280,12 @@ var func = {
       xhr.open(
         'GET',
         Config.apiUrl +
-        '/T_User_Message/GetListByPage?openId=' +
-        this.openID +
-        '&page=' +
-        pageIndex +
-        '&pageSize=' +
-        pageSize,
+          '/T_User_Message/GetListByPage?openId=' +
+          this.openID +
+          '&page=' +
+          pageIndex +
+          '&pageSize=' +
+          pageSize,
         true
       );
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
@@ -1296,7 +1296,7 @@ var func = {
   GetWetherData(index, size) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = JSON.parse(xhr.responseText);
@@ -1319,7 +1319,7 @@ var func = {
   GetCurrentWeather() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = JSON.parse(xhr.responseText);
@@ -1342,7 +1342,7 @@ var func = {
   OnShelf(type, unitprice, count) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1368,7 +1368,7 @@ var func = {
   ExchangeChicken(username, address, phone, count) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1389,15 +1389,15 @@ var func = {
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
       xhr.send(
         'openID=' +
-        this.openID +
-        '&username=' +
-        username +
-        '&address=' +
-        address +
-        '&phone=' +
-        phone +
-        '&count=' +
-        count
+          this.openID +
+          '&username=' +
+          username +
+          '&address=' +
+          address +
+          '&phone=' +
+          phone +
+          '&count=' +
+          count
       );
     });
   },
@@ -1405,7 +1405,7 @@ var func = {
   ExchangeEgg(username, address, phone, count) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1426,15 +1426,15 @@ var func = {
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
       xhr.send(
         'openID=' +
-        this.openID +
-        '&username=' +
-        username +
-        '&address=' +
-        address +
-        '&phone=' +
-        phone +
-        '&count=' +
-        count
+          this.openID +
+          '&username=' +
+          username +
+          '&address=' +
+          address +
+          '&phone=' +
+          phone +
+          '&count=' +
+          count
       );
     });
   },
@@ -1442,7 +1442,7 @@ var func = {
   getAddressList() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1470,7 +1470,7 @@ var func = {
   GetExchangeCount(type, count) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1499,7 +1499,7 @@ var func = {
   UpFeedGrade(username, address, phone, count) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1525,7 +1525,7 @@ var func = {
   addAddress(username, telNumber, addressPostalCode, addressDetailInfo) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1541,19 +1541,19 @@ var func = {
       xhr.open(
         'POST',
         Config.apiUrl +
-        '/T_User_Addresses/Add?OpenID=' +
-        this.openID +
-        '&username=' +
-        username +
-        '&telNumber=' +
-        telNumber +
-        '&addressPostalCode=' +
-        addressPostalCode +
-        '&addressDetailInfo=' +
-        addressDetailInfo +
-        '&proviceFirstStageName=温州市' +
-        '&addressCitySecondStageName=鹿城区' +
-        '&addressCountiesThirdStageName=龙湾区',
+          '/T_User_Addresses/Add?OpenID=' +
+          this.openID +
+          '&username=' +
+          username +
+          '&telNumber=' +
+          telNumber +
+          '&addressPostalCode=' +
+          addressPostalCode +
+          '&addressDetailInfo=' +
+          addressDetailInfo +
+          '&proviceFirstStageName=温州市' +
+          '&addressCitySecondStageName=鹿城区' +
+          '&addressCountiesThirdStageName=龙湾区',
         true
       );
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
@@ -1564,7 +1564,7 @@ var func = {
   updateAddress(id, username, telNumber, addressPostalCode, addressDetailInfo) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1582,24 +1582,24 @@ var func = {
       xhr.open(
         'POST',
         Config.apiUrl +
-        '/T_User_Addresses/Update?ID=' +
-        id +
-        '&OpenID=' +
-        this.openID +
-        '&username=' +
-        username +
-        '&telNumber=' +
-        telNumber +
-        '&addressPostalCode=' +
-        addressPostalCode +
-        '&proviceFirstStageName=温州市' +
-        '&addressCitySecondStageName=鹿城区' +
-        '&addressCountiesThirdStageName=龙湾区' +
-        '&addressDetailInfo=' +
-        addressDetailInfo +
-        '&nationalCode=中国' +
-        '&IsDefault=' +
-        0,
+          '/T_User_Addresses/Update?ID=' +
+          id +
+          '&OpenID=' +
+          this.openID +
+          '&username=' +
+          username +
+          '&telNumber=' +
+          telNumber +
+          '&addressPostalCode=' +
+          addressPostalCode +
+          '&proviceFirstStageName=温州市' +
+          '&addressCitySecondStageName=鹿城区' +
+          '&addressCountiesThirdStageName=龙湾区' +
+          '&addressDetailInfo=' +
+          addressDetailInfo +
+          '&nationalCode=中国' +
+          '&IsDefault=' +
+          0,
         true
       );
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
@@ -1610,7 +1610,7 @@ var func = {
   setDefaultAddress(id) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1634,7 +1634,7 @@ var func = {
   delDefaultAddress(id) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1658,7 +1658,7 @@ var func = {
   GetUserMoney() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1683,7 +1683,7 @@ var func = {
   GetFriendListByPage(pageIndex, pageSize) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1700,12 +1700,12 @@ var func = {
       xhr.open(
         'GET',
         Config.apiUrl +
-        '/T_Base_FriendsNotice/GetRequestListByPage?openID=' +
-        this.openID +
-        '&page=' +
-        pageIndex +
-        '&pageSize=' +
-        pageSize,
+          '/T_Base_FriendsNotice/GetRequestListByPage?openID=' +
+          this.openID +
+          '&page=' +
+          pageIndex +
+          '&pageSize=' +
+          pageSize,
         true
       );
       xhr.setRequestHeader('Content-Type', 'json');
@@ -1716,7 +1716,7 @@ var func = {
   GetRecordCount(pageIndex, pageSize) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1743,7 +1743,7 @@ var func = {
   PostConfirmFriends(id, result) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1760,12 +1760,12 @@ var func = {
       xhr.open(
         'POST',
         Config.apiUrl +
-        '/T_Base_FriendsNotice/PostConfirmFriends?openID=' +
-        this.openID +
-        '&Id=' +
-        id +
-        '&result=' +
-        result,
+          '/T_Base_FriendsNotice/PostConfirmFriends?openID=' +
+          this.openID +
+          '&Id=' +
+          id +
+          '&result=' +
+          result,
         true
       );
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
@@ -1776,7 +1776,7 @@ var func = {
   getFarmModalData(otherOpenId) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1804,7 +1804,7 @@ var func = {
   addCrops(landId, propertyId) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1820,12 +1820,12 @@ var func = {
       xhr.open(
         'POST',
         Config.apiUrl +
-        '/T_Farm_Land/SowSeeds?openId=' +
-        this.openID +
-        '&landId=' +
-        landId +
-        '&propertyId=' +
-        propertyId,
+          '/T_Farm_Land/SowSeeds?openId=' +
+          this.openID +
+          '&landId=' +
+          landId +
+          '&propertyId=' +
+          propertyId,
         true
       );
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -1836,7 +1836,7 @@ var func = {
   unLockLand(spendType, landId) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1852,12 +1852,12 @@ var func = {
       xhr.open(
         'POST',
         Config.apiUrl +
-        '/T_Farm_Land/UnlockLand?openId=' +
-        this.openID +
-        '&spendType=' +
-        spendType +
-        '&landId=' +
-        landId,
+          '/T_Farm_Land/UnlockLand?openId=' +
+          this.openID +
+          '&spendType=' +
+          spendType +
+          '&landId=' +
+          landId,
         true
       );
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -1868,7 +1868,7 @@ var func = {
   CropsSertilize(cropsId, type) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1894,7 +1894,7 @@ var func = {
   CropsWatering(cropsId, openId) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1921,7 +1921,7 @@ var func = {
   CropsWeeding(cropsId, openId) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1949,7 +1949,7 @@ var func = {
   CropsDisinsection(cropsId, openId) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -1981,7 +1981,7 @@ var func = {
   CollectCrops(cropsId, openId) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -2008,7 +2008,7 @@ var func = {
   FriendsStealCrops(friendsopenId) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -2035,7 +2035,7 @@ var func = {
   GetSeedList() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -2058,7 +2058,7 @@ var func = {
   GetFertilizerList() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -2081,7 +2081,7 @@ var func = {
   GetNextUnlockLand() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -2099,7 +2099,41 @@ var func = {
       xhr.send();
     });
   },
+  //充值
+  UserRecharge(payType, type, rechargeMoney) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            reject(response);
+          }
+        }
+      };
+      xhr.open(
+        'POST',
+        Config.apiUrl +
+          '/T_Base_User/UserRecharge?openId=' +
+          this.openID +
+          '&payType=' +
+          payType +
+          '&type=' +
+          type +
+          '&rechargeMoney=' +
+          rechargeMoney,
+        true
+      );
 
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.send();
+    });
+  }
 };
 
 module.exports = {
