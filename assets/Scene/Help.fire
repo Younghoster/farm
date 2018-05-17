@@ -69,10 +69,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 260
+        "__id__": 279
       },
       {
-        "__id__": 261
+        "__id__": 280
       }
     ],
     "_prefab": null,
@@ -774,13 +774,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 258
+        "__id__": 277
       },
       {
         "__id__": 26
       },
       {
-        "__id__": 259
+        "__id__": 278
       }
     ],
     "_prefab": null,
@@ -839,10 +839,10 @@
         "__id__": 25
       },
       {
-        "__id__": 256
+        "__id__": 275
       },
       {
-        "__id__": 257
+        "__id__": 276
       }
     ],
     "_prefab": null,
@@ -1019,10 +1019,10 @@
         "__id__": 43
       },
       {
-        "__id__": 53
+        "__id__": 56
       },
       {
-        "__id__": 68
+        "__id__": 71
       },
       {
         "__id__": 78
@@ -1031,53 +1031,59 @@
         "__id__": 93
       },
       {
-        "__id__": 103
+        "__id__": 100
       },
       {
-        "__id__": 118
+        "__id__": 115
       },
       {
-        "__id__": 128
+        "__id__": 122
       },
       {
-        "__id__": 143
+        "__id__": 137
       },
       {
-        "__id__": 153
+        "__id__": 147
       },
       {
-        "__id__": 168
+        "__id__": 162
       },
       {
-        "__id__": 178
+        "__id__": 169
       },
       {
-        "__id__": 193
+        "__id__": 184
       },
       {
-        "__id__": 203
+        "__id__": 206
       },
       {
-        "__id__": 218
+        "__id__": 221
       },
       {
         "__id__": 228
       },
       {
         "__id__": 243
+      },
+      {
+        "__id__": 250
+      },
+      {
+        "__id__": 265
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 253
+        "__id__": 272
       },
       {
-        "__id__": 254
+        "__id__": 273
       },
       {
-        "__id__": 255
+        "__id__": 274
       }
     ],
     "_prefab": null,
@@ -1099,7 +1105,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 750,
-      "height": 1009
+      "height": 1120
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1183,7 +1189,7 @@
     "node": {
       "__id__": 28
     },
-    "_enabled": true,
+    "_enabled": false,
     "_type": 0,
     "_segements": 64,
     "_N$spriteFrame": null,
@@ -1370,7 +1376,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 112,
+      "width": 56,
       "height": 100
     },
     "_rotationX": 0,
@@ -1405,7 +1411,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题标题",
+    "_N$string": "兑换",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -1677,19 +1683,22 @@
       },
       {
         "__id__": 47
+      },
+      {
+        "__id__": 50
       }
     ],
     "_tag": -1,
     "_active": false,
     "_components": [
       {
-        "__id__": 50
+        "__id__": 53
       },
       {
-        "__id__": 51
+        "__id__": 54
       },
       {
-        "__id__": 52
+        "__id__": 55
       }
     ],
     "_prefab": null,
@@ -1711,7 +1720,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 160
+      "height": 200
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1720,7 +1729,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -335,
-      "y": -141
+      "y": -121
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1766,7 +1775,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 80
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1775,7 +1784,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -40
+      "y": -20
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1800,7 +1809,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
+    "_N$string": "贵妃鸡蛋兑换比例1:1， 6枚起兑",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -1869,7 +1878,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 80
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1878,7 +1887,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -120
+      "y": -60
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1903,7 +1912,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
+    "_N$string": "贵妃鸡兑换比例1:1，1只起兑",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -1936,6 +1945,109 @@
     "_originalHeight": 0
   },
   {
+    "__type__": "cc.Node",
+    "_name": "label",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 43
+    },
+    "_children": [],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 51
+      },
+      {
+        "__id__": 52
+      }
+    ],
+    "_prefab": null,
+    "_id": "587Z8Ra/VCna2ZqcO2W15A",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 153,
+      "g": 153,
+      "b": 153,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 670,
+      "height": 120
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": -140
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 50
+    },
+    "_enabled": true,
+    "_useOriginalSize": false,
+    "_actualFontSize": 26,
+    "_fontSize": 26,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_N$string": "贵妃鸡所属由其被认养期间产蛋量决定，产蛋量在60枚及以上，贵妃鸡归用户所有；产蛋量未达到60枚，贵妃鸡将被系统回收",
+    "_N$horizontalAlign": 0,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "微软雅黑",
+    "_N$overflow": 3
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 50
+    },
+    "_enabled": true,
+    "isAlignOnce": true,
+    "_target": null,
+    "_alignFlags": 40,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 104,
+    "_originalHeight": 0
+  },
+  {
     "__type__": "cc.Layout",
     "_name": "",
     "_objFlags": 0,
@@ -1946,7 +2058,7 @@
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 160
+      "height": 200
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -2003,7 +2115,7 @@
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 160
+      "height": 200
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -2032,23 +2144,23 @@
     },
     "_children": [
       {
-        "__id__": 54
+        "__id__": 57
       },
       {
-        "__id__": 57
+        "__id__": 60
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 64
+        "__id__": 67
       },
       {
-        "__id__": 65
+        "__id__": 68
       },
       {
-        "__id__": 66
+        "__id__": 69
       }
     ],
     "_prefab": null,
@@ -2093,17 +2205,17 @@
     "_name": "line",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 53
+      "__id__": 56
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 55
+        "__id__": 58
       },
       {
-        "__id__": 56
+        "__id__": 59
       }
     ],
     "_prefab": null,
@@ -2148,7 +2260,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 54
+      "__id__": 57
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -2174,7 +2286,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 54
+      "__id__": 57
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -2200,21 +2312,21 @@
     "_name": "New Node",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 53
+      "__id__": 56
     },
     "_children": [
       {
-        "__id__": 58
+        "__id__": 61
       },
       {
-        "__id__": 60
+        "__id__": 63
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 63
+        "__id__": 66
       }
     ],
     "_prefab": null,
@@ -2259,14 +2371,14 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 57
+      "__id__": 60
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 59
+        "__id__": 62
       }
     ],
     "_prefab": null,
@@ -2311,7 +2423,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 58
+      "__id__": 61
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -2322,7 +2434,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题标题",
+    "_N$string": "用户等级",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -2333,17 +2445,17 @@
     "_name": "arrow_down",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 57
+      "__id__": 60
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 61
+        "__id__": 64
       },
       {
-        "__id__": 62
+        "__id__": 65
       }
     ],
     "_prefab": null,
@@ -2388,7 +2500,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 60
+      "__id__": 63
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -2414,7 +2526,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 60
+      "__id__": 63
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -2440,7 +2552,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 57
+      "__id__": 60
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -2466,7 +2578,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 53
+      "__id__": 56
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -2492,7 +2604,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 53
+      "__id__": 56
     },
     "_enabled": true,
     "_layoutSize": {
@@ -2523,7 +2635,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 53
+      "__id__": 56
     },
     "_enabled": true,
     "transition": 0,
@@ -2547,7 +2659,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 67
+        "__id__": 70
       }
     ],
     "_N$interactable": true,
@@ -2569,7 +2681,7 @@
     "_N$normalSprite": null,
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 53
+      "__id__": 56
     }
   },
   {
@@ -2589,9 +2701,6 @@
       "__id__": 27
     },
     "_children": [
-      {
-        "__id__": 69
-      },
       {
         "__id__": 72
       }
@@ -2637,7 +2746,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -335,
-      "y": -252
+      "y": -442
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -2651,17 +2760,17 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 68
+      "__id__": 71
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 70
+        "__id__": 73
       },
       {
-        "__id__": 71
+        "__id__": 74
       }
     ],
     "_prefab": null,
@@ -2683,7 +2792,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 80
+      "height": 160
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -2692,110 +2801,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -40
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_opacityModifyRGB": false,
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 69
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 26,
-    "_fontSize": 26,
-    "_lineHeight": 40,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 1,
-    "_N$fontFamily": "微软雅黑",
-    "_N$overflow": 3
-  },
-  {
-    "__type__": "cc.Widget",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 69
-    },
-    "_enabled": true,
-    "isAlignOnce": true,
-    "_target": null,
-    "_alignFlags": 40,
-    "_left": 0,
-    "_right": 0,
-    "_top": 0,
-    "_bottom": 0,
-    "_verticalCenter": 0,
-    "_horizontalCenter": 0,
-    "_isAbsLeft": true,
-    "_isAbsRight": true,
-    "_isAbsTop": true,
-    "_isAbsBottom": true,
-    "_isAbsHorizontalCenter": true,
-    "_isAbsVerticalCenter": true,
-    "_originalWidth": 104,
-    "_originalHeight": 0
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "label",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 68
-    },
-    "_children": [],
-    "_tag": -1,
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 73
-      },
-      {
-        "__id__": 74
-      }
-    ],
-    "_prefab": null,
-    "_id": "cdDmRe2UhH37YCYt+Qv3jB",
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 153,
-      "g": 153,
-      "b": 153,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 670,
-      "height": 80
-    },
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": -120
+      "y": -80
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -2820,7 +2826,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
+    "_N$string": "用户初始等级为1级，最高等级为30级。用户每日首次登陆与签到，以及在游戏中的操作均可以获得对应的等级升级经验值。随着用户等级提升，贵妃鸡认养数量、农场土地开放量、牧场与产蛋棚等级提升上限等均会得到提升。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -2857,7 +2863,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 68
+      "__id__": 71
     },
     "_enabled": true,
     "_layoutSize": {
@@ -2888,7 +2894,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 68
+      "__id__": 71
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -2914,7 +2920,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 68
+      "__id__": 71
     },
     "_enabled": true,
     "_layoutSize": {
@@ -3204,7 +3210,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 112,
+      "width": 56,
       "height": 100
     },
     "_rotationX": 0,
@@ -3239,7 +3245,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题标题",
+    "_N$string": "认养",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -3508,22 +3514,19 @@
     "_children": [
       {
         "__id__": 94
-      },
-      {
-        "__id__": 97
       }
     ],
     "_tag": -1,
     "_active": false,
     "_components": [
       {
-        "__id__": 100
+        "__id__": 97
       },
       {
-        "__id__": 101
+        "__id__": 98
       },
       {
-        "__id__": 102
+        "__id__": 99
       }
     ],
     "_prefab": null,
@@ -3554,7 +3557,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -335,
-      "y": -363
+      "y": -723
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -3600,7 +3603,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 80
+      "height": 160
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -3609,7 +3612,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -40
+      "y": -80
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -3634,7 +3637,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
+    "_N$string": "用户在游戏商城中成功认养虚拟贵妃鸡后，便可以开始游戏体验。用户所认养的贵妃鸡均为生长周期90天，处于产蛋期的贵妃鸡，同时被认养的贵妃鸡将获得唯一的身份识别编码，并与养殖基地中的真实贵妃鸡匹配。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -3646,109 +3649,6 @@
     "_objFlags": 0,
     "node": {
       "__id__": 94
-    },
-    "_enabled": true,
-    "isAlignOnce": true,
-    "_target": null,
-    "_alignFlags": 40,
-    "_left": 0,
-    "_right": 0,
-    "_top": 0,
-    "_bottom": 0,
-    "_verticalCenter": 0,
-    "_horizontalCenter": 0,
-    "_isAbsLeft": true,
-    "_isAbsRight": true,
-    "_isAbsTop": true,
-    "_isAbsBottom": true,
-    "_isAbsHorizontalCenter": true,
-    "_isAbsVerticalCenter": true,
-    "_originalWidth": 104,
-    "_originalHeight": 0
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "label",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 93
-    },
-    "_children": [],
-    "_tag": -1,
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 98
-      },
-      {
-        "__id__": 99
-      }
-    ],
-    "_prefab": null,
-    "_id": "5eKWwd925NobGuUgS1K92x",
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 153,
-      "g": 153,
-      "b": 153,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 670,
-      "height": 80
-    },
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": -120
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_opacityModifyRGB": false,
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 97
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 26,
-    "_fontSize": 26,
-    "_lineHeight": 40,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 1,
-    "_N$fontFamily": "微软雅黑",
-    "_N$overflow": 3
-  },
-  {
-    "__type__": "cc.Widget",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 97
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -3866,23 +3766,23 @@
     },
     "_children": [
       {
-        "__id__": 104
+        "__id__": 101
       },
       {
-        "__id__": 107
+        "__id__": 104
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 114
+        "__id__": 111
       },
       {
-        "__id__": 115
+        "__id__": 112
       },
       {
-        "__id__": 116
+        "__id__": 113
       }
     ],
     "_prefab": null,
@@ -3927,17 +3827,17 @@
     "_name": "line",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 103
+      "__id__": 100
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 105
+        "__id__": 102
       },
       {
-        "__id__": 106
+        "__id__": 103
       }
     ],
     "_prefab": null,
@@ -3982,7 +3882,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 104
+      "__id__": 101
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -4008,7 +3908,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 104
+      "__id__": 101
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -4034,21 +3934,21 @@
     "_name": "New Node",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 103
+      "__id__": 100
     },
     "_children": [
       {
-        "__id__": 108
+        "__id__": 105
       },
       {
-        "__id__": 110
+        "__id__": 107
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 113
+        "__id__": 110
       }
     ],
     "_prefab": null,
@@ -4093,14 +3993,14 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 107
+      "__id__": 104
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 109
+        "__id__": 106
       }
     ],
     "_prefab": null,
@@ -4121,7 +4021,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 112,
+      "width": 56,
       "height": 100
     },
     "_rotationX": 0,
@@ -4145,7 +4045,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 108
+      "__id__": 105
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -4156,7 +4056,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题标题",
+    "_N$string": "牧场",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -4167,17 +4067,17 @@
     "_name": "arrow_down",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 107
+      "__id__": 104
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 111
+        "__id__": 108
       },
       {
-        "__id__": 112
+        "__id__": 109
       }
     ],
     "_prefab": null,
@@ -4222,7 +4122,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 110
+      "__id__": 107
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -4248,7 +4148,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 110
+      "__id__": 107
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -4274,7 +4174,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 107
+      "__id__": 104
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -4300,7 +4200,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 103
+      "__id__": 100
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -4326,7 +4226,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 103
+      "__id__": 100
     },
     "_enabled": true,
     "_layoutSize": {
@@ -4357,7 +4257,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 103
+      "__id__": 100
     },
     "_enabled": true,
     "transition": 0,
@@ -4381,7 +4281,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 117
+        "__id__": 114
       }
     ],
     "_N$interactable": true,
@@ -4403,7 +4303,7 @@
     "_N$normalSprite": null,
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 103
+      "__id__": 100
     }
   },
   {
@@ -4424,23 +4324,20 @@
     },
     "_children": [
       {
-        "__id__": 119
-      },
-      {
-        "__id__": 122
+        "__id__": 116
       }
     ],
     "_tag": -1,
     "_active": false,
     "_components": [
       {
-        "__id__": 125
+        "__id__": 119
       },
       {
-        "__id__": 126
+        "__id__": 120
       },
       {
-        "__id__": 127
+        "__id__": 121
       }
     ],
     "_prefab": null,
@@ -4462,7 +4359,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 160
+      "height": 120
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -4471,7 +4368,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -335,
-      "y": -474
+      "y": -1004
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -4485,17 +4382,17 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 118
+      "__id__": 115
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 120
+        "__id__": 117
       },
       {
-        "__id__": 121
+        "__id__": 118
       }
     ],
     "_prefab": null,
@@ -4517,7 +4414,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 80
+      "height": 120
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -4526,7 +4423,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -40
+      "y": -60
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -4540,7 +4437,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 119
+      "__id__": 116
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -4551,7 +4448,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
+    "_N$string": "牧场是用户认养的虚拟贵妃鸡日常活动的区域，且牧场等级影响虚拟贵妃鸡容纳量。在游戏中，用户可以对牧场进行升级，以提高牧场容纳数量上限。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -4562,110 +4459,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 119
-    },
-    "_enabled": true,
-    "isAlignOnce": true,
-    "_target": null,
-    "_alignFlags": 40,
-    "_left": 0,
-    "_right": 0,
-    "_top": 0,
-    "_bottom": 0,
-    "_verticalCenter": 0,
-    "_horizontalCenter": 0,
-    "_isAbsLeft": true,
-    "_isAbsRight": true,
-    "_isAbsTop": true,
-    "_isAbsBottom": true,
-    "_isAbsHorizontalCenter": true,
-    "_isAbsVerticalCenter": true,
-    "_originalWidth": 104,
-    "_originalHeight": 0
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "label",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 118
-    },
-    "_children": [],
-    "_tag": -1,
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 123
-      },
-      {
-        "__id__": 124
-      }
-    ],
-    "_prefab": null,
-    "_id": "d9K/oldG5NQJNQjCnqRZIX",
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 153,
-      "g": 153,
-      "b": 153,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 670,
-      "height": 80
-    },
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": -120
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_opacityModifyRGB": false,
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 122
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 26,
-    "_fontSize": 26,
-    "_lineHeight": 40,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 1,
-    "_N$fontFamily": "微软雅黑",
-    "_N$overflow": 3
-  },
-  {
-    "__type__": "cc.Widget",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 122
+      "__id__": 116
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -4691,13 +4485,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 118
+      "__id__": 115
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 160
+      "height": 120
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -4722,7 +4516,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 118
+      "__id__": 115
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -4748,13 +4542,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 118
+      "__id__": 115
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 160
+      "height": 120
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -4783,23 +4577,23 @@
     },
     "_children": [
       {
-        "__id__": 129
+        "__id__": 123
       },
       {
-        "__id__": 132
+        "__id__": 126
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 139
+        "__id__": 133
       },
       {
-        "__id__": 140
+        "__id__": 134
       },
       {
-        "__id__": 141
+        "__id__": 135
       }
     ],
     "_prefab": null,
@@ -4844,17 +4638,17 @@
     "_name": "line",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 128
+      "__id__": 122
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 130
+        "__id__": 124
       },
       {
-        "__id__": 131
+        "__id__": 125
       }
     ],
     "_prefab": null,
@@ -4899,7 +4693,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 129
+      "__id__": 123
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -4925,7 +4719,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 129
+      "__id__": 123
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -4951,21 +4745,21 @@
     "_name": "New Node",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 128
+      "__id__": 122
     },
     "_children": [
       {
-        "__id__": 133
+        "__id__": 127
       },
       {
-        "__id__": 135
+        "__id__": 129
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 138
+        "__id__": 132
       }
     ],
     "_prefab": null,
@@ -5010,14 +4804,14 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 132
+      "__id__": 126
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 134
+        "__id__": 128
       }
     ],
     "_prefab": null,
@@ -5038,7 +4832,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 112,
+      "width": 84,
       "height": 100
     },
     "_rotationX": 0,
@@ -5062,7 +4856,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 133
+      "__id__": 127
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -5073,7 +4867,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题标题",
+    "_N$string": "产蛋棚",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -5084,17 +4878,17 @@
     "_name": "arrow_down",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 132
+      "__id__": 126
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 136
+        "__id__": 130
       },
       {
-        "__id__": 137
+        "__id__": 131
       }
     ],
     "_prefab": null,
@@ -5139,7 +4933,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 135
+      "__id__": 129
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -5165,7 +4959,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 135
+      "__id__": 129
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -5191,7 +4985,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 132
+      "__id__": 126
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -5217,7 +5011,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 128
+      "__id__": 122
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -5243,7 +5037,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 128
+      "__id__": 122
     },
     "_enabled": true,
     "_layoutSize": {
@@ -5274,7 +5068,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 128
+      "__id__": 122
     },
     "_enabled": true,
     "transition": 0,
@@ -5298,7 +5092,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 142
+        "__id__": 136
       }
     ],
     "_N$interactable": true,
@@ -5320,7 +5114,7 @@
     "_N$normalSprite": null,
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 128
+      "__id__": 122
     }
   },
   {
@@ -5341,23 +5135,23 @@
     },
     "_children": [
       {
-        "__id__": 144
+        "__id__": 138
       },
       {
-        "__id__": 147
+        "__id__": 141
       }
     ],
     "_tag": -1,
     "_active": false,
     "_components": [
       {
-        "__id__": 150
+        "__id__": 144
       },
       {
-        "__id__": 151
+        "__id__": 145
       },
       {
-        "__id__": 152
+        "__id__": 146
       }
     ],
     "_prefab": null,
@@ -5379,7 +5173,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 160
+      "height": 280
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -5388,7 +5182,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -335,
-      "y": -585
+      "y": -1245
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -5402,17 +5196,17 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 143
+      "__id__": 137
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 145
+        "__id__": 139
       },
       {
-        "__id__": 146
+        "__id__": 140
       }
     ],
     "_prefab": null,
@@ -5434,7 +5228,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 80
+      "height": 120
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -5443,7 +5237,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -40
+      "y": -60
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -5457,7 +5251,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 144
+      "__id__": 138
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -5468,7 +5262,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
+    "_N$string": "牧场中的产蛋棚为贵妃鸡产蛋以及鸡蛋暂时存放的场所。用户在游戏中可以通过对产蛋棚升级，以提升其同时容纳产蛋鸡与鸡蛋存放数量的上限。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -5479,7 +5273,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 144
+      "__id__": 138
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -5505,17 +5299,17 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 143
+      "__id__": 137
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 148
+        "__id__": 142
       },
       {
-        "__id__": 149
+        "__id__": 143
       }
     ],
     "_prefab": null,
@@ -5537,7 +5331,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 80
+      "height": 160
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -5546,7 +5340,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -120
+      "y": -200
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -5560,7 +5354,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 147
+      "__id__": 141
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -5571,7 +5365,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
+    "_N$string": "在产蛋棚中存放的鸡蛋有被玩家偷取和变质的可能，当存放鸡蛋数量已达到上限，之后贵妃鸡将直接把蛋产在牧场区域，所以用户需要及时将鸡蛋收获至仓库中保存，并根据需要及时为产蛋棚升级。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -5582,7 +5376,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 147
+      "__id__": 141
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -5608,13 +5402,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 143
+      "__id__": 137
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 160
+      "height": 280
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -5639,7 +5433,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 143
+      "__id__": 137
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -5665,13 +5459,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 143
+      "__id__": 137
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 160
+      "height": 280
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -5700,23 +5494,23 @@
     },
     "_children": [
       {
-        "__id__": 154
+        "__id__": 148
       },
       {
-        "__id__": 157
+        "__id__": 151
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 164
+        "__id__": 158
       },
       {
-        "__id__": 165
+        "__id__": 159
       },
       {
-        "__id__": 166
+        "__id__": 160
       }
     ],
     "_prefab": null,
@@ -5761,17 +5555,17 @@
     "_name": "line",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 153
+      "__id__": 147
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 155
+        "__id__": 149
       },
       {
-        "__id__": 156
+        "__id__": 150
       }
     ],
     "_prefab": null,
@@ -5816,7 +5610,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 154
+      "__id__": 148
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -5842,7 +5636,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 154
+      "__id__": 148
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -5868,21 +5662,21 @@
     "_name": "New Node",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 153
+      "__id__": 147
     },
     "_children": [
       {
-        "__id__": 158
+        "__id__": 152
       },
       {
-        "__id__": 160
+        "__id__": 154
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 163
+        "__id__": 157
       }
     ],
     "_prefab": null,
@@ -5927,14 +5721,14 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 157
+      "__id__": 151
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 159
+        "__id__": 153
       }
     ],
     "_prefab": null,
@@ -5955,7 +5749,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 112,
+      "width": 56,
       "height": 100
     },
     "_rotationX": 0,
@@ -5979,7 +5773,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 158
+      "__id__": 152
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -5990,7 +5784,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题标题",
+    "_N$string": "产蛋",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -6001,17 +5795,17 @@
     "_name": "arrow_down",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 157
+      "__id__": 151
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 161
+        "__id__": 155
       },
       {
-        "__id__": 162
+        "__id__": 156
       }
     ],
     "_prefab": null,
@@ -6056,7 +5850,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 160
+      "__id__": 154
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -6082,7 +5876,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 160
+      "__id__": 154
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -6108,7 +5902,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 157
+      "__id__": 151
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -6134,7 +5928,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 153
+      "__id__": 147
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -6160,7 +5954,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 153
+      "__id__": 147
     },
     "_enabled": true,
     "_layoutSize": {
@@ -6191,7 +5985,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 153
+      "__id__": 147
     },
     "_enabled": true,
     "transition": 0,
@@ -6215,7 +6009,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 167
+        "__id__": 161
       }
     ],
     "_N$interactable": true,
@@ -6237,7 +6031,7 @@
     "_N$normalSprite": null,
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 153
+      "__id__": 147
     }
   },
   {
@@ -6258,23 +6052,20 @@
     },
     "_children": [
       {
-        "__id__": 169
-      },
-      {
-        "__id__": 172
+        "__id__": 163
       }
     ],
     "_tag": -1,
     "_active": false,
     "_components": [
       {
-        "__id__": 175
+        "__id__": 166
       },
       {
-        "__id__": 176
+        "__id__": 167
       },
       {
-        "__id__": 177
+        "__id__": 168
       }
     ],
     "_prefab": null,
@@ -6296,7 +6087,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 220
+      "height": 80
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -6305,7 +6096,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -335,
-      "y": -696
+      "y": -1646
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -6319,17 +6110,17 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 168
+      "__id__": 162
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 170
+        "__id__": 164
       },
       {
-        "__id__": 171
+        "__id__": 165
       }
     ],
     "_prefab": null,
@@ -6360,7 +6151,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -60
+      "y": -40
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -6374,7 +6165,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 169
+      "__id__": 163
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -6385,7 +6176,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
+    "_N$string": "贵妃鸡自被用户成功认养24小时后便开始产蛋，正常产蛋频率为36小时/次/枚。贵妃鸡的产蛋受到快乐值的影响。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -6396,110 +6187,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 169
-    },
-    "_enabled": true,
-    "isAlignOnce": true,
-    "_target": null,
-    "_alignFlags": 40,
-    "_left": 0,
-    "_right": 0,
-    "_top": 0,
-    "_bottom": 0,
-    "_verticalCenter": 0,
-    "_horizontalCenter": 0,
-    "_isAbsLeft": true,
-    "_isAbsRight": true,
-    "_isAbsTop": true,
-    "_isAbsBottom": true,
-    "_isAbsHorizontalCenter": true,
-    "_isAbsVerticalCenter": true,
-    "_originalWidth": 104,
-    "_originalHeight": 0
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "label",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 168
-    },
-    "_children": [],
-    "_tag": -1,
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 173
-      },
-      {
-        "__id__": 174
-      }
-    ],
-    "_prefab": null,
-    "_id": "beZH9CkxpJRaGGYcvJbuMp",
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 153,
-      "g": 153,
-      "b": 153,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 670,
-      "height": 80
-    },
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": -160
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_opacityModifyRGB": false,
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 172
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 26,
-    "_fontSize": 26,
-    "_lineHeight": 40,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 1,
-    "_N$fontFamily": "微软雅黑",
-    "_N$overflow": 3
-  },
-  {
-    "__type__": "cc.Widget",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 172
+      "__id__": 163
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -6525,13 +6213,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 168
+      "__id__": 162
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 220
+      "height": 80
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -6556,7 +6244,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 168
+      "__id__": 162
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -6582,13 +6270,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 168
+      "__id__": 162
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 220
+      "height": 80
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -6617,23 +6305,23 @@
     },
     "_children": [
       {
-        "__id__": 179
+        "__id__": 170
       },
       {
-        "__id__": 182
+        "__id__": 173
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 189
+        "__id__": 180
       },
       {
-        "__id__": 190
+        "__id__": 181
       },
       {
-        "__id__": 191
+        "__id__": 182
       }
     ],
     "_prefab": null,
@@ -6678,17 +6366,17 @@
     "_name": "line",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 178
+      "__id__": 169
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 180
+        "__id__": 171
       },
       {
-        "__id__": 181
+        "__id__": 172
       }
     ],
     "_prefab": null,
@@ -6733,7 +6421,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 179
+      "__id__": 170
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -6759,7 +6447,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 179
+      "__id__": 170
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -6785,21 +6473,21 @@
     "_name": "New Node",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 178
+      "__id__": 169
     },
     "_children": [
       {
-        "__id__": 183
+        "__id__": 174
       },
       {
-        "__id__": 185
+        "__id__": 176
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 188
+        "__id__": 179
       }
     ],
     "_prefab": null,
@@ -6844,14 +6532,14 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 182
+      "__id__": 173
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 184
+        "__id__": 175
       }
     ],
     "_prefab": null,
@@ -6872,7 +6560,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 112,
+      "width": 84,
       "height": 100
     },
     "_rotationX": 0,
@@ -6896,7 +6584,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 183
+      "__id__": 174
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -6907,7 +6595,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题标题",
+    "_N$string": "快乐值",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -6918,17 +6606,17 @@
     "_name": "arrow_down",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 182
+      "__id__": 173
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 186
+        "__id__": 177
       },
       {
-        "__id__": 187
+        "__id__": 178
       }
     ],
     "_prefab": null,
@@ -6973,7 +6661,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 185
+      "__id__": 176
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -6999,7 +6687,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 185
+      "__id__": 176
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -7025,7 +6713,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 182
+      "__id__": 173
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -7051,7 +6739,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 178
+      "__id__": 169
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -7077,7 +6765,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 178
+      "__id__": 169
     },
     "_enabled": true,
     "_layoutSize": {
@@ -7108,7 +6796,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 178
+      "__id__": 169
     },
     "_enabled": true,
     "transition": 0,
@@ -7132,7 +6820,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 192
+        "__id__": 183
       }
     ],
     "_N$interactable": true,
@@ -7154,7 +6842,7 @@
     "_N$normalSprite": null,
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 178
+      "__id__": 169
     }
   },
   {
@@ -7175,23 +6863,35 @@
     },
     "_children": [
       {
+        "__id__": 185
+      },
+      {
+        "__id__": 188
+      },
+      {
+        "__id__": 191
+      },
+      {
         "__id__": 194
       },
       {
         "__id__": 197
+      },
+      {
+        "__id__": 200
       }
     ],
     "_tag": -1,
     "_active": false,
     "_components": [
       {
-        "__id__": 200
+        "__id__": 203
       },
       {
-        "__id__": 201
+        "__id__": 204
       },
       {
-        "__id__": 202
+        "__id__": 205
       }
     ],
     "_prefab": null,
@@ -7213,7 +6913,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 220
+      "height": 280
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -7222,7 +6922,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -335,
-      "y": -807
+      "y": -1847
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -7236,17 +6936,17 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 193
+      "__id__": 184
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 195
+        "__id__": 186
       },
       {
-        "__id__": 196
+        "__id__": 187
       }
     ],
     "_prefab": null,
@@ -7277,7 +6977,316 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -60
+      "y": -40
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 185
+    },
+    "_enabled": true,
+    "_useOriginalSize": false,
+    "_actualFontSize": 26,
+    "_fontSize": 26,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_N$string": "快乐值为贵妃鸡状态的综合展示，将影响贵妃鸡的产蛋量。",
+    "_N$horizontalAlign": 0,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "微软雅黑",
+    "_N$overflow": 3
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 185
+    },
+    "_enabled": true,
+    "isAlignOnce": true,
+    "_target": null,
+    "_alignFlags": 40,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 104,
+    "_originalHeight": 0
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "label",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 184
+    },
+    "_children": [],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 189
+      },
+      {
+        "__id__": 190
+      }
+    ],
+    "_prefab": null,
+    "_id": "fcmybMX5BC+oqDEjRoDJNv",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 153,
+      "g": 153,
+      "b": 153,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 670,
+      "height": 40
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": -100
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 188
+    },
+    "_enabled": true,
+    "_useOriginalSize": false,
+    "_actualFontSize": 26,
+    "_fontSize": 26,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_N$string": "快乐值=100，产蛋贵妃鸡产蛋频率变为24小时/次/个；",
+    "_N$horizontalAlign": 0,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "微软雅黑",
+    "_N$overflow": 3
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 188
+    },
+    "_enabled": true,
+    "isAlignOnce": true,
+    "_target": null,
+    "_alignFlags": 40,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 104,
+    "_originalHeight": 0
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "label",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 184
+    },
+    "_children": [],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 192
+      },
+      {
+        "__id__": 193
+      }
+    ],
+    "_prefab": null,
+    "_id": "46IRIdY0NByLA4/2yKF/FO",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 153,
+      "g": 153,
+      "b": 153,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 670,
+      "height": 40
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": -140
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 191
+    },
+    "_enabled": true,
+    "_useOriginalSize": false,
+    "_actualFontSize": 26,
+    "_fontSize": 26,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_N$string": "100＞快乐值≥90，产蛋贵妃鸡正常产蛋，36小时/次/个；",
+    "_N$horizontalAlign": 0,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "微软雅黑",
+    "_N$overflow": 3
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 191
+    },
+    "_enabled": true,
+    "isAlignOnce": true,
+    "_target": null,
+    "_alignFlags": 40,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 104,
+    "_originalHeight": 0
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "label",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 184
+    },
+    "_children": [],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 195
+      },
+      {
+        "__id__": 196
+      }
+    ],
+    "_prefab": null,
+    "_id": "d9CJ2i9+5N95HZ/7M8YCM6",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 153,
+      "g": 153,
+      "b": 153,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 670,
+      "height": 40
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": -180
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -7302,7 +7311,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
+    "_N$string": "90＞快乐值≥70，产蛋贵妃鸡产蛋不规律",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -7339,7 +7348,7 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 193
+      "__id__": 184
     },
     "_children": [],
     "_tag": -1,
@@ -7353,7 +7362,7 @@
       }
     ],
     "_prefab": null,
-    "_id": "fcmybMX5BC+oqDEjRoDJNv",
+    "_id": "0fds6JKO9Jh4dyzDmMUG7S",
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
@@ -7371,7 +7380,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 80
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -7380,7 +7389,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -160
+      "y": -220
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -7405,7 +7414,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
+    "_N$string": "快乐值＜70，产蛋贵妃鸡停止产蛋。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -7438,17 +7447,120 @@
     "_originalHeight": 0
   },
   {
+    "__type__": "cc.Node",
+    "_name": "label",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 184
+    },
+    "_children": [],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 201
+      },
+      {
+        "__id__": 202
+      }
+    ],
+    "_prefab": null,
+    "_id": "064QOAUGZBBrBqsjgUvYNd",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 153,
+      "g": 153,
+      "b": 153,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 670,
+      "height": 40
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": -260
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 200
+    },
+    "_enabled": true,
+    "_useOriginalSize": false,
+    "_actualFontSize": 26,
+    "_fontSize": 26,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_N$string": "快乐值由贵妃鸡饱食度与牧场清洁度共同决定。",
+    "_N$horizontalAlign": 0,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "微软雅黑",
+    "_N$overflow": 3
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 200
+    },
+    "_enabled": true,
+    "isAlignOnce": true,
+    "_target": null,
+    "_alignFlags": 40,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 104,
+    "_originalHeight": 0
+  },
+  {
     "__type__": "cc.Layout",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 193
+      "__id__": 184
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 220
+      "height": 280
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -7473,7 +7585,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 193
+      "__id__": 184
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -7499,13 +7611,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 193
+      "__id__": 184
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 220
+      "height": 280
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -7534,23 +7646,23 @@
     },
     "_children": [
       {
-        "__id__": 204
+        "__id__": 207
       },
       {
-        "__id__": 207
+        "__id__": 210
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 214
+        "__id__": 217
       },
       {
-        "__id__": 215
+        "__id__": 218
       },
       {
-        "__id__": 216
+        "__id__": 219
       }
     ],
     "_prefab": null,
@@ -7595,17 +7707,17 @@
     "_name": "line",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 203
+      "__id__": 206
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 205
+        "__id__": 208
       },
       {
-        "__id__": 206
+        "__id__": 209
       }
     ],
     "_prefab": null,
@@ -7650,7 +7762,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 204
+      "__id__": 207
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -7676,7 +7788,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 204
+      "__id__": 207
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -7702,21 +7814,21 @@
     "_name": "New Node",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 203
+      "__id__": 206
     },
     "_children": [
       {
-        "__id__": 208
+        "__id__": 211
       },
       {
-        "__id__": 210
+        "__id__": 213
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 213
+        "__id__": 216
       }
     ],
     "_prefab": null,
@@ -7761,14 +7873,14 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 207
+      "__id__": 210
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 209
+        "__id__": 212
       }
     ],
     "_prefab": null,
@@ -7789,7 +7901,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 112,
+      "width": 84,
       "height": 100
     },
     "_rotationX": 0,
@@ -7813,7 +7925,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 208
+      "__id__": 211
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -7824,7 +7936,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题标题",
+    "_N$string": "饱食度",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -7835,17 +7947,17 @@
     "_name": "arrow_down",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 207
+      "__id__": 210
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 211
+        "__id__": 214
       },
       {
-        "__id__": 212
+        "__id__": 215
       }
     ],
     "_prefab": null,
@@ -7890,7 +8002,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 210
+      "__id__": 213
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -7916,7 +8028,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 210
+      "__id__": 213
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -7942,7 +8054,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 207
+      "__id__": 210
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -7968,7 +8080,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 203
+      "__id__": 206
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -7994,7 +8106,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 203
+      "__id__": 206
     },
     "_enabled": true,
     "_layoutSize": {
@@ -8025,7 +8137,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 203
+      "__id__": 206
     },
     "_enabled": true,
     "transition": 0,
@@ -8049,7 +8161,7 @@
     "hoverSprite": null,
     "clickEvents": [
       {
-        "__id__": 217
+        "__id__": 220
       }
     ],
     "_N$interactable": true,
@@ -8071,7 +8183,7 @@
     "_N$normalSprite": null,
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 203
+      "__id__": 206
     }
   },
   {
@@ -8091,9 +8203,6 @@
       "__id__": 27
     },
     "_children": [
-      {
-        "__id__": 219
-      },
       {
         "__id__": 222
       }
@@ -8130,7 +8239,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 220
+      "height": 120
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -8139,7 +8248,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -335,
-      "y": -918
+      "y": -2248
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -8153,17 +8262,17 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 218
+      "__id__": 221
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 220
+        "__id__": 223
       },
       {
-        "__id__": 221
+        "__id__": 224
       }
     ],
     "_prefab": null,
@@ -8185,7 +8294,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 80
+      "height": 120
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -8195,109 +8304,6 @@
       "__type__": "cc.Vec2",
       "x": 0,
       "y": -60
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_opacityModifyRGB": false,
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 219
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 26,
-    "_fontSize": 26,
-    "_lineHeight": 40,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 1,
-    "_N$fontFamily": "微软雅黑",
-    "_N$overflow": 3
-  },
-  {
-    "__type__": "cc.Widget",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 219
-    },
-    "_enabled": true,
-    "isAlignOnce": true,
-    "_target": null,
-    "_alignFlags": 40,
-    "_left": 0,
-    "_right": 0,
-    "_top": 0,
-    "_bottom": 0,
-    "_verticalCenter": 0,
-    "_horizontalCenter": 0,
-    "_isAbsLeft": true,
-    "_isAbsRight": true,
-    "_isAbsTop": true,
-    "_isAbsBottom": true,
-    "_isAbsHorizontalCenter": true,
-    "_isAbsVerticalCenter": true,
-    "_originalWidth": 104,
-    "_originalHeight": 0
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "label",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 218
-    },
-    "_children": [],
-    "_tag": -1,
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 223
-      },
-      {
-        "__id__": 224
-      }
-    ],
-    "_prefab": null,
-    "_id": "f0+BgKJNBLcKk+cs2M7WFG",
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 153,
-      "g": 153,
-      "b": 153,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 670,
-      "height": 80
-    },
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": -160
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -8322,7 +8328,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
+    "_N$string": "饱食度体现贵妃鸡的饥饿程度，最大值为100，最小值为0。贵妃鸡初始饱食度为100，之后会随着时间逐渐减少。用户可通过给贵妃鸡喂食饲料来补充饱食度。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -8359,13 +8365,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 218
+      "__id__": 221
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 220
+      "height": 120
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -8390,7 +8396,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 218
+      "__id__": 221
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -8416,13 +8422,13 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 218
+      "__id__": 221
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 220
+      "height": 120
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -8706,7 +8712,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 112,
+      "width": 84,
       "height": 100
     },
     "_rotationX": 0,
@@ -8741,7 +8747,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题标题",
+    "_N$string": "清洁度",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -9010,22 +9016,19 @@
     "_children": [
       {
         "__id__": 244
-      },
-      {
-        "__id__": 247
       }
     ],
     "_tag": -1,
     "_active": false,
     "_components": [
       {
-        "__id__": 250
+        "__id__": 247
       },
       {
-        "__id__": 251
+        "__id__": 248
       },
       {
-        "__id__": 252
+        "__id__": 249
       }
     ],
     "_prefab": null,
@@ -9047,7 +9050,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 160
+      "height": 200
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -9056,7 +9059,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -335,
-      "y": -1009
+      "y": -2489
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -9102,7 +9105,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 80
+      "height": 200
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -9111,7 +9114,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -40
+      "y": -100
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -9136,7 +9139,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
+    "_N$string": "饱食度满足条件的贵妃鸡每天会在特定时间产生粪便，粪便的存在会影响牧场的清洁度。清洁度最大值为100，最小值为0。玩家可以通过清扫操作将粪便收入仓库，避免牧场清洁度下降，同时收集的粪便可以用于制作肥料，用于农场中的作物种植。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -9148,109 +9151,6 @@
     "_objFlags": 0,
     "node": {
       "__id__": 244
-    },
-    "_enabled": true,
-    "isAlignOnce": true,
-    "_target": null,
-    "_alignFlags": 40,
-    "_left": 0,
-    "_right": 0,
-    "_top": 0,
-    "_bottom": 0,
-    "_verticalCenter": 0,
-    "_horizontalCenter": 0,
-    "_isAbsLeft": true,
-    "_isAbsRight": true,
-    "_isAbsTop": true,
-    "_isAbsBottom": true,
-    "_isAbsHorizontalCenter": true,
-    "_isAbsVerticalCenter": true,
-    "_originalWidth": 104,
-    "_originalHeight": 0
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "label",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 243
-    },
-    "_children": [],
-    "_tag": -1,
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 248
-      },
-      {
-        "__id__": 249
-      }
-    ],
-    "_prefab": null,
-    "_id": "e1mjFC49pNsZbzRCdV+HQf",
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 153,
-      "g": 153,
-      "b": 153,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 670,
-      "height": 80
-    },
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": -120
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_opacityModifyRGB": false,
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 247
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 26,
-    "_fontSize": 26,
-    "_lineHeight": 40,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_spacingX": 0,
-    "_N$string": "问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容问题内容",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 1,
-    "_N$fontFamily": "微软雅黑",
-    "_N$overflow": 3
-  },
-  {
-    "__type__": "cc.Widget",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 247
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -9282,7 +9182,7 @@
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 160
+      "height": 200
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -9339,7 +9239,818 @@
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 670,
-      "height": 160
+      "height": 200
+    },
+    "_resize": 1,
+    "_N$layoutType": 2,
+    "_N$padding": 0,
+    "_N$cellSize": {
+      "__type__": "cc.Size",
+      "width": 40,
+      "height": 40
+    },
+    "_N$startAxis": 0,
+    "_N$paddingLeft": 0,
+    "_N$paddingRight": 0,
+    "_N$paddingTop": 0,
+    "_N$paddingBottom": 0,
+    "_N$spacingX": 0,
+    "_N$spacingY": 0,
+    "_N$verticalDirection": 1,
+    "_N$horizontalDirection": 0
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "helplist9",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 27
+    },
+    "_children": [
+      {
+        "__id__": 251
+      },
+      {
+        "__id__": 254
+      }
+    ],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 261
+      },
+      {
+        "__id__": 262
+      },
+      {
+        "__id__": 263
+      }
+    ],
+    "_prefab": null,
+    "_id": "a9Hnxi+JdOKL4dz5NR84I+",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 670,
+      "height": 101
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": -335,
+      "y": -1059.5
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "line",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 250
+    },
+    "_children": [],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 252
+      },
+      {
+        "__id__": 253
+      }
+    ],
+    "_prefab": null,
+    "_id": "5c3+FDehtKGK2HV/QlRTvh",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 243,
+      "g": 243,
+      "b": 248,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 670,
+      "height": 1
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 50
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 251
+    },
+    "_enabled": true,
+    "_spriteFrame": {
+      "__uuid__": "a23235d1-15db-4b95-8439-a2e005bfff91"
+    },
+    "_type": 0,
+    "_sizeMode": 0,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_atlas": null
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 251
+    },
+    "_enabled": true,
+    "isAlignOnce": true,
+    "_target": null,
+    "_alignFlags": 44,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 100,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 100,
+    "_originalHeight": 0
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "New Node",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 250
+    },
+    "_children": [
+      {
+        "__id__": 255
+      },
+      {
+        "__id__": 257
+      }
+    ],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 260
+      }
+    ],
+    "_prefab": null,
+    "_id": "3ejGAdpG1FbozxVo0fwMHF",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 670,
+      "height": 100
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": -0.5
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "label",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 254
+    },
+    "_children": [],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 256
+      }
+    ],
+    "_prefab": null,
+    "_id": "10oAwUVCBJDb9jdwUEAR0P",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 102,
+      "g": 102,
+      "b": 102,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 56,
+      "height": 100
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 255
+    },
+    "_enabled": true,
+    "_useOriginalSize": false,
+    "_actualFontSize": 28,
+    "_fontSize": 28,
+    "_lineHeight": 100,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_N$string": "农场",
+    "_N$horizontalAlign": 1,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "微软雅黑",
+    "_N$overflow": 0
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "arrow_down",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 254
+    },
+    "_children": [],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 258
+      },
+      {
+        "__id__": 259
+      }
+    ],
+    "_prefab": null,
+    "_id": "cau1mb9lhP7a0MCBJHFscP",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 27,
+      "height": 15
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 656.5,
+      "y": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 257
+    },
+    "_enabled": true,
+    "_spriteFrame": {
+      "__uuid__": "174adfd8-f002-4840-aac8-1260f5d73001"
+    },
+    "_type": 0,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_atlas": null
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 257
+    },
+    "_enabled": true,
+    "isAlignOnce": true,
+    "_target": null,
+    "_alignFlags": 34,
+    "_left": 0,
+    "_right": 0,
+    "_top": 100,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 0,
+    "_originalHeight": 0
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 254
+    },
+    "_enabled": true,
+    "isAlignOnce": true,
+    "_target": null,
+    "_alignFlags": 40,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 300,
+    "_originalHeight": 0
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 250
+    },
+    "_enabled": true,
+    "isAlignOnce": true,
+    "_target": null,
+    "_alignFlags": 40,
+    "_left": 40,
+    "_right": 40,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 300,
+    "_originalHeight": 0
+  },
+  {
+    "__type__": "cc.Layout",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 250
+    },
+    "_enabled": true,
+    "_layoutSize": {
+      "__type__": "cc.Size",
+      "width": 670,
+      "height": 101
+    },
+    "_resize": 0,
+    "_N$layoutType": 2,
+    "_N$padding": 0,
+    "_N$cellSize": {
+      "__type__": "cc.Size",
+      "width": 40,
+      "height": 40
+    },
+    "_N$startAxis": 0,
+    "_N$paddingLeft": 0,
+    "_N$paddingRight": 0,
+    "_N$paddingTop": 0,
+    "_N$paddingBottom": 0,
+    "_N$spacingX": 0,
+    "_N$spacingY": 0,
+    "_N$verticalDirection": 1,
+    "_N$horizontalDirection": 0
+  },
+  {
+    "__type__": "cc.Button",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 250
+    },
+    "_enabled": true,
+    "transition": 0,
+    "pressedColor": {
+      "__type__": "cc.Color",
+      "r": 211,
+      "g": 211,
+      "b": 211,
+      "a": 255
+    },
+    "hoverColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "duration": 0.1,
+    "zoomScale": 1.2,
+    "pressedSprite": null,
+    "hoverSprite": null,
+    "clickEvents": [
+      {
+        "__id__": 264
+      }
+    ],
+    "_N$interactable": true,
+    "_N$enableAutoGrayEffect": false,
+    "_N$normalColor": {
+      "__type__": "cc.Color",
+      "r": 214,
+      "g": 214,
+      "b": 214,
+      "a": 255
+    },
+    "_N$disabledColor": {
+      "__type__": "cc.Color",
+      "r": 124,
+      "g": 124,
+      "b": 124,
+      "a": 255
+    },
+    "_N$normalSprite": null,
+    "_N$disabledSprite": null,
+    "_N$target": {
+      "__id__": 250
+    }
+  },
+  {
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 2
+    },
+    "component": "Help",
+    "handler": "slideToggle",
+    "customEventData": ""
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "itemcontent9",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 27
+    },
+    "_children": [
+      {
+        "__id__": 266
+      }
+    ],
+    "_tag": -1,
+    "_active": false,
+    "_components": [
+      {
+        "__id__": 269
+      },
+      {
+        "__id__": 270
+      },
+      {
+        "__id__": 271
+      }
+    ],
+    "_prefab": null,
+    "_id": "a00/bYFPJA3Y5E6P1aWM7V",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 1
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 670,
+      "height": 120
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": -335,
+      "y": -2810
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "label",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 265
+    },
+    "_children": [],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 267
+      },
+      {
+        "__id__": 268
+      }
+    ],
+    "_prefab": null,
+    "_id": "89YQMyywFO2LK10giz6+bz",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 153,
+      "g": 153,
+      "b": 153,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 670,
+      "height": 120
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": -60
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 266
+    },
+    "_enabled": true,
+    "_useOriginalSize": false,
+    "_actualFontSize": 26,
+    "_fontSize": 26,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_N$string": "农场为用户种植作物的场地，用户通过播种、浇水、除虫、施肥、锄草、收获等操作，从而获得成熟的作物，可以用来制作饲料喂养贵妃鸡。",
+    "_N$horizontalAlign": 0,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "微软雅黑",
+    "_N$overflow": 3
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 266
+    },
+    "_enabled": true,
+    "isAlignOnce": true,
+    "_target": null,
+    "_alignFlags": 40,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 104,
+    "_originalHeight": 0
+  },
+  {
+    "__type__": "cc.Layout",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 265
+    },
+    "_enabled": true,
+    "_layoutSize": {
+      "__type__": "cc.Size",
+      "width": 670,
+      "height": 120
+    },
+    "_resize": 1,
+    "_N$layoutType": 2,
+    "_N$padding": 0,
+    "_N$cellSize": {
+      "__type__": "cc.Size",
+      "width": 40,
+      "height": 40
+    },
+    "_N$startAxis": 0,
+    "_N$paddingLeft": 0,
+    "_N$paddingRight": 0,
+    "_N$paddingTop": 20,
+    "_N$paddingBottom": 20,
+    "_N$spacingX": 0,
+    "_N$spacingY": 20,
+    "_N$verticalDirection": 1,
+    "_N$horizontalDirection": 0
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 265
+    },
+    "_enabled": true,
+    "isAlignOnce": true,
+    "_target": null,
+    "_alignFlags": 40,
+    "_left": 40,
+    "_right": 40,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 300,
+    "_originalHeight": 0
+  },
+  {
+    "__type__": "cc.Layout",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 265
+    },
+    "_enabled": true,
+    "_layoutSize": {
+      "__type__": "cc.Size",
+      "width": 670,
+      "height": 120
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -9396,7 +10107,7 @@
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 750,
-      "height": 1009
+      "height": 1120
     },
     "_resize": 1,
     "_N$layoutType": 2,
