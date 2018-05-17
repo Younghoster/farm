@@ -52,7 +52,7 @@ cc.Class({
         //已签到 按钮变灰
         if (this.canlendarJs.todayNode.getChildByName('item_do').active) {
           var signButton = cc.find('bg/btn-sign', this.node);
-          cc.loader.loadRes('btn-hasSign', cc.SpriteFrame, function (err, spriteFrame) {
+          cc.loader.loadRes('index/btn-hasSign', cc.SpriteFrame, function (err, spriteFrame) {
             signButton.getComponent(cc.Sprite).spriteFrame = spriteFrame;
             signButton.getComponent(cc.Button).interactable = false;
           });
