@@ -29,6 +29,13 @@ cc.Class({
       touchstart: this.touchstart,
       touchmove: this.touchmove
     };
+    let org = document.body.clientHeight / document.body.clientWidth;
+
+    if (org > 700 / 375) {
+      let setButtomSpace = cc.find('tool/layout', this.node).getComponent(cc.Layout);
+      setButtomSpace.spacingX = 8;
+      console.log(1);
+    }
     if (Config.firstLogin) farmGuid.getPrefab(1);
     self.addPersist();
     self.getWhether();

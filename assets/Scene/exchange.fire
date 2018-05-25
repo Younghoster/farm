@@ -320,7 +320,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 90,
+      "width": 150,
       "height": 100
     },
     "_rotationX": 0,
@@ -384,7 +384,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 13.5,
+      "x": -16.5,
       "y": 0
     },
     "_skewX": 0,
@@ -481,8 +481,8 @@
     "isAlignOnce": true,
     "_target": null,
     "_alignFlags": 45,
-    "_left": 0,
-    "_right": 660,
+    "_left": -30,
+    "_right": 630,
     "_top": 0,
     "_bottom": 0,
     "_verticalCenter": 0,

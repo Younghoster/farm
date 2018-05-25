@@ -57,8 +57,9 @@ cc.Class({
         if (data.Code === 1) {
           Msg.show(data.Message);
           Tool.closeModal(this.node);
+          this.updateSystemPage();
         } else {
-          this.errorLabel.string = data.message;
+          this.errorLabel.string = data.Message;
         }
       });
     });
@@ -103,6 +104,11 @@ cc.Class({
     //设置字体颜色
     let color = repertoryCount >= makeCount ? '#74DA72' : '#FF4C4C';
     this.makingLabel.node.setColor(cc.color(color));
+  },
+  //合成之后 更新仓库数据
+  updateSystemPage() {
+    this.sceneJs = cc.find('Canvas').getComponent('Repertory');
+    this.sceneJs.func.GetSystemListByPage.call(this.sceneJs);
   },
   // 根据不同的名称 加载不同的图片
   assignSprite(node, name) {

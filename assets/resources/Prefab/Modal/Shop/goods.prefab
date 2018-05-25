@@ -44,9 +44,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 167,
-      "g": 167,
-      "b": 167,
+      "r": 255,
+      "g": 248,
+      "b": 248,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -57,7 +57,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 247.98387096774178,
+      "width": 200,
       "height": 316
     },
     "_rotationX": 0,
@@ -66,7 +66,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 123.99193548387089,
+      "x": 123.99193548387088,
       "y": 320
     },
     "_skewX": 0,
@@ -115,7 +115,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 247.98387096774178,
+      "width": 200,
       "height": 164
     },
     "_rotationX": 0,
@@ -336,7 +336,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 247.98387096774178,
+      "width": 200,
       "height": 186
     },
     "_rotationX": 0,
@@ -380,9 +380,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 204,
-      "g": 89,
-      "b": 89,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -393,7 +393,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 105.5,
+      "width": 109.57,
       "height": 40
     },
     "_rotationX": 0,
@@ -431,7 +431,7 @@
     "_N$string": "饲料*500",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "微软雅黑",
     "_N$overflow": 0
   },
   {
@@ -718,7 +718,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 247.98387096774178,
+      "width": 200,
       "height": 186
     },
     "_resize": 0,
@@ -784,7 +784,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 247.98387096774178,
+      "width": 200,
       "height": 316
     },
     "_resize": 0,
@@ -815,9 +815,9 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 40,
-    "_left": 0,
-    "_right": 0.6693548387096776,
+    "_alignFlags": 0,
+    "_left": 23.991935483870876,
+    "_right": 0.7013440860215056,
     "_top": 8,
     "_bottom": 656,
     "_verticalCenter": 0,

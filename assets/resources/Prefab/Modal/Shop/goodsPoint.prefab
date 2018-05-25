@@ -44,9 +44,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 167,
-      "g": 167,
-      "b": 167,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -380,9 +380,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 204,
-      "g": 89,
-      "b": 89,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -393,7 +393,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 105.5,
+      "width": 109.57,
       "height": 40
     },
     "_rotationX": 0,
@@ -431,7 +431,7 @@
     "_N$string": "饲料*500",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "微软雅黑",
     "_N$overflow": 0
   },
   {

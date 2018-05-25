@@ -417,7 +417,11 @@ cc.Class({
       this.node.addChild(compoundNode);
     });
   },
-  start() {}
+  start() {
+    this.func = {
+      GetSystemListByPage: this.GetSystemListByPage
+    }
+  }
 
   // update (dt) {},
 });
