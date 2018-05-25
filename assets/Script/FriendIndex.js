@@ -37,10 +37,14 @@ cc.Class({
   },
   initData(data) {
     this.nameLabel.string = `${data.UserModel.RealName}的牧场`;
+    let friendImg = cc.find('div_header/advisor/advisor', this.node);
+    this.setHeadImg(friendImg, data.UserModel.Headimgurl);
     // 清洁度设置
     this._clearValue = data.RanchModel.RanchCleanliness;
     this.clearProgressBar = cc.find('clearBar/clear_bar', this.node).getComponent(cc.ProgressBar);
     this.clearLabel = cc.find('clearBar/value', this.node).getComponent(cc.Label);
+    this.maskNode = cc.find('clearBar/clear_bar/mask', this.node);
+    this.maskNode.active = true;
     this.clearProgressBar.progress = this._clearValue / 100;
     this.clearLabel.string = this._clearValue + '%';
 
@@ -87,6 +91,14 @@ cc.Class({
       this.initEggShed(eggsShedRank);
       this.initRanchGrade(RanchRank);
     });
+  },
+  setHeadImg(dom, friendImg) {
+    if (friendImg !== '') {
+      cc.loader.load({ url: friendImg, type: 'png' }, function(err, texture) {
+        var frame = new cc.SpriteFrame(texture);
+        dom.getComponent(cc.Sprite).spriteFrame = frame;
+      });
+    }
   },
   //只运行一次
   initChick() {

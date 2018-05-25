@@ -14,9 +14,7 @@ cc.Class({
   onCollisionEnter: function(other) {
     let self = this;
     other.node.color = cc.Color.GREEN;
-    setTimeout(function() {
-      other.node.color = cc.Color.WHITE;
-    }, 500);
+
     this.touchingNumber++;
 
     this.dataList = JSON.parse(cc.sys.localStorage.getItem('FarmData')); //缓存机制
@@ -198,9 +196,9 @@ cc.Class({
   onCollisionExit: function(other) {
     //碰撞后的状态显示
     this.touchingNumber--;
-    // if (this.touchingNumber === 0) {
-    //   other.node.color = cc.Color.WHITE;
-    // }
+    if (this.touchingNumber === 0) {
+      other.node.color = cc.Color.WHITE;
+    }
     //找到当前预置资源
     let id = Number(other.node.name.slice(4));
     let ParentNodes = other.node.parent.parent;

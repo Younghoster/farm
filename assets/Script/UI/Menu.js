@@ -22,7 +22,7 @@ cc.Class({
   },
   onLoad() {
     let self = this;
-    this.node.on('step1', function (event) {
+    this.node.on('step1', function(event) {
       self.showMenu();
     });
   },
@@ -42,13 +42,13 @@ cc.Class({
     this.socketNotice(); //socket监听消息变化
   },
   //显示菜单栏 动画
-  showMenu: function () {
+  showMenu: function() {
     var self = this;
 
     return new Promise((resolve, reject) => {
       if (!this.MenuListNode.active) {
         //弹出
-        cc.loader.loadRes('index/btn-retract', cc.SpriteFrame, function (err, spriteFrame) {
+        cc.loader.loadRes('index/btn-retract', cc.SpriteFrame, function(err, spriteFrame) {
           self.btnMoreSprite.spriteFrame = spriteFrame;
         });
         var fadeIn = cc.fadeIn(0.3);
@@ -64,7 +64,7 @@ cc.Class({
         this.MenuListNode.runAction(action);
       } else {
         //收回
-        cc.loader.loadRes('index/btn-more', cc.SpriteFrame, function (err, spriteFrame) {
+        cc.loader.loadRes('index/btn-more', cc.SpriteFrame, function(err, spriteFrame) {
           self.btnMoreSprite.spriteFrame = spriteFrame;
         });
 
@@ -85,7 +85,7 @@ cc.Class({
     var self = this;
     return new Promise((resolve, reject) => {
       //收回
-      cc.loader.loadRes('index/btn-more', cc.SpriteFrame, function (err, spriteFrame) {
+      cc.loader.loadRes('index/btn-more', cc.SpriteFrame, function(err, spriteFrame) {
         self.btnMoreSprite.spriteFrame = spriteFrame;
       });
 
@@ -129,7 +129,7 @@ cc.Class({
     //   self.getStorageCount();
     // });
 
-    Config.newSocket.onmessage = function (evt) {
+    Config.newSocket.onmessage = function(evt) {
       var obj = eval('(' + evt.data + ')');
       if (obj.name == Func.openID) {
         self.getStorageCount();

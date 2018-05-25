@@ -22,7 +22,7 @@ cc.Class({
   onLoad() {
     this.nameLabel = cc.find('name', this.node).getComponent(cc.Label);
     this.nameLabel.string = `${Config.realName}的农场`;
-
+    this.oldData = null;
     let self = this;
     this.func = {
       getWeed: this.getWeed,
@@ -47,7 +47,7 @@ cc.Class({
     //更新于植物状态变动
     this.node.on('updataPlant', function(event) {
       let List = event.detail.data;
-      self.clearAllDom(); //清除植物数据
+      self.clearAllDom(List); //清除植物数据
       self.setLocData(List);
       self.fatchPlant(List); //重新加载植物
     });
@@ -55,7 +55,7 @@ cc.Class({
     //更新于土地拓建
     this.node.on('unLockLand', function(event) {
       let ListData = event.detail.data;
-      self.clearAllDom(); //清除植物数据
+      self.clearAllDom(ListData); //清除植物数据
       self.setLandOption(ListData); //重新加载土地
       self.setLocData(ListData);
       self.setLocalStorageData(ListData); //重新加载土地（包括植物）
@@ -82,10 +82,11 @@ cc.Class({
   //初始加载所有数据
   fatchData() {
     var self = this;
-    self.clearAllDom(); //清除植物数据
+
     Data.func.getFarmModalData().then(data => {
       if (data.Code === 1) {
         //土地渲染
+        self.clearAllDom(data.Model); //清除植物数据
         self.setLandOption(data.Model); //重新加载土地
       }
       self.setLocData(data.Model, 'all');
@@ -95,11 +96,12 @@ cc.Class({
   //仅仅 更新 植物状态
   onlyUpdataPlant() {
     var self = this;
-    self.clearAllDom(); //清除植物数据
+
     //获取所有数据
     Data.func.getFarmModalData().then(data => {
       if (data.Code === 1) {
         //土地渲染
+        self.clearAllDom(data.Model); //清除植物数据
         self.fatchPlant(data.Model); //重新加载植物
       }
     });
@@ -206,69 +208,88 @@ cc.Class({
 
   //加载农作物
   fatchPlant(ValueList) {
-    var self = this;
+    let self = this;
     for (let i = 0; i < ValueList.length; i++) {
-      let bg = cc.find('bg', this.node);
-      let Prefab = cc.instantiate(self.Item_Prefab);
-      if (Prefab) {
-        //浮动小提示dom
-        let PrefabPlant_xs = cc.find('plant-xs', Prefab);
-        let PrefabPlant_md = cc.find('plant-md', Prefab);
-        let PrefabPlant_lg = cc.find('plant-lg', Prefab);
-        let PrefabPlant_ok = cc.find('plant-ok', Prefab);
-        let PrefabExtend = cc.find('extend', Prefab);
-        let PrefabPlant_tip = cc.find('New Node/reap', Prefab);
-        //天气图标变化
-        self.setWhetherIcon(PrefabExtend, 3);
-        self.setWhetherIcon(PrefabPlant_xs, 9);
-        self.setWhetherIcon(PrefabPlant_md, 10);
-        self.setWhetherIcon(PrefabPlant_lg, 11);
-        self.setWhetherIcon(PrefabPlant_ok, 12);
-        //初始化清空显示
-        PrefabPlant_xs.active = false;
-        PrefabPlant_md.active = false;
-        PrefabPlant_lg.active = false;
-        PrefabPlant_ok.active = false;
-        PrefabExtend.active = false;
-        PrefabPlant_tip.active = false;
-        //提示图标的类型切换
-        self.setTipType(ValueList[i], PrefabPlant_tip);
-        let itemBox = cc.find('bg/mapNew/item' + i, this.node);
-        let itemPos = itemBox.getPosition();
-        let pos = itemBox.getNodeToWorldTransformAR(itemPos);
-        if (ValueList[i].IsLock) {
-          //拓展
-          PrefabExtend.active = true;
-          Tool.RunAction(PrefabExtend, 'fadeIn', 0.3);
+      if (self.oldData !== null) {
+        if (
+          self.oldData[i].CropsIsFertilization !== ValueList[i].CropsIsFertilization ||
+          self.oldData[i].CropsStatus !== ValueList[i].CropsStatus ||
+          self.oldData[i].IsDisinsection !== ValueList[i].IsDisinsection ||
+          self.oldData[i].IsDry !== ValueList[i].IsDry ||
+          self.oldData[i].IsWeeds !== ValueList[i].IsWeeds ||
+          self.oldData[i].IsLock !== ValueList[i].IsLock
+        ) {
+          console.log(i);
+          self.upData(ValueList, i);
         }
-        if (ValueList[i].CropsStatus == 1) {
-          //小树苗
-          PrefabPlant_xs.active = true;
-          Tool.RunAction(PrefabPlant_xs, 'fadeIn', 0.3);
-        } else if (ValueList[i].CropsStatus == 2) {
-          //中端
-          PrefabPlant_md.active = true;
-          Tool.RunAction(PrefabPlant_md, 'fadeIn', 0.3);
-        } else if (ValueList[i].CropsStatus == 3) {
-          //成熟
-          PrefabPlant_lg.active = true;
-          Tool.RunAction(PrefabPlant_lg, 'fadeIn', 0.3);
-        } else if (ValueList[i].CropsStatus == 4) {
-          //成熟
-          PrefabPlant_ok.active = true;
-          PrefabPlant_tip.active = true; //显示可收割
-          Tool.RunAction(PrefabPlant_ok, 'fadeIn', 0.3);
-          Tool.RunAction(PrefabPlant_tip, 'fadeIn', 0.3);
-        }
-        //重置名字赋值
-        Prefab.name = 'Prefab' + i;
-        //定位于碰撞事件触发的点
-        Prefab.setPosition(pos.tx, pos.ty);
-        bg.addChild(Prefab);
+      }
+      if (self.oldData == null) {
+        self.upData(ValueList, i);
       }
     }
+    self.oldData = ValueList;
   },
-
+  upData(ValueList, i) {
+    let self = this;
+    let bg = cc.find('bg', this.node);
+    let Prefab = cc.instantiate(self.Item_Prefab);
+    if (Prefab) {
+      //浮动小提示dom
+      let PrefabPlant_xs = cc.find('plant-xs', Prefab);
+      let PrefabPlant_md = cc.find('plant-md', Prefab);
+      let PrefabPlant_lg = cc.find('plant-lg', Prefab);
+      let PrefabPlant_ok = cc.find('plant-ok', Prefab);
+      let PrefabExtend = cc.find('extend', Prefab);
+      let PrefabPlant_tip = cc.find('New Node/reap', Prefab);
+      //天气图标变化
+      self.setWhetherIcon(PrefabExtend, 3);
+      self.setWhetherIcon(PrefabPlant_xs, 9);
+      self.setWhetherIcon(PrefabPlant_md, 10);
+      self.setWhetherIcon(PrefabPlant_lg, 11);
+      self.setWhetherIcon(PrefabPlant_ok, 12);
+      //初始化清空显示
+      PrefabPlant_xs.active = false;
+      PrefabPlant_md.active = false;
+      PrefabPlant_lg.active = false;
+      PrefabPlant_ok.active = false;
+      PrefabExtend.active = false;
+      PrefabPlant_tip.active = false;
+      //提示图标的类型切换
+      self.setTipType(ValueList[i], PrefabPlant_tip);
+      let itemBox = cc.find('bg/mapNew/item' + i, this.node);
+      let itemPos = itemBox.getPosition();
+      let pos = itemBox.getNodeToWorldTransformAR(itemPos);
+      if (ValueList[i].IsLock) {
+        //拓展
+        PrefabExtend.active = true;
+        Tool.RunAction(PrefabExtend, 'fadeIn', 0.3);
+      }
+      if (ValueList[i].CropsStatus == 1) {
+        //小树苗
+        PrefabPlant_xs.active = true;
+        Tool.RunAction(PrefabPlant_xs, 'fadeIn', 0.3);
+      } else if (ValueList[i].CropsStatus == 2) {
+        //中端
+        PrefabPlant_md.active = true;
+        Tool.RunAction(PrefabPlant_md, 'fadeIn', 0.3);
+      } else if (ValueList[i].CropsStatus == 3) {
+        //成熟
+        PrefabPlant_lg.active = true;
+        Tool.RunAction(PrefabPlant_lg, 'fadeIn', 0.3);
+      } else if (ValueList[i].CropsStatus == 4) {
+        //成熟
+        PrefabPlant_ok.active = true;
+        PrefabPlant_tip.active = true; //显示可收割
+        Tool.RunAction(PrefabPlant_ok, 'fadeIn', 0.3);
+        Tool.RunAction(PrefabPlant_tip, 'fadeIn', 0.3);
+      }
+      //重置名字赋值
+      Prefab.name = 'Prefab' + i;
+      //定位于碰撞事件触发的点
+      Prefab.setPosition(pos.tx, pos.ty);
+      bg.addChild(Prefab);
+    }
+  },
   //提示图标的类型切换
   setTipType(ValueList, obj) {
     //浇水tip
@@ -433,7 +454,7 @@ cc.Class({
       cc.loader.loadRes(self.imgSrcSelect(i), cc.SpriteFrame, function(err, spriteFrame) {
         Img.spriteFrame = spriteFrame;
       });
-      self.Prefab.setPosition(posX, posY);
+      self.Prefab;
       farmBox.addChild(self.Prefab, 9);
     }
   },
@@ -499,12 +520,30 @@ cc.Class({
   },
 
   //清空植物
-  clearAllDom() {
+  clearAllDom(ValueList) {
+    let self = this;
     let bg = cc.find('bg', this.node);
     for (let i = 0; i < 12; i++) {
-      let clearItem = cc.find('Prefab' + i, bg);
-      if (clearItem) {
-        clearItem.removeFromParent();
+      if (self.oldData !== null && ValueList[i].CropsID > 0) {
+        if (
+          self.oldData[i].CropsIsFertilization !== ValueList[i].CropsIsFertilization ||
+          self.oldData[i].CropsStatus !== ValueList[i].CropsStatus ||
+          self.oldData[i].IsDisinsection !== ValueList[i].IsDisinsection ||
+          self.oldData[i].IsDry !== ValueList[i].IsDry ||
+          self.oldData[i].IsWeeds !== ValueList[i].IsWeeds
+        ) {
+          console.log(i);
+          let clearItem = cc.find('Prefab' + i, bg);
+          if (clearItem) {
+            clearItem.removeFromParent();
+          }
+        }
+      }
+      if (self.oldData == null) {
+        let clearItem = cc.find('Prefab' + i, bg);
+        if (clearItem) {
+          clearItem.removeFromParent();
+        }
       }
     }
   },

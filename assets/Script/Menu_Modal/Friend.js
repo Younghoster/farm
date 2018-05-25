@@ -56,7 +56,14 @@ cc.Class({
   },
 
   // update (dt) {},
-
+  setHeadImg(dom, friendImg) {
+    if (friendImg !== '') {
+      cc.loader.load({ url: friendImg, type: 'png' }, function(err, texture) {
+        var frame = new cc.SpriteFrame(texture);
+        dom.getComponent(cc.Sprite).spriteFrame = frame;
+      });
+    }
+  },
   //绑定数据（好友列表）
   updateData() {
     this.emptyNode = cc.find('bg-repertory/friendList/empty', this.node);
@@ -68,7 +75,6 @@ cc.Class({
 
         if (friendList.length === 0 && this.friend_page === 1) {
           this.emptyNode.active = true;
-
         } else {
           this.emptyNode.active = false;
           for (let i = 0; i < friendList.length; i++) {
@@ -77,7 +83,6 @@ cc.Class({
 
           this.friend_page++;
         }
-
       } else {
         if (this.friend_page === 1) {
           this.emptyNode.active = true;
@@ -97,7 +102,6 @@ cc.Class({
     this.updateSearchData();
   },
   updateSearchData() {
-
     this.emptyNode.active = false;
     Func.GetUserList(this.searchStr, this.search_page).then(data => {
       if (data.Code === 1) {
@@ -115,16 +119,12 @@ cc.Class({
           }
           this.search_page++;
         }
-
-
       } else {
         if (this.search_page === 1) {
           this.emptyNode.active = true;
         } else {
           Msg.show('没有更多数据了');
         }
-
-
       }
     });
   },
@@ -193,11 +193,18 @@ cc.Class({
             rankNode.getComponent(cc.Sprite).spriteFrame = this.iconBtn03;
             break;
         }
+        //好友头像
+        var itemImg = cc.find('item-content/advisor-box/adviosr-mask/advisor', item);
+        this.setHeadImg(itemImg, element.Headimgurl);
       } else {
         //大于3 的排名
+
         var item = cc.instantiate(this.itemFriend);
         var rankLabel = cc.find('item-content/rank/text', item).getComponent(cc.Label);
         rankLabel.string = rank;
+        //好友头像
+        var itemImg = cc.find('item-content/advisor-box/adviosr-mask/advisor', item);
+        this.setHeadImg(itemImg, element.Headimgurl);
       }
 
       //icon赋值
@@ -231,6 +238,9 @@ cc.Class({
     } else {
       //搜索好友 排名不显示
       var item = cc.instantiate(this.itemBoth);
+      //好友头像
+      var itemImg = cc.find('item-content/advisor-box/adviosr-mask/advisor', item);
+      this.setHeadImg(itemImg, element.Headimgurl);
     }
 
     var advisorSprite = cc.find('item-content/advisor-box/adviosr-mask/advisor', item).getComponent(cc.Sprite);
@@ -280,6 +290,10 @@ cc.Class({
     var nameLabel = cc.find('item-content/advisor-box/name', item).getComponent(cc.Label);
     var gradeLabel = cc.find('item-content/level-box/textbox/label', item).getComponent(cc.Label);
     let addButton = cc.find('item-content/add', item);
+
+    //好友头像
+    var itemImg = cc.find('item-content/advisor-box/adviosr-mask/advisor', item);
+    this.setHeadImg(itemImg, element.Headimgurl);
 
     nameLabel.string = name;
     gradeLabel.string = 'Lv.' + grade;

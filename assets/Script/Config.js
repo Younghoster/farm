@@ -18,6 +18,7 @@ window.Config = {
   friendOpenId: null,
   friendName: null,
   realName: null,
+  headImg: null, //头像
   addressId: 0, //地址ID，
   propertyId: 0, //播种时种子的ID
   fertilizerId: 0, //肥料的ID

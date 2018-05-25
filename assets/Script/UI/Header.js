@@ -30,6 +30,7 @@ cc.Class({
       });
     });
   },
+
   setHeardData(data) {
     let RanchMoney = data.Model.RanchMoney;
     let RanchRank = data.Model.RanchRank;

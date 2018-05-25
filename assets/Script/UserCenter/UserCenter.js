@@ -46,12 +46,21 @@ cc.Class({
     this.Contact();
     this.getAddress();
   },
+  setHeadImg(dom) {
+    if (Config.headImg !== '') {
+      cc.loader.load({ url: Config.headImg, type: 'png' }, function(err, texture) {
+        var frame = new cc.SpriteFrame(texture);
+        dom.getComponent(cc.Sprite).spriteFrame = frame;
+      });
+    }
+  },
   //获取用户参数
   setData(data) {
     // console.log(data);
     if (data.Code == 1) {
       let userName = cc.find('scrollview/view/layout/info/nameEdit/label', this.node);
       let Grade = cc.find('scrollview/view/layout/info/level/label', this.node);
+      let HeadImg = cc.find('scrollview/view/layout/info/advisor/advisor', this.node);
       let GradeEXP = cc.find('scrollview/view/layout/info/level/label2', this.node);
       let ExperienceValue = cc.find('scrollview/view/layout/info/level/progressBar', this.node);
       let RanchMoney = cc.find('scrollview/view/layout/myAssets1/box/flex-right/value', this.node);
@@ -64,6 +73,7 @@ cc.Class({
         data.Model.ExperienceValue / data.Model.GradeExperienceValue;
       RanchMoney.getComponent(cc.Label).string = '￥' + data.Model.RanchMoney;
       PointValue.getComponent(cc.Label).string = data.Model.Point;
+      this.setHeadImg(HeadImg);
     } else {
       // console.log(data.Message);
     }

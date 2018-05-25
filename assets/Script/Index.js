@@ -51,7 +51,7 @@ cc.Class({
   // 牧场等级
   RanchRank: null,
 
-  init: function () {
+  init: function() {
     // this._chick = this.Chick.getComponent("Chick");
     // this.clearLabel = cc.find('wave/mask/layout/value', this.node).getComponent(cc.Label);
     // this.wave1Node = cc.find('wave/mask/wave1', this.node);
@@ -91,18 +91,31 @@ cc.Class({
     let canvas = cc.find('Canvas');
     Tool.RunAction(canvas, 'fadeIn', 0.3);
   },
+  setHeadImg(dom) {
+    if (Config.headImg !== '') {
+      cc.loader.load({ url: Config.headImg, type: 'png' }, function(err, texture) {
+        var frame = new cc.SpriteFrame(texture);
+        dom.getComponent(cc.Sprite).spriteFrame = frame;
+      });
+    }
+  },
   initData(data) {
     //新手指引
     Config.firstLogin = !data.UserModel.IsFinishGuid;
     Config.guideStep = data.UserModel.GuidStep;
+    Config.headImg = data.UserModel.Headimgurl;
+    //用户头像
+    let headImg = cc.find('div_header/advisor/advisor', this.node.parent);
+    this.setHeadImg(headImg);
     // 清洁度设置
     this._clearValue = data.RanchModel.RanchCleanliness;
     this.clearProgressBar = cc.find('clearBar/clear_bar', this.node).getComponent(cc.ProgressBar);
     this.clearLabel = cc.find('clearBar/value', this.node).getComponent(cc.Label);
-
+    this.maskNode = cc.find('clearBar/clear_bar/mask', this.node);
+    this.maskNode.active = true;
     this.clearProgressBar.progress = this._clearValue / 100;
-
     this.clearLabel.string = this._clearValue + '%';
+
     //名称
     this.nameLabel.string = `${data.UserModel.RealName}的牧场`;
     Config.realName = data.UserModel.RealName;
@@ -223,7 +236,7 @@ cc.Class({
   },
 
   //点击清理事件
-  showClearAlert: function () {
+  showClearAlert: function() {
     var self = this;
     //调用接口
     Func.PostClean()
@@ -252,7 +265,7 @@ cc.Class({
       });
   },
   //点击喂食事件 集体喂食 接口需要重新设置
-  showFeedAlert: function () {
+  showFeedAlert: function() {
     Func.PostOwnFeeds().then(data => {
       if (data.Code === 1) {
         //更新饲料数量
@@ -280,7 +293,8 @@ cc.Class({
             feedNode.active = list[i].IsHunger;
           }
         }
-      } else {}
+      } else {
+      }
     });
   },
   //将饲料放入饲料槽中
@@ -711,7 +725,7 @@ cc.Class({
     cc.director.loadScene('weatherInfo');
     this.removePersist();
   },
-  showUserCenter: function () {
+  showUserCenter: function() {
     cc.director.loadScene('UserCenter/userCenter');
     this.removePersist();
   },
@@ -724,12 +738,12 @@ cc.Class({
     cc.director.loadScene('Farm/farm');
   },
 
-  onLoad: function () {
+  onLoad: function() {
     var openID = window.location.href.split('=')[1];
     window.Config.openID = openID || 'f79ed645ad624cf5bbfecc2e67f23020';
     Func.openID = window.Config.openID;
     Config.newSocket = new WebSocket('ws://service.linedin.cn:5530/');
-
+    cc.director.setDisplayStats(false);
     // let ws = new WebSocket("wss://127.0.0.1:5520");
     // ws.onopen = function(event) {
     //   console.log("Send Text WS was opened.");
@@ -757,7 +771,7 @@ cc.Class({
     this.addPersist();
   },
 
-  start: function () {
+  start: function() {
     this.init();
     // this.chickFunc = this._chick.chickFunc;
     Func.GetWholeData().then(data => {

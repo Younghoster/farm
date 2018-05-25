@@ -73,7 +73,8 @@ Alert.show = function(
       Alert._enterButton.on('click', self.onButtonClicked, self);
       Alert._cancelButton.on('click', self.onButtonClicked, self);
       Alert._bgButton.on('click', self.onButtonClicked, self);
-
+      Alert._alert.width = cc.winSize.width;
+      console.log(Alert._alert.width);
       // 父视图
       cc.find('Canvas').parent.addChild(Alert._alert, 3);
 
