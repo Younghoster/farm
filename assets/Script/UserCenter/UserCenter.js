@@ -71,7 +71,7 @@ cc.Class({
       userName.getComponent(cc.Label).string = data.Model.RealName;
       ExperienceValue.getComponent(cc.ProgressBar).progress =
         data.Model.ExperienceValue / data.Model.GradeExperienceValue;
-      RanchMoney.getComponent(cc.Label).string = '￥' + data.Model.RanchMoney;
+      RanchMoney.getComponent(cc.Label).string = data.Model.RanchMoney;
       PointValue.getComponent(cc.Label).string = data.Model.Point;
       this.setHeadImg(HeadImg);
     } else {
@@ -163,6 +163,10 @@ cc.Class({
     }
   },
   start() {},
+  goRecharge() {
+    Config.backUrl = 'userCenter';
+    cc.director.loadScene('recharge');
+  },
   //模态框修改昵称
   EditName() {
     const fillterButton = cc.find('scrollview/view/layout/info/nameEdit', this.node);

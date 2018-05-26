@@ -35,7 +35,7 @@ cc.Class({
     let RanchMoney = data.Model.RanchMoney;
     let RanchRank = data.Model.RanchRank;
     let moneyLabel = cc.find('gold/money', this.node).getComponent(cc.Label);
-    moneyLabel.string = '￥' + RanchMoney;
+    moneyLabel.string = RanchMoney;
     //经验值
     this.level = cc.find('Lv/level', this.node).getComponent(cc.Label);
     this.level.string = 'LV.' + data.Model.Grade;
