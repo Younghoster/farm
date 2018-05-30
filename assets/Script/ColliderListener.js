@@ -208,7 +208,13 @@ cc.Class({
 
     if (PlantNodes) {
       //是否成熟并且选择是镰刀收割工具
-      if (this.dataList.List[id].CropsStatus == 4 && this.dataList.toolType == 6) {
+      if (
+        this.dataList.List[id].CropsStatus == 4 &&
+        this.dataList.toolType == 6 &&
+        !this.dataList.List[id].IsDisinsection &&
+        !this.dataList.List[id].IsDry &&
+        !this.dataList.List[id].IsWeeds
+      ) {
         var action = cc.sequence(cc.moveBy(0.3, 0, 20), cc.fadeOut(0.5), cc.callFunc(PlantNodes.removeFromParent));
         PlantNodes.runAction(action);
       }

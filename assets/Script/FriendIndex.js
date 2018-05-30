@@ -36,7 +36,7 @@ cc.Class({
     this.flabellumNode = cc.find('flabellum', this.windmillNode);
   },
   initData(data) {
-    this.nameLabel.string = `${data.UserModel.RealName}的牧场`;
+    document.title = `${data.UserModel.RealName}的牧场`;
     let friendImg = cc.find('div_header/advisor/advisor', this.node);
     this.setHeadImg(friendImg, data.UserModel.Headimgurl);
     // 清洁度设置

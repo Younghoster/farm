@@ -27,9 +27,7 @@ cc.Class({
   operate: null,
   _clearValue: null,
   clearLabel: null,
-  clearBar: null,
   //菜单 半透明背景 Modal_more
-  MenuModal: null,
   chickFunc: null,
   //清理和喂食动画的节点
   handNode: null,
@@ -52,12 +50,6 @@ cc.Class({
   RanchRank: null,
 
   init: function() {
-    // this._chick = this.Chick.getComponent("Chick");
-    // this.clearLabel = cc.find('wave/mask/layout/value', this.node).getComponent(cc.Label);
-    // this.wave1Node = cc.find('wave/mask/wave1', this.node);
-    // this.wave2Node = cc.find('wave/mask/wave2', this.node);
-    this.nameLabel = cc.find('bg/name', this.node).getComponent(cc.Label);
-    this.MenuModal = cc.find('/div_menu/Modal_more', this.node);
     this.handNode = cc.find('Hand', this.node);
     this.handAnim = this.handNode.getComponent(cc.Animation);
     this.arrowNode = this.node.getChildByName('icon-arrow');
@@ -91,6 +83,7 @@ cc.Class({
     let canvas = cc.find('Canvas');
     Tool.RunAction(canvas, 'fadeIn', 0.3);
   },
+  //用户头像
   setHeadImg(dom) {
     if (Config.headImg !== '') {
       cc.loader.load({ url: Config.headImg, type: 'png' }, function(err, texture) {
@@ -101,23 +94,18 @@ cc.Class({
   },
   initData(data) {
     //新手指引
+
     Config.firstLogin = !data.UserModel.IsFinishGuid;
     Config.guideStep = data.UserModel.GuidStep;
     Config.headImg = data.UserModel.Headimgurl;
+    Config.UserModel = data.UserModel;
+    Config.UserData = data;
     //用户头像
     let headImg = cc.find('div_header/advisor/advisor', this.node.parent);
     this.setHeadImg(headImg);
-    // 清洁度设置
-    this._clearValue = data.RanchModel.RanchCleanliness;
-    this.clearProgressBar = cc.find('clearBar/clear_bar', this.node).getComponent(cc.ProgressBar);
-    this.clearLabel = cc.find('clearBar/value', this.node).getComponent(cc.Label);
-    this.maskNode = cc.find('clearBar/clear_bar/mask', this.node);
-    this.maskNode.active = true;
-    this.clearProgressBar.progress = this._clearValue / 100;
-    this.clearLabel.string = this._clearValue + '%';
 
     //名称
-    this.nameLabel.string = `${data.UserModel.RealName}的牧场`;
+    document.title = `${data.UserModel.RealName}的牧场`;
     Config.realName = data.UserModel.RealName;
     //产蛋棚等级
     let eggsShedRank = data.EggsShed.ShedRank;
@@ -248,10 +236,6 @@ cc.Class({
 
           this.handAnim.on('finished', () => {
             this.handNode.active = false;
-            //清洁成功 牧场清洁度=100%
-
-            this.clearProgressBar.progress = 1;
-            this.clearLabel.string = '100%';
             this.shitBoxNode.removeAllChildren();
           });
           // this.handAnim.on("finished", this.chickFunc.initData, this._chick);
@@ -744,6 +728,7 @@ cc.Class({
     Func.openID = window.Config.openID;
     Config.newSocket = new WebSocket('ws://service.linedin.cn:5530/');
     cc.director.setDisplayStats(false);
+
     // let ws = new WebSocket("wss://127.0.0.1:5520");
     // ws.onopen = function(event) {
     //   console.log("Send Text WS was opened.");
@@ -812,6 +797,23 @@ cc.Class({
       Config.menuNode.active = true;
       Config.hearderNode.active = true;
     }
+  },
+  farmSpeak() {
+    let showNode = cc.find('farmer/farmer-text', this.node);
+
+    clearTimeout(timer);
+    showNode.active = true;
+    showNode.opacity = 0;
+    showNode.runAction(cc.fadeIn(0.5));
+    var action = cc.sequence(
+      cc.fadeOut(0.5),
+      cc.callFunc(() => {
+        showNode.active = false;
+      }, this)
+    );
+    let timer = setTimeout(() => {
+      showNode.runAction(action);
+    }, 5000);
   }
   //update(dt) {}
 });

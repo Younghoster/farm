@@ -1,4 +1,5 @@
 var Data = require('Data');
+var utils = require('utils');
 var Func = Data.func;
 var DateFormat = require('utils').fn;
 cc.Class({
@@ -25,6 +26,7 @@ cc.Class({
     this.idLabel = cc.find('bg-f3/bg/info/id', this.node).getComponent(cc.Label);
     this.sexLabel = cc.find('bg-f3/bg/info/sex', this.node).getComponent(cc.Label);
     this.hungryLabel = cc.find('bg-f3/bg/info/hungry', this.node).getComponent(cc.Label);
+    this.timerLabel = cc.find('bg-f3/bg/info/timer', this.node).getComponent(cc.Label);
     // this.healthLabel = cc.find('bg-f3/bg/info/health', this.node).getComponent(cc.Label);
     this.collectButton = cc.find('bg-f3/bg/collect', this.node);
     this.growNode = cc.find('bg-f3/bg/grow/progressBar', this.node);
@@ -179,6 +181,7 @@ cc.Class({
     this.idLabel.string = `编号：${this.Id}`;
     this.sexLabel.string = `性别：${data.Sex ? '小姐姐' : '小哥哥'}`;
     this.hungryLabel.string = `饱食度：${data.StarvationValue}`;
+    this.timerLabel.string = `产蛋时间：${utils.fn.formatNumToDateTimeCh(data.NextLayEgg)}`;
     // this.healthLabel.string = `健康值：${data.HealthValue}`;
 
     this.growProgressBar.progress = Math.round(data.Happy) / 100;

@@ -6,16 +6,24 @@ var Tool = require('Tool').Tool;
 cc.Class({
   extends: cc.Component,
 
-  properties: {},
+  properties: {
+    Item_Prefab: {
+      default: null,
+      type: cc.Prefab
+    }
+  },
   upgradeByPointInfo: null,
   upgradeByMoneyInfo: null,
   grade: null,
   bindNode() {
-    this.messageLabel = cc.find('bg/message', this.node).getComponent(cc.Label);
-    this.label = cc.find('bg/label', this.node).getComponent(cc.Label);
-    this.btn1 = cc.find('bg/btn1', this.node);
-    this.btn2 = cc.find('bg/btn2', this.node);
+    this.messageLabel = cc.find('bg/upbg4/message', this.node).getComponent(cc.Label);
+    this.label = cc.find('bg/upbg4/label', this.node).getComponent(cc.Label);
+    this.btn1 = cc.find('bg/upbg4/New Node/btn1', this.node);
+    this.btn2 = cc.find('bg/upbg4/New Node/btn2', this.node);
     this.closeButton = cc.find('bg/btn-close', this.node);
+    this.clearUp = cc.find('bg/newLayout/upbg2/text', this.node);
+    this.level = cc.find('bg/newLayout/upbg1/text', this.node);
+
     this.indexJs = cc.find('Canvas').getComponent('Index');
   },
 
@@ -41,6 +49,44 @@ cc.Class({
         Msg.show(data.Message);
       }
     });
+    //鸡
+    this.clearUp.getComponent(cc.Label).string = `牧场清洁度：${Config.UserData.RanchModel.RanchCleanliness}%`;
+    this.level.getComponent(cc.Label).string = `牧场等级：Lv.${Config.UserData.RanchModel.RanchRank}`;
+    this.chickText = cc.find('bg/upbg3_/New Label', this.node).getComponent(cc.Label);
+
+    Func.RanchChickenCounts().then(data => {
+      if (data.Code === 1 || data.Code === 5 || data.Code === 10) {
+        let domBox = cc.find('bg/upbg3_/New Node', this.node);
+        domBox.removeAllChildren();
+        this.chickText.string = `已养贵妃鸡${data.Model}/${data.Code}（升级牧场可增加养殖上限）`;
+
+        for (let i = 0; i < data.Code; i++) {
+          let itemPrefab = cc.instantiate(this.Item_Prefab);
+          if (i < data.Model) {
+            cc.loader.loadRes('Modal/upgrade/chickss', cc.SpriteFrame, (err, spriteFrame) => {
+              itemPrefab.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+            });
+          } else {
+            cc.loader.loadRes('Modal/upgrade/chick_', cc.SpriteFrame, (err, spriteFrame) => {
+              itemPrefab.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+            });
+          }
+          domBox.addChild(itemPrefab);
+        }
+      } else {
+        Msg.show(data.Message);
+      }
+    });
+    //鸡蛋
+
+    if (Config.UserData.RanchModel.EggCount > 5) {
+      for (let i = 0; i < Config.UserData.RanchModel.EggCount > 5 ? 6 : Config.UserData.RanchModel.EggCount; i++) {
+        let dom = cc.find('bg/upbg3/New Node/eggs_' + i, this.node).getComponent(cc.Sprite);
+        cc.loader.loadRes('Modal/upgrade/eggs', cc.SpriteFrame, (err, spriteFrame) => {
+          dom.spriteFrame = spriteFrame;
+        });
+      }
+    }
   },
   bindEvent() {
     this.closeButton.on('click', () => {

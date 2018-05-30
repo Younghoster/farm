@@ -25,6 +25,42 @@ cc.Class({
     this.node.on('step1', function(event) {
       self.showMenu();
     });
+    Func.getWxUserShare().then(data => {
+      wx.config({
+        appId: data.appId, // 必填，公众号的唯一标识
+        timestamp: data.timestamp, // 必填，生成签名的时间戳
+        nonceStr: data.nonceStr, // 必填，生成签名的随机串
+        signature: data.signature, // 必填，签名，见附录1
+        jsApiList: [
+          'onMenuShareTimeline',
+          'onMenuShareAppMessage',
+          'onMenuShareQQ',
+          'onMenuShareWeibo',
+          'onMenuShareQZone',
+          'chooseImage',
+          'uploadImage'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+      wx.ready(function() {
+        var shareContent = {
+          title: '原态农业农场小游戏2.0', // 分享标题
+          link: data.url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          imgUrl: 'http://wxapi.zjytny.cn/web-mobile/loading.jpg', // 分享图标
+          desc: '原态农业农场小游戏好友分享测试功能！请勿转发！', // 分享描述
+          success: function() {},
+          cancel: function() {}
+        };
+
+        function _shareCfuc() {
+          wx.onMenuShareTimeline(shareContent);
+          wx.onMenuShareAppMessage(shareContent);
+          wx.onMenuShareQQ(shareContent);
+          wx.onMenuShareWeibo(shareContent);
+          wx.onMenuShareQZone(shareContent);
+        }
+        _shareCfuc();
+      });
+    });
   },
   start() {
     if (!Config.menuNode) {

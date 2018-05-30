@@ -21,8 +21,8 @@ cc.Class({
   Prefab: null,
   onLoad() {
     //设置好友农场名称
-    let nameLabel = cc.find('name', this.node).getComponent(cc.Label);
-    nameLabel.string = `${Config.friendName}的农场`;
+
+    document.title = `${Config.friendName}的农场`;
     this.oldData = null;
 
     var self = this;
@@ -299,8 +299,15 @@ cc.Class({
   },
   //提示图标的类型切换
   setTipType(ValueList, obj) {
+    //除虫tip
+    if (ValueList.IsDisinsection && ValueList.CropsStatus != 0) {
+      cc.loader.loadRes('Farm/disinsection', cc.SpriteFrame, function(err, spriteFrame) {
+        obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+      });
+      obj.active = true;
+    }
     //浇水tip
-    if (ValueList.IsDry && ValueList.CropsStatus != 0) {
+    else if (ValueList.IsDry && ValueList.CropsStatus != 0) {
       cc.loader.loadRes('Farm/water', cc.SpriteFrame, function(err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
@@ -309,13 +316,6 @@ cc.Class({
     //除草tip
     else if (ValueList.IsWeeds && ValueList.CropsStatus != 0) {
       cc.loader.loadRes('Farm/weed', cc.SpriteFrame, function(err, spriteFrame) {
-        obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-      });
-      obj.active = true;
-    }
-    //除虫tip
-    else if (ValueList.IsDisinsection && ValueList.CropsStatus != 0) {
-      cc.loader.loadRes('Farm/disinsection', cc.SpriteFrame, function(err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;

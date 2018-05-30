@@ -1,5 +1,6 @@
 var Data = require('Data');
 var ToolJs = require('Tool');
+var utils = require('utils');
 var Tool = ToolJs.Tool;
 cc.Class({
   extends: cc.Component,
@@ -20,8 +21,7 @@ cc.Class({
   Value: null,
   Prefab: null,
   onLoad() {
-    this.nameLabel = cc.find('name', this.node).getComponent(cc.Label);
-    this.nameLabel.string = `${Config.realName}的农场`;
+    document.title = `${Config.realName}的农场`;
     this.oldData = null;
     let self = this;
     this.func = {
@@ -274,14 +274,23 @@ cc.Class({
       if (ValueList[i].CropsStatus == 1) {
         //小树苗
         PrefabPlant_xs.active = true;
+        Prefab.on('click', function() {
+          self.showFarmTimer(this, ValueList);
+        });
         Tool.RunAction(PrefabPlant_xs, 'fadeIn', 0.3);
       } else if (ValueList[i].CropsStatus == 2) {
         //中端
         PrefabPlant_md.active = true;
+        Prefab.on('click', function() {
+          self.showFarmTimer(this, ValueList);
+        });
         Tool.RunAction(PrefabPlant_md, 'fadeIn', 0.3);
       } else if (ValueList[i].CropsStatus == 3) {
         //成熟
         PrefabPlant_lg.active = true;
+        Prefab.on('click', function() {
+          self.showFarmTimer(this, ValueList);
+        });
         Tool.RunAction(PrefabPlant_lg, 'fadeIn', 0.3);
       } else if (ValueList[i].CropsStatus == 4) {
         //成熟
@@ -299,16 +308,16 @@ cc.Class({
   },
   //提示图标的类型切换
   setTipType(ValueList, obj) {
-    //浇水tip
-    if (ValueList.IsDry && ValueList.CropsStatus != 0) {
-      cc.loader.loadRes('Farm/water', cc.SpriteFrame, function(err, spriteFrame) {
+    //除虫tip
+    if (ValueList.IsDisinsection && ValueList.CropsStatus != 0) {
+      cc.loader.loadRes('Farm/disinsection', cc.SpriteFrame, function(err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
     }
-    //播种tip
-    if (!ValueList.IsLock && ValueList.CropsStatus == 0) {
-      cc.loader.loadRes('Farm/seed', cc.SpriteFrame, function(err, spriteFrame) {
+    //浇水tip
+    else if (ValueList.IsDry && ValueList.CropsStatus != 0) {
+      cc.loader.loadRes('Farm/water', cc.SpriteFrame, function(err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
@@ -320,9 +329,10 @@ cc.Class({
       });
       obj.active = true;
     }
-    //除虫tip
-    else if (ValueList.IsDisinsection && ValueList.CropsStatus != 0) {
-      cc.loader.loadRes('Farm/disinsection', cc.SpriteFrame, function(err, spriteFrame) {
+
+    //播种tip
+    if (!ValueList.IsLock && ValueList.CropsStatus == 0) {
+      cc.loader.loadRes('Farm/seed', cc.SpriteFrame, function(err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
@@ -566,6 +576,31 @@ cc.Class({
       Config.menuNode.active = true;
       Config.hearderNode.active = true;
     }
+  },
+  showFarmTimer(e, list) {
+    //显示节点（动画）
+    let showNode = cc.find('timer', e);
+    let showNodeTime = cc.find('timer/text', e).getComponent(cc.Label);
+    console.log();
+
+    Data.func.FarmCropsGrowTime(list[Number(e._name.slice(6))].CropsID).then(data => {
+      if (data.Code === 1) {
+        showNodeTime.string = `距离成长期还需${utils.fn.formatNumToDateTimeCh(data.Model)}`;
+        clearTimeout(timer);
+        showNode.active = true;
+        showNode.opacity = 0;
+        showNode.runAction(cc.fadeIn(0.5));
+        var action = cc.sequence(
+          cc.fadeOut(0.5),
+          cc.callFunc(() => {
+            showNode.active = false;
+          }, this)
+        );
+        let timer = setTimeout(() => {
+          if (!Config.firstLogin) showNode.runAction(action);
+        }, 2000);
+      }
+    });
   },
   update(dt) {
     // this.fatchData();

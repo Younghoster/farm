@@ -52,6 +52,15 @@ const fn = {
       return '';
     }
   },
+  //时间戳数字转时间字符串中文
+  formatNumToDateTimeCh(value) {
+    try {
+      var date = new Date(parseInt(value.replace('/Date(', '').replace(')/', ''), 10));
+      return date.Format('hh小时mm分');
+    } catch (ex) {
+      return '';
+    }
+  },
   //日期差计算
   DateDiff(sDate1, sDate2) {
     //sDate1和sDate2是"2002-12-18"格式

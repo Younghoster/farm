@@ -1,4 +1,5 @@
 var Data = require('Data');
+
 cc.Class({
   extends: cc.Component,
 
@@ -31,6 +32,8 @@ cc.Class({
       self.weed(id);
     } else if (self.dataList.toolType == 4) {
       self.disinsection(id);
+    } else if (self.dataList.toolType == 6) {
+      self.collectCrops(id);
     }
   },
   //浇水
@@ -108,7 +111,33 @@ cc.Class({
       });
     }
   },
-
+  //收取农作物
+  collectCrops(id) {
+    let self = this;
+    let CropsID = this.dataList.List[id].CropsID;
+    let IsLock = this.dataList.List[id].IsLock;
+    let CropsStatus = this.dataList.List[id].CropsStatus;
+    if (CropsStatus == 4 && !IsLock) {
+      Data.func.CollectCrops(CropsID).then(data => {
+        if (data.Code === 1) {
+          self.CollectNumber += Number(data.Model);
+          self.timers = setTimeout(function() {
+            Msg.show('收取 × ' + self.CollectNumber);
+            self.CollectNumber = 0;
+            Data.func.getFarmModalData().then(data2 => {
+              self.FarmJs.emit('updataPlant', {
+                data: data2.Model
+              });
+            });
+          }, 500);
+        } else {
+          Msg.show(data.Message);
+        }
+      });
+    } else {
+      Msg.show('我现在还不能收取哦~');
+    }
+  },
   onCollisionStay: function(other) {
     // console.log('on collision stay');
   },
@@ -128,7 +157,13 @@ cc.Class({
 
     if (PlantNodes) {
       //是否成熟并且选择是镰刀收割工具
-      if (this.dataList.List[id].CropsStatus == 4 && this.dataList.toolType == 6) {
+      if (
+        this.dataList.List[id].CropsStatus == 4 &&
+        this.dataList.toolType == 6 &&
+        !this.dataList.List[id].IsDisinsection &&
+        !this.dataList.List[id].IsDry &&
+        !this.dataList.List[id].IsWeeds
+      ) {
         var action = cc.sequence(cc.moveBy(0.3, 0, 20), cc.fadeOut(0.5), cc.callFunc(PlantNodes.removeFromParent));
         PlantNodes.runAction(action);
       }

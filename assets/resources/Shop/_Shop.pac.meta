@@ -3,7 +3,7 @@
   "uuid": "0acfe9f3-58c5-49d7-a7dc-7a8550954056",
   "maxWidth": 1024,
   "maxHeight": 512,
-  "padding": 2,
+  "padding": 4,
   "allowRotation": true,
   "forceSquared": false,
   "powerOfTwo": true,

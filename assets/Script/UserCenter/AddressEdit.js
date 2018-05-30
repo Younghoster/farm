@@ -1,5 +1,5 @@
-var Data = require("Data");
-var utils = require("utils");
+var Data = require('Data');
+var utils = require('utils');
 cc.Class({
   extends: cc.Component,
   id: null,
@@ -8,7 +8,7 @@ cc.Class({
   info: null,
   pro: null,
   btnBackEvent() {
-    cc.director.loadScene("AddressList");
+    cc.director.loadScene('AddressList');
   },
 
   updataAddress() {
@@ -17,7 +17,7 @@ cc.Class({
     Data.func
       .updateAddress(self.id, self.username.string, self.tel.string, self.pro.string, self.info.string)
       .then(data => {
-        cc.director.loadScene("AddressList");
+        cc.director.loadScene('AddressList');
       });
   },
   onLoad() {},
@@ -25,10 +25,10 @@ cc.Class({
   start() {
     var self = this;
     self.id = Config.addressId;
-    self.username = cc.find("scrollview/view/layout/list/address1/right/editbox", self.node).getComponent(cc.EditBox); //姓名
-    self.tel = cc.find("scrollview/view/layout/list/address2/right/editbox", self.node).getComponent(cc.EditBox); //电话
-    self.info = cc.find("scrollview/view/layout/list/address3/right/editbox", self.node).getComponent(cc.EditBox); //地址
-    self.pro = cc.find("scrollview/view/layout/list/address4/right/editbox", self.node).getComponent(cc.EditBox); //邮编
+    self.username = cc.find('layout/address1/right/editbox', self.node).getComponent(cc.EditBox); //姓名
+    self.tel = cc.find('layout/address2/right/editbox', self.node).getComponent(cc.EditBox); //电话
+    self.info = cc.find('layout/address3/right/editbox', self.node).getComponent(cc.EditBox); //地址
+    self.pro = cc.find('layout/address4/right/editbox', self.node).getComponent(cc.EditBox); //邮编
     Data.func.getAddressList().then(data => {
       for (let i = 0; i < data.List.length; i++) {
         if (data.List[i].ID == self.id) {
