@@ -39,7 +39,7 @@ cc.Class({
     this.actualNameLabel.string = this._actualName;
     this.actualCountLabel.string = this._actualCount;
     this.virtualNameLabel.string = this._virtualName;
-    this.virtualCountLabel.string = this._virtualCount;
+    this.virtualCountLabel.string = this._virtualCount * 6;
     //收货信息
     Func.getAddressList().then(data => {
       if (data.Code === 1) {
@@ -65,7 +65,7 @@ cc.Class({
       Func.GetExchangeCount(this._goodsType, this._actualCount).then(data => {
         this._virtualCount = data.Model;
         this.actualCountLabel.string = this._actualCount;
-        this.virtualCountLabel.string = this._virtualCount;
+        this.virtualCountLabel.string = this._virtualCount * 6;
       });
     });
     //加号按钮事件
@@ -75,7 +75,7 @@ cc.Class({
         if (data.Code === 1) {
           this._virtualCount = data.Model;
           this.actualCountLabel.string = this._actualCount;
-          this.virtualCountLabel.string = this._virtualCount;
+          this.virtualCountLabel.string = this._virtualCount * 6;
         } else {
           this._actualCount--;
           Msg.show(data.Message);
@@ -115,7 +115,7 @@ cc.Class({
     cc.director.loadScene('UserCenter/AddressList');
   },
   loadRepertory() {
-    cc.director.loadScene('repertory');
+    cc.director.loadScene(Config.backUrl);
   },
   onLoad() {
     this.bindNode();

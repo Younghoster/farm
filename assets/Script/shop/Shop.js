@@ -51,9 +51,9 @@ cc.Class({
         priceLabel.string = goods.PropValue;
         goodsListNode.addChild(goodsNode);
         goodsNode.on('click', event => {
-          Alert.show('0', null, null, null, null, null, 'Prefab/Sell', function () {
+          Alert.show('0', null, null, null, null, null, 'Prefab/Sell', function() {
             let selfAlert = this;
-            cc.loader.loadRes(Alert._newPrefabUrl, cc.Prefab, function (error, prefab) {
+            cc.loader.loadRes(Alert._newPrefabUrl, cc.Prefab, function(error, prefab) {
               if (error) {
                 cc.error(error);
                 return;
@@ -74,9 +74,9 @@ cc.Class({
         });
 
         goodsNode.on('maskClick', event => {
-          Alert.show('0', null, null, null, null, null, 'Prefab/Sell', function () {
+          Alert.show('0', null, null, null, null, null, 'Prefab/Sell', function() {
             let selfAlert = this;
-            cc.loader.loadRes(Alert._newPrefabUrl, cc.Prefab, function (error, prefab) {
+            cc.loader.loadRes(Alert._newPrefabUrl, cc.Prefab, function(error, prefab) {
               if (error) {
                 cc.error(error);
                 return;
@@ -151,18 +151,17 @@ cc.Class({
         iconSrc = 'Modal/Repertory/icon-name';
         iconSrc2 = 'Modal/Repertory/gmk2.png';
         break;
-      default:
-        {
-          iconSrc = 'Shop/icon-1';
-          iconSrc2 = 'Shop/icon-1_';
-        }
+      default: {
+        iconSrc = 'Shop/icon-1';
+        iconSrc2 = 'Shop/icon-1_';
+      }
     }
     if (isSystemShop) {
-      cc.loader.loadRes(iconSrc2, cc.SpriteFrame, function (err, spriteFrame) {
+      cc.loader.loadRes(iconSrc2, cc.SpriteFrame, function(err, spriteFrame) {
         goodSprite.spriteFrame = spriteFrame;
       });
     } else {
-      cc.loader.loadRes(iconSrc, cc.SpriteFrame, function (err, spriteFrame) {
+      cc.loader.loadRes(iconSrc, cc.SpriteFrame, function(err, spriteFrame) {
         goodSprite.spriteFrame = spriteFrame;
       });
     }
@@ -193,7 +192,7 @@ cc.Class({
       Func.PostBuy(data.ID, count).then(data => {
         if (data.Code === 1) {
           Msg.show('购买成功');
-          setTimeout(function () {
+          setTimeout(function() {
             cc.director.loadScene('shop');
           }, 1000);
         } else {
@@ -216,7 +215,7 @@ cc.Class({
         boxTemp.addPage(clone); //动态添加页面
       }
       self.dataFetch(index, size, data);
-      boxTemp.node.on('page-turning', function () {
+      boxTemp.node.on('page-turning', function() {
         let goodsListNode = cc.find('page_' + boxTemp.getCurrentPageIndex(), box);
         let indexNum = boxTemp.getCurrentPageIndex();
         let diff = indexNum - self.hasLoad;
@@ -226,8 +225,7 @@ cc.Class({
         }
       });
       //新手指引
-      if (Config.firstLogin)
-        GuideSystem.guide();
+      if (Config.firstLogin) GuideSystem.guide();
     });
   },
 

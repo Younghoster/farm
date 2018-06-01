@@ -110,11 +110,25 @@ cc.Class({
 
     this.contentNode.addChild(itemNode);
   },
+  exChange() {
+    // 放到Config.js做中转;
+    Config.exchangeData.actualName = '鸡蛋';
+    Config.exchangeData.actualCount = 1;
+    Config.exchangeData.virtualName = '鸡蛋';
+    Config.exchangeData.virtualCount = 1;
+    Config.exchangeData.goodsType = 2;
+    Config.backUrl = 'index';
+    cc.director.loadScene('exchange');
+    this.removePersist();
+  },
   onLoad() {
     this.bindNode();
     this.initData();
     this.bindEvent();
   },
-
+  removePersist() {
+    Config.menuNode.active = false;
+    Config.hearderNode.active = false;
+  },
   start() {}
 });

@@ -8,6 +8,17 @@ cc.Class({
     setTimeout(() => {
       this.schedule(this.walking, this.walkTimer);
     }, this.walkTimer);
+    let showNode = cc.find('farmer-text', this.node);
+
+    var action = cc.sequence(
+      cc.fadeOut(0.5),
+      cc.callFunc(() => {
+        showNode.active = false;
+      }, this)
+    );
+    setTimeout(() => {
+      showNode.runAction(action);
+    }, 5000);
   },
   //机器人
   walking() {
@@ -50,6 +61,23 @@ cc.Class({
     this.action = cc.moveTo(this.walkTimer, x, y);
     this.node.runAction(this.action);
     // console.log(`x = ${x} ,y = ${y}`);
+  },
+  botSpeak() {
+    let showNode = cc.find('farmer-text', this.node);
+
+    clearTimeout(timer);
+    showNode.active = true;
+    showNode.opacity = 0;
+    showNode.runAction(cc.fadeIn(0.5));
+    var action = cc.sequence(
+      cc.fadeOut(0.5),
+      cc.callFunc(() => {
+        showNode.active = false;
+      }, this)
+    );
+    let timer = setTimeout(() => {
+      showNode.runAction(action);
+    }, 5000);
   }
   // update (dt) {},
 });

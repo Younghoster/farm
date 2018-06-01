@@ -68,6 +68,9 @@ cc.Class({
       self.setLocData(ListData);
       self.setLocalStorageData(ListData); //重新加载土地（包括植物）
     });
+    cc.director.preloadScene('index', function() {
+      console.log('Next scene index');
+    });
   },
   //获取天气
   getWhether() {

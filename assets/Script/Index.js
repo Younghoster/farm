@@ -328,7 +328,8 @@ cc.Class({
         // this.arrowNode.active = false;
         let capacity = data.Model.FeedTroughCapacity;
         let value = data.Model.FeedCount;
-        this.assignFeedState(value, capacity);
+        let Lv = data.Model.FeedTroughGrade;
+        this.assignFeedState(value, capacity, Lv);
 
         //显示节点（动画）
         clearTimeout(this.timer2);
@@ -351,11 +352,26 @@ cc.Class({
     });
   },
   //赋值 饲料槽
-  assignFeedState(value, capacity) {
+  assignFeedState(value, capacity, Lv) {
     this.feedStateNode = this.node.getChildByName('feedState');
     let feedProgressBar = cc.find('layout/Bar', this.feedStateNode).getComponent(cc.ProgressBar);
     let feedBar = feedProgressBar.node.getChildByName('bar');
     let feedLabel = cc.find('layout/value', this.feedStateNode).getComponent(cc.Label);
+    let LvText = cc.find('text', this.feedStateNode).getComponent(cc.Label);
+    switch (Lv) {
+      case 1: {
+        LvText.string = '（消耗198牧场币）';
+        break;
+      }
+      case 2: {
+        LvText.string = '（消耗518牧场币）';
+        break;
+      }
+      case 3: {
+        LvText.string = '(已满级)';
+        break;
+      }
+    }
 
     feedLabel.string = value + '/ ' + capacity;
     feedProgressBar.progress = value / capacity;
@@ -644,8 +660,16 @@ cc.Class({
       loadSceneFarm: this.loadSceneFarm
     };
     this.addPersist();
+    this.preloadScene();
   },
-
+  preloadScene() {
+    cc.director.preloadScene('farm', function() {
+      console.log('Next scene farm');
+    });
+    cc.director.preloadScene('userCenter', function() {
+      console.log('Next scene userCenter');
+    });
+  },
   start: function() {
     this.init();
     // this.chickFunc = this._chick.chickFunc;
@@ -710,5 +734,6 @@ cc.Class({
       showNode.runAction(action);
     }, 5000);
   }
+
   //update(dt) {}
 });

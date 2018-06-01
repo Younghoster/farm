@@ -393,7 +393,6 @@ cc.Class({
   },
   //兑换事件
   exChange(name, type) {
-    // Msg.show('接口还在开发中');
     // 放到Config.js做中转;
     Config.exchangeData.actualName = name;
     Config.exchangeData.actualCount = 1;
@@ -404,6 +403,7 @@ cc.Class({
       Config.exchangeData.virtualCount = 1;
     }
     Config.exchangeData.goodsType = type;
+    Config.backUrl = 'repertory';
     cc.director.loadScene('exchange');
   },
   //合成
@@ -420,7 +420,7 @@ cc.Class({
   start() {
     this.func = {
       GetSystemListByPage: this.GetSystemListByPage
-    }
+    };
   }
 
   // update (dt) {},

@@ -1938,9 +1938,11 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": null,
-    "component": "",
-    "handler": "",
+    "target": {
+      "__id__": 1
+    },
+    "component": "recover",
+    "handler": "exChange",
     "customEventData": ""
   },
   {

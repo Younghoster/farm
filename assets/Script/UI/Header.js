@@ -71,5 +71,6 @@ cc.Class({
     Config.menuNode.active = false;
     Config.hearderNode.active = false;
   }
+
   // update (dt) {},
 });
