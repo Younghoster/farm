@@ -15,6 +15,7 @@ cc.Class({
     }
 
     this.moneyLabel = cc.find('gold/money', this.node).getComponent(cc.Label);
+    this.moneyLabel2 = cc.find('lv_bg/money', this.node).getComponent(cc.Label);
     this.init();
     func: {
       init: this.init;
@@ -33,14 +34,16 @@ cc.Class({
 
   setHeardData(data) {
     let RanchMoney = data.Model.RanchMoney;
+    let RanchPoint = data.Model.Point;
+    let Grade = data.Model.Grade;
     let RanchRank = data.Model.RanchRank;
     let moneyLabel = cc.find('gold/money', this.node).getComponent(cc.Label);
+    let moneyLabel2 = cc.find('lv_bg/money', this.node).getComponent(cc.Label);
+    let Lv = cc.find('level-icon/New Label', this.node).getComponent(cc.Label);
     moneyLabel.string = RanchMoney;
+    moneyLabel2.string = RanchPoint;
+    Lv.string = Grade;
     //经验值
-    this.level = cc.find('Lv/level', this.node).getComponent(cc.Label);
-    this.level.string = 'LV.' + data.Model.Grade;
-    this.levelProgressBar = cc.find('Lv/lv_bar', this.node).getComponent(cc.ProgressBar);
-    this.levelProgressBar.progress = data.Model.ExperienceValue / data.Model.GradeExperienceValue;
   },
   init() {
     Func.GetUserGrade().then(data => {
@@ -51,9 +54,7 @@ cc.Class({
       }
     });
   },
-  updateMoney() {
-    this.moneyLabel.string = data.Model;
-  },
+
   rechargeEvent: function() {
     cc.director.loadScene('recharge', this.onLoadFadeIn);
     this.removePersist();

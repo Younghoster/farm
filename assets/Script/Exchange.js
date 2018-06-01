@@ -48,11 +48,7 @@ cc.Class({
           if (element.IsDefault) {
             this._userName = element.username;
             this._phone = element.telNumber;
-            this._address =
-              element.proviceFirstStageName +
-              element.addressCitySecondStageName +
-              element.addressCountiesThirdStageName +
-              element.addressDetailInfo;
+            this._address = element.addressDetailInfo;
           }
         });
 

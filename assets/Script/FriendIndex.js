@@ -9,7 +9,7 @@ cc.Class({
 
   bindNode() {
     this.backButton = cc.find('bg/btn-back', this.node);
-    this.clearProgressBar = cc.find('clearBar/clear_bar', this.node).getComponent(cc.ProgressBar);
+
     this.nameLabel = cc.find('bg/name', this.node).getComponent(cc.Label);
     this.handNode = cc.find('Hand', this.node);
     this.handAnim = this.handNode.getComponent(cc.Animation);
@@ -38,22 +38,9 @@ cc.Class({
   initData(data) {
     document.title = `${data.UserModel.RealName}的牧场`;
     let friendImg = cc.find('div_header/advisor/advisor', this.node);
+    let Lv = cc.find('div_header/level-icon/New Label', this.node).getComponent(cc.Label);
     this.setHeadImg(friendImg, data.UserModel.Headimgurl);
-    // 清洁度设置
-    this._clearValue = data.RanchModel.RanchCleanliness;
-    this.clearProgressBar = cc.find('clearBar/clear_bar', this.node).getComponent(cc.ProgressBar);
-    this.clearLabel = cc.find('clearBar/value', this.node).getComponent(cc.Label);
-    this.maskNode = cc.find('clearBar/clear_bar/mask', this.node);
-    this.maskNode.active = true;
-    this.clearProgressBar.progress = this._clearValue / 100;
-    this.clearLabel.string = this._clearValue + '%';
-
-    //经验值
-    this.level = cc.find('div_header/Lv/level', this.node).getComponent(cc.Label);
-    this.level.string = 'LV.' + data.UserModel.Grade;
-    this.levelProgressBar = cc.find('div_header/Lv/lv_bar', this.node).getComponent(cc.ProgressBar);
-    this.levelProgressBar.progress = data.UserModel.ExperienceValue / data.UserModel.GradeExperienceValue;
-
+    Lv.string = data.UserModel.Grade;
     //产蛋棚等级
     let eggsShedRank = data.EggsShed.ShedRank;
     let RanchRank = data.RanchModel.RanchRank;

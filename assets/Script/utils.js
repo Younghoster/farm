@@ -35,6 +35,15 @@ const fn = {
     }
   },
   //时间戳数字转日期字符串
+  formatNumToDateAll(value) {
+    try {
+      var date = new Date(parseInt(value.replace('/Date(', '').replace(')/', ''), 10));
+      return date.Format('yyyy-MM-dd hh:mm');
+    } catch (ex) {
+      return '';
+    }
+  },
+  //时间戳数字转日期字符串
   formatNumToDate(value) {
     try {
       var date = new Date(parseInt(value.replace('/Date(', '').replace(')/', ''), 10));

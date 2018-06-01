@@ -15,7 +15,7 @@ cc.Class({
     // setTimeout(() => {
     //   this.node.active = false;
     // }, 400);
-    Tool.closeModal(this.node)
+    Tool.closeModal(this.node);
 
     // scrollView.removeFromParent();
     // this.node.removeChild(Modal);
@@ -27,7 +27,7 @@ cc.Class({
     Func.PostSign().then(data => {
       if (data.Code === 1) {
         var signButton = cc.find('bg/btn-sign', this.node);
-        cc.loader.loadRes('index/btn-hasSign', cc.SpriteFrame, function (err, spriteFrame) {
+        cc.loader.loadRes('index/btn-hasSign', cc.SpriteFrame, function(err, spriteFrame) {
           signButton.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
         //更新头部数据
@@ -47,12 +47,13 @@ cc.Class({
       if (data.Code === 1) {
         // 数据的年份 月份
         let year = data.List[0].signtime.match(/\d+/g)[0];
-        let month = data.List[0].signtime.match(/\d+/g)[1] - 1;
+        let month = data.List[0].signtime.match(/\d+/g)[1] - 1; //为什么要减一
+        console.log(data.List, year, month);
         this.canlendarJs.func.initCalendar.call(this.canlendarJs, data.List, year, month);
         //已签到 按钮变灰
         if (this.canlendarJs.todayNode.getChildByName('item_do').active) {
           var signButton = cc.find('bg/btn-sign', this.node);
-          cc.loader.loadRes('index/btn-hasSign', cc.SpriteFrame, function (err, spriteFrame) {
+          cc.loader.loadRes('index/btn-hasSign', cc.SpriteFrame, function(err, spriteFrame) {
             signButton.getComponent(cc.Sprite).spriteFrame = spriteFrame;
             signButton.getComponent(cc.Button).interactable = false;
           });

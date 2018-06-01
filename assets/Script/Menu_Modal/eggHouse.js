@@ -143,9 +143,9 @@ cc.Class({
                 this.animNode.runAction(cc.fadeIn(0.3));
                 this.breakButton.active = true;
 
-                cc.loader.loadRes('eggHouse/egg0', cc.SpriteFrame, (err, spriteFrame) => {
-                  this.eggNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-                });
+                // cc.loader.loadRes('eggHouse/egg0', cc.SpriteFrame, (err, spriteFrame) => {
+                //   this.eggNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                // });
                 this.breakButton.on('click', () => {
                   this.breakButton.active = false;
                   this.eggAnim.play('eggBroken');
@@ -255,6 +255,10 @@ cc.Class({
         this.shedRank = data.Model;
         this.initData();
         this.updateEggshed();
+        self.div_header = cc.find('div_header');
+        self.div_header.emit('upDataMoney', {
+          data: ''
+        });
       } else {
         Msg.show(data.Message);
       }

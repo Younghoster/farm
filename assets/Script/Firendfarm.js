@@ -51,14 +51,13 @@ cc.Class({
   getHearder(friendOpenID) {
     let self = this;
     let friendImg = cc.find('div_header/advisor/advisor', this.node);
+    let Lv = cc.find('div_header/level-icon/New Label', this.node).getComponent(cc.Label);
+
     //经验值
     Data.func.GetWholeData(friendOpenID).then(data => {
       if (data.Code === 1) {
-        self.level = cc.find('div_header/Lv/level', self.node).getComponent(cc.Label);
-        self.level.string = 'LV.' + data.UserModel.Grade;
-        self.levelProgressBar = cc.find('div_header/Lv/lv_bar', self.node).getComponent(cc.ProgressBar);
-        self.levelProgressBar.progress = data.UserModel.ExperienceValue / data.UserModel.GradeExperienceValue;
         self.setHeadImg(friendImg, data.UserModel.Headimgurl);
+        Lv.string = data.UserModel.Grade;
       } else {
         console.log('数据加载失败');
       }

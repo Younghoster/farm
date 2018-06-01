@@ -148,11 +148,11 @@ cc.Class({
           cc.loader.loadRes(imgSrc_, cc.SpriteFrame, (err, spriteFrame) => {
             icon_2.spriteFrame = spriteFrame;
           });
-          num_1.string = '-' + data.Model.BuyPropertyList[i].PropValue;
-          num_2.string = '+' + data.Model.BuyPropertyList[i].Count;
+          num_1.string = '-' + data.Model.BuyPropertyList[i].PropValue * data.Model.BuyPropertyList[i].ButCount;
+          num_2.string = '+' + data.Model.BuyPropertyList[i].Count * data.Model.BuyPropertyList[i].ButCount;
           name_2.string = data.Model.BuyPropertyList[i].PropName;
-          day.string = utils.fn.formatNumToDate(data.Model.BuyPropertyList[i].CreateTime);
-          time.string = utils.fn.formatNumToDateTime(data.Model.BuyPropertyList[i].CreateTime);
+          day.string = utils.fn.formatNumToDate(data.Model.BuyPropertyList[i].BuyTime);
+          time.string = utils.fn.formatNumToDateTime(data.Model.BuyPropertyList[i].BuyTime);
           PrefabParent.addChild(PropertyList);
         }
       } else {

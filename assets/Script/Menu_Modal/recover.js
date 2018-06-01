@@ -39,6 +39,19 @@ cc.Class({
         }
       }
     });
+    //鸡蛋
+    Func.GetChickenAndEggCount().then(data => {
+      if (data.Code === 1) {
+        for (let i = 0; i < (data.Model.EggCount > 5 ? 6 : data.Model.EggCount); i++) {
+          let dom = cc.find('bg/scrollview/view/content/upbg3/New Node/eggs_' + i, this.node);
+          cc.loader.loadRes('Modal/upgrade/eggs', cc.SpriteFrame, (err, spriteFrame) => {
+            dom.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+          });
+        }
+      } else {
+        Msg.show(data.Message);
+      }
+    });
   },
   //赋值
   assignData(data, itemNode) {

@@ -57,7 +57,9 @@ cc.Class({
       }
     );
   },
-
+  isInteger(obj) {
+    return typeof obj === 'number' && obj % 1 === 0; //是整数，则返回true，否则返回false
+  },
   paymoney(e) {
     let self = this;
     Func.UserRecharge(1, 1, this.setType(Number(e.currentTarget._name.substring(3)))).then(data => {
@@ -103,22 +105,30 @@ cc.Class({
     let self = this;
     let input = cc.find('bg/container/div_input/input', this.node).getComponent(cc.EditBox);
     console.log(Number(input.string));
-    Func.UserRecharge(1, 1, Number(input.string)).then(data => {
-      if (data.appId !== '') {
-        if (typeof WeixinJSBridge == 'undefined') {
-          if (document.addEventListener) {
-            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-          } else if (document.attachEvent) {
-            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    if (this.isInteger(Number(input.string))) {
+      if (Number(input.string) >= 1) {
+        Func.UserRecharge(1, 1, Number(input.string)).then(data => {
+          if (data.appId !== '') {
+            if (typeof WeixinJSBridge == 'undefined') {
+              if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+              } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+              }
+            } else {
+              self.onBridgeReady(data);
+            }
+          } else {
+            Msg.show(data.msg);
           }
-        } else {
-          self.onBridgeReady(data);
-        }
+        });
       } else {
-        Msg.show(data.msg);
+        Msg.show('充值金额必须大于1');
       }
-    });
+    } else {
+      Msg.show('请输入整数');
+    }
   },
   start() {}
 

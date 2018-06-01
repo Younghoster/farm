@@ -181,11 +181,14 @@ cc.Class({
     this.idLabel.string = `编号：${this.Id}`;
     this.sexLabel.string = `性别：${data.Sex ? '小姐姐' : '小哥哥'}`;
     this.hungryLabel.string = `饱食度：${data.StarvationValue}`;
-    this.timerLabel.string = `产蛋时间：${utils.fn.formatNumToDateTimeCh(data.NextLayEgg)}`;
-    // this.healthLabel.string = `健康值：${data.HealthValue}`;
+    let createTime = data.NextLayEgg.match(/\d+/g)[0];
 
-    this.growProgressBar.progress = Math.round(data.Happy) / 100;
-    this.growLabel.string = `${Math.round(data.Happy)}/100`;
+    let endTime = parseInt(createTime) + 48 * 60 * 60 * 1000;
+    let nowDate = Date.parse(new Date());
+    let time = utils.fn.timeDiff(nowDate, endTime);
+    this.timerLabel.string = `产蛋时间：${(time.days - 2) * 24 + time.hours}小时${time.mins}分`;
+    this.growProgressBar.progress = Math.round(data.StarvationValue) / 100;
+    this.growLabel.string = `${Math.round(data.StarvationValue)}/100`;
 
     this.collectButton.on('click', () => {
       //收取贵妃鸡
@@ -244,6 +247,7 @@ cc.Class({
       const element = list[i];
       let time = element.CreateTime.match(/\d+/g)[0];
       time = DateFormat.formatNumToDate(time);
+
       let name = element.RealName;
       let money = element.Money;
       let rearingDays = element.RearingDays;

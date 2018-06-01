@@ -135,7 +135,9 @@ cc.Class({
         }
       });
     } else {
-      Msg.show('我现在还不能收取哦~');
+      self.timers = setTimeout(function() {
+        Msg.show('我现在还不能收取哦~');
+      }, 500);
     }
   },
   onCollisionStay: function(other) {

@@ -15125,7 +15125,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
+      "width": 60,
       "height": 70
     },
     "_rotationX": 0,
@@ -15760,7 +15760,9 @@
     },
     "_N$normalSprite": null,
     "_N$disabledSprite": null,
-    "_N$target": null
+    "_N$target": {
+      "__id__": 486
+    }
   },
   {
     "__type__": "cc.ClickEvent",

@@ -17,11 +17,12 @@ cc.Class({
   newmonth: null,
   newday: null,
   List: null,
-  onLoad: function () {
+  onLoad: function() {
     var date = new Date();
     this.newyear = date.getFullYear();
     this.newmonth = date.getMonth();
     this.newday = date.getDate();
+    console.log(this.newmonth, this.newday, 1);
     this.func = {
       initCalendar: this.initCalendar
     };
@@ -38,7 +39,7 @@ cc.Class({
     //几号
     var newCurrentDay = 1;
     console.log(this.newyear + ' ' + this.newmonth);
-
+    console.log(Config.UserModel.CreateTime);
     for (var i = firstDay; i < currentDay + firstDay; i++) {
       var itemNode = this.node.getChildByName(`item${i}`);
       var dayNode = itemNode.getChildByName('item_undo').getChildByName('day'); //日期节点(item)
@@ -56,6 +57,12 @@ cc.Class({
           itemNode.getChildByName('item_do').active = true;
           itemNode.getChildByName('item_undo').active = false;
         }
+        //  else if (newCurrentDay - 1 !== this.newday) {
+        //   cc.find('icon-1', itemNode.getChildByName('item_undo')).active = true;
+        //   itemNode.on('click', function() {
+        //     console.log(1);
+        //   });
+        // }
       }
     }
   },

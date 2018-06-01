@@ -2180,7 +2180,30 @@ var func = {
       xhr.send('openId=' + this.openID);
     });
   },
-  FarmCropsGrowTime(cropsId){
+  //仓库中鸡和鸡蛋的数量
+  GetChickenAndEggCount() {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            console.log('获取数据失败');
+            reject(response);
+          }
+        }
+      };
+
+      xhr.open('POST', Config.apiUrl + '/T_Base_Warehouse/GetChickenAndEggCount', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.send('openId=' + this.openID);
+    });
+  },
+  FarmCropsGrowTime(cropsId) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {

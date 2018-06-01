@@ -41,7 +41,7 @@ cc.Class({
   timer3: null,
   feedStateNode: null,
   wether: null,
-  arrowNode: null,
+  // arrowNode: null,
   eggNode: null,
   chickList: null,
   //产蛋棚等级
@@ -52,7 +52,7 @@ cc.Class({
   init: function() {
     this.handNode = cc.find('Hand', this.node);
     this.handAnim = this.handNode.getComponent(cc.Animation);
-    this.arrowNode = this.node.getChildByName('icon-arrow');
+    // this.arrowNode = this.node.getChildByName('icon-arrow');
     this.eggNode = cc.find('bg/house/shouquEgg', this.node);
     this.houseNode = cc.find('bg/house', this.node);
 
@@ -102,6 +102,8 @@ cc.Class({
     Config.UserData = data;
     //用户头像
     let headImg = cc.find('div_header/advisor/advisor', this.node.parent);
+    let barTimeMask = cc.find('bg/house/barTime/progressBar/maskBar', this.node);
+    barTimeMask.active = true;
     this.setHeadImg(headImg);
 
     //名称
@@ -145,18 +147,17 @@ cc.Class({
     this.botNode = cc.find('bot', this.node);
     this.botNode.active = data.RanchModel.IsHasCleaningMachine;
     // 初始化跳动的箭头
-    Func.GetFeedTroughFull().then(data => {
-      if (data.Code === 1) {
-        this.arrowNode.active = !data.Model;
-      }
-    });
+    // Func.GetFeedTroughFull().then(data => {
+    //   if (data.Code === 1) {
+    //     this.arrowNode.active = !data.Model;
+    //   }
+    // });
 
     this.updateWeatherBox();
-    this.updateWeather().then(() => {
-      this.initChick();
-      this.initEggShed(eggsShedRank);
-      this.initRanchGrade(RanchRank);
-    });
+    this.updateWeather();
+    this.initChick();
+    this.initEggShed(eggsShedRank);
+    this.initRanchGrade(RanchRank);
   },
   //只运行一次
   initChick() {
@@ -298,11 +299,9 @@ cc.Class({
           hanfFeedAnim.play('hand_feed');
           hanfFeedAnim.on('finished', () => {
             handFeedNode.active = false;
-            this.arrowNode.active = false;
+            // this.arrowNode.active = false;
           });
-        } else if (data.Code == '000') {
-          Alert.show(data.Message, this.loadSceneShop, 'index/icon-feed', '剩余的饲料不足');
-        } else if (data.Code == '333') {
+        } else {
           Msg.show(data.Message);
         }
       });
@@ -310,9 +309,6 @@ cc.Class({
   },
   //升级饲料槽
   UpFeedGrade() {
-    Alert.show('确定要升级饲料槽吗?', this.upGrade, null, '升级饲料槽');
-  },
-  upGrade() {
     Func.UpFeedGrade().then(data => {
       if (data.Code === 1) {
         Msg.show(data.Message);
@@ -327,9 +323,9 @@ cc.Class({
 
     Func.GetFeedData().then(data => {
       if (data.Code == 1) {
-        let flag = this.arrowNode.active;
+        // let flag = this.arrowNode.active;
 
-        this.arrowNode.active = false;
+        // this.arrowNode.active = false;
         let capacity = data.Model.FeedTroughCapacity;
         let value = data.Model.FeedCount;
         this.assignFeedState(value, capacity);
@@ -343,7 +339,7 @@ cc.Class({
           cc.fadeOut(0.5),
           cc.callFunc(() => {
             this.feedStateNode.active = false;
-            this.arrowNode.active = flag ? true : false;
+            // this.arrowNode.active = flag ? true : false;
           }, this)
         );
         this.timer2 = setTimeout(() => {
@@ -459,48 +455,30 @@ cc.Class({
     switch (rank) {
       case 1:
         if (Config.weather === -1) {
-          cc.loader.loadRes('index/rain/tip1', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/rain/tip1', this.ranchRankNode.getComponent(cc.Sprite));
         } else if (Config.weather === 0) {
-          cc.loader.loadRes('index/cloud/tip1', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/cloud/tip1', this.ranchRankNode.getComponent(cc.Sprite));
         } else if (Config.weather === 1) {
-          cc.loader.loadRes('index/sun/tip1', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/sun/tip1', this.ranchRankNode.getComponent(cc.Sprite));
         }
         break;
       case 2:
         if (Config.weather === -1) {
-          cc.loader.loadRes('index/rain/tip2', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/rain/tip2', this.ranchRankNode.getComponent(cc.Sprite));
         } else if (Config.weather === 0) {
-          cc.loader.loadRes('index/cloud/tip2', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/cloud/tip2', this.ranchRankNode.getComponent(cc.Sprite));
         } else if (Config.weather === 1) {
-          cc.loader.loadRes('index/sun/tip2', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/sun/tip2', this.ranchRankNode.getComponent(cc.Sprite));
         }
         break;
       case 3:
         this.windmillNode.active = true;
         if (Config.weather === -1) {
-          cc.loader.loadRes('index/rain/tip3', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/rain/tip3', this.ranchRankNode.getComponent(cc.Sprite));
         } else if (Config.weather === 0) {
-          cc.loader.loadRes('index/cloud/tip3', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/cloud/tip3', this.ranchRankNode.getComponent(cc.Sprite));
         } else if (Config.weather === 1) {
-          cc.loader.loadRes('index/sun/tip3', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/sun/tip3', this.ranchRankNode.getComponent(cc.Sprite));
         }
         break;
 
@@ -514,47 +492,29 @@ cc.Class({
     switch (rank) {
       case 1:
         if (Config.weather === -1) {
-          cc.loader.loadRes('index/rain/house_1', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/rain/house_1', this.houseNode.getComponent(cc.Sprite));
         } else if (Config.weather === 0) {
-          cc.loader.loadRes('index/cloud/house_1', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/cloud/house_1', this.houseNode.getComponent(cc.Sprite));
         } else if (Config.weather === 1) {
-          cc.loader.loadRes('index/sun/house_1', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/sun/house_1', this.houseNode.getComponent(cc.Sprite));
         }
         break;
       case 2:
         if (Config.weather === -1) {
-          cc.loader.loadRes('index/rain/house_2', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/rain/house_2', this.houseNode.getComponent(cc.Sprite));
         } else if (Config.weather === 0) {
-          cc.loader.loadRes('index/cloud/house_2', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/cloud/house_2', this.houseNode.getComponent(cc.Sprite));
         } else if (Config.weather === 1) {
-          cc.loader.loadRes('index/sun/house_2', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/sun/house_2', this.houseNode.getComponent(cc.Sprite));
         }
         break;
       case 3:
         if (Config.weather === -1) {
-          cc.loader.loadRes('index/rain/house_3', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/rain/house_3', this.houseNode.getComponent(cc.Sprite));
         } else if (Config.weather === 0) {
-          cc.loader.loadRes('index/cloud/house_3', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/cloud/house_3', this.houseNode.getComponent(cc.Sprite));
         } else if (Config.weather === 1) {
-          cc.loader.loadRes('index/sun/house_3', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
+          this.setIcon('index/sun/house_3', this.houseNode.getComponent(cc.Sprite));
         }
         break;
     }
@@ -582,127 +542,71 @@ cc.Class({
     });
   },
   //根据天气情况 判断牧场的背景
+
   updateWeather() {
     let rainNode = cc.find('ParticleRain', this.node);
     let wetherIcon = cc.find('div/icon', this.wether).getComponent(cc.Sprite);
-    return Func.GetCurrentWeather().then(res => {
-      if (res.data.rain !== 0) {
-        //下雨
-        Config.weather = -1;
+    if (Config.weather === -1) {
+      //下雨
 
-        if (this.RanchRank == 1) {
-          cc.loader.loadRes('jpg/rain-bg1', cc.SpriteFrame, (err, spriteFrame) => {
-            this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (this.RanchRank == 2) {
-          cc.loader.loadRes('jpg/rain-bg2', cc.SpriteFrame, (err, spriteFrame) => {
-            this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (this.RanchRank == 3) {
-          cc.loader.loadRes('jpg/rain-bg3', cc.SpriteFrame, (err, spriteFrame) => {
-            this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        }
-        //图标
-        cc.loader.loadRes('weather/rain', cc.SpriteFrame, (err, spriteFrame) => {
-          wetherIcon.spriteFrame = spriteFrame;
-        });
-        //云
-        cc.loader.loadRes('index/rain/cloud01', cc.SpriteFrame, (err, spriteFrame) => {
-          this.cloud1Node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        cc.loader.loadRes('index/rain/cloud02', cc.SpriteFrame, (err, spriteFrame) => {
-          this.cloud2Node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        //食盆
-        cc.loader.loadRes('index/rain/hatchBox', cc.SpriteFrame, (err, spriteFrame) => {
-          this.hatchBoxNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        //风车
-        cc.loader.loadRes('index/rain/windmill', cc.SpriteFrame, (err, spriteFrame) => {
-          this.windmillNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        cc.loader.loadRes('index/rain/flabellum', cc.SpriteFrame, (err, spriteFrame) => {
-          this.flabellumNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        rainNode.active = true;
-      } else if (res.data.light === 2 || res.data.light === 3) {
-        //阴天
-        Config.weather = 0;
-        if (this.RanchRank == 1) {
-          cc.loader.loadRes('jpg/cloud-bg1', cc.SpriteFrame, (err, spriteFrame) => {
-            this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (this.RanchRank == 2) {
-          cc.loader.loadRes('jpg/cloud-bg2', cc.SpriteFrame, (err, spriteFrame) => {
-            this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (this.RanchRank == 3) {
-          cc.loader.loadRes('jpg/cloud-bg3', cc.SpriteFrame, (err, spriteFrame) => {
-            this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        }
-        cc.loader.loadRes('weather/overcast', cc.SpriteFrame, (err, spriteFrame) => {
-          wetherIcon.spriteFrame = spriteFrame;
-        });
-        //云
-        cc.loader.loadRes('index/cloud/cloud01', cc.SpriteFrame, (err, spriteFrame) => {
-          this.cloud1Node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        cc.loader.loadRes('index/cloud/cloud02', cc.SpriteFrame, (err, spriteFrame) => {
-          this.cloud2Node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        //食盆
-        cc.loader.loadRes('index/cloud/hatchBox', cc.SpriteFrame, (err, spriteFrame) => {
-          this.hatchBoxNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        //风车
-        cc.loader.loadRes('index/cloud/windmill', cc.SpriteFrame, (err, spriteFrame) => {
-          this.windmillNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        cc.loader.loadRes('index/cloud/flabellum', cc.SpriteFrame, (err, spriteFrame) => {
-          this.flabellumNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        rainNode.active = false;
-      } else if (res.data.light === 1) {
-        Config.weather = 1;
-        if (this.RanchRank == 1) {
-          cc.loader.loadRes('jpg/sun-bg1', cc.SpriteFrame, (err, spriteFrame) => {
-            this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (this.RanchRank == 2) {
-          cc.loader.loadRes('jpg/sun-bg2', cc.SpriteFrame, (err, spriteFrame) => {
-            this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (this.RanchRank == 3) {
-          cc.loader.loadRes('jpg/sun-bg3', cc.SpriteFrame, (err, spriteFrame) => {
-            this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        }
-        cc.loader.loadRes('weather/sun', cc.SpriteFrame, (err, spriteFrame) => {
-          wetherIcon.spriteFrame = spriteFrame;
-        });
-        //云
-        cc.loader.loadRes('index/sun/cloud01', cc.SpriteFrame, (err, spriteFrame) => {
-          this.cloud1Node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        cc.loader.loadRes('index/sun/cloud02', cc.SpriteFrame, (err, spriteFrame) => {
-          this.cloud2Node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        //食盆
-        cc.loader.loadRes('index/sun/hatchBox', cc.SpriteFrame, (err, spriteFrame) => {
-          this.hatchBoxNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        //风车
-        cc.loader.loadRes('index/sun/windmill', cc.SpriteFrame, (err, spriteFrame) => {
-          this.windmillNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        cc.loader.loadRes('index/sun/flabellum', cc.SpriteFrame, (err, spriteFrame) => {
-          this.flabellumNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-        });
-        rainNode.active = false;
+      if (this.RanchRank == 1) {
+        this.setIcon('jpg/rain-bg1', this.bgNode.getComponent(cc.Sprite));
+      } else if (this.RanchRank == 2) {
+        this.setIcon('jpg/rain-bg2', this.bgNode.getComponent(cc.Sprite));
+      } else if (this.RanchRank == 3) {
+        this.setIcon('jpg/rain-bg3', this.bgNode.getComponent(cc.Sprite));
       }
-    });
+      //图标
+
+      this.setIcon('weather/rain', wetherIcon);
+      //云
+      this.setIcon('index/rain/cloud01', this.cloud1Node.getComponent(cc.Sprite));
+      this.setIcon('index/rain/cloud02', this.cloud2Node.getComponent(cc.Sprite));
+      //食盆
+      this.setIcon('index/rain/hatchBox', this.hatchBoxNode.getComponent(cc.Sprite));
+      //风车
+      this.setIcon('index/rain/windmill', this.windmillNode.getComponent(cc.Sprite));
+      this.setIcon('index/rain/flabellum', this.flabellumNode.getComponent(cc.Sprite));
+      rainNode.active = true;
+    } else if (Config.weather === 0) {
+      //阴天
+      if (this.RanchRank == 1) {
+        this.setIcon('jpg/cloud-bg1', this.bgNode.getComponent(cc.Sprite));
+      } else if (this.RanchRank == 2) {
+        this.setIcon('jpg/cloud-bg2', this.bgNode.getComponent(cc.Sprite));
+      } else if (this.RanchRank == 3) {
+        this.setIcon('jpg/cloud-bg3', this.bgNode.getComponent(cc.Sprite));
+      }
+      this.setIcon('weather/overcast', wetherIcon);
+      //云
+      this.setIcon('index/cloud/cloud01', this.cloud1Node.getComponent(cc.Sprite));
+      this.setIcon('index/cloud/cloud02', this.cloud2Node.getComponent(cc.Sprite));
+      //食盆
+      this.setIcon('index/cloud/hatchBox', this.hatchBoxNode.getComponent(cc.Sprite));
+      //风车
+      this.setIcon('index/cloud/windmill', this.windmillNode.getComponent(cc.Sprite));
+      this.setIcon('index/cloud/flabellum', this.flabellumNode.getComponent(cc.Sprite));
+      rainNode.active = false;
+    } else if (Config.weather === 1) {
+      if (this.RanchRank == 1) {
+        this.setIcon('jpg/sun-bg1', this.bgNode.getComponent(cc.Sprite));
+      } else if (this.RanchRank == 2) {
+        this.setIcon('jpg/sun-bg2', this.bgNode.getComponent(cc.Sprite));
+      } else if (this.RanchRank == 3) {
+        this.setIcon('jpg/sun-bg3', this.bgNode.getComponent(cc.Sprite));
+      }
+
+      this.setIcon('weather/sun', wetherIcon);
+      //云
+      this.setIcon('index/sun/cloud01', this.cloud1Node.getComponent(cc.Sprite));
+      this.setIcon('index/sun/cloud02', this.cloud2Node.getComponent(cc.Sprite));
+      //食盆
+      this.setIcon('index/sun/hatchBox', this.hatchBoxNode.getComponent(cc.Sprite));
+      //风车
+      this.setIcon('index/sun/windmill', this.windmillNode.getComponent(cc.Sprite));
+      this.setIcon('index/sun/flabellum', this.flabellumNode.getComponent(cc.Sprite));
+      rainNode.active = false;
+    }
   },
   //跳转天气数据列表
   gotoWetherPage() {
@@ -728,20 +632,6 @@ cc.Class({
     Func.openID = window.Config.openID;
     Config.newSocket = new WebSocket('ws://service.linedin.cn:5530/');
     cc.director.setDisplayStats(false);
-
-    // let ws = new WebSocket("wss://127.0.0.1:5520");
-    // ws.onopen = function(event) {
-    //   console.log("Send Text WS was opened.");
-    // };
-    // ws.onmessage = function(event) {
-    //   console.log("response text msg: " + event.data);
-    // };
-    // ws.onerror = function(event) {
-    //   console.log("Send Text fired an error");
-    // };
-    // ws.onclose = function(event) {
-    //   console.log("WebSocket instance closed.");
-    // };
 
     this.func = {
       showMenu: this.showMenu,
@@ -797,6 +687,11 @@ cc.Class({
       Config.menuNode.active = true;
       Config.hearderNode.active = true;
     }
+  },
+  setIcon(src, dom, getCom) {
+    cc.loader.loadRes(src, cc.SpriteFrame, (err, spriteFrame) => {
+      dom.spriteFrame = spriteFrame;
+    });
   },
   farmSpeak() {
     let showNode = cc.find('farmer/farmer-text', this.node);

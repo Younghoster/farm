@@ -21,6 +21,7 @@ cc.Class({
     Func.GetNextUnlockLand().then(data => {
       if (data.Code === 1) {
         this.messageLabel.string = `拓建当前土地您需要花费`;
+        this.unlockMoney = data.Model.unlockMoney;
         this.label.string = data.Model.unlockMoney + '牧场币，或者' + data.Model.unlockPoint + '积分';
       } else {
         Msg.show(data.Message);
@@ -58,9 +59,14 @@ cc.Class({
         setTimeout(function() {
           Data.func.getFarmModalData().then(data2 => {
             // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
+            console.log(data2.Model);
             self.FarmJs = cc.find('Canvas');
+            self.div_header = cc.find('div_header');
             self.FarmJs.emit('unLockLand', {
               data: data2.Model
+            });
+            self.div_header.emit('upDataMoney', {
+              data: ''
             });
           });
         }, 500);

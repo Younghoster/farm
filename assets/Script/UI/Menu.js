@@ -25,6 +25,7 @@ cc.Class({
     this.node.on('step1', function(event) {
       self.showMenu();
     });
+    this.getWeather();
     Func.getWxUserShare().then(data => {
       wx.config({
         appId: data.appId, // 必填，公众号的唯一标识
@@ -44,7 +45,7 @@ cc.Class({
       wx.ready(function() {
         var shareContent = {
           title: '原态农业农场小游戏2.0', // 分享标题
-          link: data.url, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+          link: 'http://wxapi.zjytny.cn', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: 'http://wxapi.zjytny.cn/web-mobile/loading.jpg', // 分享图标
           desc: '原态农业农场小游戏好友分享测试功能！请勿转发！', // 分享描述
           success: function() {},
@@ -172,7 +173,19 @@ cc.Class({
       }
     };
   },
-
+  getWeather() {
+    Func.GetCurrentWeather().then(res => {
+      if (res.data.rain !== 0) {
+        //下雨
+        Config.weather = -1;
+      } else if (res.data.light === 2 || res.data.light === 3) {
+        //阴天
+        Config.weather = 0;
+      } else if (res.data.light === 1) {
+        Config.weather = 1;
+      }
+    });
+  },
   loadSceneRepertory() {
     cc.director.loadScene('repertory', this.onLoadFadeIn);
     this.removePersist();

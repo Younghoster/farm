@@ -21,7 +21,7 @@ cc.Class({
     this.btn1 = cc.find('bg/upbg4/New Node/btn1', this.node);
     this.btn2 = cc.find('bg/upbg4/New Node/btn2', this.node);
     this.closeButton = cc.find('bg/btn-close', this.node);
-    this.clearUp = cc.find('bg/newLayout/upbg2/text', this.node);
+
     this.level = cc.find('bg/newLayout/upbg1/text', this.node);
 
     this.indexJs = cc.find('Canvas').getComponent('Index');
@@ -50,7 +50,6 @@ cc.Class({
       }
     });
     //鸡
-    this.clearUp.getComponent(cc.Label).string = `牧场清洁度：${Config.UserData.RanchModel.RanchCleanliness}%`;
     this.level.getComponent(cc.Label).string = `牧场等级：Lv.${Config.UserData.RanchModel.RanchRank}`;
     this.chickText = cc.find('bg/upbg3_/New Label', this.node).getComponent(cc.Label);
 
@@ -77,16 +76,6 @@ cc.Class({
         Msg.show(data.Message);
       }
     });
-    //鸡蛋
-
-    if (Config.UserData.RanchModel.EggCount > 5) {
-      for (let i = 0; i < Config.UserData.RanchModel.EggCount > 5 ? 6 : Config.UserData.RanchModel.EggCount; i++) {
-        let dom = cc.find('bg/upbg3/New Node/eggs_' + i, this.node).getComponent(cc.Sprite);
-        cc.loader.loadRes('Modal/upgrade/eggs', cc.SpriteFrame, (err, spriteFrame) => {
-          dom.spriteFrame = spriteFrame;
-        });
-      }
-    }
   },
   bindEvent() {
     this.closeButton.on('click', () => {
@@ -103,6 +92,7 @@ cc.Class({
   },
   // 升级牧场操作 0:积分升级 1:牧场升级
   upgradeHouse(payType) {
+    Tool.closeModal(this.node);
     Func.UpgradeHouse(payType).then(data => {
       if (data.Code === 1) {
         switch (data.Model) {
@@ -113,6 +103,10 @@ cc.Class({
             this.grade = 3;
             break;
         }
+        self.div_header = cc.find('div_header');
+        self.div_header.emit('upDataMoney', {
+          data: ''
+        });
         Msg.show('升级成功');
         this.indexJs.initRanchGrade.call(this.indexJs, this.grade);
       } else {

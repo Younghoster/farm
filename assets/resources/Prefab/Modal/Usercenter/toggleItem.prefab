@@ -52,7 +52,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 750,
-      "height": 100
+      "height": 120
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -119,7 +119,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 500,
-      "height": 100
+      "height": 120
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -420,7 +420,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 300,
-      "height": 70
+      "height": 77
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -476,7 +476,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 226.06,
+      "width": 271.27,
       "height": 35
     },
     "_rotationX": 0,
@@ -486,7 +486,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 40,
-      "y": 17.5
+      "y": 21
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -504,8 +504,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 25,
-    "_fontSize": 25,
+    "_actualFontSize": 30,
+    "_fontSize": 30,
     "_lineHeight": 35,
     "_enableWrapText": true,
     "_N$file": null,
@@ -592,7 +592,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 235.19,
+      "width": 305.74,
       "height": 35
     },
     "_rotationX": 0,
@@ -602,7 +602,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 40,
-      "y": -17.5
+      "y": -21
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -620,8 +620,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 20,
-    "_fontSize": 20,
+    "_actualFontSize": 26,
+    "_fontSize": 26,
     "_lineHeight": 35,
     "_enableWrapText": true,
     "_N$file": null,
@@ -681,7 +681,7 @@
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 300,
-      "height": 70
+      "height": 77
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -697,7 +697,7 @@
     "_N$paddingTop": 0,
     "_N$paddingBottom": 0,
     "_N$spacingX": 0,
-    "_N$spacingY": 0,
+    "_N$spacingY": 7,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0
   },
@@ -848,7 +848,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 150,
-      "height": 100
+      "height": 120
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1121,7 +1121,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 50,
-      "y": -49.5
+      "y": -59.5
     },
     "_skewX": 0,
     "_skewY": 0,

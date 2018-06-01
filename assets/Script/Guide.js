@@ -86,9 +86,6 @@ var GuideSystem = {
     //设置position
     var btnMoreNode = cc.find('div_menu/more');
     var pos = btnMoreNode.getPosition();
-    //将节点坐标转换成世界坐标系（左下角为原点）
-    // let pos_3 = this.btnMoreNode.convertToWorldSpace(pos);
-    // let pos_4 = this.btnMoreNode.getNodeToWorldTransform(pos);
     var pos_5 = btnMoreNode.getNodeToWorldTransformAR(pos);
     var pos_6 = guideNode.convertToNodeSpace(cc.v2(pos_5.tx, pos_5.ty));
     guideMaskNode.setPosition(pos_6);
@@ -100,11 +97,9 @@ var GuideSystem = {
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
 
-    cc.loader.loadRes('guide/pic-1', cc.SpriteFrame, function(err, spriteFrame) {
-      modalSprite.spriteFrame = spriteFrame;
-    });
     //绑定事件
     guideMaskNode.once('click', function() {
+      guideMaskNode.removeFromParent();
       self.menuJS.func.showMenu.call(self.menuJS).then(function() {
         self.guide();
       });
@@ -126,15 +121,15 @@ var GuideSystem = {
     var radius = height > width ? height : width;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-2', cc.SpriteFrame, function(err, spriteFrame) {
-      modalSprite.spriteFrame = spriteFrame;
-    });
+
     //绑定事件
     guideMaskNode.on('click', function() {
+      guideMaskNode.removeFromParent();
       self.menuJS.func.closeMenu.call(self.menuJS);
-      setTimeout(function() {
-        self.menuJS.func.loadSceneShop.call(self.menuJS);
-      }, 500);
+      // setTimeout(function() {
+
+      // }, 500);
+      self.menuJS.func.loadSceneShop.call(self.menuJS);
     });
   },
   guideStep3: function guideStep3(guideNode, guideMaskNode, modalSprite, circleNode) {
@@ -161,6 +156,7 @@ var GuideSystem = {
     guideMaskNode.on(
       'click',
       function() {
+        guideMaskNode.removeFromParent();
         goodsNode.emit('maskClick');
         self.guide();
       },
@@ -198,6 +194,7 @@ var GuideSystem = {
       });
 
       guideMaskNode.on('click', function() {
+        guideMaskNode.removeFromParent();
         //买一只鸡
         self.PostBuy(18, 1).then(function(data) {
           if (data.Code === 1) {
@@ -239,6 +236,7 @@ var GuideSystem = {
     guideMaskNode.on(
       'click',
       function() {
+        guideMaskNode.removeFromParent();
         self.idnexJs.func.showFeedState.call(self.idnexJs);
         self.guide();
       },
@@ -269,6 +267,7 @@ var GuideSystem = {
     guideMaskNode.on(
       'click',
       function() {
+        guideMaskNode.removeFromParent();
         self.idnexJs.func.addFeed.call(self.idnexJs);
         self.alertMsgNew();
         console.log(self.step);
@@ -304,6 +303,7 @@ var GuideSystem = {
     guideMaskNode.on(
       'click',
       function() {
+        guideMaskNode.removeFromParent();
         self.ModalJs.func.showModal.call(self.ModalJs);
         setTimeout(function() {
           self.guide();
@@ -334,6 +334,7 @@ var GuideSystem = {
     guideMaskNode.on(
       'click',
       function() {
+        guideMaskNode.removeFromParent();
         cc.find('eggHouse').removeFromParent();
         self.alertMsgNew();
         console.log(self.step);
@@ -368,6 +369,7 @@ var GuideSystem = {
     guideMaskNode.on(
       'click',
       function() {
+        guideMaskNode.removeFromParent();
         self.alertMsgNew();
         console.log(self.step);
         var oldGuideNode = cc.find('guide');
@@ -401,6 +403,7 @@ var GuideSystem = {
     guideMaskNode.on(
       'click',
       function() {
+        guideMaskNode.removeFromParent();
         self.alertMsgNew();
         console.log(self.step);
         var oldGuideNode = cc.find('guide');
@@ -435,6 +438,7 @@ var GuideSystem = {
     guideMaskNode.on(
       'click',
       function() {
+        guideMaskNode.removeFromParent();
         self.idnexJs.func.loadSceneFarm.call(self.idnexJs);
       },
       this

@@ -84,7 +84,9 @@ cc.Class({
         }, 500);
       });
     } else {
-      Msg.show('我现在不需要浇水哦~');
+      self.timers = setTimeout(function() {
+        Msg.show('我现在不需要浇水哦~');
+      }, 500);
     }
   },
   //除草
@@ -110,7 +112,9 @@ cc.Class({
         }, 500);
       });
     } else {
-      Msg.show('我现在不需要除草哦~');
+      self.timers = setTimeout(function() {
+        Msg.show('我现在不需要除草哦~');
+      }, 500);
     }
   },
   //除虫
@@ -136,7 +140,9 @@ cc.Class({
         }, 500);
       });
     } else {
-      Msg.show('我现在不需要除虫哦~');
+      self.timers = setTimeout(function() {
+        Msg.show('我现在不需要除虫哦~');
+      }, 500);
     }
   },
   //施肥
@@ -186,7 +192,9 @@ cc.Class({
         }
       });
     } else {
-      Msg.show('我现在还不能收取哦~');
+      self.timers = setTimeout(function() {
+        Msg.show('我现在还不能收取哦~');
+      }, 500);
     }
   },
   onCollisionStay: function(other) {

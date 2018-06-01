@@ -62,6 +62,7 @@ cc.Class({
     //更新于土地拓建
     this.node.on('unLockLand', function(event) {
       let ListData = event.detail.data;
+
       self.clearAllDom(ListData); //清除植物数据
       self.setLandOption(ListData); //重新加载土地
       self.setLocData(ListData);
@@ -541,13 +542,14 @@ cc.Class({
     let self = this;
     let bg = cc.find('bg', this.node);
     for (let i = 0; i < 12; i++) {
-      if (self.oldData !== null && ValueList[i].CropsID > 0) {
+      if (self.oldData !== null && !ValueList[i].IsLock) {
         if (
           self.oldData[i].CropsIsFertilization !== ValueList[i].CropsIsFertilization ||
           self.oldData[i].CropsStatus !== ValueList[i].CropsStatus ||
           self.oldData[i].IsDisinsection !== ValueList[i].IsDisinsection ||
           self.oldData[i].IsDry !== ValueList[i].IsDry ||
-          self.oldData[i].IsWeeds !== ValueList[i].IsWeeds
+          self.oldData[i].IsWeeds !== ValueList[i].IsWeeds ||
+          self.oldData[i].IsLock !== ValueList[i].IsLock
         ) {
           console.log(i);
           let clearItem = cc.find('Prefab' + i, bg);
@@ -579,28 +581,54 @@ cc.Class({
   },
   showFarmTimer(e, list) {
     //显示节点（动画）
-    let showNode = cc.find('timer', e);
-    let showNodeTime = cc.find('timer/text', e).getComponent(cc.Label);
-    console.log();
-
     Data.func.FarmCropsGrowTime(list[Number(e._name.slice(6))].CropsID).then(data => {
       if (data.Code === 1) {
-        showNodeTime.string = `距离成长期还需${utils.fn.formatNumToDateTimeCh(data.Model)}`;
-        clearTimeout(timer);
-        showNode.active = true;
-        showNode.opacity = 0;
-        showNode.runAction(cc.fadeIn(0.5));
-        var action = cc.sequence(
-          cc.fadeOut(0.5),
-          cc.callFunc(() => {
-            showNode.active = false;
-          }, this)
-        );
-        let timer = setTimeout(() => {
-          if (!Config.firstLogin) showNode.runAction(action);
-        }, 2000);
+        this.setTimeBar(e, data);
       }
     });
+  },
+  setTimeBar(e, data) {
+    let totallenth;
+    if (data.Code == 1) {
+      totallenth = 8 * 60;
+    } else {
+      totallenth = 16 * 60;
+    }
+    let showNode = cc.find('timer', e);
+    let showNodeTime = cc.find('timer/text', e).getComponent(cc.Label);
+    let ProgressBar = cc.find('timer/progressBar', e).getComponent(cc.ProgressBar);
+    let ProgressMask = cc.find('timer/progressBar/Mask', e);
+    let createTime = data.Model.match(/\d+/g)[0];
+    let endTime = parseInt(createTime) + 48 * 60 * 60 * 1000;
+    let nowDate = Date.parse(new Date());
+    let time = utils.fn.timeDiff(nowDate, endTime);
+    let progressNum = (time.hours * 60 + time.mins) / totallenth;
+    console.log(progressNum);
+    ProgressBar.progress = progressNum;
+
+    showNode.active = false;
+    showNodeTime.string = `距离成长期还需${time.hours}小时${time.mins}分`;
+    clearTimeout(timer);
+    showNode.active = true;
+    showNode.runAction(
+      cc.sequence(
+        cc.fadeIn(0.2),
+        cc.callFunc(() => {
+          ProgressMask.active = true;
+        }, this)
+      )
+    );
+
+    var action = cc.sequence(
+      cc.fadeOut(0.2),
+      cc.callFunc(() => {
+        showNode.active = false;
+        ProgressMask.active = false;
+      }, this)
+    );
+    let timer = setTimeout(() => {
+      if (!Config.firstLogin) showNode.runAction(action);
+    }, 2000);
   },
   update(dt) {
     // this.fatchData();
