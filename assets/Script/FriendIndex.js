@@ -453,7 +453,7 @@ cc.Class({
     cc.director.loadScene('weatherInfo');
   },
   loadIndexScene() {
-    cc.director.loadScene(Config.backIndexUrl);
+    cc.director.loadScene('index');
   },
   gotoFriendFarm() {
     let self = this;

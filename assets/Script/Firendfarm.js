@@ -472,7 +472,7 @@ cc.Class({
     cc.director.loadScene('FriendIndex', this.onLoadFadeIn);
   },
   back: function() {
-    cc.director.loadScene(Config.backIndexUrl, this.onLoadFadeIn);
+    cc.director.loadScene('index', this.onLoadFadeIn);
   },
   onLoadFadeIn() {
     let canvas = cc.find('Canvas');

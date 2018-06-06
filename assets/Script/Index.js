@@ -5,6 +5,7 @@
 var Data = require('Data');
 var Func = Data.func;
 var ToolJs = require('Tool');
+var utils = require('utils');
 var Tool = ToolJs.Tool;
 
 cc.Class({
@@ -22,32 +23,6 @@ cc.Class({
     feedIcon: cc.SpriteFrame
     //仓库跳转后执行相应操作
   },
-  //Chick.js
-  chickJs: null,
-  operate: null,
-  _clearValue: null,
-  clearLabel: null,
-  //菜单 半透明背景 Modal_more
-  chickFunc: null,
-  //清理和喂食动画的节点
-  handNode: null,
-  handAnim: null,
-  _signState: null,
-  //点击显示小鸡状态的timer
-  timer: null,
-  //点击显示饲料槽的timer
-  timer2: null,
-  //房屋升级状态的timer
-  timer3: null,
-  feedStateNode: null,
-  wether: null,
-  // arrowNode: null,
-  eggNode: null,
-  chickList: null,
-  //产蛋棚等级
-  eggsShedRank: null,
-  // 牧场等级
-  RanchRank: null,
 
   init: function() {
     this.handNode = cc.find('Hand', this.node);
@@ -67,7 +42,7 @@ cc.Class({
 
     //新手指引step
     this.step = 0;
-
+    this.speakType = 0;
     this.shitBoxNode = cc.find('shit-box', this.node);
     this.ranchRankNode = cc.find('ranch-rank', this.node);
 
@@ -94,7 +69,7 @@ cc.Class({
   },
   initData(data) {
     //新手指引
-
+    let self = this;
     Config.firstLogin = !data.UserModel.IsFinishGuid;
     Config.guideStep = data.UserModel.GuidStep;
     Config.headImg = data.UserModel.Headimgurl;
@@ -102,8 +77,7 @@ cc.Class({
     Config.UserData = data;
     //用户头像
     let headImg = cc.find('div_header/advisor/advisor', this.node.parent);
-    let barTimeMask = cc.find('bg/house/barTime/progressBar/maskBar', this.node);
-    barTimeMask.active = true;
+
     this.setHeadImg(headImg);
 
     //名称
@@ -158,6 +132,17 @@ cc.Class({
     this.initChick();
     this.initEggShed(eggsShedRank);
     this.initRanchGrade(RanchRank);
+    this.initChickenLayEggTimeFirst();
+    this.GetRanchPeopleShowMessage();
+    self.schedule(function() {
+      self.initChickenLayEggTimeFirst();
+    }, 60);
+
+    self.schedule(function() {
+      if (this.speakList.length !== 1) {
+        self.farmSpeak();
+      }
+    }, 5);
   },
   //只运行一次
   initChick() {
@@ -232,6 +217,7 @@ cc.Class({
       .then(data => {
         if (data.Code === 1) {
           //清洁动画
+          Msg.show(data.Message);
           this.handNode.active = true;
           this.handAnim.play('hand_clear');
 
@@ -287,96 +273,14 @@ cc.Class({
     if (!Config.firstLogin) {
       Func.AddFeed().then(data => {
         if (data.Code === 1) {
-          let array = data.Model.split(',');
-          let value = array[0];
-          let capacity = array[1];
-          this.assignFeedState(value, capacity);
-          this.updateFeedCount();
-          //动画
-          let handFeedNode = cc.find('hand_feed', this.node);
-          handFeedNode.active = true;
-          let hanfFeedAnim = handFeedNode.getComponent(cc.Animation);
-          hanfFeedAnim.play('hand_feed');
-          hanfFeedAnim.on('finished', () => {
-            handFeedNode.active = false;
-            // this.arrowNode.active = false;
-          });
+          Msg.show(data.Message);
         } else {
           Msg.show(data.Message);
         }
       });
     }
   },
-  //升级饲料槽
-  UpFeedGrade() {
-    Func.UpFeedGrade().then(data => {
-      if (data.Code === 1) {
-        Msg.show(data.Message);
-      } else {
-        Msg.show(data.Message);
-      }
-    });
-  },
-  //显示饲料槽状态
-  showFeedState() {
-    // if (this._chick._stateNode != null) this._chick._stateNode.active = false;
 
-    Func.GetFeedData().then(data => {
-      if (data.Code == 1) {
-        // let flag = this.arrowNode.active;
-
-        // this.arrowNode.active = false;
-        let capacity = data.Model.FeedTroughCapacity;
-        let value = data.Model.FeedCount;
-        let Lv = data.Model.FeedTroughGrade;
-        this.assignFeedState(value, capacity, Lv);
-
-        //显示节点（动画）
-        clearTimeout(this.timer2);
-        this.feedStateNode.active = true;
-        this.feedStateNode.opacity = 0;
-        this.feedStateNode.runAction(cc.fadeIn(0.5));
-        var action = cc.sequence(
-          cc.fadeOut(0.5),
-          cc.callFunc(() => {
-            this.feedStateNode.active = false;
-            // this.arrowNode.active = flag ? true : false;
-          }, this)
-        );
-        this.timer2 = setTimeout(() => {
-          if (!Config.firstLogin) this.feedStateNode.runAction(action);
-        }, 3000);
-      } else {
-        Alert.show(data.Message);
-      }
-    });
-  },
-  //赋值 饲料槽
-  assignFeedState(value, capacity, Lv) {
-    this.feedStateNode = this.node.getChildByName('feedState');
-    let feedProgressBar = cc.find('layout/Bar', this.feedStateNode).getComponent(cc.ProgressBar);
-    let feedBar = feedProgressBar.node.getChildByName('bar');
-    let feedLabel = cc.find('layout/value', this.feedStateNode).getComponent(cc.Label);
-    let LvText = cc.find('text', this.feedStateNode).getComponent(cc.Label);
-    switch (Lv) {
-      case 1: {
-        LvText.string = '（消耗198牧场币）';
-        break;
-      }
-      case 2: {
-        LvText.string = '（消耗518牧场币）';
-        break;
-      }
-      case 3: {
-        LvText.string = '(已满级)';
-        break;
-      }
-    }
-
-    feedLabel.string = value + '/ ' + capacity;
-    feedProgressBar.progress = value / capacity;
-    Tool.setBarColor(feedBar, value / capacity);
-  },
   //显示牧场升级弹出框
   showRanchUpgrade() {
     this.houseStateNode = cc.find('bg/ranch-grade/houseState', this.node);
@@ -465,7 +369,63 @@ cc.Class({
       }
     });
   },
-
+  //老爷爷话术
+  GetRanchPeopleShowMessage() {
+    Func.GetRanchPeopleShowMessage().then(data => {
+      if (data.Code === 1) {
+        console.log(data);
+        this.speakList = ['欢迎来到原态农业农场小游戏！'];
+        if (data.Model.ChickenGrow) {
+          let spaak = '亲，你认养的贵妃鸡已经到达了自然生长周期，停止产蛋。目前它正在兑换商城中等待亲兑换哦！';
+          this.speakList.push(spaak);
+        }
+        if (data.Model.ChickenSatiation) {
+          let spaak = '亲，快给贵妃鸡喂食吧！保证它们肚子饱饱，是首要任务哦！不要影响它们正常产蛋哦！';
+          this.speakList.push(spaak);
+        }
+        if (data.Model.EggBad) {
+          let spaak = '亲，你有鸡蛋由于在产蛋棚中存放超过72小时，已经变质。亲，产蛋棚中的鸡蛋要及时收取哦！';
+          this.speakList.push(spaak);
+        }
+        if (data.Model.FeedTroughCount) {
+          let spaak = '亲，饲料槽中饲料即将耗尽，请及时补充哦！';
+          this.speakList.push(spaak);
+        }
+        if (data.Model.LayEggShedSlot) {
+          let spaak = '亲，你产蛋棚中的鸡蛋存放数量即将超限，请你及时收取哦！';
+          this.speakList.push(spaak);
+        }
+        if (data.Model.LayEggShedSteal) {
+          let spaak = '亲，你的产蛋棚中鸡蛋被好友偷取了哦。亲，产蛋棚中的鸡蛋要及时收取哦！';
+          this.speakList.push(spaak);
+        }
+        if (data.Model.RanchSteal) {
+          let spaak = '';
+          this.speakList.push(spaak);
+        }
+        console.log(this.speakList);
+      } else {
+        this.speakList = ['欢迎来到原态农业农场小游戏！'];
+      }
+    });
+  },
+  //初始化产蛋时间
+  initChickenLayEggTimeFirst() {
+    Func.ChickenLayEggTimeFirst().then(res => {
+      if (res.Code == 1) {
+        let barTimeMask = cc.find('bg/house/barTime/progressBar/maskBar', this.node);
+        let barTimeBar = cc.find('bg/house/barTime/progressBar', this.node).getComponent(cc.ProgressBar);
+        let barTimetext = cc.find('bg/house/barTime/label', this.node).getComponent(cc.Label);
+        let endDate = Date.parse(new Date(res.Time));
+        let nowDate = Date.parse(new Date());
+        let time = utils.fn.timeDiff(nowDate, endDate);
+        console.log(time);
+        barTimeBar.progress = 1 - (time.days * 24 + time.hours + time.mins / 60) / Number(res.TotalHours);
+        barTimetext.string = `距下次产蛋需${time.days * 24 + time.hours}小时${time.mins}分`;
+        barTimeMask.active = true;
+      }
+    });
+  },
   // 初始化牧场等级
   initRanchGrade(rank) {
     switch (rank) {
@@ -561,6 +521,7 @@ cc.Class({
 
   updateWeather() {
     let rainNode = cc.find('ParticleRain', this.node);
+
     let wetherIcon = cc.find('div/icon', this.wether).getComponent(cc.Sprite);
     if (Config.weather === -1) {
       //下雨
@@ -648,7 +609,7 @@ cc.Class({
     Func.openID = window.Config.openID;
     Config.newSocket = new WebSocket('ws://service.linedin.cn:5530/');
     cc.director.setDisplayStats(false);
-
+    Config.backArr = ['index'];
     this.func = {
       showMenu: this.showMenu,
       loadSceneShop: this.loadSceneShop,
@@ -657,7 +618,8 @@ cc.Class({
       initRanchGrade: this.initRanchGrade,
       showFeedState: this.showFeedState,
       addFeed: this.addFeed,
-      loadSceneFarm: this.loadSceneFarm
+      loadSceneFarm: this.loadSceneFarm,
+      updateFeedCount: this.updateFeedCount
     };
     this.addPersist();
     this.preloadScene();
@@ -687,6 +649,18 @@ cc.Class({
       }
     });
   },
+  loadAnimates() {
+    cc.loader.loadRes('Prefab/Modal/load', cc.Prefab, function(error, prefab) {
+      if (error) {
+        cc.error(error);
+        return;
+      }
+      let box = cc.find('Canvas');
+      // 实例
+      var alert = cc.instantiate(prefab);
+      box.parent.addChild(alert);
+    });
+  },
   //仓库回调函数（0表示孵化操作）
   repertoryCallBack() {
     if (this.operate != null) {
@@ -706,7 +680,6 @@ cc.Class({
     Config.hearderNode.active = false;
   },
   addPersist() {
-    Config.backIndexUrl = 'index';
     if (Config.menuNode) {
       Config.menuNode.active = true;
       Config.hearderNode.active = true;
@@ -719,8 +692,13 @@ cc.Class({
   },
   farmSpeak() {
     let showNode = cc.find('farmer/farmer-text', this.node);
-
-    clearTimeout(timer);
+    let showNodeText = cc.find('farmer/farmer-text/text', this.node).getComponent(cc.Label);
+    showNodeText.string = this.speakList[this.speakType];
+    this.speakType++;
+    if (this.speakType == this.speakList.length) {
+      this.speakType = 0;
+    }
+    // clearTimeout(timer);
     showNode.active = true;
     showNode.opacity = 0;
     showNode.runAction(cc.fadeIn(0.5));
@@ -730,9 +708,10 @@ cc.Class({
         showNode.active = false;
       }, this)
     );
-    let timer = setTimeout(() => {
-      showNode.runAction(action);
-    }, 5000);
+
+    // let timer = setTimeout(() => {
+    //   showNode.runAction(action);
+    // }, 5000);
   }
 
   //update(dt) {}

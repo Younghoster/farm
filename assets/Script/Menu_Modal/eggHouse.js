@@ -17,6 +17,7 @@ cc.Class({
     this.closeButton = cc.find('btn-close', this.node);
     this.label = cc.find('bg/label', this.node);
     this.label2 = cc.find('bg/label2', this.node);
+    this.label3 = cc.find('bg/label3', this.node);
     this.contentNode = cc.find('bg/content', this.node);
     for (let i = 0; i < 10; i++) {
       this.holeNodeList[i] = cc.find(`hole${i}`, this.contentNode);
@@ -49,20 +50,24 @@ cc.Class({
         let list = data.Model.DetailList;
         let LabStr = self.label.getComponent(cc.Label);
         let LabStr2 = self.label2.getComponent(cc.Label);
+        let LabStr3 = self.label3.getComponent(cc.Label);
         switch (this.shedRank) {
           case 1: {
             LabStr.string = '您的孵蛋屋等级为1级';
-            LabStr2.string = '升级下一级所需198牧场币或者20000积分';
+            LabStr2.string = '升级下一级所需198牧场币（无等级限制）';
+            LabStr3.string = '或者20000积分，同时用户等级达到5级';
             break;
           }
           case 2: {
             LabStr.string = '您的孵蛋屋等级为2级';
-            LabStr2.string = '升级下一级所需498牧场币或者50000积分';
+            LabStr2.string = '升级下一级所需498牧场币（无等级限制）';
+            LabStr3.string = '或者50000积分，同时用户等级达到15级';
             break;
           }
           case 3: {
             LabStr.string = '您的孵蛋屋已经满级！';
             LabStr2.string = '无需升级';
+            LabStr3.string = '';
             break;
           }
         }
@@ -237,12 +242,20 @@ cc.Class({
   },
   //积分升级
   upgradeByPoint() {
+    let self = this;
+    Tool.closeModal(this.node);
     Func.UpgradeEggsShed(0).then(data => {
       if (data.Code === 1) {
         //更新产蛋棚等级
         this.shedRank = data.Model;
+        this.animates();
         this.initData();
         this.updateEggshed();
+        self.div_header = cc.find('div_header');
+        self.div_header.emit('upDataMoney', {
+          data: ''
+        });
+        Msg.show('升级成功！');
       } else {
         Msg.show(data.Message);
       }
@@ -250,15 +263,19 @@ cc.Class({
   },
   //牧场币升级
   upgradeByMoney() {
+    let self = this;
+    Tool.closeModal(this.node);
     Func.UpgradeEggsShed(1).then(data => {
       if (data.Code === 1) {
         this.shedRank = data.Model;
+        this.animates();
         this.initData();
         this.updateEggshed();
         self.div_header = cc.find('div_header');
         self.div_header.emit('upDataMoney', {
           data: ''
         });
+        Msg.show('升级成功！');
       } else {
         Msg.show(data.Message);
       }
@@ -274,7 +291,18 @@ cc.Class({
     this.bindEvent();
     this.initData();
   },
-
+  animates() {
+    cc.loader.loadRes('Prefab/Modal/House', cc.Prefab, function(error, prefab) {
+      if (error) {
+        cc.error(error);
+        return;
+      }
+      let box = cc.find('Canvas');
+      // 实例
+      var alert = cc.instantiate(prefab);
+      box.parent.addChild(alert);
+    });
+  },
   start() {}
 
   // update (dt) {},

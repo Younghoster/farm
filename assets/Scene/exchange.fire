@@ -320,8 +320,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
-      "height": 120
+      "width": 150,
+      "height": 100
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -329,8 +329,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -315,
-      "y": 0
+      "x": -326,
+      "y": 5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -384,7 +384,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -1.5,
+      "x": 0,
       "y": 0
     },
     "_skewX": 0,
@@ -430,7 +430,7 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 10,
+    "_alignFlags": 18,
     "_left": 50,
     "_right": 0,
     "_top": 0,
@@ -480,11 +480,11 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 45,
-    "_left": 0,
-    "_right": 630,
-    "_top": 0,
-    "_bottom": 0,
+    "_alignFlags": 9,
+    "_left": -26,
+    "_right": 645.5,
+    "_top": 5,
+    "_bottom": 10,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -494,7 +494,7 @@
     "_isAbsHorizontalCenter": true,
     "_isAbsVerticalCenter": true,
     "_originalWidth": 100,
-    "_originalHeight": 40
+    "_originalHeight": 100
   },
   {
     "__type__": "cc.Button",

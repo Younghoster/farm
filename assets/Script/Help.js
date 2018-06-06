@@ -24,7 +24,11 @@ cc.Class({
     }
   },
   back() {
-    cc.director.loadScene(Config.backUrl);
+    Config.backArr.pop();
+    cc.director.loadScene(Config.backArr[Config.backArr.length - 1]);
+  },
+  onLoad() {
+    Config.backArr.indexOf('Help') == -1 ? Config.backArr.push('Help') : false;
   }
   // update (dt) {},
 });

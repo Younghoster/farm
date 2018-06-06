@@ -27,6 +27,7 @@ cc.Class({
     this.sexLabel = cc.find('bg-f3/bg/info/sex', this.node).getComponent(cc.Label);
     this.hungryLabel = cc.find('bg-f3/bg/info/hungry', this.node).getComponent(cc.Label);
     this.timerLabel = cc.find('bg-f3/bg/info/timer', this.node).getComponent(cc.Label);
+    this.lifeLabel = cc.find('bg-f3/bg/info/life', this.node).getComponent(cc.Label);
     // this.healthLabel = cc.find('bg-f3/bg/info/health', this.node).getComponent(cc.Label);
     this.collectButton = cc.find('bg-f3/bg/collect', this.node);
     this.growNode = cc.find('bg-f3/bg/grow/progressBar', this.node);
@@ -186,7 +187,9 @@ cc.Class({
     let endTime = parseInt(createTime) + 48 * 60 * 60 * 1000;
     let nowDate = Date.parse(new Date());
     let time = utils.fn.timeDiff(nowDate, endTime);
+
     this.timerLabel.string = `产蛋时间：${(time.days - 2) * 24 + time.hours}小时${time.mins}分`;
+    this.lifeLabel.string = `生长周期：${data.Days}/90天`;
     this.growProgressBar.progress = Math.round(data.StarvationValue) / 100;
     this.growLabel.string = `${Math.round(data.StarvationValue)}/100`;
 
@@ -340,7 +343,10 @@ cc.Class({
     });
   },
 
-  onLoad() {},
+  onLoad() {
+    Config.backArr.indexOf('chickDetail') == -1 ? Config.backArr.push('chickDetail') : false;
+    console.log(Config.backArr);
+  },
 
   start() {
     this.bindNode();
@@ -348,7 +354,6 @@ cc.Class({
     this.initData();
   },
   goToHelp() {
-    Config.backUrl = 'index';
     cc.director.loadScene('Help');
   }
   // update (dt) {},

@@ -237,7 +237,8 @@ var GuideSystem = {
       'click',
       function() {
         guideMaskNode.removeFromParent();
-        self.idnexJs.func.showFeedState.call(self.idnexJs);
+        var modalJS = cc.find('hatch-box', self.scene).getComponent('Modal');
+        modalJS.func.showModal.call(modalJS);
         self.guide();
       },
       this
@@ -246,8 +247,8 @@ var GuideSystem = {
   //添加饲料
   guideStep6: function guideStep6(guideNode, guideMaskNode, modalSprite, circleNode) {
     var self = this;
-    var goodsNode = cc.find('feedState/icon-addFeeds', self.scene);
-
+    var goodsNode = cc.find('feedModal/bg/feedState/icon-addFeeds');
+    var goodsBox = cc.find('feedModal');
     //设置position
     var pos = goodsNode.getPosition();
     var pos_5 = goodsNode.getNodeToWorldTransformAR(pos);
@@ -260,7 +261,7 @@ var GuideSystem = {
     var radius = height > width ? height : width;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-5', cc.SpriteFrame, function(err, spriteFrame) {
+    cc.loader.loadRes('guide/black', cc.SpriteFrame, function(err, spriteFrame) {
       modalSprite.spriteFrame = spriteFrame;
     });
     //绑定事件
@@ -270,6 +271,7 @@ var GuideSystem = {
         guideMaskNode.removeFromParent();
         self.idnexJs.func.addFeed.call(self.idnexJs);
         self.alertMsgNew();
+        goodsBox.removeFromParent();
         console.log(self.step);
         var oldGuideNode = cc.find('guide');
         oldGuideNode ? oldGuideNode.removeFromParent() : false;

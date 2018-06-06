@@ -38,12 +38,14 @@ cc.Class({
             this.upgradeByMoneyInfo = data.List[i];
           }
         }
-        this.messageLabel.string = `将牧场lv.${this.upgradeByPointInfo.RanchGrade - 1}升级为lv.${parseInt(
+        let needLevel = 5;
+        if (parseInt(this.upgradeByPointInfo.RanchGrade) == 3) {
+          needLevel = 15;
+        }
+        this.messageLabel.string = `牧场lv.${this.upgradeByPointInfo.RanchGrade - 1}升级为lv.${parseInt(
           this.upgradeByPointInfo.RanchGrade
-        )},`;
-        this.label.string = `需要花费 ${this.upgradeByPointInfo.Money} 积分或花费 ${
-          this.upgradeByMoneyInfo.Money
-        } 牧场币`;
+        )},花费${this.upgradeByMoneyInfo.Money} 牧场币(无等级限制)`;
+        this.label.string = `或者${this.upgradeByPointInfo.Money}积分同时用户等级达到lv.${needLevel}`;
       } else if (data.Code === 2) {
       } else {
         Msg.show(data.Message);
@@ -103,6 +105,7 @@ cc.Class({
             this.grade = 3;
             break;
         }
+        this.animates();
         self.div_header = cc.find('div_header');
         self.div_header.emit('upDataMoney', {
           data: ''
@@ -119,7 +122,18 @@ cc.Class({
     this.bindData();
     this.bindEvent();
   },
-
+  animates() {
+    cc.loader.loadRes('Prefab/Modal/House', cc.Prefab, function(error, prefab) {
+      if (error) {
+        cc.error(error);
+        return;
+      }
+      let box = cc.find('Canvas');
+      // 实例
+      var alert = cc.instantiate(prefab);
+      box.parent.addChild(alert);
+    });
+  },
   start() {}
 
   // update (dt) {},

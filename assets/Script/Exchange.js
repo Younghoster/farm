@@ -65,7 +65,7 @@ cc.Class({
       Func.GetExchangeCount(this._goodsType, this._actualCount).then(data => {
         this._virtualCount = data.Model;
         this.actualCountLabel.string = this._actualCount;
-        this.virtualCountLabel.string = this._virtualCount * 6;
+        this.virtualCountLabel.string = this._virtualCount;
       });
     });
     //加号按钮事件
@@ -74,8 +74,9 @@ cc.Class({
       Func.GetExchangeCount(this._goodsType, this._actualCount).then(data => {
         if (data.Code === 1) {
           this._virtualCount = data.Model;
+          console.log(this._actualCount, this._virtualCount);
           this.actualCountLabel.string = this._actualCount;
-          this.virtualCountLabel.string = this._virtualCount * 6;
+          this.virtualCountLabel.string = this._virtualCount;
         } else {
           this._actualCount--;
           Msg.show(data.Message);
@@ -111,13 +112,15 @@ cc.Class({
     });
   },
   loadAddressListScene() {
-    Config.backUrl = 'exchange';
     cc.director.loadScene('UserCenter/AddressList');
   },
   loadRepertory() {
-    cc.director.loadScene(Config.backUrl);
+    Config.backArr.pop();
+    cc.director.loadScene(Config.backArr[Config.backArr.length - 1]);
   },
   onLoad() {
+    Config.backArr.indexOf('exchange') == -1 ? Config.backArr.push('exchange') : false;
+    console.log(Config.backArr);
     this.bindNode();
   },
   start() {

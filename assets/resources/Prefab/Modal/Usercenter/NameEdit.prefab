@@ -833,7 +833,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 355.19,
+      "width": 340,
       "height": 30
     },
     "_rotationX": 0,
@@ -868,7 +868,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "温馨提示：修改昵称将扣除您200牧场币",
+    "_N$string": "温馨提示：修改昵称将消耗一张改名卡",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",

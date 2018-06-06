@@ -295,6 +295,10 @@ cc.Class({
       Func.PostBuyP2P(data.ID, count).then(data => {
         if (data.Code === 1) {
           Msg.show('购买成功');
+          self.div_header = cc.find('div_header');
+          self.div_header.emit('upDataMoney', {
+            data: ''
+          });
           setTimeout(function() {
             cc.director.loadScene('shopP2P');
           }, 1000);
@@ -306,7 +310,8 @@ cc.Class({
   },
   //返回
   backEvent() {
-    cc.director.loadScene(Config.backIndexUrl);
+    Config.backArr.pop();
+    cc.director.loadScene(Config.backArr[Config.backArr.length - 1]);
   },
   //切换系统商城
   gotoPageShopPoint() {

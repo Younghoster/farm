@@ -1496,7 +1496,7 @@ var func = {
     });
   },
   //升级饲料槽
-  UpFeedGrade(username, address, phone, count) {
+  UpFeedGrade(type) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -1518,7 +1518,7 @@ var func = {
 
       xhr.open('POST', window.Config.apiUrl + '/T_Base_User/UpFeedTroughGrade', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
-      xhr.send('openID=' + this.openID);
+      xhr.send('openID=' + this.openID + '&payType='+type);
     });
   },
   //添加地址列表
@@ -2223,6 +2223,52 @@ var func = {
       xhr.open('POST', Config.apiUrl + '/T_Farm_Crops/FarmCropsGrowTime', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.send('cropsId=' + cropsId);
+    });
+  },
+  //倒计时
+  ChickenLayEggTimeFirst(playerid) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            console.log('获取数据失败');
+            reject(response);
+          }
+        }
+      };
+      // GET方法
+      xhr.open('POST', Config.apiUrl + '/T_Base_Chicken/ChickenLayEggTimeFirst', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.send('openId=' + this.openID);
+    });
+  },
+  //老爷爷话术
+  GetRanchPeopleShowMessage(playerid) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            console.log('获取数据失败');
+            reject(response);
+          }
+        }
+      };
+      // GET方法
+      xhr.open('GET', Config.apiUrl + '/T_Base_Ranch/GetRanchPeopleShowMessage?openId=' + this.openID, true);
+      xhr.setRequestHeader('Content-Type', 'json');
+      xhr.send();
     });
   }
 };

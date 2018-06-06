@@ -55,6 +55,7 @@ cc.Class({
   },
   //赋值
   assignData(data, itemNode) {
+    let self = this;
     let idLabel = cc.find('info/id/value', itemNode).getComponent(cc.Label);
     let eggCountLabel = cc.find('info/count/value', itemNode).getComponent(cc.Label);
     let msgLabel = cc.find('info/msg/value', itemNode).getComponent(cc.Label);
@@ -64,16 +65,18 @@ cc.Class({
     let btn = cc.find('btn', itemNode);
     let btnLabel = cc.find('label', btn).getComponent(cc.Label);
 
-    let createTime = data.CreateTime.match(/\d+/g)[0];
+    let createTime = data.BelongTime.match(/\d+/g)[0];
     let endTime = parseInt(createTime) + 48 * 60 * 60 * 1000;
     let nowDate = Date.parse(new Date());
     let time = DateFormat.timeDiff(nowDate, endTime);
     let cid = data.ID;
+    console.log(time);
 
     idLabel.string = cid;
-    eggCountLabel.Zstring = data.EggCount;
+    eggCountLabel.string = data.EggCount;
     if (time) {
       timeLabel.string = `${time.days * 24 + time.hours}小时${time.mins}分钟`;
+      btn.color = cc.color('#ff4c4c');
     } else {
       timeLabel.string = '已超出兑换时间';
       btnLabel.string = '兑换过期';
@@ -101,6 +104,10 @@ cc.Class({
             this.page++;
             this.initData();
           }
+          self.div_header = cc.find('div_header');
+          self.div_header.emit('upDataMoney', {
+            data: ''
+          });
           Msg.show('兑换成功,已存入仓库中');
         } else {
           Msg.show(data.Message);
@@ -117,7 +124,6 @@ cc.Class({
     Config.exchangeData.virtualName = '鸡蛋';
     Config.exchangeData.virtualCount = 1;
     Config.exchangeData.goodsType = 2;
-    Config.backUrl = 'index';
     cc.director.loadScene('exchange');
     this.removePersist();
   },

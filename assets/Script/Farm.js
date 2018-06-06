@@ -18,8 +18,8 @@ cc.Class({
       type: cc.Prefab
     }
   },
-  Value: null,
-  Prefab: null,
+  // Value: null,
+  // Prefab: null,
   onLoad() {
     document.title = `${Config.realName}的农场`;
     this.oldData = null;
@@ -29,6 +29,7 @@ cc.Class({
       touchstart: this.touchstart,
       touchmove: this.touchmove
     };
+    Config.backArr = ['farm'];
     let org = document.body.clientHeight / document.body.clientWidth;
 
     if (org > 700 / 375) {
@@ -107,7 +108,6 @@ cc.Class({
   //仅仅 更新 植物状态
   onlyUpdataPlant() {
     var self = this;
-
     //获取所有数据
     Data.func.getFarmModalData().then(data => {
       if (data.Code === 1) {
@@ -368,8 +368,9 @@ cc.Class({
           }
           if (theCount == 0) {
             Msg.show('请到商城购买种子！');
+          } else {
+            Tool.RunAction(seedBox, 'fadeIn', 0.3);
           }
-          Tool.RunAction(seedBox, 'fadeIn', 0.3);
         } else {
           Msg.show('请到商城购买种子！');
         }
@@ -402,6 +403,7 @@ cc.Class({
             Data.func.GetFertilizerList().then(data => {
               if (data.Code === 1) {
                 for (let i = 0; i < data.List.length; i++) {
+                  theCount = theCount + data.List[i].Count;
                   let prefab = cc.instantiate(self.ItemSeed_Prefab);
                   let Img = cc.find('ymzz', prefab).getComponent(cc.Sprite);
                   let ImgSrc;
@@ -420,8 +422,9 @@ cc.Class({
                 }
                 if (theCount == 0) {
                   Msg.show('请到商城购买肥料！');
+                } else {
+                  Tool.RunAction(seedBox, 'fadeIn', 0.3);
                 }
-                Tool.RunAction(seedBox, 'fadeIn', 0.3);
               } else {
                 Msg.show('请到商城购买肥料！');
               }
@@ -575,8 +578,19 @@ cc.Class({
   },
 
   start() {},
+  loadAnimates() {
+    cc.loader.loadRes('Prefab/Modal/load', cc.Prefab, function(error, prefab) {
+      if (error) {
+        cc.error(error);
+        return;
+      }
+      let box = cc.find('Canvas');
+      // 实例
+      var alert = cc.instantiate(prefab);
+      box.parent.addChild(alert);
+    });
+  },
   addPersist() {
-    Config.backIndexUrl = 'farm';
     if (Config.menuNode) {
       Config.menuNode.active = true;
       Config.hearderNode.active = true;
@@ -585,7 +599,7 @@ cc.Class({
   showFarmTimer(e, list) {
     //显示节点（动画）
     Data.func.FarmCropsGrowTime(list[Number(e._name.slice(6))].CropsID).then(data => {
-      if (data.Code === 1) {
+      if (data.Code > 0) {
         this.setTimeBar(e, data);
       }
     });
@@ -607,10 +621,17 @@ cc.Class({
     let time = utils.fn.timeDiff(nowDate, endTime);
     let progressNum = (time.hours * 60 + time.mins) / totallenth;
     console.log(progressNum);
-    ProgressBar.progress = progressNum;
+    ProgressBar.progress = 1 - progressNum;
 
     showNode.active = false;
-    showNodeTime.string = `距离成长期还需${time.hours}小时${time.mins}分`;
+    if (data.Code == 1) {
+      showNodeTime.string = `距离成长期还需${time.hours}小时${time.mins}分`;
+    } else if (data.Code == 2) {
+      showNodeTime.string = `距离成熟期还需${time.hours}小时${time.mins}分`;
+    } else if (data.Code == 3) {
+      showNodeTime.string = `距离收获期还需${time.hours}小时${time.mins}分`;
+    }
+
     clearTimeout(timer);
     showNode.active = true;
     showNode.runAction(
@@ -633,6 +654,7 @@ cc.Class({
       if (!Config.firstLogin) showNode.runAction(action);
     }, 2000);
   },
+
   update(dt) {
     // this.fatchData();
   }

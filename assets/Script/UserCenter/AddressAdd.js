@@ -3,7 +3,8 @@ var utils = require('utils');
 cc.Class({
   extends: cc.Component,
   btnBackEvent() {
-    cc.director.loadScene('AddressList');
+    Config.backArr.pop();
+    cc.director.loadScene(Config.backArr[Config.backArr.length - 1]);
   },
 
   addAddress() {
@@ -24,6 +25,8 @@ cc.Class({
     });
   },
   onLoad() {
+    Config.backArr.indexOf('AddressAdd') == -1 ? Config.backArr.push('AddressAdd') : false;
+    console.log(Config.backArr);
     var self = this;
   },
 

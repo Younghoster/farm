@@ -60,6 +60,7 @@ cc.Class({
           Data.func.getFarmModalData().then(data2 => {
             // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
             console.log(data2.Model);
+            self.animates();
             self.FarmJs = cc.find('Canvas');
             self.div_header = cc.find('div_header');
             self.FarmJs.emit('unLockLand', {
@@ -82,7 +83,18 @@ cc.Class({
     this.bindEvent();
     console.log(this.node);
   },
-
+  animates() {
+    cc.loader.loadRes('Prefab/Modal/House', cc.Prefab, function(error, prefab) {
+      if (error) {
+        cc.error(error);
+        return;
+      }
+      let box = cc.find('Canvas');
+      // 实例
+      var alert = cc.instantiate(prefab);
+      box.parent.addChild(alert);
+    });
+  },
   start() {}
 
   // update (dt) {},

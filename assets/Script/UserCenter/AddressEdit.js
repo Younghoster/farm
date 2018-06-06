@@ -8,7 +8,8 @@ cc.Class({
   info: null,
   pro: null,
   btnBackEvent() {
-    cc.director.loadScene('AddressList');
+    Config.backArr.pop();
+    cc.director.loadScene(Config.backArr[Config.backArr.length - 1]);
   },
 
   updataAddress() {
@@ -20,7 +21,10 @@ cc.Class({
         cc.director.loadScene('AddressList');
       });
   },
-  onLoad() {},
+  onLoad() {
+    Config.backArr.indexOf('AddressEdit') == -1 ? Config.backArr.push('AddressEdit') : false;
+    console.log(Config.backArr);
+  },
 
   start() {
     var self = this;

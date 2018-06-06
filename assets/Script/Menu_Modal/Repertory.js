@@ -33,7 +33,8 @@ cc.Class({
     chickNode: null
   },
   loadSceneIndex() {
-    cc.director.loadScene(Config.backIndexUrl);
+    Config.backArr.pop();
+    cc.director.loadScene(Config.backArr[Config.backArr.length - 1]);
   },
   //加载系统道具
   leftBtnEvent() {
@@ -68,7 +69,8 @@ cc.Class({
 
     this.leftNode.on('click', this.leftBtnEvent, this);
     this.rightNode.on('click', this.rightBtnEvent, this);
-
+    Config.backArr.indexOf('repertory') == -1 ? Config.backArr.push('repertory') : false;
+    console.log(Config.backArr);
     this.GetSystemListByPage();
   },
   //系统仓库数据
@@ -403,7 +405,6 @@ cc.Class({
       Config.exchangeData.virtualCount = 1;
     }
     Config.exchangeData.goodsType = type;
-    Config.backUrl = 'repertory';
     cc.director.loadScene('exchange');
   },
   //合成

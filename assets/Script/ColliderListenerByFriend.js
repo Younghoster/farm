@@ -49,7 +49,7 @@ cc.Class({
           self.timers = setTimeout(function() {
             Data.func.getFarmModalData(Config.friendOpenId).then(data2 => {
               // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
-              Msg.show('浇水成功！');
+              Msg.show(data.Message);
               self.FarmJs.emit('updataPlant', {
                 data: data2.Model
               });
@@ -74,7 +74,7 @@ cc.Class({
           self.timers = setTimeout(function() {
             Data.func.getFarmModalData(Config.friendOpenId).then(data2 => {
               // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
-              Msg.show('除草成功');
+              Msg.show(data.Message);
               self.FarmJs.emit('updataPlant', {
                 data: data2.Model
               });
@@ -99,7 +99,7 @@ cc.Class({
           self.timers = setTimeout(function() {
             Data.func.getFarmModalData(Config.friendOpenId).then(data2 => {
               // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
-              Msg.show('除虫成功');
+              Msg.show(data.Message);
               self.FarmJs.emit('updataPlant', {
                 data: data2.Model
               });

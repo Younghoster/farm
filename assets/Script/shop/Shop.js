@@ -22,6 +22,8 @@ cc.Class({
   onLoad() {
     var self = this;
     self.getInitIndicator(0, 9);
+    Config.backArr.indexOf('shop') == -1 ? Config.backArr.push('shop') : false;
+    console.log(Config.backArr);
   },
   getList(index, size) {
     self = this;
@@ -46,7 +48,7 @@ cc.Class({
         let count = data.List[i].Count;
         self.selectIcon(goods, goodSprite);
         cc.find('pic-box/pic', goodsNode).getComponent(cc.Widget).bottom = 0;
-        let str = goods.RearingDays ? goods.RearingDays + '天' : '';
+        let str = goods.RearingDays == 90 ? goods.RearingDays + '天' : '';
         goodsLabel.string = str + goods.PropName + 'x' + count;
         priceLabel.string = goods.PropValue;
         goodsListNode.addChild(goodsNode);
@@ -192,6 +194,10 @@ cc.Class({
       Func.PostBuy(data.ID, count).then(data => {
         if (data.Code === 1) {
           Msg.show('购买成功');
+          self.div_header = cc.find('div_header');
+          self.div_header.emit('upDataMoney', {
+            data: ''
+          });
           setTimeout(function() {
             cc.director.loadScene('shop');
           }, 1000);
@@ -230,7 +236,8 @@ cc.Class({
   },
 
   backEvent() {
-    cc.director.loadScene(Config.backIndexUrl);
+    Config.backArr.pop();
+    cc.director.loadScene(Config.backArr[Config.backArr.length - 1]);
   },
   gotoPageShopP2P() {
     cc.director.loadScene('shopP2P');

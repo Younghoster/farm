@@ -1,6 +1,6 @@
 var Data = require('Data');
 var utils = require('utils');
-
+var Tool = require('Tool').Tool;
 cc.Class({
   extends: cc.Component,
 
@@ -11,33 +11,31 @@ cc.Class({
     }
   },
   btnBackEvent() {
-    cc.director.loadScene(Config.backIndexUrl);
+    Config.backArr.pop();
+    cc.director.loadScene(Config.backArr[Config.backArr.length - 1]);
   },
   btnGoTradeEvent() {
     cc.director.loadScene('tradelist');
   },
   btnGocoupon() {
-    Config.backUrl = 'userCenter';
     cc.director.loadScene('CouPonList');
   },
   btnHelpCenter() {
-    Config.backUrl = 'userCenter';
     cc.director.loadScene('Help');
   },
   btnGoAddressList() {
-    Config.backUrl = 'userCenter';
     cc.director.loadScene('AddressList');
   },
   btnGotorep() {
-    Config.backUrl = 'userCenter';
     cc.director.loadScene('repertory');
   },
   outLogin() {
-    window.location = 'http://jingongbao.com:4634';
+    window.location = 'http://wxapi.zjytny.cn';
   },
   onLoad() {
     let self = this;
-
+    Config.backArr.indexOf('userCenter') == -1 ? Config.backArr.push('userCenter') : false;
+    console.log(Config.backArr);
     Data.func.GetUserData(1, 4).then(data => {
       this.setData(data);
       this.setBuyPropertyList(data);
@@ -97,63 +95,133 @@ cc.Class({
           let day = cc.find('flex-right/value', PropertyList).getComponent(cc.Label);
           let time = cc.find('flex-right/time', PropertyList).getComponent(cc.Label);
           let imgSrc, imgSrc_;
-          data.Model.BuyPropertyList[i].PropType
-            ? ((imgSrc = 'Modal/Repertory/icon-asset01'), (name_1.string = '牧场币'))
-            : ((imgSrc = 'Modal/Repertory/icon-asset02'), (name_1.string = '积分'));
+          switch (data.Model.BuyPropertyList[i].ShowType) {
+            case 0: {
+              data.Model.BuyPropertyList[i].PropType
+                ? ((imgSrc = 'Modal/Repertory/icon-asset01'), (name_1.string = '牧场币'))
+                : ((imgSrc = 'Modal/Repertory/icon-asset02'), (name_1.string = '积分'));
 
-          switch (data.Model.BuyPropertyList[i].PropertyTypeID) {
-            //普通饲料
-            case 4: {
-              imgSrc_ = 'Modal/Repertory/icon-1';
+              switch (data.Model.BuyPropertyList[i].PrID) {
+                //普通饲料
+                case 2: {
+                  imgSrc_ = 'Modal/Repertory/icon-1';
+                  break;
+                }
+                case 15: {
+                  imgSrc_ = 'Modal/Repertory/icon-1';
+                  break;
+                }
+                case 16: {
+                  imgSrc_ = 'Modal/Repertory/icon-1';
+                  break;
+                }
+                case 17: {
+                  imgSrc_ = 'Modal/Repertory/icon-1';
+                  break;
+                }
+                //普通肥料
+                case 19: {
+                  imgSrc_ = 'Modal/Repertory/hf_xs';
+                  break;
+                }
+                //超级肥料
+                case 20: {
+                  imgSrc_ = 'Modal/Repertory/hf_xs';
+                  break;
+                }
+                //玉米种子
+                case 12: {
+                  imgSrc_ = 'Modal/Repertory/ymzz_xs';
+                  break;
+                }
+                //改名卡
+                case 21: {
+                  imgSrc_ = 'Modal/Repertory/icon-name_xs';
+                  break;
+                }
+                //产蛋鸡
+                case 18: {
+                  imgSrc_ = 'Modal/Repertory/icon-asset04';
+                  break;
+                }
+                //自动清洁机
+                case 22: {
+                  imgSrc_ = 'Modal/Repertory/icon-bot-xs';
+                  break;
+                }
+                default: {
+                  break;
+                }
+              }
+
+              num_1.string = '-' + data.Model.BuyPropertyList[i].PropValue * data.Model.BuyPropertyList[i].BuyCount;
+              num_2.string = '+' + data.Model.BuyPropertyList[i].BuyCount;
+              name_2.string = data.Model.BuyPropertyList[i].PropName;
+              cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                icon_1.spriteFrame = spriteFrame;
+              });
+              cc.loader.loadRes(imgSrc_, cc.SpriteFrame, (err, spriteFrame) => {
+                icon_2.spriteFrame = spriteFrame;
+              });
+              day.string = utils.fn.formatNumToDate(data.Model.BuyPropertyList[i].CreateTime);
+              time.string = utils.fn.formatNumToDateTime(data.Model.BuyPropertyList[i].CreateTime);
+              PrefabParent.addChild(PropertyList);
               break;
             }
-            //普通肥料
-            case 7: {
-              imgSrc_ = 'Modal/Repertory/hf_xs';
+            case 1: {
+              //充值记录;
+              imgSrc = 'Modal/Repertory/icon-asset01';
+              name_1.string = '牧场币';
+              cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                icon_1.spriteFrame = spriteFrame;
+              });
+              cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                icon_2.spriteFrame = spriteFrame;
+              });
+              let icon_2_dom = cc.find('flex-left/icon-asset04', PropertyList);
+              icon_2_dom.active = false;
+              num_1.string = '+' + data.Model.BuyPropertyList[i].RanchMoney;
+              num_2.string = '';
+              name_2.string = '成功充值' + data.Model.BuyPropertyList[i].RechargeMoney + '元';
+              day.string = utils.fn.formatNumToDate(data.Model.BuyPropertyList[i].CreateTime);
+              time.string = utils.fn.formatNumToDateTime(data.Model.BuyPropertyList[i].CreateTime);
+              PrefabParent.addChild(PropertyList);
               break;
             }
-            //超级肥料
-            case 9: {
-              imgSrc_ = 'Modal/Repertory/hf_xs';
-              break;
-            }
-            //玉米种子
-            case 6: {
-              imgSrc_ = 'Modal/Repertory/ymzz_xs';
-              break;
-            }
-            //改名卡
-            case 14: {
-              imgSrc_ = 'Modal/Repertory/icon-name_xs';
-              break;
-            }
-            //产蛋鸡
-            case 13: {
-              imgSrc_ = 'Modal/Repertory/icon-asset04';
-              break;
-            }
-            //自动清洁机
-            case 12: {
-              imgSrc_ = 'Modal/Repertory/icon-bot-xs';
-              break;
-            }
-            default: {
+            case 2: {
+              if (data.Model.BuyPropertyList[i].TradingType == 1) {
+                //兑换贵妃鸡
+                imgSrc = 'Modal/Repertory/icon-asset04';
+                cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                  icon_1.spriteFrame = spriteFrame;
+                });
+                cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                  icon_2.spriteFrame = spriteFrame;
+                });
+                name_1.string = '虚拟贵妃鸡';
+                num_1.string = '-' + data.Model.BuyPropertyList[i].PCount * 1;
+                name_2.string = '真实贵妃鸡';
+                num_2.string = '+' + data.Model.BuyPropertyList[i].PCount;
+              } else {
+                //兑换鸡蛋
+                imgSrc = 'Modal/Repertory/icon-asset05';
+                cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                  icon_1.spriteFrame = spriteFrame;
+                });
+                cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                  icon_2.spriteFrame = spriteFrame;
+                });
+                name_1.string = '虚拟鸡蛋';
+                num_1.string = '-' + data.Model.BuyPropertyList[i].PCount * 6;
+                name_2.string = '真实鸡蛋';
+                num_2.string = '+' + data.Model.BuyPropertyList[i].PCount;
+                day.string = utils.fn.formatNumToDate(data.Model.BuyPropertyList[i].CreateTime);
+                time.string = utils.fn.formatNumToDateTime(data.Model.BuyPropertyList[i].CreateTime);
+                PrefabParent.addChild(PropertyList);
+              }
               break;
             }
           }
-
-          cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
-            icon_1.spriteFrame = spriteFrame;
-          });
-          cc.loader.loadRes(imgSrc_, cc.SpriteFrame, (err, spriteFrame) => {
-            icon_2.spriteFrame = spriteFrame;
-          });
-          num_1.string = '-' + data.Model.BuyPropertyList[i].PropValue * data.Model.BuyPropertyList[i].ButCount;
-          num_2.string = '+' + data.Model.BuyPropertyList[i].Count * data.Model.BuyPropertyList[i].ButCount;
-          name_2.string = data.Model.BuyPropertyList[i].PropName;
-          day.string = utils.fn.formatNumToDate(data.Model.BuyPropertyList[i].BuyTime);
-          time.string = utils.fn.formatNumToDateTime(data.Model.BuyPropertyList[i].BuyTime);
-          PrefabParent.addChild(PropertyList);
         }
       } else {
         this.emptyNode.active = true;
@@ -164,12 +232,12 @@ cc.Class({
   },
   start() {},
   goRecharge() {
-    Config.backUrl = 'userCenter';
     cc.director.loadScene('recharge');
   },
   //模态框修改昵称
   EditName() {
     const fillterButton = cc.find('scrollview/view/layout/info/nameEdit', this.node);
+    let nameValue = cc.find('label', fillterButton).getComponent(cc.Label);
     fillterButton.on('click', event => {
       Alert.show('0', null, null, null, null, null, 'Prefab/Modal/Usercenter/NameEdit', function() {
         var self = this;
@@ -192,22 +260,15 @@ cc.Class({
           var saveButton = cc.find('alertBackground/enterButton', alert);
           //保存
           saveButton.on('click', () => {
+            Tool.closeModal(alert);
             let name = cc.find('alertBackground/input/editbox', alert);
-            let title = cc.find('alertBackground/intro/detailLabel', alert).getComponent(cc.Label);
-            let intro = cc.find('alertBackground/intro/tel', alert);
             Data.func.SaveEditName(name.getComponent(cc.EditBox).string).then(data => {
-              if (data.Code == 1 || data.Code == 0) {
-                intro.getComponent(cc.Label).string = '修改成功！';
-              } else if (data.Code == '333') {
-                intro.getComponent(cc.Label).string = '您修改的昵称已经存在！';
-              } else if (data.Code == '000') {
-                intro.getComponent(cc.Label).string = '您的牧场币不足200！无法修改！';
+              if (data.Code == 1) {
+                Msg.show(data.Message);
+                nameValue.string = data.Name;
+              } else {
+                Msg.show(data.Message);
               }
-              title.string = '温馨提示';
-              intro.getComponent(cc.Label).fontSize = 28;
-              intro.getComponent(cc.Label).lineHeight = 80;
-              saveButton.active = false;
-              name.active = false;
             });
           });
           //取消
