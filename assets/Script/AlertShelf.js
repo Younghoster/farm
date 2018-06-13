@@ -6,7 +6,7 @@ var Alertshelf = {
   _cancelButton: null, // 取消按钮
   _inputCountNode: null, //数量输入框节点
   _inputPriceNode: null, //价格输入框节点
-  _inputCountEditBox: null, //数量输入框
+  // _inputCountEditBox: null, //数量输入框
   _inputPriceEditBox: null, //价格输入框
   _moneyLabel: null, //总价
   _price: null, //单价,
@@ -16,12 +16,11 @@ var Alertshelf = {
     if (this._Alert != undefined) {
       this._Alert.destroy();
     }
-    console.log(this);
 
     this._enterCallBack = enterCallBack || null;
 
     //加载预制资源
-    cc.loader.loadRes("Prefab/Shelf", cc.Prefab, (err, prefab) => {
+    cc.loader.loadRes('Prefab/Shelf', cc.Prefab, (err, prefab) => {
       //箭头函数 this指向Alertshelf
       if (err) {
         cc.error(err);
@@ -35,27 +34,27 @@ var Alertshelf = {
       this._Alert = alert;
 
       // 获取子节点
-      this._goodsLabel = cc.find("bg/name", alert).getComponent(cc.Label);
-      this._enterButton = cc.find("bg/btn-group/enterButton", alert);
-      this._cancelButton = cc.find("bg/btn-group/cancelButton", alert);
-      this._inputCountNode = cc.find("bg/input-count", alert);
-      this._inputCountEditBox = this._inputCountNode.getComponent(cc.EditBox);
-      this._inputPriceNode = cc.find("bg/input-price", alert);
+      this._goodsLabel = cc.find('bg/name', alert).getComponent(cc.Label);
+      this._enterButton = cc.find('bg/btn-group/enterButton', alert);
+      this._cancelButton = cc.find('bg/btn-group/cancelButton', alert);
+      this._inputCountNode = cc.find('bg/input-count', alert);
+      // this._inputCountEditBox = this._inputCountNode.getComponent(cc.EditBox);
+      this._inputPriceNode = cc.find('bg/input-price', alert);
       this._inputPriceEditBox = this._inputPriceNode.getComponent(cc.EditBox);
-      this._moneyLabel = cc.find("bg/money/value", alert).getComponent(cc.Label);
+      this._moneyLabel = cc.find('bg/money/value', alert).getComponent(cc.Label);
 
       //初始化
       this._goodsLabel.string = name;
       this._moneyLabel.string = 0;
 
       // 添加点击事件
-      this._enterButton.on("click", this.onButtonClicked, this);
-      this._cancelButton.on("click", this.onButtonClicked, this);
-      this._inputCountNode.on("text-changed", this.onTextChanged, this);
-      this._inputPriceNode.on("text-changed", this.onTextChanged, this);
+      this._enterButton.on('click', this.onButtonClicked, this);
+      this._cancelButton.on('click', this.onButtonClicked, this);
+      this._inputCountNode.on('text-changed', this.onTextChanged, this);
+      this._inputPriceNode.on('text-changed', this.onTextChanged, this);
 
       //将Node添加到父节点中
-      this._Alert.parent = cc.find("Canvas");
+      this._Alert.parent = cc.find('Canvas');
       // 展现 alert
       this.startFadeIn();
     });
@@ -72,7 +71,7 @@ var Alertshelf = {
     //************方法
     //按钮点击方法
     Alertshelf.onButtonClicked = function(event) {
-      if (event.target.name == "enterButton") {
+      if (event.target.name == 'enterButton') {
         if (this._enterCallBack) {
           this._enterCallBack();
         }
@@ -81,7 +80,7 @@ var Alertshelf = {
     };
     //editBox 文字改变方法
     Alertshelf.onTextChanged = function() {
-      this._count = parseInt(this._inputCountEditBox.string) || 0;
+      // this._count = parseInt(this._inputCountEditBox.string) || 0;
       this._price = parseInt(this._inputPriceEditBox.string) || 0;
       this._moneyLabel.string = this._price * this._count;
     };

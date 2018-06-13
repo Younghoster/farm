@@ -35,7 +35,6 @@ cc.Class({
     if (org > 700 / 375) {
       let setButtomSpace = cc.find('tool/layout', this.node).getComponent(cc.Layout);
       setButtomSpace.spacingX = 8;
-      console.log(1);
     }
     if (Config.firstLogin) farmGuid.getPrefab(1);
     self.addPersist();
@@ -620,7 +619,6 @@ cc.Class({
     let nowDate = Date.parse(new Date());
     let time = utils.fn.timeDiff(nowDate, endTime);
     let progressNum = (time.hours * 60 + time.mins) / totallenth;
-    console.log(progressNum);
     ProgressBar.progress = 1 - progressNum;
 
     showNode.active = false;

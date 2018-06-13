@@ -57,6 +57,7 @@ cc.Class({
         if (data.Code === 1) {
           Msg.show(data.Message);
           Tool.closeModal(this.node);
+
           this.updateSystemPage();
         } else {
           this.errorLabel.string = data.Message;

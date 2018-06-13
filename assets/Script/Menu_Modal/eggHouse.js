@@ -28,6 +28,8 @@ cc.Class({
     this.breakButton = cc.find('btn', this.animNode);
     this.sceneNode = cc.find('Canvas');
     this.modalNode = cc.find('modal', this.animNode);
+    this.CollectEggCount = 0;
+    this.CollectEggCountBad = 0;
   },
 
   bindEvent() {
@@ -82,6 +84,7 @@ cc.Class({
     });
   },
   assignData(data, holeNode) {
+    let self = this;
     let eggID = data.EggID;
     let holeButton = holeNode.getComponent(cc.Button);
     holeButton.interactable = !this.isFriend;
@@ -133,9 +136,12 @@ cc.Class({
       }
       //绑定收取操作
       holeNode.on('click', () => {
+        clearTimeout(this.timers); //清理定时器
+
         Func.CollectEgg(eggID).then(data => {
           if (data.Code === 1) {
             //收取成功后 把蛋去掉（页面上）
+
             cc.loader.loadRes('eggHouse/img3', cc.SpriteFrame, (err, spriteFrame) => {
               holeSprite.spriteFrame = spriteFrame;
             });
@@ -177,16 +183,30 @@ cc.Class({
                 break;
               case 0:
                 //变质的鸡蛋
-                Msg.show(data.Message);
+
+                this.CollectEggCountBad++;
+                self.timers = setTimeout(function() {
+                  Msg.show('收取成功，正常鸡蛋+' + self.CollectEggCount + '，变质鸡蛋+' + self.CollectEggCountBad);
+                  self.CollectEggCount = 0;
+                  self.CollectEggCountBad = 0;
+                }, 1000);
                 break;
               case 1:
                 //正常鸡蛋
-                Msg.show('收取成功');
+                this.CollectEggCount++;
+                self.timers = setTimeout(function() {
+                  Msg.show('收取成功，正常鸡蛋+' + self.CollectEggCount + '，变质鸡蛋+' + self.CollectEggCountBad);
+                  self.CollectEggCount = 0;
+                  self.CollectEggCountBad = 0;
+                }, 1000);
+
                 break;
 
               default:
                 break;
             }
+            let str = "{name:'" + Config.openID + "',type:'updataChat'}";
+            Config.newSocket.send(str);
           } else {
             Msg.show(data.Message);
           }

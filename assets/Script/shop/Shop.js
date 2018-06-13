@@ -173,7 +173,9 @@ cc.Class({
     var self = this;
     //初始总价
     let sumMoney = cc.find('bg/money/value', obj).getComponent(cc.Label);
-    let editBox = cc.find('bg/input', obj);
+    let editBox = cc.find('bg/content/rect-border/text', obj).getComponent(cc.Label);
+    let editBtn1 = cc.find('bg/content/btn-minus', obj);
+    let editBtn2 = cc.find('bg/content/btn-add', obj);
     let value = cc.find('bg/money/value', obj);
     let confirm = cc.find('bg/btn-group/enterButton', obj);
     let valueComp = cc.find('bg/money/value', obj).getComponent(cc.Label);
@@ -185,10 +187,20 @@ cc.Class({
     title.string = data.PropName;
     valueComp.string = data.PropValue;
     //绑定input变化事件
-    editBox.on('text-changed', () => {
-      count = Number(editBox.getComponent(cc.EditBox).string);
+    valueComp.string = data.PropValue * count;
+    editBtn1.on('click', function() {
+      if (count > 1) {
+        count--;
+        editBox.string = count;
+        valueComp.string = data.PropValue * count;
+      }
+    });
+    editBtn2.on('click', function() {
+      count++;
+      editBox.string = count;
       valueComp.string = data.PropValue * count;
     });
+
     //商品购买事件
     confirm.on('click', () => {
       Func.PostBuy(data.ID, count).then(data => {

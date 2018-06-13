@@ -74,7 +74,6 @@ cc.Class({
       Func.GetExchangeCount(this._goodsType, this._actualCount).then(data => {
         if (data.Code === 1) {
           this._virtualCount = data.Model;
-          console.log(this._actualCount, this._virtualCount);
           this.actualCountLabel.string = this._actualCount;
           this.virtualCountLabel.string = this._virtualCount;
         } else {

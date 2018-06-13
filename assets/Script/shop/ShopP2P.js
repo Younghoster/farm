@@ -123,20 +123,10 @@ cc.Class({
       priceLabel = cc.find('price-box/bg-price/price', goodsNode).getComponent(cc.Label);
       count = 1;
       //渲染商品列表
-      switch (goods.Type) {
-        case 1:
-          cc.loader.loadRes('Shop/guifeiji', cc.SpriteFrame, function(err, spriteFrame) {
-            goodSprite.spriteFrame = spriteFrame;
-          });
-          goodsLabel.string = '贵妃鸡' + 'x' + goods.NowCount;
-          break;
-        case 2:
-          cc.loader.loadRes('Shop/icon-egg', cc.SpriteFrame, function(err, spriteFrame) {
-            goodSprite.spriteFrame = spriteFrame;
-          });
-          goodsLabel.string = '鸡蛋' + 'x' + goods.NowCount;
-          break;
-      }
+      cc.loader.loadRes('Shop/guifeiji', cc.SpriteFrame, function(err, spriteFrame) {
+        goodSprite.spriteFrame = spriteFrame;
+      });
+      goodsLabel.string = '产蛋鸡';
 
       priceLabel.string = goods.NowALLRanchMoney;
       goodsListNode.addChild(goodsNode);
@@ -146,7 +136,7 @@ cc.Class({
   //下架事件
   bindSellEvent(obj, e, playerid) {
     obj.on('click', event => {
-      Func.OffShelf(playerid).then(data => {
+      Func.ChickenOffhelf(playerid).then(data => {
         if (data.Code === 1) {
           Msg.show('下架成功');
           setTimeout(function() {
@@ -257,35 +247,36 @@ cc.Class({
   P2PBuyData(obj, data) {
     //初始总价
     let sumMoney = cc.find('bg/money/value', obj).getComponent(cc.Label);
-    let editBox = cc.find('bg/input', obj);
+    let editBox = cc.find('bg/content/rect-border/text', obj).getComponent(cc.Label);
+    let editBtn1 = cc.find('bg/content/btn-minus', obj);
+    let editBtn2 = cc.find('bg/content/btn-add', obj);
     let value = cc.find('bg/money/value', obj);
     let confirm = cc.find('bg/btn-group/enterButton', obj);
     let valueComp = cc.find('bg/money/value', obj).getComponent(cc.Label);
     let icon = cc.find('guifeiji', obj).getComponent(cc.Sprite);
     let title = cc.find('bg/name', obj).getComponent(cc.Label);
     let count = 1;
-    switch (data.Type) {
-      case 1: {
-        cc.loader.loadRes('Shop/guifeiji__', cc.SpriteFrame, function(err, spriteFrame) {
-          icon.spriteFrame = spriteFrame;
-        });
-        title.string = '贵妃鸡';
-        break;
-      }
-      case 2: {
-        cc.loader.loadRes('Shop/icon-egg__', cc.SpriteFrame, function(err, spriteFrame) {
-          icon.spriteFrame = spriteFrame;
-        });
-        title.string = '鸡蛋';
-        break;
-      }
-    }
-    valueComp.string = data.NowALLRanchMoney;
-    //绑定input变化事件
-    editBox.on('text-changed', () => {
-      count = Number(editBox.getComponent(cc.EditBox).string);
-      valueComp.string = data.NowALLRanchMoney * count;
+    cc.loader.loadRes('Shop/guifeiji__', cc.SpriteFrame, function(err, spriteFrame) {
+      icon.spriteFrame = spriteFrame;
     });
+    title.string = '产蛋鸡';
+    valueComp.string = data.RanchMoney * count;
+    editBtn1.on('click', function() {
+      if (count > 1) {
+        count--;
+        editBox.string = count;
+        valueComp.string = data.RanchMoney * count;
+      }
+    });
+    editBtn2.on('click', function() {
+      if (count < data.NowCount) {
+        count++;
+        editBox.string = count;
+        valueComp.string = data.RanchMoney * count;
+      }
+    });
+    //绑定input变化事件
+
     //商品购买事件
     confirm.on('click', () => {
       if (count > data.NowCount) {

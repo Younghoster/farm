@@ -91,7 +91,7 @@ var Chick = cc.Class({
     let self = this;
     this.init();
     this.node.on('click', this.showChickState, this);
-    this.walkTimer = Math.random() * 3 + 3;
+    this.walkTimer = Math.random() * 3 + 1;
     this.playWalk('start');
     //方法导出给index.js
     this.chickFunc = {
@@ -169,7 +169,6 @@ var Chick = cc.Class({
     }
     this.action = cc.moveTo(this.walkTimer, x, y);
     this.node.runAction(this.action);
-    // console.log(`x = ${x} ,y = ${y}`);
   },
   playWalk(state) {
     if (state == 'stop') {
@@ -200,7 +199,12 @@ var Chick = cc.Class({
         this.BoomDirection = 1;
       }
     }
+
     this.playWalk('start');
+    if (self.world.aabb.y > other.world.aabb.y) {
+      self.node.setLocalZOrder(0);
+      other.node.setLocalZOrder(1);
+    }
   },
 
   onCollisionStay: function(other, self) {
@@ -229,6 +233,10 @@ var Chick = cc.Class({
       } else {
         this.BoomDirection = 1;
       }
+    }
+    if (self.world.aabb.y > other.world.aabb.y) {
+      self.node.setLocalZOrder(0);
+      other.node.setLocalZOrder(1);
     }
   },
 

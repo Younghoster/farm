@@ -56,7 +56,7 @@ cc.Class({
           } else {
             Msg.show(data.Message);
           }
-        }, 500);
+        }, 1000);
       });
     }
   },
@@ -81,12 +81,12 @@ cc.Class({
           } else {
             Msg.show(data.Message);
           }
-        }, 500);
+        }, 1000);
       });
     } else {
       self.timers = setTimeout(function() {
         Msg.show('我现在不需要浇水哦~');
-      }, 500);
+      }, 1000);
     }
   },
   //除草
@@ -109,12 +109,12 @@ cc.Class({
           } else {
             Msg.show(data.Message);
           }
-        }, 500);
+        }, 1000);
       });
     } else {
       self.timers = setTimeout(function() {
         Msg.show('我现在不需要除草哦~');
-      }, 500);
+      }, 1000);
     }
   },
   //除虫
@@ -137,12 +137,12 @@ cc.Class({
           } else {
             Msg.show(data.Message);
           }
-        }, 500);
+        }, 1000);
       });
     } else {
       self.timers = setTimeout(function() {
         Msg.show('我现在不需要除虫哦~');
-      }, 500);
+      }, 1000);
     }
   },
   //施肥
@@ -164,7 +164,7 @@ cc.Class({
           } else {
             Msg.show(data.Message);
           }
-        }, 500);
+        }, 1000);
       });
     }
   },
@@ -186,7 +186,7 @@ cc.Class({
                 data: data2.Model
               });
             });
-          }, 500);
+          }, 1000);
         } else {
           Msg.show(data.Message);
         }
@@ -194,12 +194,10 @@ cc.Class({
     } else {
       self.timers = setTimeout(function() {
         Msg.show('我现在还不能收取哦~');
-      }, 500);
+      }, 1000);
     }
   },
-  onCollisionStay: function(other) {
-    // console.log('on collision stay');
-  },
+  onCollisionStay: function(other) {},
 
   onCollisionExit: function(other) {
     //碰撞后的状态显示

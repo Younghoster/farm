@@ -140,7 +140,7 @@ cc.Class({
               acceptBtn.active = false;
               rejuseptBtn.active = false;
             });
-            let str = "{name:'" + Func.openID + "'}";
+            let str = "{name:'" + Func.openID + "',type:'friend'}";
             Config.newSocket.send(str);
             // Config.newSocket.emit("add", [Func.openID, Func.openID]);
           });
@@ -153,7 +153,7 @@ cc.Class({
               acceptBtn.active = false;
               rejuseptBtn.active = false;
             });
-            let str = "{name:'" + Func.openID + "'}";
+            let str = "{name:'" + Func.openID + "',type:'friend'}";
             Config.newSocket.send(str);
             // Config.newSocket.emit("add", [Func.openID, Func.openID]);
           });

@@ -6,6 +6,7 @@ window.Config = {
   openID: null,
   hearderNode: null,
   menuNode: null,
+  chickID: null,
   //兑换物品的数据
   newSocket: null,
   exchangeData: {

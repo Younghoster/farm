@@ -54,7 +54,8 @@ cc.Class({
                 data: data2.Model
               });
             });
-          }, 500);
+            Msg.show(data.Message);
+          }, 1000);
         } else {
           // Msg.show(data.Message);
         }
@@ -79,7 +80,8 @@ cc.Class({
                 data: data2.Model
               });
             });
-          }, 500);
+            Msg.show(data.Message);
+          }, 1000);
         } else {
           // Msg.show(data.Message);
         }
@@ -104,7 +106,8 @@ cc.Class({
                 data: data2.Model
               });
             });
-          }, 500);
+            Msg.show(data.Message);
+          }, 1000);
         } else {
           // Msg.show(data.Message);
         }
@@ -114,35 +117,19 @@ cc.Class({
   //收取农作物
   collectCrops(id) {
     let self = this;
-    let CropsID = this.dataList.List[id].CropsID;
     let IsLock = this.dataList.List[id].IsLock;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus == 4 && !IsLock) {
-      Data.func.CollectCrops(CropsID).then(data => {
+      Data.func.FriendsStealCrops(Config.friendOpenId).then(data => {
         if (data.Code === 1) {
-          self.CollectNumber += Number(data.Model);
-          self.timers = setTimeout(function() {
-            Msg.show('收取 × ' + self.CollectNumber);
-            self.CollectNumber = 0;
-            Data.func.getFarmModalData().then(data2 => {
-              self.FarmJs.emit('updataPlant', {
-                data: data2.Model
-              });
-            });
-          }, 500);
+          Msg.show(data.Message);
         } else {
           Msg.show(data.Message);
         }
       });
-    } else {
-      self.timers = setTimeout(function() {
-        Msg.show('我现在还不能收取哦~');
-      }, 500);
     }
   },
-  onCollisionStay: function(other) {
-    // console.log('on collision stay');
-  },
+  onCollisionStay: function(other) {},
 
   onCollisionExit: function(other) {
     //碰撞后的状态显示
@@ -159,16 +146,16 @@ cc.Class({
 
     if (PlantNodes) {
       //是否成熟并且选择是镰刀收割工具
-      if (
-        this.dataList.List[id].CropsStatus == 4 &&
-        this.dataList.toolType == 6 &&
-        !this.dataList.List[id].IsDisinsection &&
-        !this.dataList.List[id].IsDry &&
-        !this.dataList.List[id].IsWeeds
-      ) {
-        var action = cc.sequence(cc.moveBy(0.3, 0, 20), cc.fadeOut(0.5), cc.callFunc(PlantNodes.removeFromParent));
-        PlantNodes.runAction(action);
-      }
+      // if (
+      //   this.dataList.List[id].CropsStatus == 4 &&
+      //   this.dataList.toolType == 6 &&
+      //   !this.dataList.List[id].IsDisinsection &&
+      //   !this.dataList.List[id].IsDry &&
+      //   !this.dataList.List[id].IsWeeds
+      // ) {
+      //   var action = cc.sequence(cc.moveBy(0.3, 0, 20), cc.fadeOut(0.5), cc.callFunc(PlantNodes.removeFromParent));
+      //   PlantNodes.runAction(action);
+      // }
       //浇水
       if (this.dataList.List[id].IsDry && this.dataList.toolType == 2) {
         var action = cc.fadeOut(0.5);

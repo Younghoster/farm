@@ -64,6 +64,7 @@ cc.Class({
     });
   },
   start() {
+    let self = this;
     if (!Config.menuNode) {
       Config.menuNode = this.node;
       cc.game.addPersistRootNode(this.node);
@@ -76,7 +77,9 @@ cc.Class({
       loadSceneShop: this.loadSceneShop
     };
     this.getStorageCount(); //初始化消息数量
-    this.socketNotice(); //socket监听消息变化
+    self.node.on('upDataFriend', function(event) {
+      self.getStorageCount();
+    });
   },
   //显示菜单栏 动画
   showMenu: function() {
@@ -159,20 +162,7 @@ cc.Class({
       }
     });
   },
-  //socket监听消息变化
-  socketNotice() {
-    var self = this;
-    // Config.newSocket.on(Func.openID, data => {
-    //   self.getStorageCount();
-    // });
 
-    Config.newSocket.onmessage = function(evt) {
-      var obj = eval('(' + evt.data + ')');
-      if (obj.name == Func.openID) {
-        self.getStorageCount();
-      }
-    };
-  },
   getWeather() {
     Func.GetCurrentWeather().then(res => {
       if (res.data.rain !== 0) {

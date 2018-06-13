@@ -305,7 +305,7 @@ cc.Class({
             Msg.show(data.Message);
 
             if (data.Message == '请求成功！') {
-              let str = "{name:'" + openIds + "'}";
+              let str = "{name:'" + openIds + "',type:'friend'}";
               Config.newSocket.send(str);
             }
           } else {

@@ -29,9 +29,7 @@ cc.Class({
     this.touchingNumber++;
   },
 
-  onCollisionStay: function(other) {
-    // console.log('on collision stay');
-  },
+  onCollisionStay: function(other) {},
 
   onCollisionExit: function() {
     //碰撞后的状态显示

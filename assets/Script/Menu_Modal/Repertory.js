@@ -149,8 +149,23 @@ cc.Class({
     let nameLabel = cc.find('name', goodsNode).getComponent(cc.Label);
     //获取物品数据
     let PropertyTypeID = goods.PropertyTypeID;
+    console.log(goods);
     let PropName = goods.PropName || goods.TypeName;
+    let RearingDays = goods.RearingDays;
+
     let count = goods.Count;
+    if (goods.PropName == '产蛋鸡') {
+      cc.loader.loadRes('Modal/Repertory/img-hen', cc.SpriteFrame, function(err, spriteFrame) {
+        goodSprite.spriteFrame = spriteFrame;
+      });
+      this.bindGoodsEvent(
+        goodsNode,
+        () => {
+          this.shelfEvent(RearingDays + '天' + PropName, goods.ID, goodsNode);
+        },
+        '上架'
+      );
+    }
     switch (PropertyTypeID) {
       // 鸡蛋
       case 2:
@@ -160,15 +175,9 @@ cc.Class({
         this.bindGoodsEvent(
           goodsNode,
           () => {
-            this.shelfEvent(PropName, 2, goodsNode);
-          },
-          '上架',
-          () => {
             this.exChange(PropName, 2);
           },
-          '兑换',
-          () => false,
-          '下架'
+          '兑换'
         );
         break;
       // 普通饲料
@@ -227,15 +236,9 @@ cc.Class({
         this.bindGoodsEvent(
           goodsNode,
           () => {
-            this.shelfEvent(PropName, 1, goodsNode);
-          },
-          '上架',
-          () => {
             this.exChange(PropName, 1);
           },
-          '兑换',
-          () => false,
-          '下架'
+          '兑换'
         );
         break;
       //改名卡
@@ -267,7 +270,11 @@ cc.Class({
         }
         break;
     }
-    nameLabel.string = PropName;
+    if (PropName == '产蛋鸡') {
+      nameLabel.string = RearingDays + '天' + PropName;
+    } else {
+      nameLabel.string = PropName;
+    }
     countLabel.string = count;
   },
   // 绑定点击事件及回调函数(f1,f2,f3表示三个回调函数，name1，name2,name3表示按钮文字)
@@ -366,7 +373,28 @@ cc.Class({
   //点击上架 弹出模态框
   shelfEvent(name, type, goodsNode) {
     Alertshelf.show(name, () => {
-      this.OnShelf(type, goodsNode);
+      this.OnShelfEggChick(type, goodsNode);
+    });
+  },
+  //产蛋鸡上架事件（点击确定的回调）
+  OnShelfEggChick(type, goodsNode) {
+    // Msg.show('接口还在开发中');
+    let countLabel = cc.find('icon-tip/count', goodsNode).getComponent(cc.Label);
+    //获取输入框的价格及数量
+    let unitprice = Alertshelf._price;
+    let count = Alertshelf._count;
+    Func.ChickenONShelf(type, unitprice).then(data => {
+      if (data.Code === 1) {
+        Msg.show(data.Message);
+        if (data.Model > 0) {
+          countLabel.string = data.Model;
+        } else {
+          goodsNode.removeFromParent();
+        }
+        cc.find('modal', this.node).removeFromParent();
+      } else {
+        Msg.show(data.Message);
+      }
     });
   },
   //上架事件（点击确定的回调）

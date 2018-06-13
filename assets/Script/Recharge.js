@@ -16,7 +16,8 @@ cc.Class({
 
   ctor() {},
   btnBackEvent() {
-    cc.director.loadScene('index');
+    Config.backArr.pop();
+    cc.director.loadScene(Config.backArr[Config.backArr.length - 1]);
   },
   bindNode() {
     this.moneyLabel = cc.find('bg/container/div/gold/money', this.node).getComponent(cc.Label);
@@ -31,6 +32,8 @@ cc.Class({
     });
   },
   onLoad() {
+    Config.backArr.indexOf('repertory') == -1 ? Config.backArr.push('repertory') : false;
+    console.log(Config.backArr);
     this.bindNode();
     this.initData();
   },

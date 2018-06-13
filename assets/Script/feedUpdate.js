@@ -95,6 +95,8 @@ cc.Class({
         setTimeout(function() {
           self.initFeedState();
         }, 1000);
+        let str = "{name:'" + Config.openID + "',type:'updataChat'}";
+        Config.newSocket.send(str);
         Msg.show(data.Message);
       } else {
         Msg.show(data.Message);

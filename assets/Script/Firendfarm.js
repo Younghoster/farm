@@ -325,30 +325,9 @@ cc.Class({
   getToolPositon() {
     let self = this;
     for (let i = 1; i < 7; i++) {
-      if (i == 2 || i == 3 || i == 4) {
+      if (i == 2 || i == 3 || i == 4 || i == 6) {
         let tool = cc.find('tool/layout/farm_icon_0' + i, this.node);
         this.addListenMove(i, tool);
-      } else if (i == 6) {
-        //偷取好友农作物
-        let tool = cc.find('tool/layout/farm_icon_0' + i, this.node);
-        tool.on('click', function(e) {
-          Data.func.FriendsStealCrops(Config.friendOpenId).then(data => {
-            if (data.Code === 1) {
-              self.CollectNumber = data.Model;
-              setTimeout(function() {
-                Msg.show('偷取 × ' + self.CollectNumber);
-                self.CollectNumber = 0;
-                Data.func.getFarmModalData(Config.friendOpenId).then(data2 => {
-                  self.clearAllDom(); //清除植物数据
-                  self.setLocData(data2.Model);
-                  self.fatchPlant(data2.Model); //重新加载植物
-                });
-              }, 500);
-            } else {
-              Msg.show(data.Message);
-            }
-          });
-        });
       }
     }
   },

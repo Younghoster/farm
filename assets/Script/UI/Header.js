@@ -17,10 +17,8 @@ cc.Class({
     this.moneyLabel = cc.find('gold/money', this.node).getComponent(cc.Label);
     this.moneyLabel2 = cc.find('lv_bg/money', this.node).getComponent(cc.Label);
     this.init();
-    func: {
-      init: this.init;
-    }
-    //更新于土地拓建
+
+    //更新
     self.node.on('upDataMoney', function(event) {
       Func.GetUserGrade().then(data => {
         if (data.Code === 1) {

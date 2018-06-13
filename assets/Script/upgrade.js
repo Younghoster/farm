@@ -131,6 +131,7 @@ cc.Class({
       let box = cc.find('Canvas');
       // 实例
       var alert = cc.instantiate(prefab);
+      alert.setPosition(390, 300);
       box.parent.addChild(alert);
     });
   },

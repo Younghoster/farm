@@ -99,16 +99,13 @@ cc.Class({
         //调用setId接口 给鸡传Id 默认最后那只鸡
         for (let i = 0; i < length; i++) {
           let element = data.List[i];
-
-          // cc.loader.loadRes('Prefab/Chick', cc.Prefab, (err, prefab) => {
           var chickNode = cc.find(`Chick${i}`, this.node);
           chickNode.active = true;
 
-          chickNode.setPosition(self.setChickPositionX(i), self.setChickPositionY(i));
+          chickNode.setPosition(250 - Math.random() * 500, Math.random() * -250 - 200);
           let feedNode = cc.find('feed', chickNode);
           feedNode.active = element.IsHunger;
-          // this.scene.addChild(chickNode);
-          this.chickJs = chickNode.getComponent('Chick');
+          this.chickJs = chickNode.getComponent('ChickFriend');
           this.chickJs.setId(data.List[i].ID);
           this.chickJs._status = data.List[i].Status;
 
@@ -147,11 +144,8 @@ cc.Class({
             this.handNode.active = false;
             //清洁成功 牧场清洁度=100%
 
-            this.clearProgressBar.progress = 1;
-            this.clearLabel.string = '100%';
             this.shitBoxNode.removeAllChildren();
           });
-          // this.handAnim.on("finished", this.chickFunc.initData, this._chick);
         } else {
           //牧场不脏 弹出提示框
           Msg.show(data.Message);
@@ -172,32 +166,12 @@ cc.Class({
           }, this)
         );
         this.eggMoreNode.runAction(action);
-        Msg.show('收取成功');
+        Msg.show(data.Message);
       } else {
         Msg.show(data.Message);
       }
     });
   },
-  // //初始化房屋图片 （未加入到init中，后台没有数据）
-  // initHouse(rank) {
-  //   switch (rank) {
-  //     case 'C':
-  //       cc.loader.loadRes('house/house_1', cc.SpriteFrame, (err, spriteFrame) => {
-  //         this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-  //       });
-  //       break;
-  //     case 'B':
-  //       cc.loader.loadRes('house/house_2', cc.SpriteFrame, (err, spriteFrame) => {
-  //         this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-  //       });
-  //       break;
-  //     case 'A':
-  //       cc.loader.loadRes('house/house_3', cc.SpriteFrame, (err, spriteFrame) => {
-  //         this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-  //       });
-  //       break;
-  //   }
-  // },
   //更新 饲料tip的数量
   updateFeedCount() {
     Func.GetFeedCount().then(data => {

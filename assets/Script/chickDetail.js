@@ -72,7 +72,7 @@ cc.Class({
     // 初始化小鸡 流转记录
     this.initChickTransaction();
     // 初始化小鸡 产蛋记录
-    this.initEggRecord();
+    this.initEggRecord('');
   },
 
   //初始化小鸡列表
@@ -273,8 +273,8 @@ cc.Class({
     }
   },
   //产蛋周期
-  initEggRecord() {
-    Func.GetChickenEggRecord(this.Id, this.eggtime).then(data => {
+  initEggRecord(time) {
+    Func.GetChickenEggRecord(this.Id, time).then(data => {
       if (data.Code === 1) {
         this.assignEggRecord(data.List);
       } else {
@@ -334,21 +334,21 @@ cc.Class({
 
     this.leftButton.on('click', () => {
       this.eggtime = this.prevTime;
-      this.initEggRecord();
+      this.initEggRecord(this.eggtime);
     });
 
     this.rightButton.on('click', () => {
       this.eggtime = this.nextTime;
-      this.initEggRecord();
+      this.initEggRecord(this.eggtime);
     });
   },
 
   onLoad() {
     Config.backArr.indexOf('chickDetail') == -1 ? Config.backArr.push('chickDetail') : false;
-    console.log(Config.backArr);
   },
 
   start() {
+    this.Id = Config.chickID;
     this.bindNode();
     this.bindEvent();
     this.initData();

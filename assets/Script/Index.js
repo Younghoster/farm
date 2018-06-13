@@ -42,7 +42,7 @@ cc.Class({
 
     //新手指引step
     this.step = 0;
-    this.speakType = 0;
+    this.speakType = 1;
     this.shitBoxNode = cc.find('shit-box', this.node);
     this.ranchRankNode = cc.find('ranch-rank', this.node);
 
@@ -134,15 +134,32 @@ cc.Class({
     this.initRanchGrade(RanchRank);
     this.initChickenLayEggTimeFirst();
     this.GetRanchPeopleShowMessage();
+    //socket监听
+
+    Config.newSocket.onmessage = function(evt) {
+      var obj = eval('(' + evt.data + ')');
+      if (obj.name == Func.openID && obj.type == 'updataChat') {
+        setTimeout(function() {
+          self.GetRanchPeopleShowMessage();
+          self.farmSpeak();
+          console.log('updataChat');
+        }, 1000);
+      } else if (obj.name == Func.openID && obj.type == 'friend') {
+        self.div_Menu = cc.find('div_menu');
+        self.div_Menu.emit('upDataFriend', {
+          data: ''
+        });
+      }
+    };
     self.schedule(function() {
       self.initChickenLayEggTimeFirst();
     }, 60);
 
-    self.schedule(function() {
-      if (this.speakList.length !== 1) {
-        self.farmSpeak();
-      }
-    }, 5);
+    // self.schedule(function() {
+    //   if (this.speakList.length !== 1) {
+    //     self.farmSpeak();
+    //   }
+    // }, 5);
   },
   //只运行一次
   initChick() {
@@ -160,13 +177,13 @@ cc.Class({
           // cc.loader.loadRes('Prefab/Chick', cc.Prefab, (err, prefab) => {
           var chickNode = cc.find(`Chick${i}`, this.node);
           chickNode.active = true;
-
-          chickNode.setPosition(self.setChickPositionX(i), self.setChickPositionY(i));
+          chickNode.setPosition(250 - Math.random() * 500, Math.random() * -250 - 200);
           let feedNode = cc.find('feed', chickNode);
           feedNode.active = element.IsHunger;
           // this.scene.addChild(chickNode);
           this.chickJs = chickNode.getComponent('Chick');
           this.chickJs.setId(data.List[i].ID);
+          Config.chickID = data.List[i].ID;
           this.chickJs._status = data.List[i].Status;
 
           this.chickList.push(chickNode);
@@ -193,6 +210,7 @@ cc.Class({
   },
   //收取牧场鸡蛋
   collectRanchEgg() {
+    clearTimeout(this.timers); //清理定时器
     Func.CollectRanchEgg().then(data => {
       if (data.Code == 1) {
         let action = cc.sequence(
@@ -202,7 +220,9 @@ cc.Class({
           }, this)
         );
         this.eggMoreNode.runAction(action);
-        Msg.show('收取成功');
+        self.timers = setTimeout(function() {
+          Msg.show(data.Message);
+        }, 1000);
       } else {
         Msg.show(data.Message);
       }
@@ -217,14 +237,18 @@ cc.Class({
       .then(data => {
         if (data.Code === 1) {
           //清洁动画
+          let str = "{name:'" + Config.openID + "',type:'updataChat'}";
+          Config.newSocket.send(str);
           Msg.show(data.Message);
-          this.handNode.active = true;
-          this.handAnim.play('hand_clear');
+          self.animates();
+          this.shitBoxNode.removeAllChildren();
+          // this.handNode.active = true;
+          // this.handAnim.play('hand_clear');
 
-          this.handAnim.on('finished', () => {
-            this.handNode.active = false;
-            this.shitBoxNode.removeAllChildren();
-          });
+          // this.handAnim.on('finished', () => {
+          //   this.handNode.active = false;
+          //   this.shitBoxNode.removeAllChildren();
+          // });
           // this.handAnim.on("finished", this.chickFunc.initData, this._chick);
         } else {
           //牧场不脏 弹出提示框
@@ -243,6 +267,8 @@ cc.Class({
         this.updateFeedCount();
         // 更新小鸡头顶饥饿状态
         this.updateChickList();
+        let str = "{name:'" + Config.openID + "',type:'updataChat'}";
+        Config.newSocket.send(str);
         Msg.show('喂食成功');
       } else if (data.Code == -2) {
         Alert.show(data.Message, this.loadSceneShop, 'index/icon-feed', '剩余的饲料不足');
@@ -403,9 +429,37 @@ cc.Class({
           let spaak = '';
           this.speakList.push(spaak);
         }
+        if (data.Model.CanCollectEgg) {
+          let spaak = '亲，产蛋棚中还有鸡蛋没有收取哦！及时收蛋，防变质防被盗！';
+          this.speakList.push(spaak);
+        }
+        if (data.Model.Weeds) {
+          let spaak = '亲，你的土地中长出了杂草，请及时锄草，保证作物正常生长哦！';
+          this.speakList.push(spaak);
+        }
+        if (data.Model.Dry) {
+          let spaak = '亲，你的土地出现了干涸，请及时浇水，保证作物正常生长哦！';
+          this.speakList.push(spaak);
+        }
+        if (data.Model.Disinsection) {
+          let spaak = '亲，你的作物上生出了害虫，请及时除虫，保证作物正常生长哦！';
+          this.speakList.push(spaak);
+        }
+        if (data.Model.Reap) {
+          let spaak = '亲，农场中还有作物没有收割哦！及时收割，以防好友来光顾哦！';
+          this.speakList.push(spaak);
+        }
+        if (data.Model.CanFeed) {
+          let spaak = '亲，仓库中有成熟的玉米，可以用来制作饲料哦！';
+          this.speakList.push(spaak);
+        }
+        if (data.Model.CanFertilizer) {
+          let spaak = '亲，仓库中有清洁所得的粪便，可以用来制作农场肥料哦！';
+          this.speakList.push(spaak);
+        }
         console.log(this.speakList);
       } else {
-        this.speakList = ['欢迎来到原态农业农场小游戏！'];
+        this.speakList = ['亲，您的牧场很健康哦，快去休息吧！~'];
       }
     });
   },
@@ -513,7 +567,7 @@ cc.Class({
 
       let time = res.data.weatherdata[0].intime.split(' ');
       let date = time[0].split('-');
-      wetherItem1.string = res.data.weatherdata[0].soiltem + '℃';
+      wetherItem1.string = res.data.weatherdata[0].tem + '℃';
       wetherItem2.string = date[1] + '月' + date[2] + '日';
     });
   },
@@ -525,7 +579,6 @@ cc.Class({
     let wetherIcon = cc.find('div/icon', this.wether).getComponent(cc.Sprite);
     if (Config.weather === -1) {
       //下雨
-
       if (this.RanchRank == 1) {
         this.setIcon('jpg/rain-bg1', this.bgNode.getComponent(cc.Sprite));
       } else if (this.RanchRank == 2) {
@@ -649,6 +702,19 @@ cc.Class({
       }
     });
   },
+  animates() {
+    cc.loader.loadRes('Prefab/Modal/House', cc.Prefab, function(error, prefab) {
+      if (error) {
+        cc.error(error);
+        return;
+      }
+      let box = cc.find('Canvas');
+      // 实例
+      var alert = cc.instantiate(prefab);
+      alert.setPosition(390, 300);
+      box.parent.addChild(alert);
+    });
+  },
   loadAnimates() {
     cc.loader.loadRes('Prefab/Modal/load', cc.Prefab, function(error, prefab) {
       if (error) {
@@ -693,11 +759,15 @@ cc.Class({
   farmSpeak() {
     let showNode = cc.find('farmer/farmer-text', this.node);
     let showNodeText = cc.find('farmer/farmer-text/text', this.node).getComponent(cc.Label);
-    showNodeText.string = this.speakList[this.speakType];
-    this.speakType++;
-    if (this.speakType == this.speakList.length) {
+    if (this.speakList.length == 1) {
       this.speakType = 0;
     }
+    showNodeText.string = this.speakList[this.speakType];
+    this.speakType++;
+    if (this.speakType >= this.speakList.length) {
+      this.speakType = 0;
+    }
+
     // clearTimeout(timer);
     showNode.active = true;
     showNode.opacity = 0;
