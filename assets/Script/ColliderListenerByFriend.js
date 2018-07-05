@@ -26,6 +26,7 @@ cc.Class({
     let propertyId = Config.propertyId; //种子ID
     let type = Config.fertilizerId; //肥料ID
     clearTimeout(this.timers); //清理定时器
+    clearTimeout(this.timers2); //清理定时器
     if (self.dataList.toolType == 2) {
       self.water(id);
     } else if (self.dataList.toolType == 3) {
@@ -44,20 +45,20 @@ cc.Class({
     let IsWater = this.dataList.List[id].IsDry;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsWater) {
+      self.timers2 = setTimeout(function() {
+        Msg.show('帮助好友浇水成功，经验+5');
+      }, 500);
       Data.func.CropsWatering(CropsID, Config.openID).then(data => {
         if (data.Code === 1) {
           self.timers = setTimeout(function() {
             Data.func.getFarmModalData(Config.friendOpenId).then(data2 => {
               // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
-              Msg.show(data.Message);
               self.FarmJs.emit('updataPlant', {
                 data: data2.Model
               });
             });
-            Msg.show(data.Message);
-          }, 1000);
+          }, 1500);
         } else {
-          // Msg.show(data.Message);
         }
       });
     }
@@ -70,20 +71,20 @@ cc.Class({
     let IsWeeds = this.dataList.List[id].IsWeeds;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsWeeds) {
+      self.timers2 = setTimeout(function() {
+        Msg.show('帮助好友除草成功，经验+5');
+      }, 500);
       Data.func.CropsWeeding(CropsID, Config.openID).then(data => {
         if (data.Code === 1) {
           self.timers = setTimeout(function() {
             Data.func.getFarmModalData(Config.friendOpenId).then(data2 => {
               // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
-              Msg.show(data.Message);
               self.FarmJs.emit('updataPlant', {
                 data: data2.Model
               });
             });
-            Msg.show(data.Message);
-          }, 1000);
+          }, 1500);
         } else {
-          // Msg.show(data.Message);
         }
       });
     }
@@ -96,20 +97,20 @@ cc.Class({
     let IsDisinsection = this.dataList.List[id].IsDisinsection;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsDisinsection) {
+      self.timers2 = setTimeout(function() {
+        Msg.show('帮助好友除虫成功，经验+5');
+      }, 500);
       Data.func.CropsDisinsection(CropsID, Config.openID).then(data => {
         if (data.Code === 1) {
           self.timers = setTimeout(function() {
             Data.func.getFarmModalData(Config.friendOpenId).then(data2 => {
               // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
-              Msg.show(data.Message);
               self.FarmJs.emit('updataPlant', {
                 data: data2.Model
               });
             });
-            Msg.show(data.Message);
-          }, 1000);
+          }, 1500);
         } else {
-          // Msg.show(data.Message);
         }
       });
     }
@@ -122,7 +123,9 @@ cc.Class({
     if (CropsStatus == 4 && !IsLock) {
       Data.func.FriendsStealCrops(Config.friendOpenId).then(data => {
         if (data.Code === 1) {
-          Msg.show(data.Message);
+          self.timers = setTimeout(function() {
+            Msg.show(data.Message);
+          }, 1500);
         } else {
           Msg.show(data.Message);
         }

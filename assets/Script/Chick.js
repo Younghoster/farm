@@ -8,37 +8,6 @@ var Chick = cc.Class({
 
   properties: {},
 
-  // 鸡的状态
-  cId: null,
-  _parentNode: null,
-  _chickNode: null,
-  // cc.Animation 动画实例
-  _chickAnim: null,
-  //animation_clip 动画剪辑
-  _animMove: null,
-  _animFeed: null,
-  _animTreat: null,
-  _animHungry: null,
-  _animSick: null,
-
-  //屎的属性
-  _shitCount: null,
-  _shitLabel: null,
-  _shitNode: null,
-  _shitAnim: null,
-  _timer: null, //用于记录屎的生成时间（定时器）
-  //小鸡状态Node
-  _stateNode: null,
-  _hpLabel: null,
-  _hpProgressBar: null,
-  _hpValue: 0,
-  _status: null, //判断小鸡是否活着
-  chickFunc: null,
-  isBoom: 0,
-  BoomDirection: 0,
-  walkTimer: null,
-  Loop: null,
-  action: null,
   init: function() {
     //鸡的状态初始化
     this._chickStatus = {
@@ -48,6 +17,8 @@ var Chick = cc.Class({
     };
 
     //节点的绑定
+    this.isBoom = 0;
+    this.BoomDirection = 0;
     this._chickNode = this.node;
     this._chickAnim = this.node.getComponent(cc.Animation);
     this._animMove = this.node.getComponent(cc.Animation)._clips[0];

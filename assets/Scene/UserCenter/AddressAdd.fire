@@ -2571,7 +2571,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 81
@@ -3201,7 +3201,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -495
+      "y": -375
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -3260,7 +3260,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -554
+      "y": -434
     },
     "_skewX": 0,
     "_skewY": 0,

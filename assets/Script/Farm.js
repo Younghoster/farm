@@ -451,9 +451,17 @@ cc.Class({
     });
     tool.on('touchend', function() {
       self.touchend(i);
+      for (let i = 0; i < 12; i++) {
+        let itemNodeColor = cc.find('bg/mapNew/item' + i, self.node);
+        itemNodeColor.color = cc.Color.WHITE;
+      }
     });
     tool.on('touchcancel', function() {
       self.touchcancel(i);
+      for (let i = 0; i < 12; i++) {
+        let itemNodeColor = cc.find('bg/mapNew/item' + i, self.node);
+        itemNodeColor.color = cc.Color.WHITE;
+      }
     });
   },
   touchstart(i, posX, posY, otherId) {
@@ -632,24 +640,13 @@ cc.Class({
 
     clearTimeout(timer);
     showNode.active = true;
-    showNode.runAction(
-      cc.sequence(
-        cc.fadeIn(0.2),
-        cc.callFunc(() => {
-          ProgressMask.active = true;
-        }, this)
-      )
-    );
+    ProgressMask.active = true;
 
-    var action = cc.sequence(
-      cc.fadeOut(0.2),
-      cc.callFunc(() => {
+    let timer = setTimeout(() => {
+      if (!Config.firstLogin) {
         showNode.active = false;
         ProgressMask.active = false;
-      }, this)
-    );
-    let timer = setTimeout(() => {
-      if (!Config.firstLogin) showNode.runAction(action);
+      }
     }, 2000);
   },
 

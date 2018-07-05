@@ -720,7 +720,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -145,
+      "x": 0,
       "y": 55
     },
     "_skewX": 0,
@@ -766,7 +766,7 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 9,
+    "_alignFlags": 17,
     "_left": 120,
     "_right": 0,
     "_top": 186,
@@ -865,7 +865,7 @@
     },
     "_children": [],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 27

@@ -12,8 +12,7 @@ cc.Class({
     let name = cc.find('layout/address1/right/editbox', self.node).getComponent(cc.EditBox); //姓名
     let tel = cc.find('layout/address2/right/editbox', self.node).getComponent(cc.EditBox); //电话
     let info = cc.find('layout/address3/right/editbox', self.node).getComponent(cc.EditBox); //地址
-    let pro = cc.find('layout/address4/right/editbox', self.node).getComponent(cc.EditBox); //邮编
-    Data.func.addAddress(name.string, tel.string, pro.string, info.string).then(data => {
+    Data.func.addAddress(name.string, tel.string, '000000', info.string).then(data => {
       if (data.Code == 0) {
         Msg.show(data.Message);
       } else {

@@ -555,6 +555,7 @@ var GuideSystem = {
         }
         case 9: {
           txt1.getComponent(cc.Label).string = '粪便*4';
+          icon1.active = false;
           self.setIcon('Modal/Msg/msg-exp', icon2);
           txt2.getComponent(cc.Label).string = '经验值*100';
           layout1.active = true;

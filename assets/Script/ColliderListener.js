@@ -9,20 +9,22 @@ cc.Class({
     cc.director.getCollisionManager().enabled = true;
     this.touchingNumber = 0;
     this.CollectNumber = 0;
+    this.dataList = JSON.parse(cc.sys.localStorage.getItem('FarmData')); //缓存机制
   },
 
   onCollisionEnter: function(other) {
     let self = this;
-    other.node.color = cc.Color.GREEN;
+    other.node.color = cc.Color.CYAN;
 
     this.touchingNumber++;
-
     this.dataList = JSON.parse(cc.sys.localStorage.getItem('FarmData')); //缓存机制
+
     this.FarmJs = cc.find('Canvas');
     let id = Number(other.node.name.slice(4));
     let propertyId = Config.propertyId; //种子ID
     let type = Config.fertilizerId; //肥料ID
     clearTimeout(this.timers); //清理定时器
+    clearTimeout(this.timers2); //清理定时器
     if (self.dataList.toolType == 1) {
       self.crops(id, propertyId);
     } else if (self.dataList.toolType == 2) {
@@ -44,19 +46,23 @@ cc.Class({
     let CropsID = this.dataList.List[id].CropsID;
     let IsLock = this.dataList.List[id].IsLock;
     if (CropsID == 0 && !IsLock) {
+      self.timers2 = setTimeout(function() {
+        Msg.show('播种成功，经验+5');
+      }, 500);
+      this.dataList.List[id].CropsStatus = 1;
+      cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
       Data.func.addCrops(landId, propertyId).then(data => {
         self.timers = setTimeout(function() {
           if (data.Code == 1) {
             Data.func.getFarmModalData().then(data2 => {
               // FarmJsFarmJs.fn.setLocalStorageData.call(FarmJs, data2);
               self.FarmJs.emit('updataPlant', {
-                data: data2.Model
+                data: self.dataList.List
               });
             });
           } else {
-            Msg.show(data.Message);
           }
-        }, 1000);
+        }, 1500);
       });
     }
   },
@@ -68,25 +74,29 @@ cc.Class({
     let IsWater = this.dataList.List[id].IsDry;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsWater) {
+      self.timers2 = setTimeout(function() {
+        Msg.show('浇水成功，经验+5');
+      }, 500);
+      this.dataList.List[id].IsDry = true;
+      cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
       Data.func.CropsWatering(CropsID).then(data => {
         self.timers = setTimeout(function() {
           if (data.Code === 1) {
             Data.func.getFarmModalData().then(data2 => {
               // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
-              Msg.show(data.Message);
+
               self.FarmJs.emit('updataPlant', {
-                data: data2.Model
+                data: self.dataList.List
               });
             });
           } else {
-            Msg.show(data.Message);
           }
-        }, 1000);
+        }, 1500);
       });
     } else {
-      self.timers = setTimeout(function() {
+      self.timers2 = setTimeout(function() {
         Msg.show('我现在不需要浇水哦~');
-      }, 1000);
+      }, 500);
     }
   },
   //除草
@@ -97,24 +107,28 @@ cc.Class({
     let IsWeeds = this.dataList.List[id].IsWeeds;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsWeeds) {
+      self.timers2 = setTimeout(function() {
+        Msg.show('除草成功，经验+5');
+      }, 500);
+      this.dataList.List[id].IsWeeds = true;
+      cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
       Data.func.CropsWeeding(CropsID).then(data => {
         self.timers = setTimeout(function() {
           if (data.Code === 1) {
             Data.func.getFarmModalData().then(data2 => {
               Msg.show(data.Message);
               self.FarmJs.emit('updataPlant', {
-                data: data2.Model
+                data: self.dataList.List
               });
             });
           } else {
-            Msg.show(data.Message);
           }
-        }, 1000);
+        }, 1500);
       });
     } else {
-      self.timers = setTimeout(function() {
+      self.timers2 = setTimeout(function() {
         Msg.show('我现在不需要除草哦~');
-      }, 1000);
+      }, 500);
     }
   },
   //除虫
@@ -125,24 +139,28 @@ cc.Class({
     let IsDisinsection = this.dataList.List[id].IsDisinsection;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsDisinsection) {
+      self.timers2 = setTimeout(function() {
+        Msg.show('除虫成功，经验+5');
+      }, 500);
+      this.dataList.List[id].IsDisinsection = true;
+      cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
       Data.func.CropsDisinsection(CropsID).then(data => {
         self.timers = setTimeout(function() {
           if (data.Code === 1) {
             Data.func.getFarmModalData().then(data2 => {
               Msg.show(data.Message);
               self.FarmJs.emit('updataPlant', {
-                data: data2.Model
+                data: self.dataList.List
               });
             });
           } else {
-            Msg.show(data.Message);
           }
-        }, 1000);
+        }, 1500);
       });
     } else {
-      self.timers = setTimeout(function() {
+      self.timers2 = setTimeout(function() {
         Msg.show('我现在不需要除虫哦~');
-      }, 1000);
+      }, 500);
     }
   },
   //施肥
@@ -164,7 +182,7 @@ cc.Class({
           } else {
             Msg.show(data.Message);
           }
-        }, 1000);
+        }, 500);
       });
     }
   },
@@ -175,6 +193,8 @@ cc.Class({
     let IsLock = this.dataList.List[id].IsLock;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus == 4 && !IsLock) {
+      this.dataList.List[id].CropsStatus = 0;
+      cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
       Data.func.CollectCrops(CropsID).then(data => {
         if (data.Code === 1) {
           self.CollectNumber += Number(data.Model);
@@ -183,18 +203,17 @@ cc.Class({
             self.CollectNumber = 0;
             Data.func.getFarmModalData().then(data2 => {
               self.FarmJs.emit('updataPlant', {
-                data: data2.Model
+                data: self.dataList.List
               });
             });
-          }, 1000);
+          }, 1500);
         } else {
-          Msg.show(data.Message);
         }
       });
     } else {
-      self.timers = setTimeout(function() {
+      self.timers2 = setTimeout(function() {
         Msg.show('我现在还不能收取哦~');
-      }, 1000);
+      }, 500);
     }
   },
   onCollisionStay: function(other) {},
@@ -203,7 +222,7 @@ cc.Class({
     //碰撞后的状态显示
     this.touchingNumber--;
     if (this.touchingNumber === 0) {
-      other.node.color = cc.Color.WHITE;
+      // other.node.color = cc.Color.WHITE;
     }
     //找到当前预置资源
     let id = Number(other.node.name.slice(4));

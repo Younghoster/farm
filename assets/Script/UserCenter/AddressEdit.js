@@ -32,14 +32,12 @@ cc.Class({
     self.username = cc.find('layout/address1/right/editbox', self.node).getComponent(cc.EditBox); //姓名
     self.tel = cc.find('layout/address2/right/editbox', self.node).getComponent(cc.EditBox); //电话
     self.info = cc.find('layout/address3/right/editbox', self.node).getComponent(cc.EditBox); //地址
-    self.pro = cc.find('layout/address4/right/editbox', self.node).getComponent(cc.EditBox); //邮编
     Data.func.getAddressList().then(data => {
       for (let i = 0; i < data.List.length; i++) {
         if (data.List[i].ID == self.id) {
           self.username.string = data.List[i].username;
           self.tel.string = data.List[i].telNumber;
           self.info.string = data.List[i].addressDetailInfo;
-          self.pro.string = data.List[i].addressPostalCode;
         }
       }
     });

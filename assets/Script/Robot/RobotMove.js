@@ -4,20 +4,15 @@ cc.Class({
   properties: {},
   onLoad() {
     this.walkTimer = Math.random() * 3 + 3;
+    this.robotTalk = 0;
     this.walking();
     setTimeout(() => {
       this.schedule(this.walking, this.walkTimer);
     }, this.walkTimer);
     let showNode = cc.find('farmer-text', this.node);
     if (showNode) {
-      var action = cc.sequence(
-        cc.fadeOut(0.5),
-        cc.callFunc(() => {
-          showNode.active = false;
-        }, this)
-      );
       setTimeout(() => {
-        showNode.runAction(action);
+        showNode.active = false;
       }, 5000);
     }
   },
@@ -66,31 +61,107 @@ cc.Class({
   onCollisionEnter: function(other, self) {
     // this.node.color = cc.Color.GREEN;
     this.touchingNumber++;
-    if (self.world.aabb.y > other.world.aabb.y) {
-      self.node.setGlobalZOrder(2);
-      other.node.setGlobalZOrder(1);
+    this.isBoom = 1;
+    this.playWalk('stop');
+    if (Math.abs(self.world.aabb.x - other.world.aabb.x) > 35) {
+      if (self.world.aabb.x > other.world.aabb.x) {
+        this.BoomDirection = 3;
+      } else {
+        this.BoomDirection = 2;
+      }
     } else {
-      self.node.setGlobalZOrder(1);
-      other.node.setGlobalZOrder(2);
+      if (self.world.aabb.y > other.world.aabb.y) {
+        this.BoomDirection = 0;
+      } else {
+        this.BoomDirection = 1;
+      }
+    }
+
+    this.playWalk('start');
+    if (self.world.aabb.y > other.world.aabb.y) {
+      self.node.setLocalZOrder(0);
+      other.node.setLocalZOrder(1);
     }
   },
 
+  onCollisionStay: function(other, self) {
+    this.isBoom = 1;
+    if (self.world.aabb.x > other.world.aabb.x && self.world.aabb.y > other.world.aabb.y) {
+      if (this.BoomDirection == 3) {
+        this.BoomDirection = 0;
+      } else {
+        this.BoomDirection = 3;
+      }
+    } else if (self.world.aabb.x > other.world.aabb.x && self.world.aabb.y < other.world.aabb.y) {
+      if (this.BoomDirection == 3) {
+        this.BoomDirection = 1;
+      } else {
+        this.BoomDirection = 3;
+      }
+    } else if (self.world.aabb.x < other.world.aabb.x && self.world.aabb.y > other.world.aabb.y) {
+      if (this.BoomDirection == 0) {
+        this.BoomDirection = 2;
+      } else {
+        this.BoomDirection = 0;
+      }
+    } else if (self.world.aabb.x < other.world.aabb.x && self.world.aabb.y < other.world.aabb.y) {
+      if (this.BoomDirection == 1) {
+        this.BoomDirection = 2;
+      } else {
+        this.BoomDirection = 1;
+      }
+    }
+    if (self.world.aabb.y > other.world.aabb.y) {
+      self.node.setLocalZOrder(0);
+      other.node.setLocalZOrder(1);
+    }
+  },
+
+  onCollisionExit: function() {
+    //碰撞后的状态显示
+
+    this.dataList = JSON.parse(cc.sys.localStorage.getItem('FarmData')); //缓存机制
+    this.touchingNumber--;
+    if (this.touchingNumber === 0) {
+      this.node.color = cc.Color.WHITE;
+    }
+    this.isBoom = 0;
+  },
+  playWalk(state) {
+    if (state == 'stop') {
+      this.unscheduleAllCallbacks();
+      this.node.stopAction(this.action);
+    } else if (state == 'start') {
+      this.walking();
+      setTimeout(() => {
+        this.schedule(this.walking, this.walkTimer);
+      }, this.walkTimer);
+    }
+  },
   botSpeak() {
     let showNode = cc.find('farmer-text', this.node);
+    let showNodetext = cc.find('text', showNode).getComponent(cc.Label);
 
+    switch (this.robotTalk) {
+      case 0: {
+        showNodetext.string = '我是牧场自动清洁机器人，我的愿望是世界和平！';
+        break;
+      }
+      case 1: {
+        showNodetext.string = '是时候展现真正的技术了！';
+        break;
+      }
+    }
+    this.robotTalk++;
+    if (this.robotTalk > 1) {
+      this.robotTalk = 0;
+    }
     clearTimeout(timer);
     showNode.active = true;
-    showNode.opacity = 0;
-    showNode.runAction(cc.fadeIn(0.5));
-    var action = cc.sequence(
-      cc.fadeOut(0.5),
-      cc.callFunc(() => {
-        showNode.active = false;
-      }, this)
-    );
+
     let timer = setTimeout(() => {
-      showNode.runAction(action);
-    }, 5000);
+      showNode.active = false;
+    }, 3000);
   }
   // update (dt) {},
 });

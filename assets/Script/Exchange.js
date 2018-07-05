@@ -39,7 +39,15 @@ cc.Class({
     this.actualNameLabel.string = this._actualName;
     this.actualCountLabel.string = this._actualCount;
     this.virtualNameLabel.string = this._virtualName;
-    this.virtualCountLabel.string = this._virtualCount * 6;
+    switch (this._goodsType) {
+      case 1: //贵妃鸡
+        this.virtualCountLabel.string = this._virtualCount;
+        break;
+      case 2: //鸡蛋
+        this.virtualCountLabel.string = this._virtualCount * 6;
+        break;
+    }
+
     //收货信息
     Func.getAddressList().then(data => {
       if (data.Code === 1) {

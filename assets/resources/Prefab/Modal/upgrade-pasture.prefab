@@ -298,7 +298,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 707,
-      "height": 511
+      "height": 325
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -364,7 +364,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 306,
-      "y": 240
+      "y": 150
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -473,7 +473,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 21
@@ -531,7 +531,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 18
@@ -2090,7 +2090,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 57.5
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -2137,7 +2137,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 484.48,
+      "width": 172.48,
       "height": 24
     },
     "_rotationX": 0,
@@ -2172,7 +2172,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "已养贵妃鸡6/10（升级牧场可增加养殖上限）",
+    "_N$string": "已养贵妃鸡6/10",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -2379,7 +2379,7 @@
     "_alignFlags": 17,
     "_left": 0,
     "_right": 0,
-    "_top": 141,
+    "_top": 105.5,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -2422,7 +2422,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 97

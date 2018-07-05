@@ -13,11 +13,11 @@ cc.Class({
     this.nameLabel = cc.find('bg/name', this.node).getComponent(cc.Label);
     this.handNode = cc.find('Hand', this.node);
     this.handAnim = this.handNode.getComponent(cc.Animation);
-    this.eggNode = cc.find('bg/house/shouquEgg', this.node);
+    // this.eggNode = cc.find('bg/house/shouquEgg', this.node);
     this.houseNode = cc.find('bg/house', this.node);
     // this.moneyLabel = cc.find("div_header/gold/money", this.node).getComponent(cc.Label);
     //天气
-    this.wether = this.node.getChildByName('div_wether');
+    // this.wether = this.node.getChildByName('div_wether');
     //饲料数量
     // this.feedCountLabel = cc.find('div_action/feed/icon-tip/count', this.node).getComponent(cc.Label);
     this.scene = cc.find('Canvas');
@@ -64,15 +64,15 @@ cc.Class({
     this.eggCountLabel.string = `x${data.RanchModel.EggCount}`;
 
     //初始化产蛋棚是否显示鸡蛋
-    this.eggNode.active = data.EggsShed.EggCount > 0 ? true : false;
+    // this.eggNode.active = data.EggsShed.EggCount > 0 ? true : false;
 
     let upOrDown = true;
-    this.schedule(() => {
-      let action = upOrDown ? cc.moveBy(0.5, 0, 20) : cc.moveBy(0.5, 0, -20);
-      this.eggNode.runAction(action);
-      upOrDown = !upOrDown;
-    }, 0.5);
-    this.updateWeatherBox();
+    // this.schedule(() => {
+    //   let action = upOrDown ? cc.moveBy(0.5, 0, 20) : cc.moveBy(0.5, 0, -20);
+    //   this.eggNode.runAction(action);
+    //   upOrDown = !upOrDown;
+    // }, 0.5);
+    // this.updateWeatherBox();
     this.updateWeather().then(() => {
       this.initChick();
       this.initEggShed(eggsShedRank);
@@ -103,8 +103,8 @@ cc.Class({
           chickNode.active = true;
 
           chickNode.setPosition(250 - Math.random() * 500, Math.random() * -250 - 200);
-          let feedNode = cc.find('feed', chickNode);
-          feedNode.active = element.IsHunger;
+          // let feedNode = cc.find('feed', chickNode);
+          // feedNode.active = element.IsHunger;
           this.chickJs = chickNode.getComponent('ChickFriend');
           this.chickJs.setId(data.List[i].ID);
           this.chickJs._status = data.List[i].Status;
@@ -129,6 +129,19 @@ cc.Class({
       return -300;
     }
   },
+  animates() {
+    cc.loader.loadRes('Prefab/Modal/House', cc.Prefab, function(error, prefab) {
+      if (error) {
+        cc.error(error);
+        return;
+      }
+      let box = cc.find('Canvas');
+      // 实例
+      var alert = cc.instantiate(prefab);
+      alert.setPosition(390, 300);
+      box.parent.addChild(alert);
+    });
+  },
   //点击清理事件
   showClearAlert: function() {
     var self = this;
@@ -136,16 +149,9 @@ cc.Class({
     Func.PostFriendsClean(Config.friendOpenId)
       .then(data => {
         if (data.Code === 1) {
+          self.animates();
           //清洁动画
-          this.handNode.active = true;
-          this.handAnim.play('hand_clear');
-
-          this.handAnim.on('finished', () => {
-            this.handNode.active = false;
-            //清洁成功 牧场清洁度=100%
-
-            this.shitBoxNode.removeAllChildren();
-          });
+          this.shitBoxNode.removeAllChildren();
         } else {
           //牧场不脏 弹出提示框
           Msg.show(data.Message);
@@ -197,7 +203,7 @@ cc.Class({
   //根据天气情况 判断牧场的背景
   updateWeather() {
     let rainNode = cc.find('ParticleRain', this.node);
-    let wetherIcon = cc.find('div/icon', this.wether).getComponent(cc.Sprite);
+    // let wetherIcon = cc.find('div/icon', this.wether).getComponent(cc.Sprite);
     return Func.GetCurrentWeather().then(res => {
       if (res.data.rain !== 0) {
         //下雨
@@ -217,9 +223,9 @@ cc.Class({
           });
         }
         //图标
-        cc.loader.loadRes('weather/rain', cc.SpriteFrame, (err, spriteFrame) => {
-          wetherIcon.spriteFrame = spriteFrame;
-        });
+        // cc.loader.loadRes('weather/rain', cc.SpriteFrame, (err, spriteFrame) => {
+        //   wetherIcon.spriteFrame = spriteFrame;
+        // });
         //云
         cc.loader.loadRes('index/rain/cloud01', cc.SpriteFrame, (err, spriteFrame) => {
           this.cloud1Node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
@@ -255,9 +261,9 @@ cc.Class({
             this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
           });
         }
-        cc.loader.loadRes('weather/overcast', cc.SpriteFrame, (err, spriteFrame) => {
-          wetherIcon.spriteFrame = spriteFrame;
-        });
+        // cc.loader.loadRes('weather/overcast', cc.SpriteFrame, (err, spriteFrame) => {
+        //   wetherIcon.spriteFrame = spriteFrame;
+        // });
         //云
         cc.loader.loadRes('index/cloud/cloud01', cc.SpriteFrame, (err, spriteFrame) => {
           this.cloud1Node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
@@ -292,9 +298,9 @@ cc.Class({
             this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
           });
         }
-        cc.loader.loadRes('weather/sun', cc.SpriteFrame, (err, spriteFrame) => {
-          wetherIcon.spriteFrame = spriteFrame;
-        });
+        // cc.loader.loadRes('weather/sun', cc.SpriteFrame, (err, spriteFrame) => {
+        //   wetherIcon.spriteFrame = spriteFrame;
+        // });
         //云
         cc.loader.loadRes('index/sun/cloud01', cc.SpriteFrame, (err, spriteFrame) => {
           this.cloud1Node.getComponent(cc.Sprite).spriteFrame = spriteFrame;

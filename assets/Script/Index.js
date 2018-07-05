@@ -27,7 +27,6 @@ cc.Class({
   init: function() {
     this.handNode = cc.find('Hand', this.node);
     this.handAnim = this.handNode.getComponent(cc.Animation);
-    // this.arrowNode = this.node.getChildByName('icon-arrow');
     this.eggNode = cc.find('bg/house/shouquEgg', this.node);
     this.houseNode = cc.find('bg/house', this.node);
 
@@ -400,7 +399,7 @@ cc.Class({
     Func.GetRanchPeopleShowMessage().then(data => {
       if (data.Code === 1) {
         console.log(data);
-        this.speakList = ['欢迎来到原态农业农场小游戏！'];
+        this.speakList = ['欢迎来到原态农业农场小游戏！点我可查看提示哦！'];
         if (data.Model.ChickenGrow) {
           let spaak = '亲，你认养的贵妃鸡已经到达了自然生长周期，停止产蛋。目前它正在兑换商城中等待亲兑换哦！';
           this.speakList.push(spaak);
@@ -658,7 +657,7 @@ cc.Class({
 
   onLoad: function() {
     var openID = window.location.href.split('=')[1];
-    window.Config.openID = openID || 'f79ed645ad624cf5bbfecc2e67f23020';
+    window.Config.openID = openID || 'o9AgowPMI0CrC_C69vBS1UF40N2s';
     Func.openID = window.Config.openID;
     Config.newSocket = new WebSocket('ws://service.linedin.cn:5530/');
     cc.director.setDisplayStats(false);
