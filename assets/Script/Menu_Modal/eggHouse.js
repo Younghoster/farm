@@ -76,14 +76,14 @@ cc.Class({
         for (let i = 0; i < list.length; i++) {
           const element = list[i];
 
-          this.assignData(element, this.holeNodeList[i]);
+          this.assignData(element, this.holeNodeList[i], i);
         }
       } else {
         Msg.show(data.Message);
       }
     });
   },
-  assignData(data, holeNode) {
+  assignData(data, holeNode, i) {
     let self = this;
     let eggID = data.EggID;
     let holeButton = holeNode.getComponent(cc.Button);
@@ -217,6 +217,13 @@ cc.Class({
       cc.loader.loadRes('eggHouse/img3', cc.SpriteFrame, (err, spriteFrame) => {
         holeSprite.spriteFrame = spriteFrame;
       });
+      if (Config.firstLogin) {
+        if (i == 0 || i == 1) {
+          cc.loader.loadRes('eggHouse/img2', cc.SpriteFrame, (err, spriteFrame) => {
+            holeSprite.spriteFrame = spriteFrame;
+          });
+        }
+      }
     }
   },
   //弹出Alert 询问是否要使用多少积分升级产蛋棚

@@ -90,6 +90,18 @@ var GuideSystem = {
     var pos_6 = guideNode.convertToNodeSpace(cc.v2(pos_5.tx, pos_5.ty));
     guideMaskNode.setPosition(pos_6);
 
+    var jt = cc.find('jt', guideNode);
+    jt.rotation = 30;
+    var textintro = cc.find('textintro', guideNode);
+
+    jt.active = true;
+    textintro.active = true;
+    jt.setPosition(pos_6.x + 80, pos_6.y + 80);
+    textintro.setPosition(pos_6.x + 110, pos_6.y + 110);
+    cc.loader.loadRes('guide/pic_1.png', cc.SpriteFrame, function(err, spriteFrame) {
+      textintro.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+    });
+
     // 设置mask宽度和高度
     var height = btnMoreNode.height;
     var width = btnMoreNode.width;
@@ -99,6 +111,8 @@ var GuideSystem = {
 
     //绑定事件
     guideMaskNode.once('click', function() {
+      jt.active = false;
+      textintro.active = false;
       guideMaskNode.removeFromParent();
       self.menuJS.func.showMenu.call(self.menuJS).then(function() {
         self.guide();
@@ -115,6 +129,18 @@ var GuideSystem = {
     var pos_6 = guideNode.convertToNodeSpace(cc.v2(pos_5.tx, pos_5.ty));
     guideMaskNode.setPosition(pos_6);
 
+    var jt = cc.find('jt', guideNode);
+    jt.rotation = 80;
+    var textintro = cc.find('textintro', guideNode);
+
+    jt.active = true;
+    textintro.active = true;
+    jt.setPosition(pos_6.x + 110, pos_6.y + 20);
+    textintro.setPosition(pos_6.x + 220, pos_6.y + 20);
+    cc.loader.loadRes('guide/pic_2.png', cc.SpriteFrame, function(err, spriteFrame) {
+      textintro.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+    });
+
     // 设置mask宽度和高度
     var height = shopNode.height;
     var width = shopNode.width;
@@ -124,11 +150,10 @@ var GuideSystem = {
 
     //绑定事件
     guideMaskNode.on('click', function() {
+      jt.active = false;
+      textintro.active = false;
       guideMaskNode.removeFromParent();
       self.menuJS.func.closeMenu.call(self.menuJS);
-      // setTimeout(function() {
-
-      // }, 500);
       self.menuJS.func.loadSceneShop.call(self.menuJS);
     });
   },
@@ -143,19 +168,33 @@ var GuideSystem = {
     var pos_6 = guideNode.convertToNodeSpace(cc.v2(pos_5.tx, pos_5.ty));
     guideMaskNode.setPosition(pos_6.x, pos_6.y + 45);
 
+    var jt = cc.find('jt', guideNode);
+    jt.rotation = 80;
+    var textintro = cc.find('textintro', guideNode);
+
+    jt.active = true;
+    textintro.active = true;
+    jt.setPosition(pos_6.x + 120, pos_6.y + 50);
+    textintro.setPosition(pos_6.x + 330, pos_6.y - 80);
+    cc.loader.loadRes('guide/pic_3.png', cc.SpriteFrame, function(err, spriteFrame) {
+      textintro.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+    });
+
     // 设置mask宽度和高度
     var height = goodsNode.height;
     var width = goodsNode.width;
     var radius = 110;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-3-0', cc.SpriteFrame, function(err, spriteFrame) {
-      modalSprite.spriteFrame = spriteFrame;
-    });
+    // cc.loader.loadRes('guide/pic-3-0', cc.SpriteFrame, function(err, spriteFrame) {
+    //   modalSprite.spriteFrame = spriteFrame;
+    // });
     //绑定事件
     guideMaskNode.on(
       'click',
       function() {
+        jt.active = false;
+        textintro.active = false;
         guideMaskNode.removeFromParent();
         goodsNode.emit('maskClick');
         self.guide();
@@ -179,6 +218,18 @@ var GuideSystem = {
       var pos_6 = guideNode.convertToNodeSpace(cc.v2(pos_5.tx, pos_5.ty));
       guideMaskNode.setPosition(pos_6);
 
+      var jt = cc.find('jt', guideNode);
+      jt.rotation = 180;
+      var textintro = cc.find('textintro', guideNode);
+
+      jt.active = true;
+      textintro.active = true;
+      jt.setPosition(pos_6.x, pos_6.y - 120);
+      textintro.setPosition(pos_6.x, pos_6.y - 190);
+      cc.loader.loadRes('guide/pic_4.png', cc.SpriteFrame, function(err, spriteFrame) {
+        textintro.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+      });
+
       // 设置mask宽度和高度
       var height = enterButton.height;
       var width = enterButton.width;
@@ -186,14 +237,16 @@ var GuideSystem = {
       guideMaskNode.height = width;
       guideMaskNode.width = width;
       var ModalNode = cc.find('Modal', SellNode);
-      var ModalSprite = ModalNode.getComponent(cc.Sprite);
-      ModalNode.opacity = 255;
-      ModalNode.color = cc.color('#ffffff');
-      cc.loader.loadRes('guide/pic-3', cc.SpriteFrame, function(err, spriteFrame) {
-        ModalSprite.spriteFrame = spriteFrame;
-      });
+      // var ModalSprite = ModalNode.getComponent(cc.Sprite);
+      // ModalNode.opacity = 255;
+      // ModalNode.color = cc.color('#ffffff');
+      // cc.loader.loadRes('guide/pic-3', cc.SpriteFrame, function(err, spriteFrame) {
+      //   ModalSprite.spriteFrame = spriteFrame;
+      // });
 
       guideMaskNode.on('click', function() {
+        jt.active = false;
+        textintro.active = false;
         guideMaskNode.removeFromParent();
         //买一只鸡
         self.PostBuy(18, 1).then(function(data) {
@@ -223,19 +276,33 @@ var GuideSystem = {
     var pos_6 = guideNode.convertToNodeSpace(cc.v2(pos_5.tx, pos_5.ty));
     guideMaskNode.setPosition(pos_6.x, pos_6.y + 45);
 
+    var jt = cc.find('jt', guideNode);
+    jt.rotation = 140;
+    var textintro = cc.find('textintro', guideNode);
+
+    jt.active = true;
+    textintro.active = true;
+    jt.setPosition(pos_6.x + 80, pos_6.y - 40);
+    textintro.setPosition(pos_6.x + 200, pos_6.y - 120);
+    cc.loader.loadRes('guide/pic_5.png', cc.SpriteFrame, function(err, spriteFrame) {
+      textintro.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+    });
+
     // 设置mask宽度和高度
     var height = goodsNode.height;
     var width = goodsNode.width;
     var radius = 110;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-4', cc.SpriteFrame, function(err, spriteFrame) {
-      modalSprite.spriteFrame = spriteFrame;
-    });
+    // cc.loader.loadRes('guide/pic-4', cc.SpriteFrame, function(err, spriteFrame) {
+    //   modalSprite.spriteFrame = spriteFrame;
+    // });
     //绑定事件
     guideMaskNode.on(
       'click',
       function() {
+        jt.active = false;
+        textintro.active = false;
         guideMaskNode.removeFromParent();
         var modalJS = cc.find('hatch-box', self.scene).getComponent('Modal');
         modalJS.func.showModal.call(modalJS);
@@ -247,7 +314,7 @@ var GuideSystem = {
   //添加饲料
   guideStep6: function guideStep6(guideNode, guideMaskNode, modalSprite, circleNode) {
     var self = this;
-    var goodsNode = cc.find('feedModal/bg/feedState/icon-addFeeds');
+    var goodsNode = cc.find('feedModal/bg/icon-addFeeds');
     var goodsBox = cc.find('feedModal');
     //设置position
     var pos = goodsNode.getPosition();
@@ -255,12 +322,24 @@ var GuideSystem = {
     var pos_6 = guideNode.convertToNodeSpace(cc.v2(pos_5.tx, pos_5.ty));
     guideMaskNode.setPosition(pos_6);
 
+    var jt = cc.find('jt', guideNode);
+    jt.rotation = 180;
+    var textintro = cc.find('textintro', guideNode);
+
+    jt.active = true;
+    textintro.active = true;
+    jt.setPosition(pos_6.x, pos_6.y - 130);
+    textintro.setPosition(pos_6.x, pos_6.y - 330);
+    cc.loader.loadRes('guide/pic_6.png', cc.SpriteFrame, function(err, spriteFrame) {
+      textintro.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+    });
+
     // 设置mask宽度和高度
     var height = goodsNode.height;
     var width = goodsNode.width;
     var radius = height > width ? height : width;
-    guideMaskNode.height = radius + 15;
-    guideMaskNode.width = radius + 15;
+    guideMaskNode.height = 150;
+    guideMaskNode.width = 150;
     cc.loader.loadRes('guide/black', cc.SpriteFrame, function(err, spriteFrame) {
       modalSprite.spriteFrame = spriteFrame;
     });
@@ -268,6 +347,8 @@ var GuideSystem = {
     guideMaskNode.on(
       'click',
       function() {
+        jt.active = false;
+        textintro.active = false;
         guideMaskNode.removeFromParent();
         self.idnexJs.func.addFeed.call(self.idnexJs);
         self.alertMsgNew();
@@ -292,56 +373,36 @@ var GuideSystem = {
     var pos_6 = guideNode.convertToNodeSpace(cc.v2(pos_5.tx, pos_5.ty));
     guideMaskNode.setPosition(pos_6);
 
+    var jt = cc.find('jt', guideNode);
+
+    var textintro = cc.find('textintro', guideNode);
+
+    jt.active = true;
+    jt.rotation = 330;
+    textintro.active = true;
+    jt.setPosition(pos_6.x - 120, pos_6.y + 120);
+    textintro.setPosition(pos_6.x - 180, pos_6.y + 170);
+    cc.loader.loadRes('guide/pic_7.png', cc.SpriteFrame, function(err, spriteFrame) {
+      textintro.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+    });
+
     // 设置mask宽度和高度
     var height = goodsNode.height;
     var width = goodsNode.width;
     var radius = 200;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-6', cc.SpriteFrame, function(err, spriteFrame) {
-      modalSprite.spriteFrame = spriteFrame;
-    });
+    // cc.loader.loadRes('guide/pic-6', cc.SpriteFrame, function(err, spriteFrame) {
+    //   modalSprite.spriteFrame = spriteFrame;
+    // });
     //绑定事件
     guideMaskNode.on(
       'click',
       function() {
+        jt.active = false;
+        textintro.active = false;
         guideMaskNode.removeFromParent();
         self.ModalJs.func.showModal.call(self.ModalJs);
-        setTimeout(function() {
-          self.guide();
-        }, 500);
-      },
-      this
-    );
-  },
-  guideStep8: function guideStep8(guideNode, guideMaskNode, modalSprite, circleNode) {
-    var self = this;
-    var goodsNode = cc.find('eggHouse/bg/content/hole0');
-    //设置position
-    var pos = goodsNode.getPosition();
-    var pos_5 = goodsNode.getNodeToWorldTransformAR(pos);
-    var pos_6 = guideNode.convertToNodeSpace(cc.v2(pos_5.tx, pos_5.ty));
-    guideMaskNode.setPosition(pos_6);
-
-    // 设置mask宽度和高度
-    var height = goodsNode.height;
-    var width = goodsNode.width;
-    var radius = height > width ? height : width;
-    guideMaskNode.height = radius + 15;
-    guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-7', cc.SpriteFrame, function(err, spriteFrame) {
-      modalSprite.spriteFrame = spriteFrame;
-    });
-    //绑定事件
-    guideMaskNode.on(
-      'click',
-      function() {
-        guideMaskNode.removeFromParent();
-        cc.find('eggHouse').removeFromParent();
-        self.alertMsgNew();
-        console.log(self.step);
-        var oldGuideNode = cc.find('guide');
-        oldGuideNode ? oldGuideNode.removeFromParent() : false;
         setTimeout(function() {
           self.guide();
         }, 2000);
@@ -349,6 +410,81 @@ var GuideSystem = {
       this
     );
   },
+  guideStep8: function guideStep8(guideNode, guideMaskNode, modalSprite, circleNode) {
+    var self = this;
+
+    var goodsNode = cc.find('eggHouse/bg/content/hole0');
+    //设置position
+    var pos = goodsNode.getPosition();
+    var pos_5 = goodsNode.getNodeToWorldTransformAR(pos);
+    var pos_6 = guideNode.convertToNodeSpace(cc.v2(pos_5.tx, pos_5.ty));
+    guideMaskNode.setPosition(pos_6);
+
+    var jt = cc.find('jt', guideNode);
+    var textintro = cc.find('textintro', guideNode);
+
+    jt.active = true;
+    jt.rotation = 140;
+    textintro.active = true;
+    jt.setPosition(pos_6.x + 110, pos_6.y - 50);
+    textintro.setPosition(pos_6.x + 350, pos_6.y - 230);
+    cc.loader.loadRes('guide/pic_8.png', cc.SpriteFrame, function(err, spriteFrame) {
+      textintro.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+    });
+
+    // 设置mask宽度和高度
+    var height = goodsNode.height;
+    var width = goodsNode.width;
+    var radius = height > width ? height : width;
+    guideMaskNode.height = radius + 15;
+    guideMaskNode.width = radius + 15;
+
+    guideMaskNode.on(
+      'click',
+      function() {
+        var goodsNode = cc.find('eggHouse/bg/content/hole1');
+        //设置position
+        var pos = goodsNode.getPosition();
+        var pos_5 = goodsNode.getNodeToWorldTransformAR(pos);
+        var pos_6 = guideNode.convertToNodeSpace(cc.v2(pos_5.tx, pos_5.ty));
+        guideMaskNode.setPosition(pos_6);
+
+        jt.rotation = 180;
+        jt.setPosition(pos_6.x, pos_6.y - 100);
+        // 设置mask宽度和高度
+        var height = goodsNode.height;
+        var width = goodsNode.width;
+        var radius = height > width ? height : width;
+        guideMaskNode.height = radius + 15;
+        guideMaskNode.width = radius + 15;
+
+        // cc.loader.loadRes('guide/pic-7', cc.SpriteFrame, function(err, spriteFrame) {
+        //   modalSprite.spriteFrame = spriteFrame;
+        // });
+        //绑定事件
+        guideMaskNode.on(
+          'click',
+          function() {
+            jt.active = false;
+            textintro.active = false;
+            guideMaskNode.removeFromParent();
+            cc.find('eggHouse').removeFromParent();
+            self.alertMsgNew();
+            console.log(self.step);
+            var oldGuideNode = cc.find('guide');
+            oldGuideNode ? oldGuideNode.removeFromParent() : false;
+            setTimeout(function() {
+              self.guide();
+            }, 2000);
+          },
+          this
+        );
+      },
+      this
+    );
+  },
+
+  //清洁
   guideStep9: function guideStep9(guideNode, guideMaskNode, modalSprite, circleNode) {
     var self = this;
     var goodsNode = cc.find('div_action/clear', self.scene);
@@ -357,6 +493,18 @@ var GuideSystem = {
     var pos_5 = goodsNode.getNodeToWorldTransformAR(pos);
     var pos_6 = guideNode.convertToNodeSpace(cc.v2(pos_5.tx, pos_5.ty));
     guideMaskNode.setPosition(pos_6);
+
+    var jt = cc.find('jt', guideNode);
+    var textintro = cc.find('textintro', guideNode);
+
+    jt.active = true;
+    jt.rotation = 330;
+    textintro.active = true;
+    jt.setPosition(pos_6.x - 100, pos_6.y + 60);
+    textintro.setPosition(pos_6.x - 230, pos_6.y + 100);
+    cc.loader.loadRes('guide/pic_9.png', cc.SpriteFrame, function(err, spriteFrame) {
+      textintro.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+    });
 
     // 设置mask宽度和高度
     var height = goodsNode.height;
@@ -371,6 +519,8 @@ var GuideSystem = {
     guideMaskNode.on(
       'click',
       function() {
+        jt.active = false;
+        textintro.active = false;
         guideMaskNode.removeFromParent();
         self.alertMsgNew();
         console.log(self.step);
@@ -383,6 +533,8 @@ var GuideSystem = {
       this
     );
   },
+
+  //喂食
   guideStep10: function guideStep10(guideNode, guideMaskNode, modalSprite, circleNode) {
     var self = this;
     var goodsNode = cc.find('div_action/feed', self.scene);
@@ -392,19 +544,34 @@ var GuideSystem = {
     var pos_6 = guideNode.convertToNodeSpace(cc.v2(pos_5.tx, pos_5.ty));
     guideMaskNode.setPosition(pos_6);
 
+    var jt = cc.find('jt', guideNode);
+    jt.rotation = 180;
+    var textintro = cc.find('textintro', guideNode);
+
+    jt.active = true;
+    jt.rotation = 300;
+    textintro.active = true;
+    jt.setPosition(pos_6.x - 100, pos_6.y + 60);
+    textintro.setPosition(pos_6.x - 230, pos_6.y + 100);
+    cc.loader.loadRes('guide/pic_10.png', cc.SpriteFrame, function(err, spriteFrame) {
+      textintro.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+    });
+
     // 设置mask宽度和高度
     var height = goodsNode.height;
     var width = goodsNode.width;
     var radius = height > width ? height : width;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-9', cc.SpriteFrame, function(err, spriteFrame) {
-      modalSprite.spriteFrame = spriteFrame;
-    });
+    // cc.loader.loadRes('guide/pic-9', cc.SpriteFrame, function(err, spriteFrame) {
+    //   modalSprite.spriteFrame = spriteFrame;
+    // });
     //绑定事件
     guideMaskNode.on(
       'click',
       function() {
+        jt.active = false;
+        textintro.active = false;
         guideMaskNode.removeFromParent();
         self.alertMsgNew();
         console.log(self.step);
@@ -427,15 +594,28 @@ var GuideSystem = {
     var pos_6 = guideNode.convertToNodeSpace(cc.v2(pos_5.tx, pos_5.ty));
     guideMaskNode.setPosition(pos_6);
 
+    var jt = cc.find('jt', guideNode);
+    jt.rotation = 180;
+    var textintro = cc.find('textintro', guideNode);
+
+    jt.active = true;
+    jt.rotation = 260;
+    textintro.active = true;
+    jt.setPosition(pos_6.x - 110, pos_6.y - 30);
+    textintro.setPosition(pos_6.x - 230, pos_6.y - 60);
+    cc.loader.loadRes('guide/pic_11.png', cc.SpriteFrame, function(err, spriteFrame) {
+      textintro.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+    });
+
     // 设置mask宽度和高度
     var height = goodsNode.height;
     var width = goodsNode.width;
     var radius = 100;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    cc.loader.loadRes('guide/pic-10', cc.SpriteFrame, function(err, spriteFrame) {
-      modalSprite.spriteFrame = spriteFrame;
-    });
+    // cc.loader.loadRes('guide/pic-10', cc.SpriteFrame, function(err, spriteFrame) {
+    //   modalSprite.spriteFrame = spriteFrame;
+    // });
     //绑定事件
     guideMaskNode.on(
       'click',
@@ -528,11 +708,14 @@ var GuideSystem = {
       switch (self.step - 1) {
         case 4: {
           self.setIcon('Modal/Repertory/icon-1', icon1);
-          txt1.getComponent(cc.Label).string = '饲料*2';
+          txt1.getComponent(cc.Label).string = '饲料*50';
           self.setIcon('Modal/Msg/msg-exp', icon2);
           txt2.getComponent(cc.Label).string = '经验值*150';
+          self.setIcon('Modal/Msg/chick', icon3);
+          txt3.getComponent(cc.Label).string = '产蛋鸡1只';
           layout1.active = true;
           layout2.active = true;
+          layout3.active = true;
           break;
         }
         case 6: {
@@ -546,16 +729,19 @@ var GuideSystem = {
         }
         case 8: {
           self.setIcon('Modal/Repertory/icon-1', icon1);
-          txt1.getComponent(cc.Label).string = '饲料*2';
+          txt1.getComponent(cc.Label).string = '饲料*50';
           self.setIcon('Modal/Msg/msg-exp', icon2);
           txt2.getComponent(cc.Label).string = '经验值*100';
+          self.setIcon('Modal/Repertory/icon-asset05', icon3);
+          txt3.getComponent(cc.Label).string = '鸡蛋*4';
           layout1.active = true;
           layout2.active = true;
+          layout3.active = true;
           break;
         }
         case 9: {
+          self.setIcon('Modal/Msg/shit', icon1);
           txt1.getComponent(cc.Label).string = '粪便*4';
-          icon1.active = false;
           self.setIcon('Modal/Msg/msg-exp', icon2);
           txt2.getComponent(cc.Label).string = '经验值*100';
           layout1.active = true;

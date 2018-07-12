@@ -55,38 +55,16 @@ var farmGuid = {
       self.canvas = cc.find('Canvas');
       self.prefabBox = self.canvas.parent;
       self.prefabBox.addChild(self.prefabItem);
-      self.setConstDom();
+
       switch (i) {
-        case 1: {
-          self.step1();
+        case 0: {
+          self.step0();
           break;
         }
       }
     });
   },
-  //设置固定的资源
-  setConstDom: function setConstDom() {
-    var self = this;
-    var tipBox = cc.find('bg/mapNew/item0', self.canvas);
-    var tipPos = tipBox.getPosition();
-    self.tipPos_ = tipBox.getNodeToWorldTransformAR(tipPos);
-    cc.loader.loadRes('guide/black', cc.SpriteFrame, function(err, spriteFrame) {
-      self.modalBlock.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-    });
 
-    self.item.setPosition(self.tipPos_.tx, self.tipPos_.ty);
-    self.tip.setPosition(self.tipPos_.tx, self.tipPos_.ty);
-    self.water.setPosition(self.tipPos_.tx, self.tipPos_.ty);
-    self.disinsection.setPosition(self.tipPos_.tx, self.tipPos_.ty);
-    self.weed.setPosition(self.tipPos_.tx, self.tipPos_.ty);
-    self.fertilizer.setPosition(self.tipPos_.tx, self.tipPos_.ty);
-    self.plantok.setPosition(self.tipPos_.tx, self.tipPos_.ty);
-    // self.btn2.setPosition(600, 1250);
-    // self.btn2.active = true;
-    self.tip.active = true;
-    self.item.active = true;
-    self.textintro.active = true;
-  },
   //设置position
   setPosition_: function setPosition_(src, x, y) {
     var self = this;
@@ -117,9 +95,45 @@ var farmGuid = {
     self.clickBoxPos.height = radius + 15;
     self.clickBoxPos.width = radius + 15;
   },
+  step0: function() {
+    var self = this;
+    var modalSprite = cc.find('mask-guide/modal', self.prefabItem).getComponent(cc.Sprite);
+    cc.loader.loadRes('guide/pic-12', cc.SpriteFrame, function(err, spriteFrame) {
+      modalSprite.spriteFrame = spriteFrame;
+    });
+    self.prefabItem.on('click', function() {
+      self.step1();
+      self.prefabItem.off('click');
+      cc.loader.loadRes('guide/black', cc.SpriteFrame, function(err, spriteFrame) {
+        modalSprite.spriteFrame = spriteFrame;
+      });
+    });
+  },
+
   //播种
   step1: function step1() {
     var self = this;
+
+    var tipBox = cc.find('bg/mapNew/item0', self.canvas);
+    var tipPos = tipBox.getPosition();
+    self.tipPos_ = tipBox.getNodeToWorldTransformAR(tipPos);
+    cc.loader.loadRes('guide/black', cc.SpriteFrame, function(err, spriteFrame) {
+      self.modalBlock.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+    });
+
+    self.item.setPosition(self.tipPos_.tx, self.tipPos_.ty);
+    self.tip.setPosition(self.tipPos_.tx, self.tipPos_.ty);
+    self.water.setPosition(self.tipPos_.tx, self.tipPos_.ty);
+    self.disinsection.setPosition(self.tipPos_.tx, self.tipPos_.ty);
+    self.weed.setPosition(self.tipPos_.tx, self.tipPos_.ty);
+    self.fertilizer.setPosition(self.tipPos_.tx, self.tipPos_.ty);
+    self.plantok.setPosition(self.tipPos_.tx, self.tipPos_.ty);
+    // self.btn2.setPosition(600, 1250);
+    // self.btn2.active = true;
+    self.tip.active = true;
+    self.item.active = true;
+    self.textintro.active = true;
+
     self.setPosition_('tool/layout/farm_icon_01');
     self.setTxtIntro('guide/farm-text01', self.textintro, self.pos_6.x + 180, self.pos_6.y + 120);
     self.setMaskSize_();

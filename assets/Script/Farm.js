@@ -36,7 +36,7 @@ cc.Class({
       let setButtomSpace = cc.find('tool/layout', this.node).getComponent(cc.Layout);
       setButtomSpace.spacingX = 8;
     }
-    if (Config.firstLogin) farmGuid.getPrefab(1);
+    if (Config.firstLogin) farmGuid.getPrefab(0);
     self.addPersist();
     self.getWhether();
 
