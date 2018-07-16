@@ -243,8 +243,8 @@ cc.Class({
         }
       });
       //新手指引
-      // if (Config.firstLogin) GuideSystem.guide();
-      GuideSystem.guide();
+      if (Config.firstLogin) GuideSystem.guide();
+      // GuideSystem.guide();
     });
   },
 
