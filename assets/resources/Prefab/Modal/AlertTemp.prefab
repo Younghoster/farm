@@ -670,7 +670,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 75
+      "y": 35
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -718,7 +718,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 280,
-      "height": 50
+      "height": 80
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -727,7 +727,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 25
+      "y": 10
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -747,7 +747,7 @@
     "_useOriginalSize": false,
     "_actualFontSize": 32,
     "_fontSize": 32,
-    "_lineHeight": 50,
+    "_lineHeight": 80,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -830,8 +830,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 209.15,
-      "height": 50
+      "width": 180.62,
+      "height": 80
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -840,7 +840,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -25
+      "y": -70
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -860,12 +860,12 @@
     "_useOriginalSize": false,
     "_actualFontSize": 28,
     "_fontSize": 28,
-    "_lineHeight": 50,
+    "_lineHeight": 80,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "0577-85771111",
+    "_N$string": "13616820818",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "微软雅黑",
@@ -937,7 +937,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 32
@@ -1209,7 +1209,7 @@
     "_N$startAxis": 0,
     "_N$paddingLeft": 0,
     "_N$paddingRight": 0,
-    "_N$paddingTop": 55,
+    "_N$paddingTop": 95,
     "_N$paddingBottom": 0,
     "_N$spacingX": 0,
     "_N$spacingY": 55,

@@ -20,11 +20,33 @@ cc.Class({
         let feedProgressBar = cc.find('bg/feedState/layout/Bar', this.node).getComponent(cc.ProgressBar);
         let feedBar = feedProgressBar.node.getChildByName('bar');
         let feedLabel = cc.find('bg/feedState/layout/value', this.node).getComponent(cc.Label);
-
+        this.value = value;
+        this.capacity = capacity;
         feedLabel.string = value + '/ ' + capacity;
         feedProgressBar.progress = value / capacity;
         Tool.setBarColor(feedBar, value / capacity);
         this.setLeverTip(lv);
+      } else {
+        Msg.show(data.Message);
+      }
+    });
+  },
+  //添加饲料后 前端更新bar
+  updataFeedCountByC() {
+    let feedProgressBar = cc.find('bg/feedState/layout/Bar', this.node).getComponent(cc.ProgressBar);
+    let feedBar = feedProgressBar.node.getChildByName('bar');
+    let feedLabel = cc.find('bg/feedState/layout/value', this.node).getComponent(cc.Label);
+    Func.GetFeedCount().then(data => {
+      if (data.Code === 1) {
+        if (data.Model < this.capacity - this.value) {
+          feedLabel.string = this.value + data.Model + '/ ' + this.capacity;
+          feedProgressBar.progress = (this.value + data.Model) / this.capacity;
+          Tool.setBarColor(feedBar, (this.value + data.Model) / this.capacity);
+        } else if (data.Model > this.capacity - this.value) {
+          feedLabel.string = this.capacity + '/ ' + this.capacity;
+          feedProgressBar.progress = this.capacity / this.capacity;
+          Tool.setBarColor(feedBar, this.capacity / this.capacity);
+        }
       } else {
         Msg.show(data.Message);
       }
@@ -92,9 +114,7 @@ cc.Class({
     Func.AddFeed().then(data => {
       if (data.Code === 1) {
         this.indexJs.func.updateFeedCount.call(this.indexJs);
-        setTimeout(function() {
-          self.initFeedState();
-        }, 1000);
+        self.updataFeedCountByC();
         let str = "{name:'" + Config.openID + "',type:'updataChat'}";
         Config.newSocket.send(str);
         Msg.show(data.Message);

@@ -94,7 +94,7 @@ cc.Class({
           let num_2 = cc.find('flex-left/num2', PropertyList).getComponent(cc.Label);
           let day = cc.find('flex-right/value', PropertyList).getComponent(cc.Label);
           let time = cc.find('flex-right/time', PropertyList).getComponent(cc.Label);
-          let imgSrc, imgSrc_;
+          let imgSrc, imgSrc_, counts;
           switch (data.Model.BuyPropertyList[i].ShowType) {
             case 0: {
               data.Model.BuyPropertyList[i].PropType
@@ -105,57 +105,72 @@ cc.Class({
                 //普通饲料
                 case 2: {
                   imgSrc_ = 'Modal/Repertory/icon-1';
+                  counts = 1;
                   break;
                 }
                 case 15: {
                   imgSrc_ = 'Modal/Repertory/icon-1';
+                  counts = 50;
                   break;
                 }
                 case 16: {
                   imgSrc_ = 'Modal/Repertory/icon-1';
+                  counts = 100;
                   break;
                 }
                 case 17: {
                   imgSrc_ = 'Modal/Repertory/icon-1';
+                  counts = 500;
                   break;
                 }
                 //普通肥料
                 case 19: {
                   imgSrc_ = 'Modal/Repertory/hf_xs';
+                  counts = 1;
                   break;
                 }
                 //超级肥料
                 case 20: {
                   imgSrc_ = 'Modal/Repertory/hf_xs';
+                  counts = 1;
                   break;
                 }
                 //玉米种子
                 case 12: {
                   imgSrc_ = 'Modal/Repertory/ymzz_xs';
+                  counts = 1;
                   break;
                 }
                 //改名卡
                 case 21: {
                   imgSrc_ = 'Modal/Repertory/icon-name_xs';
+                  counts = 1;
                   break;
                 }
                 //产蛋鸡
                 case 18: {
                   imgSrc_ = 'Modal/Repertory/icon-asset04';
+                  counts = 1;
                   break;
                 }
                 //自动清洁机
                 case 22: {
                   imgSrc_ = 'Modal/Repertory/icon-bot-xs';
+                  counts = 1;
+                  break;
+                }
+                //玉米种子*12
+                case 23: {
+                  imgSrc_ = 'Modal/Repertory/ymzz_xs';
+                  counts = 12;
                   break;
                 }
                 default: {
                   break;
                 }
               }
-
               num_1.string = '-' + data.Model.BuyPropertyList[i].PropValue * data.Model.BuyPropertyList[i].BuyCount;
-              num_2.string = '+' + data.Model.BuyPropertyList[i].BuyCount;
+              num_2.string = '+' + data.Model.BuyPropertyList[i].BuyCount * counts;
               name_2.string = data.Model.BuyPropertyList[i].PropName;
               cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
                 icon_1.spriteFrame = spriteFrame;
@@ -212,7 +227,7 @@ cc.Class({
                   icon_2.spriteFrame = spriteFrame;
                 });
                 name_1.string = '虚拟鸡蛋';
-                num_1.string = '-' + data.Model.BuyPropertyList[i].PCount * 6;
+                num_1.string = '-' + data.Model.BuyPropertyList[i].PCount * 12;
                 name_2.string = '真实鸡蛋';
                 num_2.string = '+' + data.Model.BuyPropertyList[i].PCount;
                 day.string = utils.fn.formatNumToDate(data.Model.BuyPropertyList[i].CreateTime);

@@ -71,32 +71,36 @@ cc.Class({
     let self = this;
     let CropsID = this.dataList.List[id].CropsID;
     let IsLock = this.dataList.List[id].IsLock;
+    let IsDisinsection = this.dataList.List[id].IsDisinsection;
     let IsWater = this.dataList.List[id].IsDry;
+    let IsWeeds = this.dataList.List[id].IsWeeds;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsWater) {
-      self.timers2 = setTimeout(function() {
-        Msg.show('浇水成功，经验+5');
-      }, 500);
-      this.dataList.List[id].IsDry = true;
-      cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
-      Data.func.CropsWatering(CropsID).then(data => {
-        self.timers = setTimeout(function() {
-          if (data.Code === 1) {
-            Data.func.getFarmModalData().then(data2 => {
-              // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
+      if (!IsDisinsection && IsWater) {
+        self.timers2 = setTimeout(function() {
+          Msg.show('浇水成功，经验+5');
+        }, 500);
+        this.dataList.List[id].IsDry = true;
+        cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
+        Data.func.CropsWatering(CropsID).then(data => {
+          self.timers = setTimeout(function() {
+            if (data.Code === 1) {
+              Data.func.getFarmModalData().then(data2 => {
+                // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
 
-              self.FarmJs.emit('updataPlant', {
-                data: self.dataList.List
+                self.FarmJs.emit('updataPlant', {
+                  data: self.dataList.List
+                });
               });
-            });
-          } else {
-          }
-        }, 1500);
-      });
-    } else {
-      self.timers2 = setTimeout(function() {
-        Msg.show('我现在不需要浇水哦~');
-      }, 500);
+            } else {
+            }
+          }, 1500);
+        });
+      } else {
+        self.timers2 = setTimeout(function() {
+          Msg.show('我现在不需要浇水哦~');
+        }, 500);
+      }
     }
   },
   //除草
@@ -104,31 +108,35 @@ cc.Class({
     let self = this;
     let CropsID = this.dataList.List[id].CropsID;
     let IsLock = this.dataList.List[id].IsLock;
+    let IsDisinsection = this.dataList.List[id].IsDisinsection;
+    let IsWater = this.dataList.List[id].IsDry;
     let IsWeeds = this.dataList.List[id].IsWeeds;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsWeeds) {
-      self.timers2 = setTimeout(function() {
-        Msg.show('除草成功，经验+5');
-      }, 500);
-      this.dataList.List[id].IsWeeds = true;
-      cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
-      Data.func.CropsWeeding(CropsID).then(data => {
-        self.timers = setTimeout(function() {
-          if (data.Code === 1) {
-            Data.func.getFarmModalData().then(data2 => {
-              Msg.show(data.Message);
-              self.FarmJs.emit('updataPlant', {
-                data: self.dataList.List
+      if (!IsDisinsection && !IsWater && IsWeeds) {
+        self.timers2 = setTimeout(function() {
+          Msg.show('除草成功，经验+5');
+        }, 500);
+        this.dataList.List[id].IsWeeds = true;
+        cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
+        Data.func.CropsWeeding(CropsID).then(data => {
+          self.timers = setTimeout(function() {
+            if (data.Code === 1) {
+              Data.func.getFarmModalData().then(data2 => {
+                Msg.show(data.Message);
+                self.FarmJs.emit('updataPlant', {
+                  data: self.dataList.List
+                });
               });
-            });
-          } else {
-          }
-        }, 1500);
-      });
-    } else {
-      self.timers2 = setTimeout(function() {
-        Msg.show('我现在不需要除草哦~');
-      }, 500);
+            } else {
+            }
+          }, 1500);
+        });
+      } else {
+        self.timers2 = setTimeout(function() {
+          Msg.show('我现在不需要除草哦~');
+        }, 500);
+      }
     }
   },
   //除虫
@@ -137,30 +145,34 @@ cc.Class({
     let CropsID = this.dataList.List[id].CropsID;
     let IsLock = this.dataList.List[id].IsLock;
     let IsDisinsection = this.dataList.List[id].IsDisinsection;
+    let IsWater = this.dataList.List[id].IsDry;
+    let IsWeeds = this.dataList.List[id].IsWeeds;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsDisinsection) {
-      self.timers2 = setTimeout(function() {
-        Msg.show('除虫成功，经验+5');
-      }, 500);
-      this.dataList.List[id].IsDisinsection = true;
-      cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
-      Data.func.CropsDisinsection(CropsID).then(data => {
-        self.timers = setTimeout(function() {
-          if (data.Code === 1) {
-            Data.func.getFarmModalData().then(data2 => {
-              Msg.show(data.Message);
-              self.FarmJs.emit('updataPlant', {
-                data: self.dataList.List
+      if (IsDisinsection) {
+        self.timers2 = setTimeout(function() {
+          Msg.show('除虫成功，经验+5');
+        }, 500);
+        this.dataList.List[id].IsDisinsection = true;
+        cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
+        Data.func.CropsDisinsection(CropsID).then(data => {
+          self.timers = setTimeout(function() {
+            if (data.Code === 1) {
+              Data.func.getFarmModalData().then(data2 => {
+                Msg.show(data.Message);
+                self.FarmJs.emit('updataPlant', {
+                  data: self.dataList.List
+                });
               });
-            });
-          } else {
-          }
-        }, 1500);
-      });
-    } else {
-      self.timers2 = setTimeout(function() {
-        Msg.show('我现在不需要除虫哦~');
-      }, 500);
+            } else {
+            }
+          }, 1500);
+        });
+      } else {
+        self.timers2 = setTimeout(function() {
+          Msg.show('我现在不需要除虫哦~');
+        }, 500);
+      }
     }
   },
   //施肥

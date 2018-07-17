@@ -44,7 +44,7 @@ cc.Class({
         this.virtualCountLabel.string = this._virtualCount;
         break;
       case 2: //鸡蛋
-        this.virtualCountLabel.string = this._virtualCount * 6;
+        this.virtualCountLabel.string = this._virtualCount * 12;
         break;
     }
 

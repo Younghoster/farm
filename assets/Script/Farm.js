@@ -319,14 +319,14 @@ cc.Class({
       obj.active = true;
     }
     //浇水tip
-    else if (ValueList.IsDry && ValueList.CropsStatus != 0) {
+    else if (ValueList.IsDry && !ValueList.IsDisinsection && ValueList.CropsStatus != 0) {
       cc.loader.loadRes('Farm/water', cc.SpriteFrame, function(err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
     }
     //除草tip
-    else if (ValueList.IsWeeds && ValueList.CropsStatus != 0) {
+    else if (ValueList.IsWeeds && !ValueList.IsDisinsection && !ValueList.IsDry && ValueList.CropsStatus != 0) {
       cc.loader.loadRes('Farm/weed', cc.SpriteFrame, function(err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
