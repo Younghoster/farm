@@ -30,18 +30,19 @@ cc.Class({
     });
   },
   initData() {
-    Func.GetRecoverData(this.page).then(data => {
-      if (data.Code === 1) {
-        let list = data.List;
-        for (let i = 0; i < list.length; i++) {
-          let itemNode = cc.instantiate(this.item_prefab);
-          this.assignData(list[i], itemNode);
-        }
-      }
-    });
+    // Func.GetRecoverData(this.page).then(data => {
+    //   if (data.Code === 1) {
+    //     let list = data.List;
+    //     for (let i = 0; i < list.length; i++) {
+    //       let itemNode = cc.instantiate(this.item_prefab);
+    //       this.assignData(list[i], itemNode);
+    //     }
+    //   }
+    // });
     //鸡蛋
     Func.GetChickenAndEggCount().then(data => {
       if (data.Code === 1) {
+        this.EggAllCount = data.Model.EggCount;
         for (let i = 0; i < (data.Model.EggCount > 11 ? 12 : data.Model.EggCount); i++) {
           let dom = cc.find('bg/scrollview/view/content/upbg3/New Node/eggs_' + i, this.node);
           cc.loader.loadRes('Modal/upgrade/eggs', cc.SpriteFrame, (err, spriteFrame) => {
@@ -96,7 +97,6 @@ cc.Class({
 
     //绑定兑换事件
     btn.on('click', () => {
-      //接口未完成
       Func.recoverChick(cid).then(data => {
         if (data.Code === 1) {
           itemNode.removeFromParent();
@@ -119,13 +119,17 @@ cc.Class({
   },
   exChange() {
     // 放到Config.js做中转;
-    Config.exchangeData.actualName = '鸡蛋';
-    Config.exchangeData.actualCount = 1;
-    Config.exchangeData.virtualName = '鸡蛋';
-    Config.exchangeData.virtualCount = 1;
-    Config.exchangeData.goodsType = 2;
-    cc.director.loadScene('exchange');
-    this.removePersist();
+    if (this.EggAllCount < 11) {
+      Msg.show('数量不足！');
+    } else {
+      Config.exchangeData.actualName = '鸡蛋';
+      Config.exchangeData.actualCount = 1;
+      Config.exchangeData.virtualName = '鸡蛋';
+      Config.exchangeData.virtualCount = 1;
+      Config.exchangeData.goodsType = 2;
+      cc.director.loadScene('exchange');
+      this.removePersist();
+    }
   },
   onLoad() {
     this.bindNode();

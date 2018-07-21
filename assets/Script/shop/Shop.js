@@ -105,18 +105,17 @@ cc.Class({
       case 1: //可以孵化的蛋
         iconSrc = 'Shop/icon-egg';
         iconSrc2 = 'Shop/icon-egg_';
-
         break;
       case 3: //成熟的肉鸡
         iconSrc = 'Shop/guifeiji_';
         iconSrc2 = 'Shop/guifeiji_';
         break;
       case 4: //饲料
-        if (data.PropValue == 158) {
+        if (data.PropValue == 78) {
           iconSrc = 'Shop/icon-1';
-        } else if (data.PropValue == 298) {
+        } else if (data.PropValue == 148) {
           iconSrc = 'Shop/icon-2';
-        } else if (data.PropValue == 1518) {
+        } else if (data.PropValue == 698) {
           iconSrc = 'Shop/icon-4';
         }
         iconSrc2 = 'Shop/icon-1_';
@@ -154,8 +153,8 @@ cc.Class({
         iconSrc2 = 'Modal/Repertory/gmk2.png';
         break;
       default: {
-        iconSrc = 'Shop/icon-1';
-        iconSrc2 = 'Shop/icon-1_';
+        iconSrc = 'Shop/guifeiji';
+        iconSrc2 = 'Shop/guifeiji_';
       }
     }
     if (isSystemShop) {

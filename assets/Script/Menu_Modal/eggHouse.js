@@ -56,14 +56,14 @@ cc.Class({
         switch (this.shedRank) {
           case 1: {
             LabStr.string = '您的孵蛋屋等级为1级';
-            LabStr2.string = '升级下一级所需198牧场币（无等级限制）';
-            LabStr3.string = '或者20000积分，同时用户等级达到5级';
+            LabStr2.string = '升级下一级所需';
+            LabStr3.string = '198牧场币（无等级限制）';
             break;
           }
           case 2: {
             LabStr.string = '您的孵蛋屋等级为2级';
-            LabStr2.string = '升级下一级所需498牧场币（无等级限制）';
-            LabStr3.string = '或者50000积分，同时用户等级达到15级';
+            LabStr2.string = '升级下一级所需';
+            LabStr3.string = '498牧场币（无等级限制）';
             break;
           }
           case 3: {

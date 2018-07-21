@@ -32,7 +32,13 @@ cc.Class({
         });
         //更新头部数据
         Tool.updateHeader();
-        Msg.show('签到成功! 积分增加' + data.Point + ',牧场币增加' + data.RachMoney, 0.3, 3000);
+        if (data.Point == 0) {
+          Msg.show('签到成功! 牧场币增加' + data.RachMoney, 0.3, 3000);
+        } else if (data.RachMoney == 0) {
+          Msg.show('签到成功! 积分增加' + data.Point, 0.3, 3000);
+        } else {
+          Msg.show('签到成功! 积分增加' + data.Point + ',牧场币增加' + data.RachMoney, 0.3, 3000);
+        }
       }
     });
   },

@@ -169,13 +169,13 @@ var GuideSystem = {
     guideMaskNode.setPosition(pos_6.x, pos_6.y + 45);
 
     var jt = cc.find('jt', guideNode);
-    jt.rotation = 80;
+    jt.rotation = 170;
     var textintro = cc.find('textintro', guideNode);
 
     jt.active = true;
     textintro.active = true;
-    jt.setPosition(pos_6.x + 120, pos_6.y + 50);
-    textintro.setPosition(pos_6.x + 330, pos_6.y - 80);
+    jt.setPosition(pos_6.x + 20, pos_6.y - 80);
+    textintro.setPosition(pos_6.x + 20, pos_6.y - 380);
     cc.loader.loadRes('guide/pic_3.png', cc.SpriteFrame, function(err, spriteFrame) {
       textintro.getComponent(cc.Sprite).spriteFrame = spriteFrame;
     });
@@ -251,13 +251,11 @@ var GuideSystem = {
         //买一只鸡
         self.PostBuy(18, 1).then(function(data) {
           if (data.Code === 1) {
-            self.alertMsgNew();
+            self.alertMsgNew(4);
             // console.log(self.step);
             var oldGuideNode = cc.find('guide');
             oldGuideNode ? oldGuideNode.removeFromParent() : false;
-            setTimeout(function() {
-              cc.director.loadScene('index', this.guide);
-            }, 2000);
+            cc.director.loadScene('index', self.guide);
           } else {
             Msg.show(data.Message);
           }
@@ -351,14 +349,12 @@ var GuideSystem = {
         textintro.active = false;
         guideMaskNode.removeFromParent();
         self.idnexJs.func.addFeed.call(self.idnexJs);
-        self.alertMsgNew();
+        self.alertMsgNew(6);
         goodsBox.removeFromParent();
         console.log(self.step);
         var oldGuideNode = cc.find('guide');
         oldGuideNode ? oldGuideNode.removeFromParent() : false;
-        setTimeout(function() {
-          self.guide();
-        }, 2000);
+        self.guide();
       },
       this
     );
@@ -403,9 +399,7 @@ var GuideSystem = {
         textintro.active = false;
         guideMaskNode.removeFromParent();
         self.ModalJs.func.showModal.call(self.ModalJs);
-        setTimeout(function() {
-          self.guide();
-        }, 2000);
+        self.guide();
       },
       this
     );
@@ -469,13 +463,11 @@ var GuideSystem = {
             textintro.active = false;
             guideMaskNode.removeFromParent();
             cc.find('eggHouse').removeFromParent();
-            self.alertMsgNew();
+            self.alertMsgNew(8);
             console.log(self.step);
             var oldGuideNode = cc.find('guide');
             oldGuideNode ? oldGuideNode.removeFromParent() : false;
-            setTimeout(function() {
-              self.guide();
-            }, 2000);
+            self.guide();
           },
           this
         );
@@ -522,13 +514,11 @@ var GuideSystem = {
         jt.active = false;
         textintro.active = false;
         guideMaskNode.removeFromParent();
-        self.alertMsgNew();
+        self.alertMsgNew(9);
         console.log(self.step);
         var oldGuideNode = cc.find('guide');
         oldGuideNode ? oldGuideNode.removeFromParent() : false;
-        setTimeout(function() {
-          self.guide();
-        }, 2000);
+        self.guide();
       },
       this
     );
@@ -573,13 +563,11 @@ var GuideSystem = {
         jt.active = false;
         textintro.active = false;
         guideMaskNode.removeFromParent();
-        self.alertMsgNew();
+        self.alertMsgNew(10);
         console.log(self.step);
         var oldGuideNode = cc.find('guide');
         oldGuideNode ? oldGuideNode.removeFromParent() : false;
-        setTimeout(function() {
-          self.guide();
-        }, 2000);
+        self.guide();
       },
       this
     );
@@ -650,7 +638,7 @@ var GuideSystem = {
       xhr.send('openID=' + Config.openID + '&count=' + count + '&prId=' + prId);
     });
   },
-  alertMsgNew: function alertMsgNew() {
+  alertMsgNew: function alertMsgNew(steps) {
     var self = this;
     cc.loader.loadRes('Prefab/MsgNew', cc.Prefab, function(err, prefab) {
       if (err) {
@@ -663,9 +651,9 @@ var GuideSystem = {
           var AlertTip = cc.instantiate(prefab);
 
           var parentNode = cc.find('Canvas');
-
-          self.setAlertIcon(AlertTip, self.step);
-          parentNode.parent.addChild(AlertTip, 5);
+          console.log(self.step);
+          self.setAlertIcon(AlertTip, steps);
+          parentNode.parent.addChild(AlertTip, 999);
           AlertTip.opacity = 0;
           AlertTip.runAction(cc.fadeIn(0.3));
           setTimeout(function() {
@@ -705,7 +693,7 @@ var GuideSystem = {
       txt1 = cc.find('New Node/layout1/label', dom);
       txt2 = cc.find('New Node/layout2/label', dom);
       txt3 = cc.find('New Node/layout3/label', dom);
-      switch (self.step - 1) {
+      switch (type) {
         case 4: {
           self.setIcon('Modal/Repertory/icon-1', icon1);
           txt1.getComponent(cc.Label).string = '饲料*50';

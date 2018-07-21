@@ -278,20 +278,22 @@ cc.Class({
   },
   //更新小鸡饥饿显示状态
   updateChickList() {
-    Func.GetChickList(1).then(data => {
-      if (data.Code === 1) {
-        let list = data.List;
-        for (let i = 0; i < list.length; i++) {
-          let chickNode = cc.find(`Chick${i}`, this.node);
-          let chickJs = chickNode.getComponent('Chick');
-          let feedNode = cc.find('feed', chickNode);
-          if (list[i].ID === chickJs.cId) {
-            feedNode.active = list[i].IsHunger;
+    setTimeout(() => {
+      Func.GetChickList(1).then(data => {
+        if (data.Code === 1) {
+          let list = data.List;
+          for (let i = 0; i < list.length; i++) {
+            let chickNode = cc.find(`Chick${i}`, this.node);
+            let chickJs = chickNode.getComponent('Chick');
+            let feedNode = cc.find('feed', chickNode);
+            if (list[i].ID === chickJs.cId) {
+              feedNode.active = list[i].IsHunger;
+            }
           }
+        } else {
         }
-      } else {
-      }
-    });
+      });
+    }, 500);
   },
   //将饲料放入饲料槽中
   addFeed() {
@@ -399,7 +401,7 @@ cc.Class({
     Func.GetRanchPeopleShowMessage().then(data => {
       if (data.Code === 1) {
         console.log(data);
-        this.speakList = ['欢迎来到原态农业农场小游戏！点我可查看提示哦！'];
+        this.speakList = ['欢迎来到璞心农业虚拟农场！点我可查看提示哦！'];
         if (data.Model.ChickenGrow) {
           let spaak = '亲，你认养的贵妃鸡已经到达了自然生长周期，停止产蛋。目前它正在兑换商城中等待亲兑换哦！';
           this.speakList.push(spaak);
@@ -549,14 +551,22 @@ cc.Class({
     }
   },
   //更新 饲料tip的数量
-  updateFeedCount() {
-    Func.GetFeedCount().then(data => {
-      if (data.Code === 1) {
-        this.feedCountLabel.string = data.Model;
-      } else {
-        Msg.show(data.Message);
-      }
-    });
+  updateFeedCount(isAddByBox, count) {
+    let self = this;
+    //是否马上刷新是否存在数据时间差
+    if (!isAddByBox) {
+      Func.GetFeedCount().then(data => {
+        if (data.Code === 1) {
+          self.feedCountLabel.string = data.Model;
+        } else {
+          Msg.show(data.Message);
+        }
+      });
+    } else {
+      setTimeout(function() {
+        self.feedCountLabel.string = count;
+      }, 500);
+    }
   },
   //更新天气box数据
   updateWeatherBox() {
@@ -656,6 +666,7 @@ cc.Class({
   },
 
   onLoad: function() {
+    let self = this;
     var openID = window.location.href.split('=')[1];
     window.Config.openID = openID || 'o9AgowPMI0CrC_C69vBS1UF40N2s';
     Func.openID = window.Config.openID;
@@ -673,8 +684,21 @@ cc.Class({
       loadSceneFarm: this.loadSceneFarm,
       updateFeedCount: this.updateFeedCount
     };
+
+    this.node.on('updataFeedCount', function(event) {
+      let count = event.detail.data;
+      self.updateFeedCount(1, count);
+    });
     this.addPersist();
     this.preloadScene();
+    this.updataMoney();
+  },
+  updataMoney() {
+    let self = this;
+    self.div_header = cc.find('div_header');
+    self.div_header.emit('upDataMoney', {
+      data: ''
+    });
   },
   preloadScene() {
     cc.director.preloadScene('farm', function() {

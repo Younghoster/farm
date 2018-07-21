@@ -38,7 +38,8 @@ Msg.show = function(text, animSpeed, timeout) {
       }, _this)
     );
     _this._timer = setTimeout(function() {
-      _this.MsgNode.runAction(action);
+      // _this.MsgNode.runAction(action);
+      if (_this.MsgNode) _this.MsgNode.removeFromParent();
     }, _this._timeout);
     _this.modalNode.on('click', function() {
       _this.MsgNode.setOpacity(0);

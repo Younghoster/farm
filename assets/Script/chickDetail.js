@@ -265,7 +265,7 @@ cc.Class({
 
         timeLabel.string = time;
         nameLabel.string = name;
-        moneyLabel.stirng = money;
+        moneyLabel.string = money;
         chickLabel.string = `${rearingDays}天的贵妃鸡`;
 
         this.transactionNode.addChild(itemNode);

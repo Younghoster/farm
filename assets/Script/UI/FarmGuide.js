@@ -252,24 +252,22 @@ var farmGuid = {
     self.prefabItem.removeFromParent();
 
     self.alertMdal();
-    setTimeout(function() {
-      cc.loader.loadRes('Prefab/guide', function(err, prefab) {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        var guideNode = cc.instantiate(prefab);
-        var guideMaskNode = cc.find('mask-guide', guideNode);
-        var modalSprite = cc.find('modal', guideMaskNode).getComponent(cc.Sprite);
-        var circleNode = cc.find('circle', guideMaskNode);
-        cc.loader.loadRes('guide/pic-11', cc.SpriteFrame, function(err, spriteFrame) {
-          modalSprite.spriteFrame = spriteFrame;
-        });
-        circleNode.active = false;
-        guideNode.on('click', _this.finishGuide, _this);
-        cc.find('Canvas').parent.addChild(guideNode);
+    cc.loader.loadRes('Prefab/guide', function(err, prefab) {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      var guideNode = cc.instantiate(prefab);
+      var guideMaskNode = cc.find('mask-guide', guideNode);
+      var modalSprite = cc.find('modal', guideMaskNode).getComponent(cc.Sprite);
+      var circleNode = cc.find('circle', guideMaskNode);
+      cc.loader.loadRes('guide/pic-11', cc.SpriteFrame, function(err, spriteFrame) {
+        modalSprite.spriteFrame = spriteFrame;
       });
-    }, 2000);
+      circleNode.active = false;
+      guideNode.on('click', _this.finishGuide, _this);
+      cc.find('Canvas').parent.addChild(guideNode);
+    });
   },
   moveAddListen: function moveAddListen(callBack) {
     var self = this;

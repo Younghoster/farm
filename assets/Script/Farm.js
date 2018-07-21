@@ -277,22 +277,34 @@ cc.Class({
       if (ValueList[i].CropsStatus == 1) {
         //小树苗
         PrefabPlant_xs.active = true;
-        Prefab.on('click', function() {
-          self.showFarmTimer(this, ValueList);
+        itemBox.on('click', function() {
+          Data.func.getFarmModalData().then(data => {
+            if (data.Code === 1) {
+              self.showFarmTimer(Prefab, data.Model);
+            }
+          });
         });
         Tool.RunAction(PrefabPlant_xs, 'fadeIn', 0.3);
       } else if (ValueList[i].CropsStatus == 2) {
         //中端
         PrefabPlant_md.active = true;
-        Prefab.on('click', function() {
-          self.showFarmTimer(this, ValueList);
+        itemBox.on('click', function() {
+          Data.func.getFarmModalData().then(data => {
+            if (data.Code === 1) {
+              self.showFarmTimer(Prefab, data.Model);
+            }
+          });
         });
         Tool.RunAction(PrefabPlant_md, 'fadeIn', 0.3);
       } else if (ValueList[i].CropsStatus == 3) {
         //成熟
         PrefabPlant_lg.active = true;
-        Prefab.on('click', function() {
-          self.showFarmTimer(this, ValueList);
+        itemBox.on('click', function() {
+          Data.func.getFarmModalData().then(data => {
+            if (data.Code === 1) {
+              self.showFarmTimer(Prefab, data.Model);
+            }
+          });
         });
         Tool.RunAction(PrefabPlant_lg, 'fadeIn', 0.3);
       } else if (ValueList[i].CropsStatus == 4) {
@@ -358,8 +370,8 @@ cc.Class({
             let ImgSrc;
             let Label = cc.find('label', prefab).getComponent(cc.Label);
             ImgSrc = 'Modal/Repertory/ymzz';
-            Label.string = data.List[i].PropName + '×' + data.List[i].Count;
-            self.addListenMove(1, prefab, data.List[i].PropertyID);
+            Label.string = data.List[i].TypeName + '×' + data.List[i].Count;
+            self.addListenMove(1, prefab, data.List[i].PropertyTypeID);
             cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function(err, spriteFrame) {
               Img.spriteFrame = spriteFrame;
             });
@@ -407,12 +419,12 @@ cc.Class({
                   let Img = cc.find('ymzz', prefab).getComponent(cc.Sprite);
                   let ImgSrc;
                   let Label = cc.find('label', prefab).getComponent(cc.Label);
-                  if (data.List[i].PropName == '超级肥料') {
+                  if (data.List[i].TypeName == '超级肥料') {
                     ImgSrc = 'Shop/cjfl_1';
                   } else {
                     ImgSrc = 'Shop/fertilizer';
                   }
-                  Label.string = data.List[i].PropName + '×' + data.List[i].Count;
+                  Label.string = data.List[i].TypeName + '×' + data.List[i].Count;
                   self.addListenMove(5, prefab, data.List[i].PropertyTypeID);
                   cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function(err, spriteFrame) {
                     Img.spriteFrame = spriteFrame;

@@ -50,11 +50,18 @@ cc.Class({
       },
       function(res) {
         if (res.err_msg == 'get_brand_wcpay_request:ok') {
-          Func.GetUserMoney().then(data => {
-            if (data.Code === 1) {
-              Msg.show('支付成功');
-              this.moneyLabel.string = data.Model;
-            }
+          Msg.show('支付成功');
+          setTimeout(function() {
+            Func.GetUserGrade().then(data => {
+              if (data.Code === 1) {
+                self.moneyLabel.string = data.Model.RanchMoney;
+              }
+            });
+          }, 500);
+
+          self.div_header = cc.find('div_header');
+          self.div_header.emit('upDataMoney', {
+            data: ''
           });
         } // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
       }
@@ -65,6 +72,7 @@ cc.Class({
   },
   paymoney(e) {
     let self = this;
+
     Func.UserRecharge(1, 1, this.setType(Number(e.currentTarget._name.substring(3)))).then(data => {
       if (data.appId !== '') {
         if (typeof WeixinJSBridge == 'undefined') {

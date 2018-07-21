@@ -150,7 +150,17 @@ cc.Class({
     //获取物品数据
     let PropertyTypeID = goods.PropertyTypeID;
     console.log(goods);
-    let PropName = goods.PropName || goods.TypeName;
+    let PropName;
+    if (goods.PropertyTypeID == 6) {
+      if (goods.Type == 1) {
+        PropName = '玉米';
+      } else {
+        PropName = '玉米种子';
+      }
+    } else {
+      PropName = goods.PropName || goods.TypeName;
+    }
+
     let RearingDays = goods.RearingDays;
 
     let count = goods.Count;
@@ -263,7 +273,7 @@ cc.Class({
           this.bindGoodsEvent(
             goodsNode,
             () => {
-              this.compound(1, 12, '玉米');
+              this.compound(1, 6, '玉米');
             },
             '合成'
           );

@@ -178,23 +178,29 @@ cc.Class({
   //施肥
   cropsSertilize(id, type) {
     let self = this;
-    let CropsID = this.dataList.List[id].CropsID;
+
     let IsLock = this.dataList.List[id].IsLock;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock) {
-      Data.func.CropsSertilize(CropsID, type).then(data => {
-        self.timers = setTimeout(function() {
-          if (data.Code === 1) {
-            Data.func.getFarmModalData().then(data2 => {
-              Msg.show(data.Message);
-              self.FarmJs.emit('updataPlant', {
-                data: data2.Model
-              });
-            });
-          } else {
-            Msg.show(data.Message);
-          }
-        }, 500);
+      Data.func.getFarmModalData().then(data2 => {
+        // FarmJsFarmJs.fn.setLocalStorageData.call(FarmJs, data2);
+        let CropsID = data2.Model[id].CropsID;
+        if (data2.Code === 1) {
+          Data.func.CropsSertilize(CropsID, type).then(data => {
+            self.timers = setTimeout(function() {
+              if (data.Code === 1) {
+                Msg.show(data.Message);
+                self.FarmJs.emit('updataPlant', {
+                  data: data2.Model
+                });
+              } else {
+                Msg.show(data.Message);
+              }
+            }, 500);
+          });
+        } else {
+          Msg.show(data2.Message);
+        }
       });
     }
   },

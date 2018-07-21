@@ -217,7 +217,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 0
+      "y": -0.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -240,7 +240,7 @@
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
-    "_isSystemFontUsed": false,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_N$string": "充值",
     "_N$horizontalAlign": 1,
@@ -258,10 +258,10 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 16,
+    "_alignFlags": 17,
     "_left": 0,
     "_right": 0,
-    "_top": 0,
+    "_top": 30.5,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -312,7 +312,7 @@
     "_cascadeOpacityEnabled": true,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
+      "x": 0,
       "y": 0.5
     },
     "_contentSize": {
@@ -326,8 +326,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -330,
-      "y": 0
+      "x": -375,
+      "y": -2.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -381,7 +381,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 58.5,
       "y": 0
     },
     "_skewX": 0,
@@ -427,7 +427,7 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 18,
+    "_alignFlags": 10,
     "_left": 50,
     "_right": 0,
     "_top": 0,
@@ -477,11 +477,11 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 45,
-    "_left": -30,
-    "_right": 630,
-    "_top": 0,
-    "_bottom": 0,
+    "_alignFlags": 13,
+    "_left": 0,
+    "_right": 350,
+    "_top": 2.5,
+    "_bottom": -2.5,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
