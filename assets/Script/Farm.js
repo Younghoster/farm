@@ -277,10 +277,10 @@ cc.Class({
       if (ValueList[i].CropsStatus == 1) {
         //小树苗
         PrefabPlant_xs.active = true;
-        itemBox.on('click', function() {
+        Prefab.on('click', function() {
           Data.func.getFarmModalData().then(data => {
             if (data.Code === 1) {
-              self.showFarmTimer(Prefab, data.Model);
+              self.showFarmTimer(this, data.Model);
             }
           });
         });
@@ -288,10 +288,10 @@ cc.Class({
       } else if (ValueList[i].CropsStatus == 2) {
         //中端
         PrefabPlant_md.active = true;
-        itemBox.on('click', function() {
+        Prefab.on('click', function() {
           Data.func.getFarmModalData().then(data => {
             if (data.Code === 1) {
-              self.showFarmTimer(Prefab, data.Model);
+              self.showFarmTimer(this, data.Model);
             }
           });
         });
@@ -299,10 +299,10 @@ cc.Class({
       } else if (ValueList[i].CropsStatus == 3) {
         //成熟
         PrefabPlant_lg.active = true;
-        itemBox.on('click', function() {
+        Prefab.on('click', function() {
           Data.func.getFarmModalData().then(data => {
             if (data.Code === 1) {
-              self.showFarmTimer(Prefab, data.Model);
+              self.showFarmTimer(this, data.Model);
             }
           });
         });
