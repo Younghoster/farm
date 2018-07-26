@@ -45,6 +45,7 @@ cc.Class({
     let landId = this.dataList.List[id].ID;
     let CropsID = this.dataList.List[id].CropsID;
     let IsLock = this.dataList.List[id].IsLock;
+    console.log(this.dataList.List[id]);
     if (CropsID == 0 && !IsLock) {
       self.timers2 = setTimeout(function() {
         Msg.show('播种成功，经验+5');
@@ -123,7 +124,7 @@ cc.Class({
           self.timers = setTimeout(function() {
             if (data.Code === 1) {
               Data.func.getFarmModalData().then(data2 => {
-                Msg.show(data.Message);
+                // Msg.show(data.Message);
                 self.FarmJs.emit('updataPlant', {
                   data: self.dataList.List
                 });
@@ -159,7 +160,7 @@ cc.Class({
           self.timers = setTimeout(function() {
             if (data.Code === 1) {
               Data.func.getFarmModalData().then(data2 => {
-                Msg.show(data.Message);
+                // Msg.show(data.Message);
                 self.FarmJs.emit('updataPlant', {
                   data: self.dataList.List
                 });
@@ -211,20 +212,25 @@ cc.Class({
     let IsLock = this.dataList.List[id].IsLock;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus == 4 && !IsLock) {
-      this.dataList.List[id].CropsStatus = 0;
-      cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
       Data.func.CollectCrops(CropsID).then(data => {
         if (data.Code === 1) {
           self.CollectNumber += Number(data.Model);
-          self.timers = setTimeout(function() {
+          self.timers2 = setTimeout(function() {
             Msg.show('收取 × ' + self.CollectNumber);
+          }, 500);
+          setTimeout(function() {
+            self.dataList.List[id].CropsStatus = 0;
+            self.dataList.List[id].CropsID = 0;
+            cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
+          }, 1000);
+          self.timers = setTimeout(function() {
             self.CollectNumber = 0;
             Data.func.getFarmModalData().then(data2 => {
               self.FarmJs.emit('updataPlant', {
                 data: self.dataList.List
               });
             });
-          }, 1500);
+          }, 1000);
         } else {
         }
       });

@@ -15,11 +15,9 @@ cc.Class({
   updataAddress() {
     let self = this;
 
-    Data.func
-      .updateAddress(self.id, self.username.string, self.tel.string, self.pro.string, self.info.string)
-      .then(data => {
-        cc.director.loadScene('AddressList');
-      });
+    Data.func.updateAddress(self.id, self.username.string, self.tel.string, '000000', self.info.string).then(data => {
+      cc.director.loadScene('AddressList');
+    });
   },
   onLoad() {
     Config.backArr.indexOf('AddressEdit') == -1 ? Config.backArr.push('AddressEdit') : false;

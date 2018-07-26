@@ -38,7 +38,9 @@ cc.Class({
     this.feedCountLabel = cc.find('div_action/feed/icon-tip/count', this.node).getComponent(cc.Label);
     // var chickState = new Chick();
     this.scene = cc.find('Canvas');
-
+    //星星 盒子
+    this.starsBox = cc.find('bg/starsBox', this.node);
+    this.moon = cc.find('bg/moon', this.node);
     //新手指引step
     this.step = 0;
     this.speakType = 1;
@@ -147,6 +149,14 @@ cc.Class({
         self.div_Menu = cc.find('div_menu');
         self.div_Menu.emit('upDataFriend', {
           data: ''
+        });
+      } else if (obj.name == Func.openID && obj.type == 'updateEggCount') {
+        Func.getEggLayInfo().then(data => {
+          if (data.Code === 1) {
+            self.eggNode.active = data.Model.model.EggCount > 0 ? true : false;
+          } else {
+            console.log('首页数据加载失败');
+          }
         });
       }
     };
@@ -583,8 +593,9 @@ cc.Class({
   //根据天气情况 判断牧场的背景
 
   updateWeather() {
+    let self = this;
     let rainNode = cc.find('ParticleRain', this.node);
-
+    let myDate = new Date();
     let wetherIcon = cc.find('div/icon', this.wether).getComponent(cc.Sprite);
     if (Config.weather === -1) {
       //下雨
@@ -627,24 +638,52 @@ cc.Class({
       this.setIcon('index/cloud/flabellum', this.flabellumNode.getComponent(cc.Sprite));
       rainNode.active = false;
     } else if (Config.weather === 1) {
-      if (this.RanchRank == 1) {
-        this.setIcon('jpg/sun-bg1', this.bgNode.getComponent(cc.Sprite));
-      } else if (this.RanchRank == 2) {
-        this.setIcon('jpg/sun-bg2', this.bgNode.getComponent(cc.Sprite));
-      } else if (this.RanchRank == 3) {
-        this.setIcon('jpg/sun-bg3', this.bgNode.getComponent(cc.Sprite));
-      }
+      if (myDate.getHours() > 18) {
+        this.moon.active = true;
+        this.setIcon('jpg/night', this.bgNode.getComponent(cc.Sprite));
 
-      this.setIcon('weather/sun', wetherIcon);
-      //云
-      this.setIcon('index/sun/cloud01', this.cloud1Node.getComponent(cc.Sprite));
-      this.setIcon('index/sun/cloud02', this.cloud2Node.getComponent(cc.Sprite));
-      //食盆
-      this.setIcon('index/sun/hatchBox', this.hatchBoxNode.getComponent(cc.Sprite));
-      //风车
-      this.setIcon('index/sun/windmill', this.windmillNode.getComponent(cc.Sprite));
-      this.setIcon('index/sun/flabellum', this.flabellumNode.getComponent(cc.Sprite));
-      rainNode.active = false;
+        this.setIcon('weather/rain', wetherIcon);
+        //云
+        this.setIcon('index/rain/cloud01', this.cloud1Node.getComponent(cc.Sprite));
+        this.setIcon('index/rain/cloud02', this.cloud2Node.getComponent(cc.Sprite));
+        //食盆
+        this.setIcon('index/rain/hatchBox', this.hatchBoxNode.getComponent(cc.Sprite));
+        //风车
+        this.setIcon('index/rain/windmill', this.windmillNode.getComponent(cc.Sprite));
+        this.setIcon('index/rain/flabellum', this.flabellumNode.getComponent(cc.Sprite));
+        //星星
+        for (let i = 0; i < 6; i++) {
+          if (self.starsBox) {
+            cc.loader.loadRes('Prefab/stars', cc.Prefab, (err, prefab) => {
+              let box = cc.find('Canvas');
+              let shitNode = cc.instantiate(prefab);
+              shitNode.setPosition(Tool.random(20, 730), Tool.random(20, 330));
+              setTimeout(function() {
+                self.starsBox.addChild(shitNode);
+              }, Math.random() * 3000);
+            });
+          }
+        }
+      } else {
+        if (this.RanchRank == 1) {
+          this.setIcon('jpg/sun-bg1', this.bgNode.getComponent(cc.Sprite));
+        } else if (this.RanchRank == 2) {
+          this.setIcon('jpg/sun-bg2', this.bgNode.getComponent(cc.Sprite));
+        } else if (this.RanchRank == 3) {
+          this.setIcon('jpg/sun-bg3', this.bgNode.getComponent(cc.Sprite));
+        }
+
+        this.setIcon('weather/sun', wetherIcon);
+        //云
+        this.setIcon('index/sun/cloud01', this.cloud1Node.getComponent(cc.Sprite));
+        this.setIcon('index/sun/cloud02', this.cloud2Node.getComponent(cc.Sprite));
+        //食盆
+        this.setIcon('index/sun/hatchBox', this.hatchBoxNode.getComponent(cc.Sprite));
+        //风车
+        this.setIcon('index/sun/windmill', this.windmillNode.getComponent(cc.Sprite));
+        this.setIcon('index/sun/flabellum', this.flabellumNode.getComponent(cc.Sprite));
+        rainNode.active = false;
+      }
     }
   },
   //跳转天气数据列表

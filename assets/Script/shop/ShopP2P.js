@@ -126,8 +126,7 @@ cc.Class({
       cc.loader.loadRes('Shop/guifeiji', cc.SpriteFrame, function(err, spriteFrame) {
         goodSprite.spriteFrame = spriteFrame;
       });
-      goodsLabel.string = '产蛋鸡';
-
+      goodsLabel.string = '产蛋鸡（' + goods.days + '天）';
       priceLabel.string = goods.NowALLRanchMoney;
       goodsListNode.addChild(goodsNode);
     }
@@ -141,7 +140,7 @@ cc.Class({
           Msg.show('下架成功');
           setTimeout(function() {
             cc.director.loadScene('shopP2P');
-          }, 1000);
+          }, 1500);
         } else {
           Msg.show(data.Message);
         }
@@ -164,7 +163,28 @@ cc.Class({
             return;
           }
           // 实例
+
           let alert = cc.instantiate(prefab);
+          let choose = cc.find('bg/content', alert);
+          let guifeiji = cc.find('/guifeiji', alert);
+          let label1 = cc.find('bg/label1', alert);
+          let label2 = cc.find('bg/label2', alert);
+          let label3 = cc.find('bg/label3', alert);
+          Func.GetChickenOnshelfInfo(data.ID).then(data => {
+            if (data.Code === 1) {
+              label1.getComponent(cc.Label).string = '上架人：' + data.Model.chickenOwner;
+              label2.getComponent(cc.Label).string = '饱食度：' + data.Model.chickenStarvationValue;
+              label3.getComponent(cc.Label).string = '生长周期：' + data.Model.chickenDays + '天';
+              guifeiji.setPositionY(250);
+              choose.active = false;
+              label1.active = true;
+              label2.active = true;
+              label3.active = true;
+            } else {
+              Msg.show(data.Message);
+            }
+          });
+
           Alert._alert = alert;
           //动画
           selfAlert.ready();
@@ -259,8 +279,8 @@ cc.Class({
     cc.loader.loadRes('Shop/guifeiji__', cc.SpriteFrame, function(err, spriteFrame) {
       icon.spriteFrame = spriteFrame;
     });
-    title.string = '产蛋鸡';
-    valueComp.string = data.RanchMoney * count;
+    title.string = '产蛋鸡（' + data.days + '天）';
+    valueComp.string = data.RanchMoney * count + '（价值' + data.RanchMoney / 10 + '元人民币）';
     editBtn1.on('click', function() {
       if (count > 1) {
         count--;

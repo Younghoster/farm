@@ -236,6 +236,33 @@ cc.Class({
               }
               break;
             }
+            case 3: {
+              //兑换贵妃鸡
+              if (data.Model.BuyPropertyList[i].PropType == 0) {
+                imgSrc = 'Modal/Repertory/icon-asset02';
+              } else {
+                imgSrc = 'Modal/Repertory/icon-asset01';
+              }
+
+              imgSrc_ = 'Farm/extend_icon';
+              cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                icon_1.spriteFrame = spriteFrame;
+              });
+              cc.loader.loadRes(imgSrc_, cc.SpriteFrame, (err, spriteFrame) => {
+                icon_2.spriteFrame = spriteFrame;
+              });
+              if (data.Model.BuyPropertyList[i].PropType == 0) {
+                name_1.string = '积分';
+              } else {
+                name_1.string = '牧场币';
+              }
+
+              num_1.string = '-' + data.Model.BuyPropertyList[i].BuyValues * 1;
+              name_2.string = data.Model.BuyPropertyList[i].PropName;
+              num_2.string = '+1';
+              PrefabParent.addChild(PropertyList);
+              break;
+            }
           }
         }
       } else {

@@ -1330,7 +1330,7 @@
       "b": 0,
       "a": 255
     },
-    "_N$placeholder": "  输入充值金额",
+    "_N$placeholder": "    输入充值人民币金额",
     "_N$placeholderFontSize": 30,
     "_N$placeholderFontColor": {
       "__type__": "cc.Color",

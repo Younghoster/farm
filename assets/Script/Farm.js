@@ -37,6 +37,11 @@ cc.Class({
       setButtomSpace.spacingX = 8;
     }
     if (Config.firstLogin) farmGuid.getPrefab(0);
+
+    //星星盒子
+    self.starsBox = cc.find('bg/starsBox', this.node);
+    this.moon = cc.find('bg/moon', this.node);
+
     self.addPersist();
     self.getWhether();
 
@@ -75,6 +80,7 @@ cc.Class({
   //获取天气
   getWhether() {
     let self = this;
+    let myDate = new Date();
     let bgNode = cc.find('bg', this.node);
     let cloud01 = cc.find('cloud01', this.node);
     let cloud02 = cc.find('cloud02', this.node);
@@ -83,6 +89,22 @@ cc.Class({
     let ParticleRain = cc.find('ParticleRain', this.node);
     if (Config.weather == -1) {
       ParticleRain.active = true;
+    }
+    if (Config.weather == 1 && myDate.getHours() > 18) {
+      //星星
+      this.moon.active = true;
+      for (let i = 0; i < 6; i++) {
+        if (self.starsBox) {
+          cc.loader.loadRes('Prefab/stars', cc.Prefab, (err, prefab) => {
+            let box = cc.find('Canvas');
+            let shitNode = cc.instantiate(prefab);
+            shitNode.setPosition(Tool.random(20, 730), Tool.random(20, 330));
+            setTimeout(function() {
+              self.starsBox.addChild(shitNode);
+            }, Math.random() * 3000);
+          });
+        }
+      }
     }
     self.setWhetherIcon(bgNode, 4);
     self.setWhetherIcon(cloud01, 5);
@@ -138,21 +160,39 @@ cc.Class({
     if (!dom) {
       return;
     }
+    let self = this;
+    let myDate = new Date();
     let imgSrcArr = [];
     if (Config.weather == 1) {
-      imgSrcArr[1] = 'Farm/itemG'; //草地
-      imgSrcArr[2] = 'Farm/item'; //土地
-      imgSrcArr[3] = 'Farm/extend'; //拓建
-      imgSrcArr[4] = 'jpg/farmBg'; //农场背景
-      imgSrcArr[5] = 'index/sun/cloud01'; //云1
-      imgSrcArr[6] = 'index/sun/cloud02'; //云2
-      imgSrcArr[7] = 'Farm/fengcheHome'; //风车
-      imgSrcArr[8] = 'Farm/fengche'; //风车
-      imgSrcArr[9] = 'Farm/itemdemo-xs'; //幼苗
-      imgSrcArr[10] = 'Farm/itemdemo-md';
-      imgSrcArr[11] = 'Farm/itemdemo-lg';
-      imgSrcArr[12] = 'Farm/itemdemo-ok'; //成熟植物
-      imgSrcArr[13] = 'Farm/mapNew';
+      if (myDate.getHours() > 18) {
+        imgSrcArr[1] = 'Farm/itemG-rain';
+        imgSrcArr[2] = 'Farm/item-rain';
+        imgSrcArr[3] = 'Farm/extend-rain';
+        imgSrcArr[4] = 'jpg/night2';
+        imgSrcArr[5] = 'index/rain/cloud01';
+        imgSrcArr[6] = 'index/rain/cloud02';
+        imgSrcArr[7] = 'Farm/fengcheHome-rain';
+        imgSrcArr[8] = 'Farm/fengche-rain';
+        imgSrcArr[9] = 'Farm/itemdemo-xs-rain';
+        imgSrcArr[10] = 'Farm/itemdemo-md-rain';
+        imgSrcArr[11] = 'Farm/itemdemo-lg-rain';
+        imgSrcArr[12] = 'Farm/itemdemo-ok-rain';
+        imgSrcArr[13] = 'Farm/mapNew-rain';
+      } else {
+        imgSrcArr[1] = 'Farm/itemG'; //草地
+        imgSrcArr[2] = 'Farm/item'; //土地
+        imgSrcArr[3] = 'Farm/extend'; //拓建
+        imgSrcArr[4] = 'jpg/farmBg'; //农场背景
+        imgSrcArr[5] = 'index/sun/cloud01'; //云1
+        imgSrcArr[6] = 'index/sun/cloud02'; //云2
+        imgSrcArr[7] = 'Farm/fengcheHome'; //风车
+        imgSrcArr[8] = 'Farm/fengche'; //风车
+        imgSrcArr[9] = 'Farm/itemdemo-xs'; //幼苗
+        imgSrcArr[10] = 'Farm/itemdemo-md';
+        imgSrcArr[11] = 'Farm/itemdemo-lg';
+        imgSrcArr[12] = 'Farm/itemdemo-ok'; //成熟植物
+        imgSrcArr[13] = 'Farm/mapNew';
+      }
     } else if (Config.weather == 0) {
       imgSrcArr[1] = 'Farm/itemG-wind';
       imgSrcArr[2] = 'Farm/item-wind';
@@ -250,6 +290,7 @@ cc.Class({
       let PrefabPlant_lg = cc.find('plant-lg', Prefab);
       let PrefabPlant_ok = cc.find('plant-ok', Prefab);
       let PrefabExtend = cc.find('extend', Prefab);
+      let PrefabNewNode = cc.find('New Node', Prefab);
       let PrefabPlant_tip = cc.find('New Node/reap', Prefab);
       //天气图标变化
       self.setWhetherIcon(PrefabExtend, 3);
@@ -263,15 +304,17 @@ cc.Class({
       PrefabPlant_lg.active = false;
       PrefabPlant_ok.active = false;
       PrefabExtend.active = false;
+      PrefabNewNode.active = false;
       PrefabPlant_tip.active = false;
       //提示图标的类型切换
-      self.setTipType(ValueList[i], PrefabPlant_tip);
+      self.setTipType(ValueList[i], PrefabPlant_tip, PrefabNewNode);
       let itemBox = cc.find('bg/mapNew/item' + i, this.node);
       let itemPos = itemBox.getPosition();
       let pos = itemBox.getNodeToWorldTransformAR(itemPos);
       if (ValueList[i].IsLock) {
         //拓展
         PrefabExtend.active = true;
+        PrefabNewNode.active = false;
         Tool.RunAction(PrefabExtend, 'fadeIn', 0.3);
       }
       if (ValueList[i].CropsStatus == 1) {
@@ -310,25 +353,32 @@ cc.Class({
       } else if (ValueList[i].CropsStatus == 4) {
         //成熟
         PrefabPlant_ok.active = true;
-        PrefabPlant_tip.active = true; //显示可收割
+        Prefab.on('click', function() {
+          Data.func.getFarmModalData().then(data => {
+            if (data.Code === 1) {
+              self.showFarmTimer(this, data.Model);
+            }
+          });
+        });
         Tool.RunAction(PrefabPlant_ok, 'fadeIn', 0.3);
         Tool.RunAction(PrefabPlant_tip, 'fadeIn', 0.3);
       }
       //重置名字赋值
       Prefab.name = 'Prefab' + i;
       //定位于碰撞事件触发的点
-      Prefab.setPosition(pos.tx, pos.ty);
+      Prefab.setPosition(pos.tx, pos.ty - 20);
       bg.addChild(Prefab);
     }
   },
   //提示图标的类型切换
-  setTipType(ValueList, obj) {
+  setTipType(ValueList, obj, isActive) {
     //除虫tip
     if (ValueList.IsDisinsection && ValueList.CropsStatus != 0) {
       cc.loader.loadRes('Farm/disinsection', cc.SpriteFrame, function(err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
+      isActive.active = true;
     }
     //浇水tip
     else if (ValueList.IsDry && !ValueList.IsDisinsection && ValueList.CropsStatus != 0) {
@@ -336,6 +386,7 @@ cc.Class({
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
+      isActive.active = true;
     }
     //除草tip
     else if (ValueList.IsWeeds && !ValueList.IsDisinsection && !ValueList.IsDry && ValueList.CropsStatus != 0) {
@@ -343,14 +394,27 @@ cc.Class({
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
+      isActive.active = true;
     }
-
+    //已经成熟
+    else if (ValueList.CropsStatus == 4) {
+      cc.loader.loadRes('Farm/reap', cc.SpriteFrame, function(err, spriteFrame) {
+        obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+      });
+      obj.active = true;
+      isActive.active = true;
+    }
+    //没有提示的时候隐藏
+    else if (ValueList.CropsStatus !== 0) {
+      isActive.active = false;
+    }
     //播种tip
     if (!ValueList.IsLock && ValueList.CropsStatus == 0) {
       cc.loader.loadRes('Farm/seed', cc.SpriteFrame, function(err, spriteFrame) {
         obj.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
       obj.active = true;
+      isActive.active = true;
     }
   },
   //种子列表

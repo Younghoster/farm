@@ -66,8 +66,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 93,
-      "height": 60
+      "width": 90,
+      "height": 20
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -602,7 +602,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 23
@@ -638,7 +638,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 30
+      "y": 106
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -812,7 +812,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 28
+      "y": 48
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1085,7 +1085,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 71.5
+      "y": 91.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1313,8 +1313,8 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 93,
-      "height": 60
+      "width": 90,
+      "height": 20
     },
     "_resize": 1,
     "_N$layoutType": 2,
@@ -1328,7 +1328,7 @@
     "_N$paddingLeft": 0,
     "_N$paddingRight": 0,
     "_N$paddingTop": 0,
-    "_N$paddingBottom": 0,
+    "_N$paddingBottom": 20,
     "_N$spacingX": 0,
     "_N$spacingY": 0,
     "_N$verticalDirection": 1,

@@ -171,7 +171,7 @@ cc.Class({
       this.bindGoodsEvent(
         goodsNode,
         () => {
-          this.shelfEvent(RearingDays + '天' + PropName, goods.ID, goodsNode);
+          this.shelfEvent(PropName + '(' + RearingDays + '天)', goods.ID, goodsNode);
         },
         '上架'
       );
@@ -281,7 +281,7 @@ cc.Class({
         break;
     }
     if (PropName == '产蛋鸡') {
-      nameLabel.string = RearingDays + '天' + PropName;
+      nameLabel.string = PropName + '(' + RearingDays + '天)';
     } else {
       nameLabel.string = PropName;
     }

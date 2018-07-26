@@ -55,19 +55,19 @@ cc.Class({
         let LabStr3 = self.label3.getComponent(cc.Label);
         switch (this.shedRank) {
           case 1: {
-            LabStr.string = '您的孵蛋屋等级为1级';
+            LabStr.string = '您的产蛋棚等级为1级';
             LabStr2.string = '升级下一级所需';
             LabStr3.string = '198牧场币（无等级限制）';
             break;
           }
           case 2: {
-            LabStr.string = '您的孵蛋屋等级为2级';
+            LabStr.string = '您的产蛋棚等级为2级';
             LabStr2.string = '升级下一级所需';
             LabStr3.string = '498牧场币（无等级限制）';
             break;
           }
           case 3: {
-            LabStr.string = '您的孵蛋屋已经满级！';
+            LabStr.string = '您的产蛋棚已经满级！';
             LabStr2.string = '无需升级';
             LabStr3.string = '';
             break;
@@ -207,6 +207,8 @@ cc.Class({
             }
             let str = "{name:'" + Config.openID + "',type:'updataChat'}";
             Config.newSocket.send(str);
+            let str2 = "{name:'" + Config.openID + "',type:'updateEggCount'}";
+            Config.newSocket.send(str2);
           } else {
             Msg.show(data.Message);
           }

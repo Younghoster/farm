@@ -170,6 +170,7 @@ cc.Class({
     var feed = element.IsFeed;
     var water = element.IsDry;
     var steal = element.IsSteal;
+    var stealLayEggShed = element.IsStealLayEggShed;
     var weed = element.IsWeeds;
     var worm = element.IsDisinsection;
     let openIds = element.OpenID;
@@ -223,7 +224,7 @@ cc.Class({
         waterNode.active = true;
         i++;
       }
-      if (steal && i < 4) {
+      if ((steal || stealLayEggShed) && i < 4) {
         stealNode.active = true;
         i++;
       }

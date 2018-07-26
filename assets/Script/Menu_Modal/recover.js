@@ -8,6 +8,10 @@ cc.Class({
     item_prefab: {
       default: null,
       type: cc.Prefab
+    },
+    Item_Prefab2: {
+      default: null,
+      type: cc.Prefab
     }
   },
   page: null,
@@ -48,6 +52,28 @@ cc.Class({
           cc.loader.loadRes('Modal/upgrade/eggs', cc.SpriteFrame, (err, spriteFrame) => {
             dom.getComponent(cc.Sprite).spriteFrame = spriteFrame;
           });
+        }
+      } else {
+        Msg.show(data.Message);
+      }
+    });
+    Func.RanchChickenCounts().then(data => {
+      if (data.Code === 1 || data.Code === 5 || data.Code === 10) {
+        let domBox = cc.find('bg/scrollview/view/content/upbg3_/New Node', this.node);
+        domBox.removeAllChildren();
+
+        for (let i = 0; i < data.Code; i++) {
+          let itemPrefab = cc.instantiate(this.Item_Prefab2);
+          if (i < data.Model) {
+            cc.loader.loadRes('Modal/upgrade/chickss', cc.SpriteFrame, (err, spriteFrame) => {
+              itemPrefab.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+            });
+          } else {
+            cc.loader.loadRes('Modal/upgrade/chick_', cc.SpriteFrame, (err, spriteFrame) => {
+              itemPrefab.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+            });
+          }
+          domBox.addChild(itemPrefab);
         }
       } else {
         Msg.show(data.Message);
