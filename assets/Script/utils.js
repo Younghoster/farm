@@ -106,6 +106,29 @@ const fn = {
       mins: mins,
       second: second
     };
+  },
+  //分钟转为时分
+  timeDiffHour(date) {
+    //date1,date2 可以是时间戳或者'2017-09-23'格式
+    let time = date * 60;
+    if (time < 0) {
+      return;
+    }
+    let days = Math.floor(time / (24 * 60 * 60));
+
+    let leave1 = time % (24 * 60 * 60);
+    let hours = Math.floor(leave1 / (60 * 60));
+
+    let leave2 = leave1 % (60 * 60);
+    let mins = Math.floor(leave2 / 60);
+
+    let second = leave2 % 60;
+    return {
+      days: days,
+      hours: hours,
+      mins: mins,
+      second: second
+    };
   }
 };
 Date.prototype.Format = function(fmt) {

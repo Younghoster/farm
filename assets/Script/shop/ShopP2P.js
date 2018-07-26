@@ -174,7 +174,7 @@ cc.Class({
             if (data.Code === 1) {
               label1.getComponent(cc.Label).string = '上架人：' + data.Model.chickenOwner;
               label2.getComponent(cc.Label).string = '饱食度：' + data.Model.chickenStarvationValue;
-              label3.getComponent(cc.Label).string = '生长周期：' + data.Model.chickenDays + '天';
+              label3.getComponent(cc.Label).string = '产蛋次数：' + data.Model.chickenLayEggTimes + '/60次';
               guifeiji.setPositionY(250);
               choose.active = false;
               label1.active = true;

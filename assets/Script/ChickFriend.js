@@ -221,6 +221,7 @@ var Chick = cc.Class({
         this.BoomDirection = 1;
       }
     }
+    //鸡的Zindex重叠的时候切换
     if (self.world.aabb.y > other.world.aabb.y) {
       self.node.setLocalZOrder(0);
       other.node.setLocalZOrder(1);

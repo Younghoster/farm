@@ -182,14 +182,18 @@ cc.Class({
     this.idLabel.string = `编号：${this.Id}`;
     this.sexLabel.string = `性别：${data.Sex ? '小姐姐' : '小哥哥'}`;
     this.hungryLabel.string = `饱食度：${data.StarvationValue}`;
-    let createTime = data.NextLayEgg.match(/\d+/g)[0];
+    // let createTime = data.NextLayEgg.match(/\d+/g)[0];
 
-    let endTime = parseInt(createTime) + 48 * 60 * 60 * 1000;
-    let nowDate = Date.parse(new Date());
-    let time = utils.fn.timeDiff(nowDate, endTime);
+    // let endTime = parseInt(createTime) + 48 * 60 * 60 * 1000;
+    // let nowDate = Date.parse(new Date());
+    let time = utils.fn.timeDiffHour(data.LayEggRemainTimes);
 
-    this.timerLabel.string = `产蛋时间：${(time.days - 2) * 24 + time.hours}小时${time.mins}分`;
-    this.lifeLabel.string = `生长周期：${data.Days}/90天`;
+    if (data.IsStop) {
+      this.timerLabel.string = `产蛋时间：${time.days}天${time.hours}小时${time.mins}分(暂停)`;
+    } else {
+      this.timerLabel.string = `产蛋时间：${time.days}天${time.hours}小时${time.mins}分`;
+    }
+    this.lifeLabel.string = `产蛋次数${data.LayEggCounts}/60次`;
     this.growProgressBar.progress = Math.round(data.StarvationValue) / 100;
     this.growLabel.string = `${Math.round(data.StarvationValue)}/100`;
 
