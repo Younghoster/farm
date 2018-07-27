@@ -1,6 +1,6 @@
 var func = {
   //获取所有数据（index页面）"dedbc83d62104d6da8d4a3c0188dc419",
-  openID: 'o9AgowPMI0CrC_C69vBS1UF40N2s',
+  openID: 'oEHZa0xT2_SpPtdFpzU5nr7v0HxA',
   GetWholeData(openID) {
     // Loading.show();
     return new Promise((resolve, reject) => {

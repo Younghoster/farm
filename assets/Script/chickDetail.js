@@ -191,9 +191,9 @@ cc.Class({
     if (data.IsStop) {
       this.timerLabel.string = `产蛋时间：${time.days}天${time.hours}小时${time.mins}分(暂停)`;
     } else {
-      this.timerLabel.string = `产蛋时间：${time.days}天${time.hours}小时${time.mins}分`;
+      this.timerLabel.string = `下次产蛋时间：${time.days}天${time.hours}小时${time.mins}分`;
     }
-    this.lifeLabel.string = `产蛋次数${data.LayEggCounts}/60次`;
+    this.lifeLabel.string = `产蛋次数：${data.LayEggCounts}/60次`;
     this.growProgressBar.progress = Math.round(data.StarvationValue) / 100;
     this.growLabel.string = `${Math.round(data.StarvationValue)}/100`;
 

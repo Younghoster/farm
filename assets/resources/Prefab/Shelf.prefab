@@ -511,9 +511,7 @@
     ],
     "editingDidEnded": [],
     "editingReturn": [],
-    "_N$backgroundImage": {
-      "__uuid__": "eb04e420-602d-4ca9-9a41-9b816b5c188a"
-    },
+    "_N$backgroundImage": null,
     "_N$returnType": 0,
     "_N$inputFlag": 5,
     "_N$inputMode": 3,
@@ -660,9 +658,7 @@
     ],
     "editingDidEnded": [],
     "editingReturn": [],
-    "_N$backgroundImage": {
-      "__uuid__": "eb04e420-602d-4ca9-9a41-9b816b5c188a"
-    },
+    "_N$backgroundImage": null,
     "_N$returnType": 0,
     "_N$inputFlag": 5,
     "_N$inputMode": 2,

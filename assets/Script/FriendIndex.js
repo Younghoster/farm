@@ -26,7 +26,6 @@ cc.Class({
 
     this.scene = cc.find('Canvas');
     this.hatchBoxNode = cc.find('hatch-box', this.node);
-    this.ranchRankNode = cc.find('ranch-rank', this.node);
     this.bgNode = cc.find('bg', this.node);
     this.cloud1Node = cc.find('cloud01', this.bgNode);
     this.cloud2Node = cc.find('cloud02', this.bgNode);
@@ -80,7 +79,6 @@ cc.Class({
     this.updateWeather().then(() => {
       this.initChick();
       this.initEggShed(eggsShedRank);
-      this.initRanchGrade(RanchRank);
     });
   },
   setHeadImg(dom, friendImg) {
@@ -374,106 +372,18 @@ cc.Class({
   },
   //初始化产蛋棚图片 （未加入到init中，后台没有数据）
   initEggShed(rank) {
-    switch (rank) {
-      case 1:
-        if (Config.weather === -1) {
-          cc.loader.loadRes('index/rain/house_1', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (Config.weather === 0) {
-          cc.loader.loadRes('index/cloud/house_1', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (Config.weather === 1) {
-          cc.loader.loadRes('index/sun/house_1', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        }
-        break;
-      case 2:
-        if (Config.weather === -1) {
-          cc.loader.loadRes('index/rain/house_2', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (Config.weather === 0) {
-          cc.loader.loadRes('index/cloud/house_2', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (Config.weather === 1) {
-          cc.loader.loadRes('index/sun/house_2', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        }
-        break;
-      case 3:
-        if (Config.weather === -1) {
-          cc.loader.loadRes('index/rain/house_3', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (Config.weather === 0) {
-          cc.loader.loadRes('index/cloud/house_3', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (Config.weather === 1) {
-          cc.loader.loadRes('index/sun/house_3', cc.SpriteFrame, (err, spriteFrame) => {
-            this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        }
-        break;
-    }
-  },
-  // 初始化牧场等级
-  initRanchGrade(rank) {
-    switch (rank) {
-      case 1:
-        if (Config.weather === -1) {
-          cc.loader.loadRes('index/rain/tip1', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (Config.weather === 0) {
-          cc.loader.loadRes('index/cloud/tip1', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (Config.weather === 1) {
-          cc.loader.loadRes('index/sun/tip1', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        }
-        break;
-      case 2:
-        if (Config.weather === -1) {
-          cc.loader.loadRes('index/rain/tip2', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (Config.weather === 0) {
-          cc.loader.loadRes('index/cloud/tip2', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (Config.weather === 1) {
-          cc.loader.loadRes('index/sun/tip2', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        }
-        break;
-      case 3:
-        this.windmillNode.active = true;
-        if (Config.weather === -1) {
-          cc.loader.loadRes('index/rain/tip3', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (Config.weather === 0) {
-          cc.loader.loadRes('index/cloud/tip3', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        } else if (Config.weather === 1) {
-          cc.loader.loadRes('index/sun/tip3', cc.SpriteFrame, (err, spriteFrame) => {
-            this.ranchRankNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-          });
-        }
-        break;
-
-      default:
-        break;
+    if (Config.weather === -1) {
+      cc.loader.loadRes('index/rain/house_3', cc.SpriteFrame, (err, spriteFrame) => {
+        this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+      });
+    } else if (Config.weather === 0) {
+      cc.loader.loadRes('index/cloud/house_3', cc.SpriteFrame, (err, spriteFrame) => {
+        this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+      });
+    } else if (Config.weather === 1) {
+      cc.loader.loadRes('index/sun/house_3', cc.SpriteFrame, (err, spriteFrame) => {
+        this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+      });
     }
   },
 

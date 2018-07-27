@@ -13,6 +13,7 @@ cc.Class({
     this.holeNodeList = [];
   },
   bindNode() {
+    this.hasEggCount = 0;
     this.indexJs = cc.find('Canvas').getComponent('Index');
     this.closeButton = cc.find('btn-close', this.node);
     this.label = cc.find('bg/label', this.node);
@@ -99,6 +100,7 @@ cc.Class({
         holeSprite.spriteFrame = spriteFrame;
       });
     } else if (data.IsFull) {
+      this.hasEggCount++;
       //有蛋
       switch (data.Type) {
         //普通鸡蛋
@@ -137,11 +139,10 @@ cc.Class({
       //绑定收取操作
       holeNode.on('click', () => {
         clearTimeout(this.timers); //清理定时器
-
         Func.CollectEgg(eggID).then(data => {
           if (data.Code === 1) {
             //收取成功后 把蛋去掉（页面上）
-
+            this.hasEggCount--;
             cc.loader.loadRes('eggHouse/img3', cc.SpriteFrame, (err, spriteFrame) => {
               holeSprite.spriteFrame = spriteFrame;
             });
@@ -207,8 +208,10 @@ cc.Class({
             }
             let str = "{name:'" + Config.openID + "',type:'updataChat'}";
             Config.newSocket.send(str);
-            let str2 = "{name:'" + Config.openID + "',type:'updateEggCount'}";
-            Config.newSocket.send(str2);
+            if (this.hasEggCount == 0) {
+              let str2 = "{name:'" + Config.openID + "',type:'updateEggCount'}";
+              Config.newSocket.send(str2);
+            }
           } else {
             Msg.show(data.Message);
           }

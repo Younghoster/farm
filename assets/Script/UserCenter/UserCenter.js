@@ -95,173 +95,175 @@ cc.Class({
           let day = cc.find('flex-right/value', PropertyList).getComponent(cc.Label);
           let time = cc.find('flex-right/time', PropertyList).getComponent(cc.Label);
           let imgSrc, imgSrc_, counts;
-          switch (data.Model.BuyPropertyList[i].ShowType) {
-            case 0: {
-              data.Model.BuyPropertyList[i].PropType
-                ? ((imgSrc = 'Modal/Repertory/icon-asset01'), (name_1.string = '牧场币'))
-                : ((imgSrc = 'Modal/Repertory/icon-asset02'), (name_1.string = '积分'));
+          if (data.Model.BuyPropertyList[i].PrID != 0) {
+            switch (data.Model.BuyPropertyList[i].ShowType) {
+              case 0: {
+                data.Model.BuyPropertyList[i].PropType
+                  ? ((imgSrc = 'Modal/Repertory/icon-asset01'), (name_1.string = '牧场币'))
+                  : ((imgSrc = 'Modal/Repertory/icon-asset02'), (name_1.string = '积分'));
 
-              switch (data.Model.BuyPropertyList[i].PrID) {
-                //普通饲料
-                case 2: {
-                  imgSrc_ = 'Modal/Repertory/icon-1';
-                  counts = 1;
-                  break;
+                switch (data.Model.BuyPropertyList[i].PrID) {
+                  //普通饲料
+                  case 2: {
+                    imgSrc_ = 'Modal/Repertory/icon-1';
+                    counts = 1;
+                    break;
+                  }
+                  case 15: {
+                    imgSrc_ = 'Modal/Repertory/icon-1';
+                    counts = 50;
+                    break;
+                  }
+                  case 16: {
+                    imgSrc_ = 'Modal/Repertory/icon-1';
+                    counts = 100;
+                    break;
+                  }
+                  case 17: {
+                    imgSrc_ = 'Modal/Repertory/icon-1';
+                    counts = 500;
+                    break;
+                  }
+                  //普通肥料
+                  case 19: {
+                    imgSrc_ = 'Modal/Repertory/hf_xs';
+                    counts = 1;
+                    break;
+                  }
+                  //超级肥料
+                  case 20: {
+                    imgSrc_ = 'Modal/Repertory/hf_xs';
+                    counts = 1;
+                    break;
+                  }
+                  //玉米种子
+                  case 12: {
+                    imgSrc_ = 'Modal/Repertory/ymzz_xs';
+                    counts = 1;
+                    break;
+                  }
+                  //改名卡
+                  case 21: {
+                    imgSrc_ = 'Modal/Repertory/icon-name_xs';
+                    counts = 1;
+                    break;
+                  }
+                  //产蛋鸡
+                  case 18: {
+                    imgSrc_ = 'Modal/Repertory/icon-asset04';
+                    counts = 1;
+                    break;
+                  }
+                  //自动清洁机
+                  case 22: {
+                    imgSrc_ = 'Modal/Repertory/icon-bot-xs';
+                    counts = 1;
+                    break;
+                  }
+                  //玉米种子*12
+                  case 23: {
+                    imgSrc_ = 'Modal/Repertory/ymzz_xs';
+                    counts = 12;
+                    break;
+                  }
+                  default: {
+                    break;
+                  }
                 }
-                case 15: {
-                  imgSrc_ = 'Modal/Repertory/icon-1';
-                  counts = 50;
-                  break;
-                }
-                case 16: {
-                  imgSrc_ = 'Modal/Repertory/icon-1';
-                  counts = 100;
-                  break;
-                }
-                case 17: {
-                  imgSrc_ = 'Modal/Repertory/icon-1';
-                  counts = 500;
-                  break;
-                }
-                //普通肥料
-                case 19: {
-                  imgSrc_ = 'Modal/Repertory/hf_xs';
-                  counts = 1;
-                  break;
-                }
-                //超级肥料
-                case 20: {
-                  imgSrc_ = 'Modal/Repertory/hf_xs';
-                  counts = 1;
-                  break;
-                }
-                //玉米种子
-                case 12: {
-                  imgSrc_ = 'Modal/Repertory/ymzz_xs';
-                  counts = 1;
-                  break;
-                }
-                //改名卡
-                case 21: {
-                  imgSrc_ = 'Modal/Repertory/icon-name_xs';
-                  counts = 1;
-                  break;
-                }
-                //产蛋鸡
-                case 18: {
-                  imgSrc_ = 'Modal/Repertory/icon-asset04';
-                  counts = 1;
-                  break;
-                }
-                //自动清洁机
-                case 22: {
-                  imgSrc_ = 'Modal/Repertory/icon-bot-xs';
-                  counts = 1;
-                  break;
-                }
-                //玉米种子*12
-                case 23: {
-                  imgSrc_ = 'Modal/Repertory/ymzz_xs';
-                  counts = 12;
-                  break;
-                }
-                default: {
-                  break;
-                }
-              }
-              num_1.string = '-' + data.Model.BuyPropertyList[i].PropValue * data.Model.BuyPropertyList[i].BuyCount;
-              num_2.string = '+' + data.Model.BuyPropertyList[i].BuyCount * counts;
-              name_2.string = data.Model.BuyPropertyList[i].PropName;
-              cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
-                icon_1.spriteFrame = spriteFrame;
-              });
-              cc.loader.loadRes(imgSrc_, cc.SpriteFrame, (err, spriteFrame) => {
-                icon_2.spriteFrame = spriteFrame;
-              });
-              day.string = utils.fn.formatNumToDate(data.Model.BuyPropertyList[i].CreateTime);
-              time.string = utils.fn.formatNumToDateTime(data.Model.BuyPropertyList[i].CreateTime);
-              PrefabParent.addChild(PropertyList);
-              break;
-            }
-            case 1: {
-              //充值记录;
-              imgSrc = 'Modal/Repertory/icon-asset01';
-              name_1.string = '牧场币';
-              cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
-                icon_1.spriteFrame = spriteFrame;
-              });
-              cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
-                icon_2.spriteFrame = spriteFrame;
-              });
-              let icon_2_dom = cc.find('flex-left/icon-asset04', PropertyList);
-              icon_2_dom.active = false;
-              num_1.string = '+' + data.Model.BuyPropertyList[i].RanchMoney;
-              num_2.string = '';
-              name_2.string = '成功充值' + data.Model.BuyPropertyList[i].RechargeMoney + '元';
-              day.string = utils.fn.formatNumToDate(data.Model.BuyPropertyList[i].CreateTime);
-              time.string = utils.fn.formatNumToDateTime(data.Model.BuyPropertyList[i].CreateTime);
-              PrefabParent.addChild(PropertyList);
-              break;
-            }
-            case 2: {
-              if (data.Model.BuyPropertyList[i].TradingType == 1) {
-                //兑换贵妃鸡
-                imgSrc = 'Modal/Repertory/icon-asset04';
+                num_1.string = '-' + data.Model.BuyPropertyList[i].PropValue * data.Model.BuyPropertyList[i].BuyCount;
+                num_2.string = '+' + data.Model.BuyPropertyList[i].BuyCount * counts;
+                name_2.string = data.Model.BuyPropertyList[i].PropName;
                 cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
                   icon_1.spriteFrame = spriteFrame;
                 });
-                cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                cc.loader.loadRes(imgSrc_, cc.SpriteFrame, (err, spriteFrame) => {
                   icon_2.spriteFrame = spriteFrame;
                 });
-                name_1.string = '虚拟贵妃鸡';
-                num_1.string = '-' + data.Model.BuyPropertyList[i].PCount * 1;
-                name_2.string = '真实贵妃鸡';
-                num_2.string = '+' + data.Model.BuyPropertyList[i].PCount;
-              } else {
-                //兑换鸡蛋
-                imgSrc = 'Modal/Repertory/icon-asset05';
-                cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
-                  icon_1.spriteFrame = spriteFrame;
-                });
-                cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
-                  icon_2.spriteFrame = spriteFrame;
-                });
-                name_1.string = '虚拟鸡蛋';
-                num_1.string = '-' + data.Model.BuyPropertyList[i].PCount * 12;
-                name_2.string = '真实鸡蛋';
-                num_2.string = '+' + data.Model.BuyPropertyList[i].PCount;
                 day.string = utils.fn.formatNumToDate(data.Model.BuyPropertyList[i].CreateTime);
                 time.string = utils.fn.formatNumToDateTime(data.Model.BuyPropertyList[i].CreateTime);
                 PrefabParent.addChild(PropertyList);
+                break;
               }
-              break;
-            }
-            case 3: {
-              //兑换贵妃鸡
-              if (data.Model.BuyPropertyList[i].PropType == 0) {
-                imgSrc = 'Modal/Repertory/icon-asset02';
-              } else {
+              case 1: {
+                //充值记录;
                 imgSrc = 'Modal/Repertory/icon-asset01';
-              }
-
-              imgSrc_ = 'Farm/extend_icon';
-              cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
-                icon_1.spriteFrame = spriteFrame;
-              });
-              cc.loader.loadRes(imgSrc_, cc.SpriteFrame, (err, spriteFrame) => {
-                icon_2.spriteFrame = spriteFrame;
-              });
-              if (data.Model.BuyPropertyList[i].PropType == 0) {
-                name_1.string = '积分';
-              } else {
                 name_1.string = '牧场币';
+                cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                  icon_1.spriteFrame = spriteFrame;
+                });
+                cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                  icon_2.spriteFrame = spriteFrame;
+                });
+                let icon_2_dom = cc.find('flex-left/icon-asset04', PropertyList);
+                icon_2_dom.active = false;
+                num_1.string = '+' + data.Model.BuyPropertyList[i].RanchMoney;
+                num_2.string = '';
+                name_2.string = '成功充值' + data.Model.BuyPropertyList[i].RechargeMoney + '元';
+                day.string = utils.fn.formatNumToDate(data.Model.BuyPropertyList[i].CreateTime);
+                time.string = utils.fn.formatNumToDateTime(data.Model.BuyPropertyList[i].CreateTime);
+                PrefabParent.addChild(PropertyList);
+                break;
               }
+              case 2: {
+                if (data.Model.BuyPropertyList[i].TradingType == 1) {
+                  //兑换贵妃鸡
+                  imgSrc = 'Modal/Repertory/icon-asset04';
+                  cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                    icon_1.spriteFrame = spriteFrame;
+                  });
+                  cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                    icon_2.spriteFrame = spriteFrame;
+                  });
+                  name_1.string = '虚拟贵妃鸡';
+                  num_1.string = '-' + data.Model.BuyPropertyList[i].PCount * 1;
+                  name_2.string = '真实贵妃鸡';
+                  num_2.string = '+' + data.Model.BuyPropertyList[i].PCount;
+                } else {
+                  //兑换鸡蛋
+                  imgSrc = 'Modal/Repertory/icon-asset05';
+                  cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                    icon_1.spriteFrame = spriteFrame;
+                  });
+                  cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                    icon_2.spriteFrame = spriteFrame;
+                  });
+                  name_1.string = '虚拟鸡蛋';
+                  num_1.string = '-' + data.Model.BuyPropertyList[i].PCount * 12;
+                  name_2.string = '真实鸡蛋';
+                  num_2.string = '+' + data.Model.BuyPropertyList[i].PCount;
+                  day.string = utils.fn.formatNumToDate(data.Model.BuyPropertyList[i].CreateTime);
+                  time.string = utils.fn.formatNumToDateTime(data.Model.BuyPropertyList[i].CreateTime);
+                  PrefabParent.addChild(PropertyList);
+                }
+                break;
+              }
+              case 3: {
+                //兑换贵妃鸡
+                if (data.Model.BuyPropertyList[i].PropType == 0) {
+                  imgSrc = 'Modal/Repertory/icon-asset02';
+                } else {
+                  imgSrc = 'Modal/Repertory/icon-asset01';
+                }
 
-              num_1.string = '-' + data.Model.BuyPropertyList[i].BuyValues * 1;
-              name_2.string = data.Model.BuyPropertyList[i].PropName;
-              num_2.string = '+1';
-              PrefabParent.addChild(PropertyList);
-              break;
+                imgSrc_ = 'Farm/extend_icon';
+                cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                  icon_1.spriteFrame = spriteFrame;
+                });
+                cc.loader.loadRes(imgSrc_, cc.SpriteFrame, (err, spriteFrame) => {
+                  icon_2.spriteFrame = spriteFrame;
+                });
+                if (data.Model.BuyPropertyList[i].PropType == 0) {
+                  name_1.string = '积分';
+                } else {
+                  name_1.string = '牧场币';
+                }
+
+                num_1.string = '-' + data.Model.BuyPropertyList[i].BuyValues * 1;
+                name_2.string = data.Model.BuyPropertyList[i].PropName;
+                num_2.string = '+1';
+                PrefabParent.addChild(PropertyList);
+                break;
+              }
             }
           }
         }

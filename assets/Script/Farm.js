@@ -64,15 +64,6 @@ cc.Class({
       self.fatchPlant(List); //重新加载植物
     });
 
-    //更新于土地拓建
-    this.node.on('unLockLand', function(event) {
-      let ListData = event.detail.data;
-
-      self.clearAllDom(ListData); //清除植物数据
-      self.setLandOption(ListData); //重新加载土地
-      self.setLocData(ListData);
-      self.setLocalStorageData(ListData); //重新加载土地（包括植物）
-    });
     cc.director.preloadScene('index', function() {
       console.log('Next scene index');
     });
@@ -119,6 +110,8 @@ cc.Class({
     Data.func.getFarmModalData().then(data => {
       if (data.Code === 1) {
         //土地渲染
+        console.log(data.Model);
+        console.log(JSON.parse(cc.sys.localStorage.getItem('FarmData')));
         self.clearAllDom(data.Model); //清除植物数据
         self.setLandOption(data.Model); //重新加载土地
       }
@@ -167,7 +160,7 @@ cc.Class({
       if (myDate.getHours() > 18) {
         imgSrcArr[1] = 'Farm/itemG-rain';
         imgSrcArr[2] = 'Farm/item-rain';
-        imgSrcArr[3] = 'Farm/extend-rain';
+
         imgSrcArr[4] = 'jpg/night2';
         imgSrcArr[5] = 'index/rain/cloud01';
         imgSrcArr[6] = 'index/rain/cloud02';
@@ -181,7 +174,7 @@ cc.Class({
       } else {
         imgSrcArr[1] = 'Farm/itemG'; //草地
         imgSrcArr[2] = 'Farm/item'; //土地
-        imgSrcArr[3] = 'Farm/extend'; //拓建
+
         imgSrcArr[4] = 'jpg/farmBg'; //农场背景
         imgSrcArr[5] = 'index/sun/cloud01'; //云1
         imgSrcArr[6] = 'index/sun/cloud02'; //云2
@@ -196,7 +189,7 @@ cc.Class({
     } else if (Config.weather == 0) {
       imgSrcArr[1] = 'Farm/itemG-wind';
       imgSrcArr[2] = 'Farm/item-wind';
-      imgSrcArr[3] = 'Farm/extend-wind';
+
       imgSrcArr[4] = 'jpg/farmBg-wind';
       imgSrcArr[5] = 'index/cloud/cloud01';
       imgSrcArr[6] = 'index/cloud/cloud02';
@@ -210,7 +203,7 @@ cc.Class({
     } else if (Config.weather == -1) {
       imgSrcArr[1] = 'Farm/itemG-rain';
       imgSrcArr[2] = 'Farm/item-rain';
-      imgSrcArr[3] = 'Farm/extend-rain';
+
       imgSrcArr[4] = 'jpg/farmBg-rain';
       imgSrcArr[5] = 'index/rain/cloud01';
       imgSrcArr[6] = 'index/rain/cloud02';
@@ -289,11 +282,9 @@ cc.Class({
       let PrefabPlant_md = cc.find('plant-md', Prefab);
       let PrefabPlant_lg = cc.find('plant-lg', Prefab);
       let PrefabPlant_ok = cc.find('plant-ok', Prefab);
-      let PrefabExtend = cc.find('extend', Prefab);
       let PrefabNewNode = cc.find('New Node', Prefab);
       let PrefabPlant_tip = cc.find('New Node/reap', Prefab);
       //天气图标变化
-      self.setWhetherIcon(PrefabExtend, 3);
       self.setWhetherIcon(PrefabPlant_xs, 9);
       self.setWhetherIcon(PrefabPlant_md, 10);
       self.setWhetherIcon(PrefabPlant_lg, 11);
@@ -303,7 +294,6 @@ cc.Class({
       PrefabPlant_md.active = false;
       PrefabPlant_lg.active = false;
       PrefabPlant_ok.active = false;
-      PrefabExtend.active = false;
       PrefabNewNode.active = false;
       PrefabPlant_tip.active = false;
       //提示图标的类型切换
@@ -311,12 +301,7 @@ cc.Class({
       let itemBox = cc.find('bg/mapNew/item' + i, this.node);
       let itemPos = itemBox.getPosition();
       let pos = itemBox.getNodeToWorldTransformAR(itemPos);
-      if (ValueList[i].IsLock) {
-        //拓展
-        PrefabExtend.active = true;
-        PrefabNewNode.active = false;
-        Tool.RunAction(PrefabExtend, 'fadeIn', 0.3);
-      }
+
       if (ValueList[i].CropsStatus == 1) {
         //小树苗
         PrefabPlant_xs.active = true;
@@ -695,6 +680,7 @@ cc.Class({
       totallenth = 16 * 60;
     }
     let showNode = cc.find('timer', e);
+    showNode.setLocalZOrder(1);
     let showNodeTime = cc.find('timer/text', e).getComponent(cc.Label);
     let ProgressBar = cc.find('timer/progressBar', e).getComponent(cc.ProgressBar);
     let ProgressMask = cc.find('timer/progressBar/Mask', e);

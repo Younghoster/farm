@@ -173,7 +173,11 @@ cc.Class({
         () => {
           this.shelfEvent(PropName + '(' + RearingDays + '天)', goods.ID, goodsNode);
         },
-        '上架'
+        '上架',
+        () => {
+          this.leave(PropName + '(' + RearingDays + '天)', goods.ID, goodsNode);
+        },
+        '抛弃'
       );
     }
     switch (PropertyTypeID) {
@@ -209,13 +213,13 @@ cc.Class({
         cc.loader.loadRes('Shop/hf', cc.SpriteFrame, function(err, spriteFrame) {
           goodSprite.spriteFrame = spriteFrame;
         });
-        this.bindGoodsEvent(
-          goodsNode,
-          () => {
-            this.compound(3, 7, '肥料');
-          },
-          '合成'
-        );
+        // this.bindGoodsEvent(
+        //   goodsNode,
+        //   () => {
+        //     this.compound(3, 7, '肥料');
+        //   },
+        //   '合成'
+        // );
         break;
       //粪便
       case 8:
@@ -248,7 +252,11 @@ cc.Class({
           () => {
             this.exChange(PropName, 1);
           },
-          '兑换'
+          '兑换',
+          () => {
+            this.reChange(PropName + '(' + RearingDays + '天)', goods.ID, goodsNode);
+          },
+          '置换'
         );
         break;
       //改名卡
@@ -304,6 +312,20 @@ cc.Class({
         this.goodsEvent.call(goodsNode, [f1, f2, f3], [name1, name2, name3]);
       },
       this
+    );
+  },
+
+  //忍心抛弃
+  leave(Name, Id, GoodsNode) {
+    let self = this;
+    Alert.show(
+      '你就这样忍心抛弃我吗？',
+      function() {
+        GoodsNode.removeFromParent();
+        cc.find('modal', self.node).removeFromParent();
+      },
+      'Shop/guifeiji__',
+      Name
     );
   },
   //点击商品事件 绑定模态框回调函数及图片、名字
@@ -430,6 +452,39 @@ cc.Class({
       .catch(data => {
         Msg.show(data.Message);
       });
+  },
+  //置换事件
+  reChange() {
+    let self = this;
+    Alert.show('0', null, null, null, null, null, 'Prefab/Sell', function() {
+      let selfAlert = this;
+      cc.loader.loadRes(Alert._newPrefabUrl, cc.Prefab, function(error, prefab) {
+        if (error) {
+          cc.error(error);
+          return;
+        }
+        // 实例
+        let alert = cc.instantiate(prefab);
+        Alert._alert = alert;
+        //动画
+        selfAlert.ready();
+        Alert._alert.parent = cc.find('Canvas');
+        selfAlert.startFadeIn();
+        let money = cc.find('bg/money', alert);
+        let name = cc.find('bg/name', alert).getComponent(cc.Label);
+        let guifeiji_pos = cc.find('guifeiji', alert);
+        guifeiji_pos.setPositionY(160);
+        let guifeiji = cc.find('guifeiji', alert).getComponent(cc.Sprite);
+        money.active = false;
+        name.string = '贵妃鸡';
+        cc.loader.loadRes('Shop/guifeiji__', cc.SpriteFrame, (err, spriteFrame) => {
+          guifeiji.spriteFrame = spriteFrame;
+        });
+        // 关闭按钮money
+        selfAlert.newButtonEvent(alert, 'bg/btn-group/cancelButton');
+        // self.P2PBuyData(alert, goods);
+      });
+    });
   },
   //兑换事件
   exChange(name, type) {

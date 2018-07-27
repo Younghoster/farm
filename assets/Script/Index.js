@@ -25,8 +25,6 @@ cc.Class({
   },
 
   init: function() {
-    this.handNode = cc.find('Hand', this.node);
-    this.handAnim = this.handNode.getComponent(cc.Animation);
     this.eggNode = cc.find('bg/house/shouquEgg', this.node);
     this.houseNode = cc.find('bg/house', this.node);
 
@@ -132,8 +130,7 @@ cc.Class({
     this.updateWeather();
     this.initChick();
     this.initEggShed(eggsShedRank);
-    this.initRanchGrade(RanchRank);
-    this.initChickenLayEggTimeFirst();
+    // this.initChickenLayEggTimeFirst();
     this.GetRanchPeopleShowMessage();
     //socket监听
 
@@ -151,18 +148,12 @@ cc.Class({
           data: ''
         });
       } else if (obj.name == Func.openID && obj.type == 'updateEggCount') {
-        Func.getEggLayInfo().then(data => {
-          if (data.Code === 1) {
-            self.eggNode.active = data.Model.model.EggCount > 0 ? true : false;
-          } else {
-            console.log('首页数据加载失败');
-          }
-        });
+        self.eggNode.active = false;
       }
     };
-    self.schedule(function() {
-      self.initChickenLayEggTimeFirst();
-    }, 60);
+    // self.schedule(function() {
+    //   self.initChickenLayEggTimeFirst();
+    // }, 60);
 
     // self.schedule(function() {
     //   if (this.speakList.length !== 1) {
@@ -251,14 +242,6 @@ cc.Class({
           Msg.show(data.Message);
           self.animates();
           this.shitBoxNode.removeAllChildren();
-          // this.handNode.active = true;
-          // this.handAnim.play('hand_clear');
-
-          // this.handAnim.on('finished', () => {
-          //   this.handNode.active = false;
-          //   this.shitBoxNode.removeAllChildren();
-          // });
-          // this.handAnim.on("finished", this.chickFunc.initData, this._chick);
         } else {
           //牧场不脏 弹出提示框
           Msg.show(data.Message);
@@ -491,73 +474,15 @@ cc.Class({
       }
     });
   },
-  // 初始化牧场等级
-  initRanchGrade(rank) {
-    switch (rank) {
-      case 1:
-        if (Config.weather === -1) {
-          this.setIcon('index/rain/tip1', this.ranchRankNode.getComponent(cc.Sprite));
-        } else if (Config.weather === 0) {
-          this.setIcon('index/cloud/tip1', this.ranchRankNode.getComponent(cc.Sprite));
-        } else if (Config.weather === 1) {
-          this.setIcon('index/sun/tip1', this.ranchRankNode.getComponent(cc.Sprite));
-        }
-        break;
-      case 2:
-        if (Config.weather === -1) {
-          this.setIcon('index/rain/tip2', this.ranchRankNode.getComponent(cc.Sprite));
-        } else if (Config.weather === 0) {
-          this.setIcon('index/cloud/tip2', this.ranchRankNode.getComponent(cc.Sprite));
-        } else if (Config.weather === 1) {
-          this.setIcon('index/sun/tip2', this.ranchRankNode.getComponent(cc.Sprite));
-        }
-        break;
-      case 3:
-        this.windmillNode.active = true;
-        if (Config.weather === -1) {
-          this.setIcon('index/rain/tip3', this.ranchRankNode.getComponent(cc.Sprite));
-        } else if (Config.weather === 0) {
-          this.setIcon('index/cloud/tip3', this.ranchRankNode.getComponent(cc.Sprite));
-        } else if (Config.weather === 1) {
-          this.setIcon('index/sun/tip3', this.ranchRankNode.getComponent(cc.Sprite));
-        }
-        break;
-
-      default:
-        break;
-    }
-  },
 
   //初始化产蛋棚图片 （未加入到init中，后台没有数据）
   initEggShed(rank) {
-    switch (rank) {
-      case 1:
-        if (Config.weather === -1) {
-          this.setIcon('index/rain/house_1', this.houseNode.getComponent(cc.Sprite));
-        } else if (Config.weather === 0) {
-          this.setIcon('index/cloud/house_1', this.houseNode.getComponent(cc.Sprite));
-        } else if (Config.weather === 1) {
-          this.setIcon('index/sun/house_1', this.houseNode.getComponent(cc.Sprite));
-        }
-        break;
-      case 2:
-        if (Config.weather === -1) {
-          this.setIcon('index/rain/house_2', this.houseNode.getComponent(cc.Sprite));
-        } else if (Config.weather === 0) {
-          this.setIcon('index/cloud/house_2', this.houseNode.getComponent(cc.Sprite));
-        } else if (Config.weather === 1) {
-          this.setIcon('index/sun/house_2', this.houseNode.getComponent(cc.Sprite));
-        }
-        break;
-      case 3:
-        if (Config.weather === -1) {
-          this.setIcon('index/rain/house_3', this.houseNode.getComponent(cc.Sprite));
-        } else if (Config.weather === 0) {
-          this.setIcon('index/cloud/house_3', this.houseNode.getComponent(cc.Sprite));
-        } else if (Config.weather === 1) {
-          this.setIcon('index/sun/house_3', this.houseNode.getComponent(cc.Sprite));
-        }
-        break;
+    if (Config.weather === -1) {
+      this.setIcon('index/rain/house_3', this.houseNode.getComponent(cc.Sprite));
+    } else if (Config.weather === 0) {
+      this.setIcon('index/cloud/house_3', this.houseNode.getComponent(cc.Sprite));
+    } else if (Config.weather === 1) {
+      this.setIcon('index/sun/house_3', this.houseNode.getComponent(cc.Sprite));
     }
   },
   //更新 饲料tip的数量
@@ -707,7 +632,7 @@ cc.Class({
   onLoad: function() {
     let self = this;
     var openID = window.location.href.split('=')[1];
-    window.Config.openID = openID || 'o9AgowPMI0CrC_C69vBS1UF40N2s';
+    window.Config.openID = openID || 'oEHZa0xT2_SpPtdFpzU5nr7v0HxA';
     Func.openID = window.Config.openID;
     Config.newSocket = new WebSocket('ws://service.linedin.cn:5530/');
     cc.director.setDisplayStats(false);
@@ -717,7 +642,6 @@ cc.Class({
       loadSceneShop: this.loadSceneShop,
       loadSceneRepertory: this.loadSceneRepertory,
       initEggShed: this.initEggShed,
-      initRanchGrade: this.initRanchGrade,
       showFeedState: this.showFeedState,
       addFeed: this.addFeed,
       loadSceneFarm: this.loadSceneFarm,

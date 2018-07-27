@@ -48,8 +48,8 @@ cc.Class({
         let count = data.List[i].Count;
         self.selectIcon(goods, goodSprite);
         cc.find('pic-box/pic', goodsNode).getComponent(cc.Widget).bottom = 0;
-        let str = goods.RearingDays == 90 ? goods.RearingDays + '天' : '';
-        goodsLabel.string = str + goods.PropName + 'x' + count;
+
+        goodsLabel.string = goods.PropName + 'x' + count;
         priceLabel.string = goods.PropValue;
         goodsListNode.addChild(goodsNode);
         goodsNode.on('click', event => {

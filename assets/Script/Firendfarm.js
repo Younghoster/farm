@@ -286,10 +286,8 @@ cc.Class({
       let PrefabPlant_lg = cc.find('plant-lg', Prefab);
       let PrefabNewNode = cc.find('New Node', Prefab);
       let PrefabPlant_ok = cc.find('plant-ok', Prefab);
-      let PrefabExtend = cc.find('extend', Prefab);
       let PrefabPlant_tip = cc.find('New Node/reap', Prefab);
       //天气图标变化
-      self.setWhetherIcon(PrefabExtend, 3);
       self.setWhetherIcon(PrefabPlant_xs, 9);
       self.setWhetherIcon(PrefabPlant_md, 10);
       self.setWhetherIcon(PrefabPlant_lg, 11);
@@ -300,7 +298,6 @@ cc.Class({
       PrefabPlant_lg.active = false;
       PrefabPlant_ok.active = false;
       PrefabNewNode.active = false;
-      PrefabExtend.active = false;
       PrefabPlant_tip.active = false;
       //提示图标的类型切换
       self.setTipType(ValueList[i], PrefabPlant_tip, PrefabNewNode);
@@ -330,7 +327,7 @@ cc.Class({
       //重置名字赋值
       Prefab.name = 'Prefab' + i;
       //定位于碰撞事件触发的点
-      Prefab.setPosition(pos.tx, pos.ty);
+      Prefab.setPosition(pos.tx, pos.ty - 20);
       bg.addChild(Prefab);
     }
   },

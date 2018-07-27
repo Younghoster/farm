@@ -1,3 +1,4 @@
+var utils = require('utils');
 var Data = require('Data');
 cc.Class({
   extends: cc.Component,
@@ -179,25 +180,45 @@ cc.Class({
   //施肥
   cropsSertilize(id, type) {
     let self = this;
-
     let IsLock = this.dataList.List[id].IsLock;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock) {
       Data.func.getFarmModalData().then(data2 => {
-        // FarmJsFarmJs.fn.setLocalStorageData.call(FarmJs, data2);
         let CropsID = data2.Model[id].CropsID;
         if (data2.Code === 1) {
-          Data.func.CropsSertilize(CropsID, type).then(data => {
-            self.timers = setTimeout(function() {
-              if (data.Code === 1) {
-                Msg.show(data.Message);
-                self.FarmJs.emit('updataPlant', {
-                  data: data2.Model
-                });
-              } else {
-                Msg.show(data.Message);
+          Data.func.FarmCropsGrowTime(CropsID).then(data3 => {
+            if (data3.Code > 0) {
+              let createTime = data3.Model.match(/\d+/g)[0];
+              let endTime = parseInt(createTime) + 48 * 60 * 60 * 1000;
+              let nowDate = Date.parse(new Date());
+              let time = utils.fn.timeDiff(nowDate, endTime);
+              let progressNum = (time.days - 2) * 24 * 60 + time.hours * 60 + time.mins;
+              //普通肥料的时候
+              if (type == 7) {
+                if (progressNum < 300) {
+                  //升级了
+                  if (CropsStatus < 4) {
+                    this.dataList.List[id].CropsStatus = CropsStatus + 1;
+                  }
+                }
+              } else if (type == 9) {
+                if (progressNum < 600) {
+                  //升级了
+                  this.dataList.List[id].CropsStatus = CropsStatus + 1;
+                }
               }
-            }, 500);
+              cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
+              Data.func.CropsSertilize(CropsID, type).then(data => {
+                if (data.Code === 1) {
+                  Msg.show(data.Message);
+                } else {
+                  Msg.show(data.Message);
+                }
+              });
+              self.FarmJs.emit('updataPlant', {
+                data: self.dataList.List
+              });
+            }
           });
         } else {
           Msg.show(data2.Message);
@@ -240,6 +261,7 @@ cc.Class({
       }, 500);
     }
   },
+
   onCollisionStay: function(other) {},
 
   onCollisionExit: function(other) {

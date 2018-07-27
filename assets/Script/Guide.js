@@ -186,9 +186,7 @@ var GuideSystem = {
     var radius = 110;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    // cc.loader.loadRes('guide/pic-3-0', cc.SpriteFrame, function(err, spriteFrame) {
-    //   modalSprite.spriteFrame = spriteFrame;
-    // });
+
     //绑定事件
     guideMaskNode.on(
       'click',
@@ -237,12 +235,6 @@ var GuideSystem = {
       guideMaskNode.height = width;
       guideMaskNode.width = width;
       var ModalNode = cc.find('Modal', SellNode);
-      // var ModalSprite = ModalNode.getComponent(cc.Sprite);
-      // ModalNode.opacity = 255;
-      // ModalNode.color = cc.color('#ffffff');
-      // cc.loader.loadRes('guide/pic-3', cc.SpriteFrame, function(err, spriteFrame) {
-      //   ModalSprite.spriteFrame = spriteFrame;
-      // });
 
       guideMaskNode.on('click', function() {
         jt.active = false;
@@ -601,9 +593,7 @@ var GuideSystem = {
     var radius = 100;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-    // cc.loader.loadRes('guide/pic-10', cc.SpriteFrame, function(err, spriteFrame) {
-    //   modalSprite.spriteFrame = spriteFrame;
-    // });
+
     //绑定事件
     guideMaskNode.on(
       'click',
