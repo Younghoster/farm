@@ -54,17 +54,14 @@ cc.Class({
       this.dataList.List[id].CropsStatus = 1;
       cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
       Data.func.addCrops(landId, propertyId).then(data => {
-        self.timers = setTimeout(function() {
-          if (data.Code == 1) {
-            Data.func.getFarmModalData().then(data2 => {
-              // FarmJsFarmJs.fn.setLocalStorageData.call(FarmJs, data2);
-              self.FarmJs.emit('updataPlant', {
-                data: self.dataList.List
-              });
-            });
-          } else {
-          }
-        }, 1500);
+        // self.timers = setTimeout(function() {
+        //   if (data.Code == 1) {
+        //     // self.FarmJs.emit('updataPlant', {
+        //     //   data: self.dataList.List
+        //     // });
+        //   } else {
+        //   }
+        // }, 1500);
       });
     }
   },
@@ -85,18 +82,14 @@ cc.Class({
         this.dataList.List[id].IsDry = true;
         cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
         Data.func.CropsWatering(CropsID).then(data => {
-          self.timers = setTimeout(function() {
-            if (data.Code === 1) {
-              Data.func.getFarmModalData().then(data2 => {
-                // FarmJs.fn.setLocalStorageData.call(FarmJs, data2);
-
-                self.FarmJs.emit('updataPlant', {
-                  data: self.dataList.List
-                });
-              });
-            } else {
-            }
-          }, 1500);
+          // self.timers = setTimeout(function() {
+          //   if (data.Code === 1) {
+          //     // self.FarmJs.emit('updataPlant', {
+          //     //   data: self.dataList.List
+          //     // });
+          //   } else {
+          //   }
+          // }, 1500);
         });
       } else {
         self.timers2 = setTimeout(function() {
@@ -122,17 +115,14 @@ cc.Class({
         this.dataList.List[id].IsWeeds = true;
         cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
         Data.func.CropsWeeding(CropsID).then(data => {
-          self.timers = setTimeout(function() {
-            if (data.Code === 1) {
-              Data.func.getFarmModalData().then(data2 => {
-                // Msg.show(data.Message);
-                self.FarmJs.emit('updataPlant', {
-                  data: self.dataList.List
-                });
-              });
-            } else {
-            }
-          }, 1500);
+          // self.timers = setTimeout(function() {
+          //   if (data.Code === 1) {
+          //     // self.FarmJs.emit('updataPlant', {
+          //     //   data: self.dataList.List
+          //     // });
+          //   } else {
+          //   }
+          // }, 1500);
         });
       } else {
         self.timers2 = setTimeout(function() {
@@ -158,17 +148,14 @@ cc.Class({
         this.dataList.List[id].IsDisinsection = true;
         cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
         Data.func.CropsDisinsection(CropsID).then(data => {
-          self.timers = setTimeout(function() {
-            if (data.Code === 1) {
-              Data.func.getFarmModalData().then(data2 => {
-                // Msg.show(data.Message);
-                self.FarmJs.emit('updataPlant', {
-                  data: self.dataList.List
-                });
-              });
-            } else {
-            }
-          }, 1500);
+          // self.timers = setTimeout(function() {
+          //   if (data.Code === 1) {
+          //     // self.FarmJs.emit('updataPlant', {
+          //     //   data: self.dataList.List
+          //     // });
+          //   } else {
+          //   }
+          // }, 1500);
         });
       } else {
         self.timers2 = setTimeout(function() {
@@ -193,31 +180,32 @@ cc.Class({
               let nowDate = Date.parse(new Date());
               let time = utils.fn.timeDiff(nowDate, endTime);
               let progressNum = (time.days - 2) * 24 * 60 + time.hours * 60 + time.mins;
-              //普通肥料的时候
-              if (type == 7) {
-                if (progressNum < 300) {
-                  //升级了
-                  if (CropsStatus < 4) {
-                    this.dataList.List[id].CropsStatus = CropsStatus + 1;
-                  }
-                }
-              } else if (type == 9) {
-                if (progressNum < 600) {
-                  //升级了
-                  this.dataList.List[id].CropsStatus = CropsStatus + 1;
-                }
-              }
-              cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
+
               Data.func.CropsSertilize(CropsID, type).then(data => {
                 if (data.Code === 1) {
                   Msg.show(data.Message);
+                  //普通肥料的时候
+                  if (type == 7) {
+                    if (progressNum < 300) {
+                      //升级了
+                      if (CropsStatus < 4) {
+                        this.dataList.List[id].CropsStatus = CropsStatus + 1;
+                      }
+                    }
+                  } else if (type == 9) {
+                    if (progressNum < 600) {
+                      //升级了
+                      this.dataList.List[id].CropsStatus = CropsStatus + 1;
+                    }
+                  }
+                  cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
                 } else {
                   Msg.show(data.Message);
                 }
               });
-              self.FarmJs.emit('updataPlant', {
-                data: self.dataList.List
-              });
+              // self.FarmJs.emit('updataPlant', {
+              //   data: self.dataList.List
+              // });
             }
           });
         } else {
@@ -238,20 +226,11 @@ cc.Class({
           self.CollectNumber += Number(data.Model);
           self.timers2 = setTimeout(function() {
             Msg.show('收取 × ' + self.CollectNumber);
-          }, 500);
-          setTimeout(function() {
-            self.dataList.List[id].CropsStatus = 0;
-            self.dataList.List[id].CropsID = 0;
-            cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
-          }, 1000);
-          self.timers = setTimeout(function() {
             self.CollectNumber = 0;
-            Data.func.getFarmModalData().then(data2 => {
-              self.FarmJs.emit('updataPlant', {
-                data: self.dataList.List
-              });
-            });
-          }, 1000);
+          }, 500);
+          self.dataList.List[id].CropsStatus = 0;
+          self.dataList.List[id].CropsID = 0;
+          cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
         } else {
         }
       });

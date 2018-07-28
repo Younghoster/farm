@@ -321,8 +321,15 @@ cc.Class({
     Alert.show(
       '你就这样忍心抛弃我吗？',
       function() {
-        GoodsNode.removeFromParent();
-        cc.find('modal', self.node).removeFromParent();
+        Func.GiveUpChicken(Id).then(data => {
+          if (data.Code === 1) {
+            Msg.show(data.Message);
+            GoodsNode.removeFromParent();
+            cc.find('modal', self.node).removeFromParent();
+          } else {
+            Msg.show(data.Message);
+          }
+        });
       },
       'Shop/guifeiji__',
       Name

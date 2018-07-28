@@ -558,7 +558,9 @@ cc.Class({
   },
   touchend(i) {
     let self = this;
+
     let bg_farm = cc.find('bg_farm', this.node);
+    self.upLocDataByPlant();
     if (self.Value.toolType != 0) {
       self.Prefab.removeFromParent();
     }
@@ -569,6 +571,7 @@ cc.Class({
   touchcancel(i) {
     let self = this;
     let bg_farm = cc.find('bg_farm', this.node);
+    self.upLocDataByPlant();
     if (self.Value.toolType != 0) {
       self.Prefab.removeFromParent();
     }
@@ -576,7 +579,15 @@ cc.Class({
     bg_farm.opacity = 1;
     bg_farm.removeAllChildren();
   },
+  //更新数据
+  upLocDataByPlant() {
+    let self = this;
+    let datas = JSON.parse(cc.sys.localStorage.getItem('FarmData'));
 
+    self.clearAllDom(datas.List); //清除植物数据
+    self.setLocData(datas.List);
+    self.fatchPlant(datas.List); //重新加载植物
+  },
   //工具图片显示  浇水、除草、种子、镰刀
   imgSrcSelect(i) {
     var self = this;

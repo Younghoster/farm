@@ -20,7 +20,12 @@ cc.Class({
     cc.director.loadScene(Config.backArr[Config.backArr.length - 1]);
   },
   bindNode() {
+    let self = this;
     this.moneyLabel = cc.find('bg/container/div/gold/money', this.node).getComponent(cc.Label);
+    this.moneyPay = cc.find('bg/container/btn-pay', this.node);
+    this.moneyPay.on('click', function() {
+      self.paySelfMoney();
+    });
   },
   initData() {
     Func.GetUserMoney().then(data => {
@@ -72,7 +77,10 @@ cc.Class({
   },
   paymoney(e) {
     let self = this;
-
+    if (Config.newSocket.readyState === WebSocket.OPEN) {
+    } else {
+      Msg.show('网络状态无');
+    }
     Func.UserRecharge(1, 1, this.setType(Number(e.currentTarget._name.substring(3)))).then(data => {
       if (data.appId !== '') {
         if (typeof WeixinJSBridge == 'undefined') {
@@ -114,6 +122,10 @@ cc.Class({
   },
   paySelfMoney() {
     let self = this;
+    if (Config.newSocket.readyState === WebSocket.OPEN) {
+    } else {
+      Msg.show('网络状态无');
+    }
     let input = cc.find('bg/container/div_input/input', this.node).getComponent(cc.EditBox);
     console.log(Number(input.string));
     if (this.isInteger(Number(input.string))) {
