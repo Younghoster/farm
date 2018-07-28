@@ -26,7 +26,7 @@ cc.Class({
     this.oldData = null;
     //星星盒子
     self.starsBox = cc.find('bg/starsBox', this.node);
-    self.moon = cc.find('bg/moon', this.node);
+    self.moon = cc.find('moon', this.node);
 
     //好友农场的好友ID
     self.getHearder(Config.friendOpenId);

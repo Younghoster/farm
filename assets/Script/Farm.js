@@ -40,7 +40,7 @@ cc.Class({
 
     //星星盒子
     self.starsBox = cc.find('bg/starsBox', this.node);
-    this.moon = cc.find('bg/moon', this.node);
+    this.moon = cc.find('moon', this.node);
 
     self.addPersist();
     self.getWhether();

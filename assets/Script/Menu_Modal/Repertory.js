@@ -254,7 +254,7 @@ cc.Class({
           },
           '兑换',
           () => {
-            this.reChange(PropName + '(' + RearingDays + '天)', goods.ID, goodsNode);
+            this.reChange(goods);
           },
           '置换'
         );
@@ -461,7 +461,7 @@ cc.Class({
       });
   },
   //置换事件
-  reChange() {
+  reChange(goods) {
     let self = this;
     Alert.show('0', null, null, null, null, null, 'Prefab/Sell', function() {
       let selfAlert = this;
@@ -489,7 +489,7 @@ cc.Class({
         });
         // 关闭按钮money
         selfAlert.newButtonEvent(alert, 'bg/btn-group/cancelButton');
-        // self.P2PBuyData(alert, goods);
+        self.P2PBuyData(alert, goods);
       });
     });
   },
@@ -522,6 +522,59 @@ cc.Class({
     this.func = {
       GetSystemListByPage: this.GetSystemListByPage
     };
+  },
+  //购买商品模态框数据绑定
+  P2PBuyData(obj, data) {
+    var self = this;
+    //初始总价
+
+    let sumMoney = cc.find('bg/money/value', obj).getComponent(cc.Label);
+    let editBox = cc.find('bg/content/rect-border/text', obj).getComponent(cc.Label);
+    let editBtn1 = cc.find('bg/content/btn-minus', obj);
+    let editBtn2 = cc.find('bg/content/btn-add', obj);
+    let value = cc.find('bg/money/value', obj);
+    let confirm = cc.find('bg/btn-group/enterButton', obj);
+    let valueComp = cc.find('bg/money/value', obj).getComponent(cc.Label);
+
+    let title = cc.find('bg/name', obj).getComponent(cc.Label);
+    let goodSprite = cc.find('guifeiji', obj).getComponent(cc.Sprite);
+    let count = 1;
+    console.log(data);
+
+    title.string = '贵妃鸡';
+    //绑定input变化事件
+    editBtn1.on('click', function() {
+      if (count > 1) {
+        count--;
+        editBox.string = count;
+        console.log(count);
+      }
+    });
+    editBtn2.on('click', function() {
+      if (count < data.Count) {
+        count++;
+        editBox.string = count;
+        console.log(count);
+      }
+    });
+
+    //商品购买事件
+    confirm.on('click', () => {
+      Func.ChangeRanchChicken(count).then(data => {
+        if (data.Code === 1) {
+          Msg.show(data.Message);
+          if (data.Count == 1) {
+            GoodsNode.removeFromParent();
+            cc.find('modal', self.node).removeFromParent();
+          } else {
+            self.GetRepertoryList();
+            cc.find('modal', self.node).removeFromParent();
+          }
+        } else {
+          Msg.show(data.Message);
+        }
+      });
+    });
   }
 
   // update (dt) {},
