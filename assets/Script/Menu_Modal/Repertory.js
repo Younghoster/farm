@@ -171,13 +171,13 @@ cc.Class({
       this.bindGoodsEvent(
         goodsNode,
         () => {
-          this.shelfEvent(PropName + '(' + RearingDays + '天)', goods.ID, goodsNode);
+          this.shelfEvent(PropName + '(' + goods.LayEggCount + '/60次)', goods.ID, goodsNode, goods.LayEggCount);
         },
         '上架',
         () => {
-          this.leave(PropName + '(' + RearingDays + '天)', goods.ID, goodsNode);
+          this.leave(PropName + '(' + goods.LayEggCount + '/60次)', goods.ID, goodsNode);
         },
-        '抛弃'
+        '放手'
       );
     }
     switch (PropertyTypeID) {
@@ -191,7 +191,12 @@ cc.Class({
           () => {
             this.exChange(PropName, 2);
           },
-          '兑换'
+          '兑换',
+          () => {
+            this.EggOnShelf(goods);
+            // this.shelfEvent(PropName + '(' + goods.LayEggCount + '/60次)', goods.ID, goodsNode, goods.LayEggCount);
+          },
+          '上架'
         );
         break;
       // 普通饲料
@@ -289,7 +294,7 @@ cc.Class({
         break;
     }
     if (PropName == '产蛋鸡') {
-      nameLabel.string = PropName + '(' + RearingDays + '天)';
+      nameLabel.string = PropName + '(' + goods.LayEggCount + '/60次)';
     } else {
       nameLabel.string = PropName;
     }
@@ -410,10 +415,14 @@ cc.Class({
     });
   },
   //点击上架 弹出模态框
-  shelfEvent(name, type, goodsNode) {
-    Alertshelf.show(name, () => {
-      this.OnShelfEggChick(type, goodsNode);
-    });
+  shelfEvent(name, type, goodsNode, count) {
+    Alertshelf.show(
+      name,
+      () => {
+        this.OnShelfEggChick(type, goodsNode);
+      },
+      count
+    );
   },
   //产蛋鸡上架事件（点击确定的回调）
   OnShelfEggChick(type, goodsNode) {
@@ -493,6 +502,40 @@ cc.Class({
       });
     });
   },
+  //鸡蛋上架
+  EggOnShelf(goods) {
+    let self = this;
+    Alert.show('0', null, null, null, null, null, 'Prefab/Sell', function() {
+      let selfAlert = this;
+      cc.loader.loadRes(Alert._newPrefabUrl, cc.Prefab, function(error, prefab) {
+        if (error) {
+          cc.error(error);
+          return;
+        }
+        // 实例
+        let alert = cc.instantiate(prefab);
+        Alert._alert = alert;
+        //动画
+        selfAlert.ready();
+        Alert._alert.parent = cc.find('Canvas');
+        selfAlert.startFadeIn();
+        let money = cc.find('bg/money', alert);
+        let name = cc.find('bg/name', alert).getComponent(cc.Label);
+        let guifeiji_pos = cc.find('guifeiji', alert);
+        guifeiji_pos.setPositionY(160);
+        let guifeiji = cc.find('guifeiji', alert).getComponent(cc.Sprite);
+        money.active = false;
+        name.string = '鸡蛋';
+        cc.loader.loadRes('Shop/guifeiji__', cc.SpriteFrame, (err, spriteFrame) => {
+          guifeiji.spriteFrame = spriteFrame;
+        });
+        // 关闭按钮money
+        selfAlert.newButtonEvent(alert, 'bg/btn-group/cancelButton');
+        self.P2PBuyData(alert, goods, 2);
+      });
+    });
+  },
+
   //兑换事件
   exChange(name, type) {
     // 放到Config.js做中转;
@@ -542,6 +585,7 @@ cc.Class({
     console.log(data);
 
     title.string = '贵妃鸡';
+
     //绑定input变化事件
     editBtn1.on('click', function() {
       if (count > 1) {
@@ -557,8 +601,6 @@ cc.Class({
         console.log(count);
       }
     });
-
-    //商品购买事件
     confirm.on('click', () => {
       Func.ChangeRanchChicken(count).then(data => {
         if (data.Code === 1) {
@@ -575,6 +617,7 @@ cc.Class({
         }
       });
     });
+    //商品购买事件
   }
 
   // update (dt) {},

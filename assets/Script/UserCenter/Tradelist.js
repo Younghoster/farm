@@ -63,8 +63,19 @@ cc.Class({
 
               switch (data.Model.BuyPropertyList[i].PrID) {
                 //普通饲料
+                case 1: {
+                  imgSrc_ = 'Modal/Repertory/icon-1';
+                  counts = 2;
+                  break;
+                }
                 case 2: {
                   imgSrc_ = 'Modal/Repertory/icon-1';
+                  counts = 1;
+                  break;
+                }
+                //普通肥料
+                case 13: {
+                  imgSrc_ = 'Modal/Repertory/hf_xs';
                   counts = 1;
                   break;
                 }

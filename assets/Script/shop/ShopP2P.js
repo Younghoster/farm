@@ -126,7 +126,7 @@ cc.Class({
       cc.loader.loadRes('Shop/guifeiji', cc.SpriteFrame, function(err, spriteFrame) {
         goodSprite.spriteFrame = spriteFrame;
       });
-      goodsLabel.string = '产蛋鸡（' + goods.days + '天）';
+      goodsLabel.string = '产蛋鸡(' + goods.layEggCount + '/60次)';
       priceLabel.string = goods.NowALLRanchMoney;
       goodsListNode.addChild(goodsNode);
     }
@@ -279,7 +279,7 @@ cc.Class({
     cc.loader.loadRes('Shop/guifeiji__', cc.SpriteFrame, function(err, spriteFrame) {
       icon.spriteFrame = spriteFrame;
     });
-    title.string = '产蛋鸡（' + data.days + '天）';
+    title.string = '产蛋鸡(' + data.layEggCount + '/60次)';
     valueComp.string = data.RanchMoney * count + '（价值' + data.RanchMoney / 10 + '元人民币）';
     editBtn1.on('click', function() {
       if (count > 1) {

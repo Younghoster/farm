@@ -113,7 +113,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "074e53f2-dbe1-4b19-908b-2866d21f6bf8"
     },
     "fileId": "fa1lTYtrpJwpaMmp/GbGCE",
     "sync": false

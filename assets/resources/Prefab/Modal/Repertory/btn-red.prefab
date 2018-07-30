@@ -191,7 +191,7 @@
       "__id__": 1
     },
     "_enabled": true,
-    "transition": 0,
+    "transition": 3,
     "pressedColor": {
       "__type__": "cc.Color",
       "r": 211,
@@ -207,7 +207,7 @@
       "a": 255
     },
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 0.95,
     "pressedSprite": null,
     "hoverSprite": null,
     "clickEvents": [],

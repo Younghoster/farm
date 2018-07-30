@@ -149,6 +149,7 @@ cc.Class({
     let confirm = cc.find('bg/btn-group/enterButton', obj);
     let valueComp = cc.find('bg/money/value', obj).getComponent(cc.Label);
     let valueCoin = cc.find('bg/money/coin', obj).getComponent(cc.Sprite);
+    let str2 = cc.find('bg/money/str2', obj).getComponent(cc.Label);
     let icon = cc.find('guifeiji', obj).getComponent(cc.Sprite);
     let title = cc.find('bg/name', obj).getComponent(cc.Label);
     let goodSprite = cc.find('guifeiji', obj).getComponent(cc.Sprite);
@@ -157,6 +158,7 @@ cc.Class({
     cc.loader.loadRes('Modal/Repertory/icon-asset02', cc.SpriteFrame, function(err, spriteFrame) {
       valueCoin.spriteFrame = spriteFrame;
     });
+    str2.string = '积分';
     title.string = data.PropName;
     valueComp.string = data.PropValue * count;
     editBtn1.on('click', function() {

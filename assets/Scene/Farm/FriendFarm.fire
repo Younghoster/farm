@@ -3541,7 +3541,7 @@
       "__id__": 87
     },
     "_enabled": true,
-    "transition": 0,
+    "transition": 3,
     "pressedColor": {
       "__type__": "cc.Color",
       "r": 211,
@@ -3557,7 +3557,7 @@
       "a": 255
     },
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 0.95,
     "pressedSprite": null,
     "hoverSprite": null,
     "clickEvents": [],
@@ -3672,7 +3672,7 @@
       "__id__": 90
     },
     "_enabled": true,
-    "transition": 0,
+    "transition": 3,
     "pressedColor": {
       "__type__": "cc.Color",
       "r": 211,
@@ -3688,7 +3688,7 @@
       "a": 255
     },
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 0.95,
     "pressedSprite": null,
     "hoverSprite": null,
     "clickEvents": [],
@@ -3803,7 +3803,7 @@
       "__id__": 93
     },
     "_enabled": true,
-    "transition": 0,
+    "transition": 3,
     "pressedColor": {
       "__type__": "cc.Color",
       "r": 211,
@@ -3819,7 +3819,7 @@
       "a": 255
     },
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 0.95,
     "pressedSprite": null,
     "hoverSprite": null,
     "clickEvents": [],
@@ -4078,7 +4078,7 @@
       "__id__": 100
     },
     "_enabled": true,
-    "transition": 0,
+    "transition": 3,
     "pressedColor": {
       "__type__": "cc.Color",
       "r": 211,
@@ -4094,7 +4094,7 @@
       "a": 255
     },
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 0.95,
     "pressedSprite": null,
     "hoverSprite": null,
     "clickEvents": [],
@@ -5971,7 +5971,7 @@
       "__id__": 154
     },
     "_enabled": true,
-    "transition": 0,
+    "transition": 3,
     "pressedColor": {
       "__type__": "cc.Color",
       "r": 211,
@@ -5987,7 +5987,7 @@
       "a": 255
     },
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 0.95,
     "pressedSprite": null,
     "hoverSprite": null,
     "clickEvents": [

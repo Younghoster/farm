@@ -12,7 +12,7 @@ var Alertshelf = {
   _price: null, //单价,
   _count: 1, //数量
   _enterCallBack: null, //确定按钮回调
-  show: function(name, enterCallBack) {
+  show: function(name, enterCallBack, count) {
     if (this._Alert != undefined) {
       this._Alert.destroy();
     }
@@ -52,6 +52,9 @@ var Alertshelf = {
       this._cancelButton.on('click', this.onButtonClicked, this);
       this._inputCountNode.on('text-changed', this.onTextChanged, this);
       this._inputPriceNode.on('text-changed', this.onTextChanged, this);
+      if (count) {
+        this._inputPriceEditBox.string = '输入价格(建议200-' + (count * 15 + 200) + ')';
+      }
 
       //将Node添加到父节点中
       this._Alert.parent = cc.find('Canvas');

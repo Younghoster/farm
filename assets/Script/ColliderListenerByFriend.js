@@ -10,6 +10,7 @@ cc.Class({
     cc.director.getCollisionManager().enabled = true;
     this.touchingNumber = 0;
     this.CollectNumber = 0;
+    this.iscollectCrops = false;
   },
 
   onCollisionEnter: function(other) {
@@ -133,15 +134,16 @@ cc.Class({
     let IsLock = this.dataList.List[id].IsLock;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus == 4 && !IsLock) {
-      Data.func.FriendsStealCrops(Config.friendOpenId).then(data => {
-        if (data.Code === 1) {
-          self.timers = setTimeout(function() {
+      if (!this.iscollectCrops) {
+        Data.func.FriendsStealCrops(Config.friendOpenId).then(data => {
+          if (data.Code === 1) {
+            this.iscollectCrops = true;
             Msg.show(data.Message);
-          }, 1500);
-        } else {
-          Msg.show(data.Message);
-        }
-      });
+          } else {
+            Msg.show(data.Message);
+          }
+        });
+      }
     }
   },
   onCollisionStay: function(other) {},
