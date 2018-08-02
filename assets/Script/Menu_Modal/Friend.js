@@ -46,11 +46,9 @@ cc.Class({
   },
   closeModal() {
     var self = this;
-    var action = cc.fadeOut(0.3);
-    this.node.runAction(action);
-    setTimeout(() => {
-      this.node.active = false;
-    }, 400);
+    // var action = cc.fadeOut(0.3);
+    // this.node.runAction(action);
+    this.node.active = false;
     // scrollView.removeFromParent();
     // this.node.removeChild(Modal);
   },
@@ -69,6 +67,7 @@ cc.Class({
     this.emptyNode = cc.find('bg-repertory/friendList/empty', this.node);
     this.emptyNode.active = false;
     this.contentNode = cc.find('bg-repertory/friendList/view/content', this.node);
+    this.updataDone = false;
     Func.GetFriendsList(this.friend_page).then(data => {
       if (data.Code === 1) {
         var friendList = data.List;
@@ -82,6 +81,7 @@ cc.Class({
           }
 
           this.friend_page++;
+          this.updataDone = true;
         }
       } else {
         if (this.friend_page === 1) {
@@ -134,7 +134,9 @@ cc.Class({
       'bounce-bottom',
       () => {
         if (this.option === 1) {
-          this.updateData();
+          if (this.updataDone) {
+            this.updateData();
+          }
         } else {
           this.updateSearchData();
         }
@@ -328,7 +330,7 @@ cc.Class({
     this.friend_page = 1;
     this.search_page = 1;
     this.option = 1; // 1代表好友列表  2.代表非好友列表
-
+    this.updataDone = true;
     this.bindEvent();
     //得到好友列表数据 并调用绑定方法
     this.updateData();

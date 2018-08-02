@@ -133,7 +133,8 @@ cc.Class({
     });
   },
   closeFeedState() {
-    Tool.closeModal(this.node);
+    // Tool.closeModal(this.node);
+    this.node.active = false;
   },
   start() {}
 

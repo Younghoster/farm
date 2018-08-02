@@ -136,6 +136,12 @@ cc.Class({
                   counts = 12;
                   break;
                 }
+                //可交易鸡蛋*26
+                case 26: {
+                  imgSrc_ = 'Modal/Repertory/icon-asset05';
+                  counts = 1;
+                  break;
+                }
                 default: {
                   break;
                 }

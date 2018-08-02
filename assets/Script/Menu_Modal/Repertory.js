@@ -177,7 +177,7 @@ cc.Class({
         () => {
           this.leave(PropName + '(' + goods.LayEggCount + '/60次)', goods.ID, goodsNode);
         },
-        '放手'
+        '忍心弃养'
       );
     }
     switch (PropertyTypeID) {
@@ -193,8 +193,7 @@ cc.Class({
           },
           '兑换',
           () => {
-            this.EggOnShelf(goods);
-            // this.shelfEvent(PropName + '(' + goods.LayEggCount + '/60次)', goods.ID, goodsNode, goods.LayEggCount);
+            this.shelfEvent(PropName, goods.ID, goodsNode, false, true);
           },
           '上架'
         );
@@ -390,8 +389,8 @@ cc.Class({
     // }
 
     //fadeIn 进入动画
-    modalNode.opacity = 0;
-    modalNode.runAction(cc.fadeIn(0.3));
+    // modalNode.opacity = 0;
+    // modalNode.runAction(cc.fadeIn(0.3));
     //关闭模态框
     bgNode.on('click', () => {
       Tool.closeModal(modalNode);
@@ -415,17 +414,23 @@ cc.Class({
     });
   },
   //点击上架 弹出模态框
-  shelfEvent(name, type, goodsNode, count) {
+  shelfEvent(name, type, goodsNode, count, isTwoEditbox) {
     Alertshelf.show(
       name,
       () => {
-        this.OnShelfEggChick(type, goodsNode);
+        if (isTwoEditbox) {
+          this.OnShelf(2, goodsNode);
+        } else {
+          this.OnShelfEggChick(type, goodsNode);
+        }
       },
-      count
+      count,
+      isTwoEditbox
     );
   },
   //产蛋鸡上架事件（点击确定的回调）
   OnShelfEggChick(type, goodsNode) {
+    let self = this;
     // Msg.show('接口还在开发中');
     let countLabel = cc.find('icon-tip/count', goodsNode).getComponent(cc.Label);
     //获取输入框的价格及数量
@@ -434,12 +439,12 @@ cc.Class({
     Func.ChickenONShelf(type, unitprice).then(data => {
       if (data.Code === 1) {
         Msg.show(data.Message);
+        cc.find('modal', self.node).removeFromParent();
         if (data.Model > 0) {
           countLabel.string = data.Model;
         } else {
           goodsNode.removeFromParent();
         }
-        cc.find('modal', this.node).removeFromParent();
       } else {
         Msg.show(data.Message);
       }
@@ -447,6 +452,7 @@ cc.Class({
   },
   //上架事件（点击确定的回调）
   OnShelf(type, goodsNode) {
+    let self = this;
     // Msg.show('接口还在开发中');
     let countLabel = cc.find('icon-tip/count', goodsNode).getComponent(cc.Label);
     //获取输入框的价格及数量
@@ -456,6 +462,7 @@ cc.Class({
       .then(data => {
         if (data.Code === 1) {
           Msg.show(data.Message);
+          cc.find('modal', self.node).removeFromParent();
           if (data.Model > 0) {
             countLabel.string = data.Model;
           } else {
@@ -499,39 +506,6 @@ cc.Class({
         // 关闭按钮money
         selfAlert.newButtonEvent(alert, 'bg/btn-group/cancelButton');
         self.P2PBuyData(alert, goods);
-      });
-    });
-  },
-  //鸡蛋上架
-  EggOnShelf(goods) {
-    let self = this;
-    Alert.show('0', null, null, null, null, null, 'Prefab/Sell', function() {
-      let selfAlert = this;
-      cc.loader.loadRes(Alert._newPrefabUrl, cc.Prefab, function(error, prefab) {
-        if (error) {
-          cc.error(error);
-          return;
-        }
-        // 实例
-        let alert = cc.instantiate(prefab);
-        Alert._alert = alert;
-        //动画
-        selfAlert.ready();
-        Alert._alert.parent = cc.find('Canvas');
-        selfAlert.startFadeIn();
-        let money = cc.find('bg/money', alert);
-        let name = cc.find('bg/name', alert).getComponent(cc.Label);
-        let guifeiji_pos = cc.find('guifeiji', alert);
-        guifeiji_pos.setPositionY(160);
-        let guifeiji = cc.find('guifeiji', alert).getComponent(cc.Sprite);
-        money.active = false;
-        name.string = '鸡蛋';
-        cc.loader.loadRes('Shop/guifeiji__', cc.SpriteFrame, (err, spriteFrame) => {
-          guifeiji.spriteFrame = spriteFrame;
-        });
-        // 关闭按钮money
-        selfAlert.newButtonEvent(alert, 'bg/btn-group/cancelButton');
-        self.P2PBuyData(alert, goods, 2);
       });
     });
   },

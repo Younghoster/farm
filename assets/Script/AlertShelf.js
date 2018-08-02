@@ -6,13 +6,13 @@ var Alertshelf = {
   _cancelButton: null, // 取消按钮
   _inputCountNode: null, //数量输入框节点
   _inputPriceNode: null, //价格输入框节点
-  // _inputCountEditBox: null, //数量输入框
+  _inputCountEditBox: null, //数量输入框
   _inputPriceEditBox: null, //价格输入框
   _moneyLabel: null, //总价
   _price: null, //单价,
   _count: 1, //数量
   _enterCallBack: null, //确定按钮回调
-  show: function(name, enterCallBack, count) {
+  show: function(name, enterCallBack, count, isTwoEditbox) {
     if (this._Alert != undefined) {
       this._Alert.destroy();
     }
@@ -38,7 +38,7 @@ var Alertshelf = {
       this._enterButton = cc.find('bg/btn-group/enterButton', alert);
       this._cancelButton = cc.find('bg/btn-group/cancelButton', alert);
       this._inputCountNode = cc.find('bg/input-count', alert);
-      // this._inputCountEditBox = this._inputCountNode.getComponent(cc.EditBox);
+      this._inputCountEditBox = this._inputCountNode.getComponent(cc.EditBox);
       this._inputPriceNode = cc.find('bg/input-price', alert);
       this._inputPriceEditBox = this._inputPriceNode.getComponent(cc.EditBox);
       this._moneyLabel = cc.find('bg/money/value', alert).getComponent(cc.Label);
@@ -54,8 +54,12 @@ var Alertshelf = {
       this._inputPriceNode.on('text-changed', this.onTextChanged, this);
       if (count) {
         this._inputPriceEditBox.string = '输入价格(建议200-' + (count * 15 + 200) + ')';
+      } else {
+        this._inputPriceEditBox.string = '输入单价(建议10-30)';
       }
-
+      if (isTwoEditbox) {
+        this._inputCountNode.active = true;
+      }
       //将Node添加到父节点中
       this._Alert.parent = cc.find('Canvas');
       // 展现 alert
@@ -83,7 +87,11 @@ var Alertshelf = {
     };
     //editBox 文字改变方法
     Alertshelf.onTextChanged = function() {
-      // this._count = parseInt(this._inputCountEditBox.string) || 0;
+      if (isTwoEditbox) {
+        this._count = parseInt(this._inputCountEditBox.string) || 0;
+      } else {
+        this._count = 1;
+      }
       this._price = parseInt(this._inputPriceEditBox.string) || 0;
       this._moneyLabel.string = this._price * this._count;
     };

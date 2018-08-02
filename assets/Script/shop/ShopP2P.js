@@ -112,27 +112,44 @@ cc.Class({
         onSell = cc.find('xia/text', goodsNode);
         onSell.getComponent(cc.Label).string = '下架';
         //绑定我的商品的 点击事件
-        self.bindSellEvent(clicknode, goods.OffType, goods.ID);
+        if (goods.Type == 3) {
+          self.bindSellEvent(clicknode, goods.OffType, goods.ID);
+        } else if (goods.Type == 2) {
+          self.OffShelf(clicknode, goods.OffType, goods.ID);
+        }
       } else {
-        // goodsNode = cc.instantiate(self.goods2_Prefab);
-        //绑定其余的购买商品的点击事件
-        goodsNode = self.bindGoodsEvent(type, goods);
+        goodsNode = cc.instantiate(self.goods2_Prefab);
+        // //绑定其余的购买商品的点击事件
+        if (goods.Type == 3) {
+          goodsNode = self.bindGoodsEvent(type, goods);
+        } else if (goods.Type == 2) {
+          goodsNode = self.bindEggsEvent(type, goods);
+        }
       }
+
       goodSprite = cc.find('pic-box/pic', goodsNode).getComponent(cc.Sprite);
       goodsLabel = cc.find('price-box/goods_label', goodsNode).getComponent(cc.Label);
       priceLabel = cc.find('price-box/bg-price/price', goodsNode).getComponent(cc.Label);
       count = 1;
       //渲染商品列表
-      cc.loader.loadRes('Shop/guifeiji', cc.SpriteFrame, function(err, spriteFrame) {
-        goodSprite.spriteFrame = spriteFrame;
-      });
-      goodsLabel.string = '产蛋鸡(' + goods.layEggCount + '/60次)';
+
+      if (goods.Type == 3) {
+        cc.loader.loadRes('Shop/guifeiji', cc.SpriteFrame, function(err, spriteFrame) {
+          goodSprite.spriteFrame = spriteFrame;
+        });
+        goodsLabel.string = '产蛋鸡(' + goods.layEggCount + '/60次)';
+      } else if (goods.Type == 2) {
+        cc.loader.loadRes('Shop/icon-egg', cc.SpriteFrame, function(err, spriteFrame) {
+          goodSprite.spriteFrame = spriteFrame;
+        });
+        goodsLabel.string = '鸡蛋×' + goods.NowCount;
+      }
       priceLabel.string = goods.NowALLRanchMoney;
       goodsListNode.addChild(goodsNode);
     }
   },
 
-  //下架事件
+  //鸡下架事件
   bindSellEvent(obj, e, playerid) {
     obj.on('click', event => {
       Func.ChickenOffhelf(playerid).then(data => {
@@ -147,8 +164,74 @@ cc.Class({
       });
     });
   },
+  //蛋下架事件
+  OffShelf(obj, e, playerid) {
+    obj.on('click', event => {
+      Func.OffShelf(playerid).then(data => {
+        if (data.Code === 1) {
+          Msg.show('下架成功');
+          setTimeout(function() {
+            cc.director.loadScene('shopP2P');
+          }, 1500);
+        } else {
+          Msg.show(data.Message);
+        }
+      });
+    });
+  },
+  //鸡蛋事件绑定
+  bindEggsEvent(type, data) {
+    var self = this;
+    let goods;
+    //选择预置资源类型
+    goods = cc.instantiate(this.goods_Prefab);
+    goods.on('click', event => {
+      Alert.show('0', null, null, null, null, null, 'Prefab/Sell', function() {
+        let selfAlert = this;
+        cc.loader.loadRes(Alert._newPrefabUrl, cc.Prefab, function(error, prefab) {
+          if (error) {
+            cc.error(error);
+            return;
+          }
+          // 实例
 
-  //商品事件绑定
+          let alert = cc.instantiate(prefab);
+          let choose = cc.find('bg/content', alert);
+          let guifeiji = cc.find('/guifeiji', alert);
+          let label1 = cc.find('bg/label1', alert);
+          let label2 = cc.find('bg/label2', alert);
+          let label3 = cc.find('bg/label3', alert);
+          let label4 = cc.find('bg/money/str2', alert);
+          Func.EggOnShelfInfo(data.ID).then(data => {
+            if (data.Code === 1) {
+              label1.getComponent(cc.Label).string = '上架人：' + data.Model.eggOwner;
+              label2.getComponent(cc.Label).string = '数量：' + data.Model.eggCount;
+              // label3.getComponent(cc.Label).string = '产蛋次数：' + data.Model.chickenLayEggTimes + '/60次';
+              guifeiji.setPositionY(220);
+              choose.active = false;
+              label1.active = true;
+              label2.active = true;
+              label3.active = false;
+              label4.active = false;
+            } else {
+              Msg.show(data.Message);
+            }
+          });
+
+          Alert._alert = alert;
+          //动画
+          selfAlert.ready();
+          Alert._alert.parent = cc.find('Canvas');
+          selfAlert.startFadeIn();
+          // 关闭按钮
+          selfAlert.newButtonEvent(alert, 'bg/btn-group/cancelButton');
+          self.P2PBuyData(alert, data, 1);
+        });
+      });
+    });
+    return goods;
+  },
+  //产蛋鸡事件绑定
   bindGoodsEvent(type, data) {
     var self = this;
     let goods;
@@ -170,6 +253,7 @@ cc.Class({
           let label1 = cc.find('bg/label1', alert);
           let label2 = cc.find('bg/label2', alert);
           let label3 = cc.find('bg/label3', alert);
+          let label4 = cc.find('bg/money/str2', alert);
           Func.GetChickenOnshelfInfo(data.ID).then(data => {
             if (data.Code === 1) {
               label1.getComponent(cc.Label).string = '上架人：' + data.Model.chickenOwner;
@@ -180,6 +264,7 @@ cc.Class({
               label1.active = true;
               label2.active = true;
               label3.active = true;
+              label4.active = false;
             } else {
               Msg.show(data.Message);
             }
@@ -192,7 +277,7 @@ cc.Class({
           selfAlert.startFadeIn();
           // 关闭按钮
           selfAlert.newButtonEvent(alert, 'bg/btn-group/cancelButton');
-          self.P2PBuyData(alert, data);
+          self.P2PBuyData(alert, data, 0);
         });
       });
     });
@@ -264,7 +349,7 @@ cc.Class({
     }
   },
   //购买商品模态框数据绑定
-  P2PBuyData(obj, data) {
+  P2PBuyData(obj, data, type) {
     //初始总价
     let sumMoney = cc.find('bg/money/value', obj).getComponent(cc.Label);
     let editBox = cc.find('bg/content/rect-border/text', obj).getComponent(cc.Label);
@@ -279,8 +364,15 @@ cc.Class({
     cc.loader.loadRes('Shop/guifeiji__', cc.SpriteFrame, function(err, spriteFrame) {
       icon.spriteFrame = spriteFrame;
     });
-    title.string = '产蛋鸡(' + data.layEggCount + '/60次)';
-    valueComp.string = data.RanchMoney * count + '（价值' + data.RanchMoney / 10 + '元人民币）';
+    if (type == 1) {
+      title.string = '鸡蛋';
+      count = data.NowCount;
+    } else if (type == 0) {
+      count = 1;
+      title.string = '产蛋鸡(' + data.layEggCount + '/60次)';
+    }
+
+    valueComp.string = data.RanchMoney * count + '（价值' + (data.RanchMoney * count) / 10 + '元人民币）';
     editBtn1.on('click', function() {
       if (count > 1) {
         count--;
@@ -296,7 +388,6 @@ cc.Class({
       }
     });
     //绑定input变化事件
-
     //商品购买事件
     confirm.on('click', () => {
       if (count > data.NowCount) {

@@ -27,6 +27,7 @@ window.Config = {
   firstLogin: false,
   guideStep: 1,
   EggCount: 0,
+  guideIntro: 0,
   messageCount: 0,
   addressId: 0, //地址ID
   weather: 1, //天气情况（-1代表下雨，0代表阴天，1代表晴天）

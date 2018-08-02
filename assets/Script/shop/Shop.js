@@ -111,7 +111,9 @@ cc.Class({
         iconSrc2 = 'Shop/guifeiji_';
         break;
       case 4: //饲料
-        if (data.PropValue == 78) {
+        if (data.PropValue == 3) {
+          iconSrc = 'Shop/icon-1';
+        } else if (data.PropValue == 78) {
           iconSrc = 'Shop/icon-1';
         } else if (data.PropValue == 148) {
           iconSrc = 'Shop/icon-2';
@@ -180,11 +182,17 @@ cc.Class({
     let valueComp = cc.find('bg/money/value', obj).getComponent(cc.Label);
     let icon = cc.find('guifeiji', obj).getComponent(cc.Sprite);
     let title = cc.find('bg/name', obj).getComponent(cc.Label);
+    let label1Node = cc.find('bg/label1', obj);
+    let label1 = cc.find('bg/label1', obj).getComponent(cc.Label);
+    let guifeiji = cc.find('guifeiji', obj);
     let goodSprite = cc.find('guifeiji', obj).getComponent(cc.Sprite);
     let count = 1;
     self.selectIcon(data, goodSprite, 1);
     title.string = data.PropName;
     valueComp.string = data.PropValue;
+    label1.string = data.Remark;
+    label1Node.active = true;
+    guifeiji.setPositionY(240);
     //绑定input变化事件
     valueComp.string = data.PropValue * count;
     editBtn1.on('click', function() {

@@ -144,9 +144,11 @@ cc.Class({
         }, 1000);
       } else if (obj.name == Func.openID && obj.type == 'friend') {
         self.div_Menu = cc.find('div_menu');
-        self.div_Menu.emit('upDataFriend', {
-          data: ''
-        });
+        setTimeout(function() {
+          self.div_Menu.emit('upDataFriend', {
+            data: ''
+          });
+        }, 1000);
       } else if (obj.name == Func.openID && obj.type == 'updateEggCount') {
         self.eggNode.active = false;
       }
@@ -620,7 +622,10 @@ cc.Class({
     cc.director.loadScene('UserCenter/userCenter');
     this.removePersist();
   },
-
+  btnHelpCenter() {
+    cc.director.loadScene('Help');
+    this.removePersist();
+  },
   loadSceneRepertory() {
     cc.director.loadScene('repertory');
     this.removePersist();

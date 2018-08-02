@@ -30,8 +30,8 @@ var Modal = cc.Class({
     var self = this;
     console.log('close modal');
     this.Modal.active = false;
-    var action = cc.sequence(cc.fadeOut(0.3), cc.callFunc(this._Modal.removeFromParent, this._Modal));
-    this._Modal.runAction(action);
+    // var action = cc.sequence(cc.fadeOut(0.3), cc.callFunc(this._Modal.removeFromParent, this._Modal));
+    // this._Modal.runAction(action);
   },
 
   //弹出动画 （默认fadeIn）
@@ -40,9 +40,9 @@ var Modal = cc.Class({
     switch (type) {
       case 'fadeIn':
         this._Modal.active = true;
-        this._Modal.opacity = 0;
-        action = cc.fadeIn(0.3);
-        this._Modal.runAction(action);
+        // this._Modal.opacity = 0;
+        // action = cc.fadeIn(0.3);
+        // this._Modal.runAction(action);
         break;
       case 'moveIn':
         var shareNode = cc.find('bg-share', this._Modal);
@@ -51,9 +51,9 @@ var Modal = cc.Class({
         break;
       default:
         this._Modal.active = true;
-        this._Modal.opacity = 0;
-        action = cc.fadeIn(0.3);
-        this._Modal.runAction(action);
+        // this._Modal.opacity = 0;
+        // action = cc.fadeIn(0.3);
+        // this._Modal.runAction(action);
         break;
     }
 

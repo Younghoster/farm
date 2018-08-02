@@ -21,8 +21,9 @@ var Tool = {
   },
   //关闭模态
   closeModal: function(node) {
-    var action = cc.sequence(cc.fadeOut(0.3), cc.callFunc(node.removeFromParent, node));
-    node.runAction(action);
+    node.active = false;
+    // var action = cc.sequence(cc.fadeOut(0.3), cc.callFunc(node.removeFromParent, node));
+    // node.runAction(action);
   },
   //范围随机值
   random(min, max) {

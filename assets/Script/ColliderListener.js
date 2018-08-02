@@ -51,9 +51,11 @@ cc.Class({
       self.timers2 = setTimeout(function() {
         Msg.show('播种成功，经验+5');
       }, 500);
-      this.dataList.List[id].CropsStatus = 1;
-      cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
       Data.func.addCrops(landId, propertyId).then(data => {
+        if (data.Code == 1) {
+          this.dataList.List[id].CropsStatus = 1;
+          cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
+        }
         // self.timers = setTimeout(function() {
         //   if (data.Code == 1) {
         //     // self.FarmJs.emit('updataPlant', {
