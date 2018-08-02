@@ -2299,7 +2299,7 @@ var func = {
   AllChickenLayEggTime() {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
           if (xhr.status == 200) {
             var response = xhr.responseText;
@@ -2363,8 +2363,8 @@ var func = {
       xhr.send(`playerTradingID=${id}`);
     });
   },
-   //蛋的介绍
-   EggOnShelfInfo(id) {
+  //蛋的介绍
+  EggOnShelfInfo(id) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -2429,6 +2429,29 @@ var func = {
       xhr.open('POST', Config.apiUrl + '/T_Base_Exchange/ChangeRanchChicken', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.send('openId=' + this.openID + '&count=' + count);
+    });
+  },
+  //砸金蛋
+  SmashGoldEgg(eggId) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            console.log('获取数据失败');
+            reject(response);
+          }
+        }
+      };
+
+      xhr.open('POST', Config.apiUrl + '/T_Base_LayEggsShed/SmashGoldEgg', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.send('openId=' + this.openID + '&eggId=' + eggId);
     });
   }
 };

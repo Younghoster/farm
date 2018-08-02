@@ -169,6 +169,7 @@ cc.Class({
     //排名（字段不确定）
     var rank = element.Row || i;
     var clean = element.IsClean;
+    var crops = element.IsCrops;
     var feed = element.IsFeed;
     var water = element.IsDry;
     var steal = element.IsSteal;
@@ -226,7 +227,7 @@ cc.Class({
         waterNode.active = true;
         i++;
       }
-      if ((steal || stealLayEggShed) && i < 4) {
+      if ((crops || stealLayEggShed) && i < 4) {
         stealNode.active = true;
         i++;
       }

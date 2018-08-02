@@ -159,6 +159,15 @@ cc.Class({
                 //   this.eggNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
                 // });
                 this.breakButton.on('click', () => {
+                  setTimeout(function() {
+                    Func.SmashGoldEgg(eggID).then(data => {
+                      if (data.Code === 1) {
+                        Msg.show(data.Message);
+                      } else {
+                        Msg.show(data.Message);
+                      }
+                    });
+                  }, 1000);
                   this.breakButton.active = false;
                   this.eggAnim.play('eggBroken');
                   this.eggNode.on('click', () => {
