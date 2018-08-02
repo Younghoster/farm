@@ -748,31 +748,32 @@ cc.Class({
     });
   },
   farmSpeak() {
+    clearTimeout(this.timeFarmer);
+
     let showNode = cc.find('farmer/farmer-text', this.node);
     let showNodeText = cc.find('farmer/farmer-text/text', this.node).getComponent(cc.Label);
     if (this.speakList.length == 1) {
       this.speakType = 0;
     }
-    showNodeText.string = this.speakList[this.speakType];
-    this.speakType++;
-    if (this.speakType >= this.speakList.length) {
-      this.speakType = 0;
-    }
+    if (this.speakList[this.speakType] != undefined) {
+      showNodeText.string = this.speakList[this.speakType];
+      this.speakType++;
+      if (this.speakType >= this.speakList.length) {
+        this.speakType = 0;
+      }
 
-    // clearTimeout(timer);
-    showNode.active = true;
-    showNode.opacity = 0;
-    showNode.runAction(cc.fadeIn(0.5));
-    var action = cc.sequence(
-      cc.fadeOut(0.5),
-      cc.callFunc(() => {
+      showNode.active = true;
+      // var action = cc.sequence(
+      //   cc.fadeOut(0.5),
+      //   cc.callFunc(() => {
+      //     showNode.active = false;
+      //   }, this)
+      // );
+
+      this.timeFarmer = setTimeout(() => {
         showNode.active = false;
-      }, this)
-    );
-
-    // let timer = setTimeout(() => {
-    //   showNode.runAction(action);
-    // }, 5000);
+      }, 5000);
+    }
   }
 
   //update(dt) {}
