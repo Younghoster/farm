@@ -136,96 +136,108 @@ cc.Class({
         default:
           break;
       }
-      //绑定收取操作
-      holeNode.on('click', () => {
-        clearTimeout(this.timers); //清理定时器
-        Func.CollectEgg(eggID).then(data => {
-          if (data.Code === 1) {
-            //收取成功后 把蛋去掉（页面上）
-            this.hasEggCount--;
-            cc.loader.loadRes('eggHouse/img3', cc.SpriteFrame, (err, spriteFrame) => {
-              holeSprite.spriteFrame = spriteFrame;
-            });
-            let timerBar = cc.find('timerBar', holeNode);
-            timerBar.active = false;
-            switch (data.Model) {
-              case -1:
-                //金蛋
-                this.animNode.active = true;
-                this.animNode.runAction(cc.fadeIn(0.3));
-                this.breakButton.active = true;
-
-                // cc.loader.loadRes('eggHouse/egg0', cc.SpriteFrame, (err, spriteFrame) => {
-                //   this.eggNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-                // });
-                this.breakButton.on('click', () => {
-                  setTimeout(function() {
-                    Func.SmashGoldEgg(eggID).then(data => {
-                      if (data.Code === 1) {
-                        Msg.show(data.Message);
-                      } else {
-                        Msg.show(data.Message);
-                      }
-                    });
-                  }, 1000);
-                  this.breakButton.active = false;
-                  this.eggAnim.play('eggBroken');
-                  this.eggNode.on('click', () => {
-                    let action = cc.sequence(
-                      cc.fadeOut(0.3),
-                      cc.callFunc(() => {
-                        this.animNode.active = false;
-                      })
-                    );
-                    this.animNode.runAction(action);
-                  });
-                  this.modalNode.on('click', () => {
-                    let action = cc.sequence(
-                      cc.fadeOut(0.3),
-                      cc.callFunc(() => {
-                        this.animNode.active = false;
-                        this.modalNode.off('click');
-                      })
-                    );
-                    this.animNode.runAction(action);
-                  });
+      //如果是 金蛋 不绑定事件
+      if (data.Type == 3) {
+        //绑定收取操作
+        holeNode.on('click', () => {
+          //金蛋
+          this.animNode.active = true;
+          this.animNode.runAction(cc.fadeIn(0.3));
+          this.breakButton.active = true;
+          this.eggNode.on('click', () => {
+            this.animNode.active = false;
+          });
+          this.modalNode.on('click', () => {
+            this.animNode.active = false;
+            this.modalNode.off('click');
+          });
+          this.breakButton.on('click', () => {
+            Func.CollectEgg(eggID).then(data => {
+              if (data.Code === 1) {
+                //收取成功后 把蛋去掉（页面上）
+                this.hasEggCount--;
+                cc.loader.loadRes('eggHouse/img3', cc.SpriteFrame, (err, spriteFrame) => {
+                  holeSprite.spriteFrame = spriteFrame;
                 });
-                break;
-              case 0:
-                //变质的鸡蛋
+                let timerBar = cc.find('timerBar', holeNode);
+                timerBar.active = false;
+              } else {
+                // Msg.show(data.Message);
+              }
+            });
+            setTimeout(function() {
+              Func.SmashGoldEgg(eggID).then(data => {
+                if (data.Code === 1) {
+                  Msg.show(data.Message);
+                  self.animNode.active = false;
 
-                this.CollectEggCountBad++;
-                self.timers = setTimeout(function() {
-                  Msg.show('收取成功，正常鸡蛋+' + self.CollectEggCount + '，变质鸡蛋+' + self.CollectEggCountBad);
-                  self.CollectEggCount = 0;
-                  self.CollectEggCountBad = 0;
-                }, 1000);
-                break;
-              case 1:
-                //正常鸡蛋
-                this.CollectEggCount++;
-                self.timers = setTimeout(function() {
-                  Msg.show('收取成功，正常鸡蛋+' + self.CollectEggCount + '，变质鸡蛋+' + self.CollectEggCountBad);
-                  self.CollectEggCount = 0;
-                  self.CollectEggCountBad = 0;
-                }, 1000);
-
-                break;
-
-              default:
-                break;
-            }
-            let str = "{name:'" + Config.openID + "',type:'updataChat'}";
-            Config.newSocket.send(str);
-            if (this.hasEggCount == 0) {
-              let str2 = "{name:'" + Config.openID + "',type:'updateEggCount'}";
-              Config.newSocket.send(str2);
-            }
-          } else {
-            Msg.show(data.Message);
+                  self.eggAnim.setCurrentTime(0, 'eggBroken');
+                } else {
+                  // Msg.show(data.Message);
+                }
+              });
+            }, 1500);
+            this.breakButton.active = false;
+            this.breakButton.off('click');
+            this.eggAnim.play('eggBroken');
+          });
+          let str = "{name:'" + Config.openID + "',type:'updataChat'}";
+          Config.newSocket.send(str);
+          if (this.hasEggCount == 0) {
+            let str2 = "{name:'" + Config.openID + "',type:'updateEggCount'}";
+            Config.newSocket.send(str2);
           }
         });
-      });
+      } else {
+        //绑定收取操作
+        holeNode.on('click', () => {
+          clearTimeout(this.timers); //清理定时器
+          Func.CollectEgg(eggID).then(data => {
+            if (data.Code === 1) {
+              //收取成功后 把蛋去掉（页面上）
+              this.hasEggCount--;
+              cc.loader.loadRes('eggHouse/img3', cc.SpriteFrame, (err, spriteFrame) => {
+                holeSprite.spriteFrame = spriteFrame;
+              });
+              let timerBar = cc.find('timerBar', holeNode);
+              timerBar.active = false;
+              switch (data.Model) {
+                case 0:
+                  //变质的鸡蛋
+
+                  this.CollectEggCountBad++;
+                  self.timers = setTimeout(function() {
+                    Msg.show('收取成功，正常鸡蛋+' + self.CollectEggCount + '，变质鸡蛋+' + self.CollectEggCountBad);
+                    self.CollectEggCount = 0;
+                    self.CollectEggCountBad = 0;
+                  }, 1000);
+                  break;
+                case 1:
+                  //正常鸡蛋
+                  this.CollectEggCount++;
+                  self.timers = setTimeout(function() {
+                    Msg.show('收取成功，正常鸡蛋+' + self.CollectEggCount + '，变质鸡蛋+' + self.CollectEggCountBad);
+                    self.CollectEggCount = 0;
+                    self.CollectEggCountBad = 0;
+                  }, 1000);
+
+                  break;
+
+                default:
+                  break;
+              }
+              let str = "{name:'" + Config.openID + "',type:'updataChat'}";
+              Config.newSocket.send(str);
+              if (this.hasEggCount == 0) {
+                let str2 = "{name:'" + Config.openID + "',type:'updateEggCount'}";
+                Config.newSocket.send(str2);
+              }
+            } else {
+              Msg.show(data.Message);
+            }
+          });
+        });
+      }
     } else {
       //没蛋
       cc.loader.loadRes('eggHouse/img3', cc.SpriteFrame, (err, spriteFrame) => {

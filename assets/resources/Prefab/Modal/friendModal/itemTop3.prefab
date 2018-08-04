@@ -567,7 +567,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 69.34,
+      "width": 87.13,
       "height": 40
     },
     "_rotationX": 0,
@@ -576,7 +576,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -20.33,
+      "x": -11.435000000000002,
       "y": 0
     },
     "_skewX": 0,
@@ -595,8 +595,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 26,
-    "_fontSize": 26,
+    "_actualFontSize": 30,
+    "_fontSize": 30,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
@@ -605,7 +605,7 @@
     "_N$string": "Storm",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "微软雅黑",
     "_N$overflow": 0
   },
   {

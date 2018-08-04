@@ -1,7 +1,7 @@
 window.Config = {
   shopP2P: 1, //交易市场场景切换参数
   apiUrl: 'http://wxapi.zjytny.cn',
-
+  shareID: null,
   backArr: [],
   openID: null,
   hearderNode: null,

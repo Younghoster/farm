@@ -473,7 +473,7 @@
       "a": 255
     },
     "_N$placeholder": "   输入用户名",
-    "_N$placeholderFontSize": 20,
+    "_N$placeholderFontSize": 25,
     "_N$placeholderFontColor": {
       "__type__": "cc.Color",
       "r": 127,

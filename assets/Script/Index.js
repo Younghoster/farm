@@ -74,6 +74,7 @@ cc.Class({
     Config.headImg = data.UserModel.Headimgurl;
     Config.UserModel = data.UserModel;
     Config.UserData = data;
+    Config.shareID = data.UserModel.ID;
     //用户头像
     let headImg = cc.find('div_header/advisor/advisor', this.node.parent);
 

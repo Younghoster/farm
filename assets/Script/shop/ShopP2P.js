@@ -322,7 +322,7 @@ cc.Class({
         self.getInitIndicator(index, size, data, e);
       });
     } else if (e == 4) {
-      Func.GetSellList(1, index + 1, size).then(data => {
+      Func.GetSellList(3, index + 1, size).then(data => {
         self.getInitIndicator(index, size, data, e);
       });
     }
@@ -343,7 +343,7 @@ cc.Class({
         self.dataFetch(index, size, data, e);
       });
     } else if (e == 4) {
-      Func.GetSellList(1, index + 1, size).then(data => {
+      Func.GetSellList(3, index + 1, size).then(data => {
         self.dataFetch(index, size, data, e);
       });
     }

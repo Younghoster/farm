@@ -148,9 +148,9 @@ cc.Class({
     if (this.EggAllCount < 11) {
       Msg.show('数量不足！');
     } else {
-      Config.exchangeData.actualName = '鸡蛋';
+      Config.exchangeData.actualName = '鸡蛋(盒)';
       Config.exchangeData.actualCount = 1;
-      Config.exchangeData.virtualName = '鸡蛋';
+      Config.exchangeData.virtualName = '鸡蛋(个)';
       Config.exchangeData.virtualCount = 1;
       Config.exchangeData.goodsType = 2;
       cc.director.loadScene('exchange');

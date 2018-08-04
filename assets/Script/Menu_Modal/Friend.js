@@ -261,6 +261,17 @@ cc.Class({
         cc.director.loadScene('FriendIndex', () => {
           this.onLoadFadeIn();
         });
+      } else if (cc.find('Canvas').parent._name == 'FriendIndex') {
+        Config.friendOpenId = openIds;
+        cc.director.loadScene('FriendIndex', () => {
+          this.onLoadFadeIn();
+        });
+      }
+      if (cc.find('Canvas').parent._name == 'FriendFarm') {
+        Config.friendOpenId = openIds;
+        cc.director.loadScene('FriendFarm', () => {
+          this.onLoadFadeIn();
+        });
       } else {
         Config.friendOpenId = openIds;
         cc.director.loadScene('FriendFarm', () => {

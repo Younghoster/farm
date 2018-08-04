@@ -41,11 +41,12 @@ cc.Class({
     var cancelButton = cc.find('close', this.node);
     //关闭模态框
     cancelButton.on('click', () => {
-      var action = cc.fadeOut(0.3);
-      this.node.runAction(action);
-      setTimeout(() => {
-        this.node.active = false;
-      }, 400);
+      this.node.active = false;
+      // var action = cc.fadeOut(0.3);
+      // this.node.runAction(action);
+      // setTimeout(() => {
+      //   this.node.active = false;
+      // }, 400);
       this.clearData();
       this.hasMore = true;
     });
@@ -131,6 +132,11 @@ cc.Class({
             rejuseptBtn.active = false;
           }
           msg_title.string = data.List[i].RealName;
+
+          //设置好友头像
+          var itemImg = cc.find('messageBgf/left/New Node/New Node/messageIcon', item);
+          this.setHeadImg(itemImg, data.List[i].Headimgurl);
+
           //接受
           acceptBtn.on('click', function() {
             Data.func.PostConfirmFriends(data.List[i].ID, true).then(msg => {
@@ -221,6 +227,15 @@ cc.Class({
         console.log(data.Message);
       }
     });
+  },
+  //设置好友头像
+  setHeadImg(dom, friendImg) {
+    if (friendImg !== '') {
+      cc.loader.load({ url: friendImg, type: 'png' }, function(err, texture) {
+        var frame = new cc.SpriteFrame(texture);
+        dom.getComponent(cc.Sprite).spriteFrame = frame;
+      });
+    }
   },
   //上拉触底刷新数据
   updataByBottom() {
