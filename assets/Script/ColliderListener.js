@@ -200,6 +200,7 @@ cc.Class({
                       this.dataList.List[id].CropsStatus = CropsStatus + 1;
                     }
                   }
+                  this.dataList.List[id].CropsSpreadCount = 1;
                   cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
                 } else {
                   Msg.show(data.Message);

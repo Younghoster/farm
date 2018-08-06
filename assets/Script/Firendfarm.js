@@ -400,7 +400,7 @@ cc.Class({
     });
     tool.on('touchmove', function(e) {
       if (self.Value.toolType != 0) {
-        self.Prefab.setPosition(e.getLocation().x - 50, e.getLocation().y + 120);
+        self.Prefab.setPosition(e.getLocation().x - 50, e.getLocation().y - 100);
       }
     });
     tool.on('touchend', function() {

@@ -140,6 +140,7 @@ cc.Class({
             this.iscollectCrops = true;
             Msg.show(data.Message);
           } else {
+            this.iscollectCrops = true;
             Msg.show(data.Message);
           }
         });

@@ -177,7 +177,7 @@ cc.Class({
         () => {
           this.leave(PropName + '(' + goods.LayEggCount + '/60次)', goods.ID, goodsNode);
         },
-        '忍心弃养'
+        '忍痛弃养'
       );
     }
     switch (PropertyTypeID) {

@@ -26,7 +26,18 @@ cc.Class({
       self.showMenu();
     });
     this.getWeather();
+    this.getShare();
+    cc.sys.localStorage.clear();
+  },
+  getShare() {
+    let self = this;
     Func.getWxUserShare().then(data => {
+      // if (!this.isgetshare) {
+      //   this.isgetshare = setTimeout(function() {
+      //     self.getShare();
+      //   }, data.miniteReflash * 60 * 1000);
+      // }
+
       wx.config({
         appId: data.appId, // 必填，公众号的唯一标识
         timestamp: data.timestamp, // 必填，生成签名的时间戳
@@ -62,7 +73,6 @@ cc.Class({
         _shareCfuc();
       });
     });
-    cc.sys.localStorage.clear();
   },
   start() {
     let self = this;

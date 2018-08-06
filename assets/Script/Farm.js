@@ -348,6 +348,11 @@ cc.Class({
         Tool.RunAction(PrefabPlant_ok, 'fadeIn', 0.3);
         Tool.RunAction(PrefabPlant_tip, 'fadeIn', 0.3);
       }
+      //是否施肥
+      if (ValueList[i].CropsSpreadCount == 1) {
+        let itemBox = cc.find('bg/mapNew/item' + i, this.node);
+        self.setWhetherIcon(itemBox, 1);
+      }
       //重置名字赋值
       Prefab.name = 'Prefab' + i;
       //定位于碰撞事件触发的点
@@ -553,7 +558,7 @@ cc.Class({
   touchmove(i, posX, posY) {
     let self = this;
     if (self.Value.toolType != 0) {
-      self.Prefab.setPosition(posX, posY);
+      self.Prefab.setPosition(posX - 50, posY - 100);
     }
   },
   touchend(i) {

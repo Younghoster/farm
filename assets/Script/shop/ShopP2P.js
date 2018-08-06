@@ -92,7 +92,7 @@ cc.Class({
         buttonVal.string = '鸡蛋';
         break;
       case 4:
-        buttonVal.string = '贵妃鸡';
+        buttonVal.string = '产蛋鸡';
         break;
     }
   },
