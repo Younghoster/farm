@@ -513,13 +513,17 @@ cc.Class({
   //兑换事件
   exChange(name, type) {
     // 放到Config.js做中转;
-    Config.exchangeData.actualName = name;
-    Config.exchangeData.actualCount = 1;
-    Config.exchangeData.virtualName = name;
+
     if (type == 2) {
       Config.exchangeData.virtualCount = 1;
+      Config.exchangeData.actualName = name + '(12枚/盒)';
+      Config.exchangeData.actualCount = 1;
+      Config.exchangeData.virtualName = name + '(个)';
     } else if (type == 1) {
       Config.exchangeData.virtualCount = 1;
+      Config.exchangeData.actualName = name;
+      Config.exchangeData.actualCount = 1;
+      Config.exchangeData.virtualName = name;
     }
     Config.exchangeData.goodsType = type;
     cc.director.loadScene('exchange');

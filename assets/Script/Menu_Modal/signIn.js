@@ -48,7 +48,7 @@ cc.Class({
         // 数据的年份 月份
         let year = data.List[0].signtime.match(/\d+/g)[0];
         let month = data.List[0].signtime.match(/\d+/g)[1] - 1; //为什么要减一
-        console.log(data.List, year, month);
+
         this.canlendarJs.func.initCalendar.call(this.canlendarJs, data.List, year, month);
         //已签到 按钮变灰
         if (this.canlendarJs.todayNode.getChildByName('item_do').active) {

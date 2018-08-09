@@ -9,6 +9,7 @@
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
 var Data = require('Data');
 var Func = Data.func;
+var Tool = require('Tool').Tool;
 cc.Class({
   extends: cc.Component,
 
@@ -64,10 +65,7 @@ cc.Class({
             });
           }, 500);
 
-          self.div_header = cc.find('div_header');
-          self.div_header.emit('upDataMoney', {
-            data: ''
-          });
+          Tool.updateHeader();
         } // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
       }
     );
@@ -77,10 +75,7 @@ cc.Class({
   },
   paymoney(e) {
     let self = this;
-    if (Config.newSocket.readyState === WebSocket.OPEN) {
-    } else {
-      Msg.show('网络状态无');
-    }
+
     Func.UserRecharge(1, 1, this.setType(Number(e.currentTarget._name.substring(3)))).then(data => {
       if (data.appId !== '') {
         if (typeof WeixinJSBridge == 'undefined') {
@@ -122,10 +117,7 @@ cc.Class({
   },
   paySelfMoney() {
     let self = this;
-    if (Config.newSocket.readyState === WebSocket.OPEN) {
-    } else {
-      Msg.show('网络状态无');
-    }
+
     let input = cc.find('bg/container/div_input/input', this.node).getComponent(cc.EditBox);
     console.log(Number(input.string));
     if (this.isInteger(Number(input.string))) {

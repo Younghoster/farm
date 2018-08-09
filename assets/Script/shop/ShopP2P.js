@@ -1,6 +1,6 @@
 const Data = require('Data');
 const Func = Data.func;
-
+var Tool = require('Tool').Tool;
 cc.Class({
   extends: cc.Component,
 
@@ -397,10 +397,7 @@ cc.Class({
       Func.PostBuyP2P(data.ID, count).then(data => {
         if (data.Code === 1) {
           Msg.show('购买成功');
-          self.div_header = cc.find('div_header');
-          self.div_header.emit('upDataMoney', {
-            data: ''
-          });
+          Tool.updateHeader();
           setTimeout(function() {
             cc.director.loadScene('shopP2P');
           }, 1000);

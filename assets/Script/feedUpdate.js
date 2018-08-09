@@ -75,40 +75,6 @@ cc.Class({
       }
     }
   },
-  //饲料槽升级 积分
-  upgradeByPoint() {
-    let self = this;
-    Tool.closeModal(this.node);
-    Func.UpFeedGrade(0).then(data => {
-      if (data.Code === 1) {
-        //更新产蛋棚等级
-        self.div_header = cc.find('div_header');
-        self.div_header.emit('upDataMoney', {
-          data: ''
-        });
-        Msg.show('升级成功！');
-      } else {
-        Msg.show(data.Message);
-      }
-    });
-  },
-  //饲料槽升级 牧场币
-  upgradeByMoney() {
-    let self = this;
-    Tool.closeModal(this.node);
-    Func.UpFeedGrade(1).then(data => {
-      if (data.Code === 1) {
-        //更新产蛋棚等级
-        self.div_header = cc.find('div_header');
-        self.div_header.emit('upDataMoney', {
-          data: ''
-        });
-        Msg.show('升级成功！');
-      } else {
-        Msg.show(data.Message);
-      }
-    });
-  },
   //添加饲料
   addFeed() {
     let self = this;

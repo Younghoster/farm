@@ -304,10 +304,7 @@ cc.Class({
         this.animates();
         this.initData();
         this.updateEggshed();
-        self.div_header = cc.find('div_header');
-        self.div_header.emit('upDataMoney', {
-          data: ''
-        });
+        Tool.updateHeader();
         Msg.show('升级成功！');
       } else {
         Msg.show(data.Message);
@@ -324,10 +321,7 @@ cc.Class({
         this.animates();
         this.initData();
         this.updateEggshed();
-        self.div_header = cc.find('div_header');
-        self.div_header.emit('upDataMoney', {
-          data: ''
-        });
+        Tool.updateHeader();
         Msg.show('升级成功！');
       } else {
         Msg.show(data.Message);

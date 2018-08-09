@@ -46,7 +46,6 @@ cc.Class({
     let landId = this.dataList.List[id].ID;
     let CropsID = this.dataList.List[id].CropsID;
     let IsLock = this.dataList.List[id].IsLock;
-    console.log(this.dataList.List[id]);
     if (CropsID == 0 && !IsLock) {
       self.timers2 = setTimeout(function() {
         Msg.show('播种成功，经验+5');
@@ -233,6 +232,7 @@ cc.Class({
           }, 500);
           self.dataList.List[id].CropsStatus = 0;
           self.dataList.List[id].CropsID = 0;
+          self.dataList.List[id].CropsSpreadCount = 0;
           cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
         } else {
         }

@@ -130,10 +130,7 @@ cc.Class({
             this.page++;
             this.initData();
           }
-          self.div_header = cc.find('div_header');
-          self.div_header.emit('upDataMoney', {
-            data: ''
-          });
+          Tool.updateHeader();
           Msg.show('兑换成功,已存入仓库中');
         } else {
           Msg.show(data.Message);
@@ -148,7 +145,7 @@ cc.Class({
     if (this.EggAllCount < 11) {
       Msg.show('数量不足！');
     } else {
-      Config.exchangeData.actualName = '鸡蛋(盒)';
+      Config.exchangeData.actualName = '鸡蛋(12枚/盒)';
       Config.exchangeData.actualCount = 1;
       Config.exchangeData.virtualName = '鸡蛋(个)';
       Config.exchangeData.virtualCount = 1;

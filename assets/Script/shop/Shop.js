@@ -1,6 +1,6 @@
 var Data = require('Data');
 var Func = Data.func;
-
+var Tool = require('Tool').Tool;
 cc.Class({
   extends: cc.Component,
 
@@ -213,10 +213,7 @@ cc.Class({
       Func.PostBuy(data.ID, count).then(data => {
         if (data.Code === 1) {
           Msg.show('购买成功');
-          self.div_header = cc.find('div_header');
-          self.div_header.emit('upDataMoney', {
-            data: ''
-          });
+          Tool.updateHeader();
           setTimeout(function() {
             cc.director.loadScene('shop');
           }, 1000);

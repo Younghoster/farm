@@ -110,8 +110,6 @@ cc.Class({
     Data.func.getFarmModalData().then(data => {
       if (data.Code === 1) {
         //土地渲染
-        console.log(data.Model);
-        console.log(JSON.parse(cc.sys.localStorage.getItem('FarmData')));
         self.clearAllDom(data.Model); //清除植物数据
         self.setLandOption(data.Model); //重新加载土地
       }
@@ -142,7 +140,7 @@ cc.Class({
       let itemBox = cc.find('bg/mapNew/item' + i, this.node);
 
       //是否解锁土地
-      if (data[i].IsLock) {
+      if (data[i].CropsSpreadCount) {
         self.setWhetherIcon(itemBox, 1);
       } else {
         self.setWhetherIcon(itemBox, 2);
@@ -587,11 +585,13 @@ cc.Class({
   //更新数据
   upLocDataByPlant() {
     let self = this;
-    let datas = JSON.parse(cc.sys.localStorage.getItem('FarmData'));
-
-    self.clearAllDom(datas.List); //清除植物数据
-    self.setLocData(datas.List);
-    self.fatchPlant(datas.List); //重新加载植物
+    setTimeout(() => {
+      let datas = JSON.parse(cc.sys.localStorage.getItem('FarmData'));
+      self.clearAllDom(datas.List); //清除植物数据
+      self.setLandOption(datas.List);
+      self.setLocData(datas.List);
+      self.fatchPlant(datas.List); //重新加载植物
+    }, 500);
   },
   //工具图片显示  浇水、除草、种子、镰刀
   imgSrcSelect(i) {

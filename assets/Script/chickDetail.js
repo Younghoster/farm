@@ -103,9 +103,6 @@ cc.Class({
       let itemNode = cc.instantiate(this.chickItem_Prefab);
       let idLbael = cc.find('id', itemNode).getComponent(cc.Label);
       let imgNode = cc.find('img', itemNode);
-      // let hungry = list[i].Hungry || false;
-      // let shit = list[i].Shit || false;
-      // this.showChickState(imgNode, hungry, shit);
 
       idLbael.string = list[i].ID;
       this.contentNode.addChild(itemNode);

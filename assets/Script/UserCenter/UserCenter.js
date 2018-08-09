@@ -54,7 +54,7 @@ cc.Class({
   },
   //获取用户参数
   setData(data) {
-    // console.log(data);
+    
     if (data.Code == 1) {
       let userName = cc.find('scrollview/view/layout/info/nameEdit/label', this.node);
       let Grade = cc.find('scrollview/view/layout/info/level/label', this.node);

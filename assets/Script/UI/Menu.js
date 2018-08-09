@@ -59,7 +59,15 @@ cc.Class({
           link: 'http://wxapi.zjytny.cn/?shareID=' + Config.shareID, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: 'http://wxapi.zjytny.cn/web-mobile/loading.jpg', // 分享图标
           desc: '原态农业农场小游戏好友分享测试功能！请勿转发！', // 分享描述
-          success: function() {},
+          success: function() {
+            Func.UserShareCallback().then(data => {
+              if (data.Code === 1) {
+                Msg.show(data.Message);
+              } else {
+                // Msg.show(data.Message);
+              }
+            });
+          },
           cancel: function() {}
         };
 

@@ -153,6 +153,7 @@ cc.Class({
         if (data.Code === 1) {
           self.animates();
           //清洁动画
+
           this.shitBoxNode.removeAllChildren();
         } else {
           //牧场不脏 弹出提示框

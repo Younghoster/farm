@@ -60,7 +60,7 @@ cc.Class({
     this.updateData(0).then(data => {
       this.assignData(data);
     });
-    this.updateWeather();
+
     //滑动到最右侧 加载数据
     this.scrollviewNode.on(
       'bounce-right',
@@ -108,26 +108,7 @@ cc.Class({
       });
     });
   },
-  //判断天气 更换图片
-  updateWeather() {
-    // Func.GetCurrentWeather().then(res => {
-    //   if (res.data.rain !== 0) {
-    //     //下雨
-    //     cc.loader.loadRes('jpg/img-rain', cc.SpriteFrame, (err, spriteFrame) => {
-    //       this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-    //     });
-    //   } else if (res.data.light === 2 || res.data.light === 3) {
-    //     //阴天
-    //     cc.loader.loadRes('jpg/img-cloud', cc.SpriteFrame, (err, spriteFrame) => {
-    //       this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-    //     });
-    //   } else if (res.data.light === 1) {
-    //     cc.loader.loadRes('jpg/img-sun', cc.SpriteFrame, (err, spriteFrame) => {
-    //       this.bgNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
-    //     });
-    //   }
-    // });
-  },
+
   //赋值
   assignData(data) {
     this.temLabel.string = data.tem + '℃';
