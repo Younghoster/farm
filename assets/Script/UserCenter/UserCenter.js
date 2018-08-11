@@ -29,6 +29,12 @@ cc.Class({
   btnGotorep() {
     cc.director.loadScene('repertory');
   },
+  btnGotorechargeList() {
+    cc.director.loadScene('rechargeList');
+  },
+  btnGotorecoverList() {
+    cc.director.loadScene('recoverList');
+  },
   outLogin() {
     window.location = 'http://wxapi.zjytny.cn';
   },
@@ -54,7 +60,6 @@ cc.Class({
   },
   //获取用户参数
   setData(data) {
-    
     if (data.Code == 1) {
       let userName = cc.find('scrollview/view/layout/info/nameEdit/label', this.node);
       let Grade = cc.find('scrollview/view/layout/info/level/label', this.node);
@@ -255,29 +260,73 @@ cc.Class({
                 break;
               }
               case 3: {
-                //兑换贵妃鸡
-                if (data.Model.BuyPropertyList[i].PropType == 0) {
-                  imgSrc = 'Modal/Repertory/icon-asset02';
-                } else {
-                  imgSrc = 'Modal/Repertory/icon-asset01';
-                }
-
-                imgSrc_ = 'Farm/extend_icon';
-                cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
-                  icon_1.spriteFrame = spriteFrame;
-                });
-                cc.loader.loadRes(imgSrc_, cc.SpriteFrame, (err, spriteFrame) => {
-                  icon_2.spriteFrame = spriteFrame;
-                });
-                if (data.Model.BuyPropertyList[i].PropType == 0) {
-                  name_1.string = '积分';
-                } else {
+                //买方交易记录
+                imgSrc = 'Modal/Repertory/icon-asset01';
+                if (data.Model.BuyPropertyList[i].PrID == 18) {
+                  //鸡
+                  imgSrc_ = 'Modal/Repertory/icon-asset04';
+                  cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                    icon_1.spriteFrame = spriteFrame;
+                  });
+                  cc.loader.loadRes(imgSrc_, cc.SpriteFrame, (err, spriteFrame) => {
+                    icon_2.spriteFrame = spriteFrame;
+                  });
                   name_1.string = '牧场币';
+                  num_1.string = '-' + data.Model.BuyPropertyList[i].BuyValues;
+                  name_2.string = '产蛋鸡';
+                  num_2.string = '+' + data.Model.BuyPropertyList[i].BuyCount;
+                } else if (data.Model.BuyPropertyList[i].PrID == 26) {
+                  //鸡蛋
+                  imgSrc_ = 'Modal/Repertory/icon-asset05';
+                  cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                    icon_1.spriteFrame = spriteFrame;
+                  });
+                  cc.loader.loadRes(imgSrc_, cc.SpriteFrame, (err, spriteFrame) => {
+                    icon_2.spriteFrame = spriteFrame;
+                  });
+                  name_1.string = '牧场币';
+                  num_1.string = '-' + data.Model.BuyPropertyList[i].BuyValues;
+                  name_2.string = '鸡蛋';
+                  num_2.string = '+' + data.Model.BuyPropertyList[i].BuyCount;
                 }
-
-                num_1.string = '-' + data.Model.BuyPropertyList[i].BuyValues * 1;
-                name_2.string = data.Model.BuyPropertyList[i].PropName;
-                num_2.string = '+1';
+                day.string = utils.fn.formatNumToDate(data.Model.BuyPropertyList[i].CreateTime);
+                time.string = utils.fn.formatNumToDateTime(data.Model.BuyPropertyList[i].CreateTime);
+                PrefabParent.addChild(PropertyList);
+                break;
+                break;
+              }
+              case 4: {
+                //卖方交易记录
+                imgSrc = 'Modal/Repertory/icon-asset01';
+                if (data.Model.BuyPropertyList[i].PrID == 18) {
+                  //鸡
+                  imgSrc_ = 'Modal/Repertory/icon-asset04';
+                  cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                    icon_1.spriteFrame = spriteFrame;
+                  });
+                  cc.loader.loadRes(imgSrc_, cc.SpriteFrame, (err, spriteFrame) => {
+                    icon_2.spriteFrame = spriteFrame;
+                  });
+                  name_1.string = '牧场币';
+                  num_1.string = '+' + data.Model.BuyPropertyList[i].BuyValues;
+                  name_2.string = '产蛋鸡';
+                  num_2.string = '-' + data.Model.BuyPropertyList[i].BuyCount;
+                } else if (data.Model.BuyPropertyList[i].PrID == 26) {
+                  //鸡蛋
+                  imgSrc_ = 'Modal/Repertory/icon-asset05';
+                  cc.loader.loadRes(imgSrc, cc.SpriteFrame, (err, spriteFrame) => {
+                    icon_1.spriteFrame = spriteFrame;
+                  });
+                  cc.loader.loadRes(imgSrc_, cc.SpriteFrame, (err, spriteFrame) => {
+                    icon_2.spriteFrame = spriteFrame;
+                  });
+                  name_1.string = '牧场币';
+                  num_1.string = '+' + data.Model.BuyPropertyList[i].BuyValues;
+                  name_2.string = '鸡蛋';
+                  num_2.string = '-' + data.Model.BuyPropertyList[i].BuyCount;
+                }
+                day.string = utils.fn.formatNumToDate(data.Model.BuyPropertyList[i].CreateTime);
+                time.string = utils.fn.formatNumToDateTime(data.Model.BuyPropertyList[i].CreateTime);
                 PrefabParent.addChild(PropertyList);
                 break;
               }

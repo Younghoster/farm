@@ -833,8 +833,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 340,
-      "height": 30
+      "width": 425,
+      "height": 60
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -843,7 +843,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -15
+      "y": -30
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -861,9 +861,9 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 20,
-    "_fontSize": 20,
-    "_lineHeight": 30,
+    "_actualFontSize": 25,
+    "_fontSize": 25,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1068,7 +1068,7 @@
       "b": 0,
       "a": 255
     },
-    "_N$placeholder": "输入您要修改的昵称",
+    "_N$placeholder": "  输入您要修改的昵称",
     "_N$placeholderFontSize": 24,
     "_N$placeholderFontColor": {
       "__type__": "cc.Color",
@@ -1224,7 +1224,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
+      "width": 64,
       "height": 40
     },
     "_rotationX": 0,
@@ -1252,8 +1252,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 30,
-    "_fontSize": 30,
+    "_actualFontSize": 32,
+    "_fontSize": 32,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,

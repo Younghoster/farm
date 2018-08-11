@@ -307,9 +307,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 214,
+      "g": 214,
+      "b": 214,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -507,9 +507,9 @@
     "transition": 0,
     "pressedColor": {
       "__type__": "cc.Color",
-      "r": 211,
-      "g": 211,
-      "b": 211,
+      "r": 155,
+      "g": 79,
+      "b": 79,
       "a": 255
     },
     "hoverColor": {

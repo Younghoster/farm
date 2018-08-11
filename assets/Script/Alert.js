@@ -58,6 +58,7 @@ Alert.show = function(
       Alert._cancelButton = cc.find('alertBackground/New Node/cancelButton', alert);
       Alert._enterButton = cc.find('alertBackground/New Node/enterButton', alert);
       Alert._bgButton = cc.find('bg', alert);
+      Alert._iconNode = cc.find('alertBackground/icon', alert);
       Alert._icon = cc.find('alertBackground/icon', alert).getComponent(cc.Sprite);
       Alert._titleLabel = cc.find('alertBackground/title', alert).getComponent(cc.Label);
 
@@ -67,6 +68,8 @@ Alert.show = function(
         cc.loader.loadRes(iconPic, cc.SpriteFrame, function(err, spriteFrame) {
           Alert._icon.spriteFrame = spriteFrame;
         });
+      } else {
+        Alert._iconNode.active = false;
       }
 
       // 添加点击事件
@@ -78,7 +81,7 @@ Alert.show = function(
       cc.find('Canvas').parent.addChild(Alert._alert, 3);
 
       // 展现 alert
-      self.startFadeIn();
+      // self.startFadeIn();
       // 参数
       self.configAlert(detailString, title, enterCallBack, needCancel, animSpeed);
     });
@@ -143,15 +146,17 @@ Alert.show = function(
         self._enterCallBack();
       }
     }
-    self.startFadeOut();
+    // self.startFadeOut();
+    self.onDestory();
   };
   //自定义按钮事件
   self.newButtonEvent = function(prefab, buttonUrl, event) {
     if (!event && prefab && buttonUrl) {
       var cancelButton = cc.find(buttonUrl, prefab);
       cancelButton.on('click', function() {
-        var action = cc.sequence(cc.fadeOut(0.3), cc.callFunc(prefab.removeFromParent, prefab));
-        prefab.runAction(action);
+        // var action = cc.sequence(cc.fadeOut(0.3), cc.callFunc(prefab.removeFromParent, prefab));
+        // prefab.runAction(action);
+        self.onDestory();
       });
     }
   };

@@ -63,7 +63,7 @@ var Alertshelf = {
       //将Node添加到父节点中
       this._Alert.parent = cc.find('Canvas');
       // 展现 alert
-      this.startFadeIn();
+      // this.startFadeIn();
     });
 
     //进入、弹出动画Action
@@ -83,7 +83,8 @@ var Alertshelf = {
           this._enterCallBack();
         }
       }
-      this.startFadeOut();
+      // this.startFadeOut();
+      this._Alert.destroy();
     };
     //editBox 文字改变方法
     Alertshelf.onTextChanged = function() {

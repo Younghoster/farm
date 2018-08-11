@@ -19,6 +19,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       if (openID) {
@@ -52,6 +55,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       xhr.open('GET', Config.apiUrl + '/T_Base_User/GetFeedTroughFull?openID=' + this.openID, true);
@@ -75,6 +81,9 @@ var func = {
 
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -100,6 +109,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       xhr.open('GET', `${Config.apiUrl}/T_Base_Chicken/GetChickenEggRecord?cId=${cId}&searchTime=${searchTime}`, true);
@@ -123,6 +135,9 @@ var func = {
 
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -149,6 +164,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       xhr.open('GET', Config.apiUrl + '/T_Base_User/GetUserGrade?openID=' + this.openID, true);
@@ -172,6 +190,9 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -206,6 +227,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       xhr.open(
@@ -233,6 +257,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
 
       xhr.open('POST', Config.apiUrl + '/T_Base_FriendsNotice/PostRequestFriends', true);
@@ -255,6 +282,9 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
 
@@ -280,6 +310,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // POST方法1
       xhr.open('POST', Config.apiUrl + '/T_Base_Chicken/GetModelValue', true);
@@ -301,6 +334,9 @@ var func = {
             var response = xhr.responseText;
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // Get方法
@@ -326,6 +362,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       xhr.open('GET', Config.apiUrl + '/T_Base_Property/GetListByPage?page=' + index + '&size=' + size, true);
@@ -348,6 +387,9 @@ var func = {
             console.log('获取商城数据失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -372,6 +414,9 @@ var func = {
             console.log('获取商城数据失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -408,6 +453,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       xhr.open(
@@ -442,6 +490,9 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -478,6 +529,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       xhr.open('POST', Config.apiUrl + '/T_Base_PlayerTrading/OffShelf', true);
@@ -500,6 +554,9 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -524,6 +581,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       xhr.open('POST', Config.apiUrl + '/T_Base_PlayerTrading/ChickenOffShelf', true);
@@ -547,6 +607,9 @@ var func = {
             console.log('获取仓库数据失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -573,6 +636,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       xhr.open('GET', Config.apiUrl + '/T_Base_Warehouse/GetListByPage?openId=' + this.openID + '&page=1', true);
@@ -596,6 +662,9 @@ var func = {
             console.log('签到失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // POST方法
@@ -622,6 +691,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // POST方法
       xhr.open('GET', Config.apiUrl + '/T_Base_LayEggsShed/GetPageList?openID=' + openID, true);
@@ -645,6 +717,9 @@ var func = {
 
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // POST方法
@@ -670,6 +745,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       xhr.open('GET', Config.apiUrl + '/T_Base_LayEggsShed/GetLayUpGrade?grade=' + grade, true);
@@ -693,6 +771,9 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -718,6 +799,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // POST方法
       xhr.open('POST', Config.apiUrl + '/T_Base_Ranch/PostRanchRankUpgrade', true);
@@ -741,6 +825,9 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -766,6 +853,9 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -796,6 +886,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       xhr.open('POST', `${Config.apiUrl}/T_Base_Convert/Marke`, true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
@@ -819,6 +912,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // POST方法
       xhr.open('POST', Config.apiUrl + '/T_Ranch_Clean/PostRanchCleanManual', true);
@@ -840,6 +936,9 @@ var func = {
             var response = xhr.responseText;
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // POST方法
@@ -864,6 +963,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       xhr.open('POST', Config.apiUrl + '/T_Ranch_Clean/POSTNewHelpClean', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
@@ -885,6 +987,9 @@ var func = {
             console.log(data.Message);
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       xhr.open('POST', Config.apiUrl + '/T_Base_User/PostSteaEgg', true);
@@ -908,6 +1013,9 @@ var func = {
             console.log('喂食失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // POST方法
@@ -933,6 +1041,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // POST方法
       xhr.open('POST', Config.apiUrl + '/T_Base_Property/PostBuy', true);
@@ -957,6 +1068,9 @@ var func = {
             console.log('购买失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // POST方法
@@ -991,6 +1105,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       xhr.open('POST', Config.apiUrl + '/T_Chicken_Egg/EggHatch', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
@@ -1012,6 +1129,9 @@ var func = {
             console.log('获取鸡蛋失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       xhr.open('POST', Config.apiUrl + '/T_Base_LayEggsShed/CollectingEggs', true);
@@ -1035,6 +1155,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       xhr.open('POST', Config.apiUrl + '/T_Base_Ranch/PostCollectRankEgg', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
@@ -1056,6 +1179,9 @@ var func = {
             console.log('获取鸡蛋失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       xhr.open('POST', Config.apiUrl + '/T_Base_User/CollectChicken', true);
@@ -1079,6 +1205,9 @@ var func = {
 
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // POST方法
@@ -1104,6 +1233,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       xhr.open('GET', Config.apiUrl + '/T_Base_Ranch/GetModel?openID=' + this.openID, true);
@@ -1127,6 +1259,9 @@ var func = {
             console.log('签到失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // POST方法
@@ -1158,6 +1293,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // POST方法1
       xhr.open('POST', Config.apiUrl + '/T_Base_Chicken/ChickenAndRanch', true);
@@ -1181,6 +1319,9 @@ var func = {
 
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -1209,6 +1350,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       xhr.open('POST', Config.apiUrl + '/T_Base_Chicken/BuyChickenOwnership', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
@@ -1232,6 +1376,9 @@ var func = {
 
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // POST方法
@@ -1269,6 +1416,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // POST方法
 
@@ -1291,6 +1441,9 @@ var func = {
             var response = xhr.responseText;
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // POST方法1
@@ -1320,6 +1473,9 @@ var func = {
 
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // POST方法
@@ -1354,6 +1510,9 @@ var func = {
             var response = xhr.responseText;
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // Get方法1
@@ -1403,6 +1562,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // POST方法
 
@@ -1428,6 +1590,9 @@ var func = {
 
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // POST方法
@@ -1466,6 +1631,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // POST方法
 
@@ -1503,6 +1671,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       xhr.open(
         'GET',
@@ -1530,6 +1701,9 @@ var func = {
 
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -1560,6 +1734,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // POST方法
 
@@ -1583,6 +1760,9 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       xhr.open(
@@ -1624,6 +1804,9 @@ var func = {
 
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       xhr.open(
@@ -1671,6 +1854,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       xhr.open('POST', Config.apiUrl + '/T_User_Addresses/SetIsDefault?ID=' + id, true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
@@ -1694,6 +1880,9 @@ var func = {
 
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       xhr.open('POST', Config.apiUrl + '/T_User_Addresses/Delete?ID=' + id, true);
@@ -1719,6 +1908,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       xhr.open('GET', Config.apiUrl + '/T_Base_User/GetUserMoney?openID=' + this.openID, true);
@@ -1741,6 +1933,9 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -1775,6 +1970,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       xhr.open(
@@ -1801,6 +1999,9 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -1835,6 +2036,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       if (otherOpenId) {
@@ -1862,6 +2066,9 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       xhr.open(
@@ -1895,6 +2102,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       xhr.open(
         'POST',
@@ -1927,6 +2137,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       xhr.open(
         'POST',
@@ -1952,6 +2165,9 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       if (openId) {
@@ -1980,6 +2196,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       if (openId) {
         xhr.open('POST', Config.apiUrl + '/T_Farm_Land/FriendsWeed?cropsId=' + cropsId + '&openId=' + openId, true);
@@ -2007,6 +2226,9 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       if (openId) {
@@ -2040,6 +2262,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       xhr.open(
         'POST',
@@ -2066,6 +2291,9 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       xhr.open(
@@ -2094,6 +2322,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       xhr.open('Get', Config.apiUrl + '/T_Base_Warehouse/GetSeedList?openID=' + this.openID, true);
@@ -2116,6 +2347,9 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -2140,6 +2374,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       xhr.open('GET', Config.apiUrl + '/T_Farm_Land/GetNextUnlockLand?openId=' + this.openID, true);
       xhr.setRequestHeader('Content-Type', 'json');
@@ -2161,6 +2398,9 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       xhr.open(
@@ -2197,6 +2437,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
 
       xhr.open('POST', Config.apiUrl + '/T_Base_User/UserShare', true);
@@ -2219,6 +2462,9 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
 
@@ -2243,6 +2489,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
 
       xhr.open('POST', Config.apiUrl + '/T_Base_Warehouse/GetChickenAndEggCount', true);
@@ -2264,6 +2513,9 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
 
@@ -2288,6 +2540,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       xhr.open('POST', Config.apiUrl + '/T_Base_Chicken/ChickenLayEggTimeFirst', true);
@@ -2310,6 +2565,9 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
       // GET方法
@@ -2334,6 +2592,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       // GET方法
       xhr.open('GET', Config.apiUrl + '/T_Base_Ranch/GetRanchPeopleShowMessage?openId=' + this.openID, true);
@@ -2357,6 +2618,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       xhr.open('POST', `${Config.apiUrl}/T_Base_PlayerTrading/chickenOnshelfInfo`, true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
@@ -2379,6 +2643,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
       xhr.open('POST', `${Config.apiUrl}/T_Base_PlayerTrading/EggOnShelfInfo`, true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //缺少这句，后台无法获取参数
@@ -2400,6 +2667,9 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
 
@@ -2424,6 +2694,9 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
 
       xhr.open('POST', Config.apiUrl + '/T_Base_Exchange/ChangeRanchChicken', true);
@@ -2446,6 +2719,9 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
         }
       };
 
@@ -2470,11 +2746,88 @@ var func = {
             reject(response);
           }
         }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
       };
 
       xhr.open('POST', Config.apiUrl + '/T_Base_User/UserShareCallback', true);
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       xhr.send('openId=' + this.openID);
+    });
+  },
+  //充值记录
+  GetUserRechargeList(page, size) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            console.log('获取数据失败');
+            reject(response);
+          }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
+      };
+      // GET方法
+      xhr.open(
+        'GET',
+        Config.apiUrl +
+          '/T_Base_User/GetUserRechargeList?openId=' +
+          this.openID +
+          '&page=' +
+          page +
+          '&pagesize=' +
+          size,
+        true
+      );
+      xhr.setRequestHeader('Content-Type', 'json');
+      xhr.send();
+    });
+  },
+  //交易记录
+  GetTransAndExchangeListByPage(page, size, type) {
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+          if (xhr.status == 200) {
+            var response = xhr.responseText;
+            response = JSON.parse(response);
+            resolve(response);
+          } else {
+            var response = xhr.responseText;
+            console.log('获取数据失败');
+            reject(response);
+          }
+        }
+        else if (xhr.readyState == 4 && xhr.status == 0) {
+          alert('网络连接失败');
+        }
+      };
+      // GET方法
+      xhr.open(
+        'GET',
+        Config.apiUrl +
+          '/T_Base_User/GetTransAndExchange?openId=' +
+          this.openID +
+          '&page=' +
+          page +
+          '&pagesize=' +
+          size +
+          '&type=' +
+          type,
+        true
+      );
+      xhr.setRequestHeader('Content-Type', 'json');
+      xhr.send();
     });
   }
 };

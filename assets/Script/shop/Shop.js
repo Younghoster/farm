@@ -66,7 +66,6 @@ cc.Class({
               //动画
               selfAlert.ready();
               Alert._alert.parent = cc.find('Canvas');
-              selfAlert.startFadeIn();
               // 关闭按钮
               selfAlert.newButtonEvent(alert, 'bg/btn-group/cancelButton');
 
@@ -89,7 +88,6 @@ cc.Class({
               //动画
               selfAlert.ready();
               Alert._alert.parent = cc.find('Canvas');
-              selfAlert.startFadeIn();
               // 关闭按钮
               selfAlert.newButtonEvent(alert, 'bg/btn-group/cancelButton');
               self.P2PBuyData(alert, goods);
@@ -217,6 +215,15 @@ cc.Class({
           setTimeout(function() {
             cc.director.loadScene('shop');
           }, 1000);
+        } else if (data.Code === -4) {
+          Alert.show(
+            data.Message,
+            function() {
+              cc.director.loadScene('recharge');
+            },
+            null,
+            '牧场币不足'
+          );
         } else {
           Msg.show(data.Message);
         }

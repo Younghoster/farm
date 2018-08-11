@@ -80,8 +80,10 @@ cc.Class({
         self.timers2 = setTimeout(function() {
           Msg.show('浇水成功，经验+5');
         }, 500);
-        this.dataList.List[id].IsDry = true;
+        console.log(this.dataList, id);
+        this.dataList.List[id].IsDry = false;
         cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
+        console.log(this.dataList, id);
         Data.func.CropsWatering(CropsID).then(data => {
           // self.timers = setTimeout(function() {
           //   if (data.Code === 1) {
@@ -113,8 +115,10 @@ cc.Class({
         self.timers2 = setTimeout(function() {
           Msg.show('除草成功，经验+5');
         }, 500);
-        this.dataList.List[id].IsWeeds = true;
+        console.log(this.dataList);
+        this.dataList.List[id].IsWeeds = false;
         cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
+        console.log(this.dataList);
         Data.func.CropsWeeding(CropsID).then(data => {
           // self.timers = setTimeout(function() {
           //   if (data.Code === 1) {
@@ -146,8 +150,10 @@ cc.Class({
         self.timers2 = setTimeout(function() {
           Msg.show('除虫成功，经验+5');
         }, 500);
-        this.dataList.List[id].IsDisinsection = true;
+        console.log(this.dataList);
+        this.dataList.List[id].IsDisinsection = false;
         cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
+        console.log(this.dataList);
         Data.func.CropsDisinsection(CropsID).then(data => {
           // self.timers = setTimeout(function() {
           //   if (data.Code === 1) {
@@ -205,9 +211,6 @@ cc.Class({
                   Msg.show(data.Message);
                 }
               });
-              // self.FarmJs.emit('updataPlant', {
-              //   data: self.dataList.List
-              // });
             }
           });
         } else {

@@ -232,22 +232,32 @@ cc.Class({
   },
   //点击喂食事件 集体喂食 接口需要重新设置
   showFeedAlert: function() {
+    let self = this;
     Func.PostOwnFeeds().then(data => {
       if (data.Code === 1) {
         //更新饲料数量
-        this.updateFeedCount();
+        self.updateFeedCount();
         // 更新小鸡头顶饥饿状态
-        this.updateChickList();
+        self.updateChickList();
         let str = "{name:'" + Config.openID + "',type:'updataChat'}";
         Config.newSocket.send(str);
         Msg.show('喂食成功');
       } else if (data.Code == -2) {
-        Alert.show(data.Message, this.loadSceneShop, 'index/icon-feed', '剩余的饲料不足');
+        Alert.show(
+          data.Message,
+          function() {
+            cc.director.loadScene('shop');
+            self.removePersist();
+          },
+          'Shop/icon-1_',
+          '剩余的饲料不足'
+        );
       } else if (data.Code == 2) {
         Msg.show(data.Message);
       }
     });
   },
+
   //更新小鸡饥饿显示状态
   updateChickList() {
     setTimeout(() => {

@@ -57,7 +57,6 @@ cc.Class({
           //动画
           selfAlert.ready();
           Alert._alert.parent = cc.find('Canvas');
-          selfAlert.startFadeIn();
           selfAlert.newButtonEvent(alert, 'close');
           //绑定四个筛选按钮的筛选事件
           self.bindClickEvent(cc.find('alertBackground/scrollview/view/content/item1', alert));
@@ -222,7 +221,7 @@ cc.Class({
           //动画
           selfAlert.ready();
           Alert._alert.parent = cc.find('Canvas');
-          selfAlert.startFadeIn();
+          // selfAlert.startFadeIn();
           // 关闭按钮
           selfAlert.newButtonEvent(alert, 'bg/btn-group/cancelButton');
           self.P2PBuyData(alert, data, 1);
@@ -274,7 +273,7 @@ cc.Class({
           //动画
           selfAlert.ready();
           Alert._alert.parent = cc.find('Canvas');
-          selfAlert.startFadeIn();
+          // selfAlert.startFadeIn();
           // 关闭按钮
           selfAlert.newButtonEvent(alert, 'bg/btn-group/cancelButton');
           self.P2PBuyData(alert, data, 0);
@@ -401,6 +400,15 @@ cc.Class({
           setTimeout(function() {
             cc.director.loadScene('shopP2P');
           }, 1000);
+        } else if (data.Code === -4) {
+          Alert.show(
+            data.Message,
+            function() {
+              cc.director.loadScene('recharge');
+            },
+            null,
+            '牧场币不足'
+          );
         } else {
           Msg.show(data.Message);
         }

@@ -89,6 +89,16 @@ cc.Class({
             let str = "{name:'" + Config.openID + "',type:'updataChat'}";
             Config.newSocket.send(str);
             Msg.show(data.Message);
+          } else if (data.Code === -4) {
+            Alert.show(
+              data.Message,
+              function() {
+                cc.director.loadScene('shop');
+                self.removePersist();
+              },
+              'Shop/icon-1_',
+              '剩余的饲料不足'
+            );
           } else {
             Msg.show(data.Message);
           }
@@ -101,6 +111,10 @@ cc.Class({
   closeFeedState() {
     // Tool.closeModal(this.node);
     this.node.active = false;
+  },
+  removePersist() {
+    Config.menuNode.active = false;
+    Config.hearderNode.active = false;
   },
   start() {}
 

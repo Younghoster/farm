@@ -111,7 +111,6 @@ cc.Class({
       if (data.Code === 1) {
         //土地渲染
         self.clearAllDom(data.Model); //清除植物数据
-        self.setLandOption(data.Model); //重新加载土地
       }
       self.setLocData(data.Model, 'all');
       self.setLocalStorageData(data.Model); //重新加载土地（包括植物）
@@ -130,23 +129,6 @@ cc.Class({
     });
   },
 
-  //仅仅更新土地
-  setLandOption(data) {
-    let self = this;
-    let mapNew = cc.find('bg/mapNew', this.node);
-    self.setWhetherIcon(mapNew, 13);
-    for (let i = 0; i < data.length; i++) {
-      let itemBoxNode = cc.find('bg/mapNew/item' + i, this.node);
-      let itemBox = cc.find('bg/mapNew/item' + i, this.node);
-
-      //是否解锁土地
-      if (data[i].CropsSpreadCount) {
-        self.setWhetherIcon(itemBox, 1);
-      } else {
-        self.setWhetherIcon(itemBox, 2);
-      }
-    }
-  },
   setWhetherIcon(dom, i) {
     if (!dom) {
       return;
@@ -258,6 +240,7 @@ cc.Class({
           self.oldData[i].IsDisinsection !== ValueList[i].IsDisinsection ||
           self.oldData[i].IsDry !== ValueList[i].IsDry ||
           self.oldData[i].IsWeeds !== ValueList[i].IsWeeds ||
+          self.oldData[i].CropsSpreadCount !== ValueList[i].CropsSpreadCount ||
           self.oldData[i].IsLock !== ValueList[i].IsLock
         ) {
           console.log(i);
@@ -350,7 +333,11 @@ cc.Class({
       if (ValueList[i].CropsSpreadCount == 1) {
         let itemBox = cc.find('bg/mapNew/item' + i, this.node);
         self.setWhetherIcon(itemBox, 1);
+      } else {
+        let itemBox = cc.find('bg/mapNew/item' + i, this.node);
+        self.setWhetherIcon(itemBox, 2);
       }
+
       //重置名字赋值
       Prefab.name = 'Prefab' + i;
       //定位于碰撞事件触发的点
@@ -587,8 +574,8 @@ cc.Class({
     let self = this;
     setTimeout(() => {
       let datas = JSON.parse(cc.sys.localStorage.getItem('FarmData'));
+      console.log(datas);
       self.clearAllDom(datas.List); //清除植物数据
-      self.setLandOption(datas.List);
       self.setLocData(datas.List);
       self.fatchPlant(datas.List); //重新加载植物
     }, 500);
@@ -639,6 +626,7 @@ cc.Class({
           self.oldData[i].IsDisinsection !== ValueList[i].IsDisinsection ||
           self.oldData[i].IsDry !== ValueList[i].IsDry ||
           self.oldData[i].IsWeeds !== ValueList[i].IsWeeds ||
+          self.oldData[i].CropsSpreadCount !== ValueList[i].CropsSpreadCount ||
           self.oldData[i].IsLock !== ValueList[i].IsLock
         ) {
           console.log(i);
