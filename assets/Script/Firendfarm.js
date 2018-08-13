@@ -410,6 +410,10 @@ cc.Class({
       bg_farm.active = false; //种子选择的浮窗
       bg_farm.opacity = 1;
       bg_farm.removeAllChildren();
+      for (let i = 0; i < 12; i++) {
+        let itemNodeColor = cc.find('bg/mapNew/item' + i, self.node);
+        itemNodeColor.color = cc.Color.WHITE;
+      }
     });
     tool.on('touchcancel', function() {
       if (self.Value.toolType != 0) {
@@ -418,6 +422,10 @@ cc.Class({
       bg_farm.active = false; //种子选择的浮窗
       bg_farm.opacity = 1;
       bg_farm.removeAllChildren();
+      for (let i = 0; i < 12; i++) {
+        let itemNodeColor = cc.find('bg/mapNew/item' + i, self.node);
+        itemNodeColor.color = cc.Color.WHITE;
+      }
     });
   },
 

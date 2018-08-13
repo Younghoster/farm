@@ -15,7 +15,6 @@ cc.Class({
 
   onCollisionEnter: function(other) {
     let self = this;
-    other.node.color = cc.Color.CYAN;
 
     this.touchingNumber++;
     this.dataList = JSON.parse(cc.sys.localStorage.getItem('FarmData')); //缓存机制
@@ -27,26 +26,27 @@ cc.Class({
     clearTimeout(this.timers); //清理定时器
     clearTimeout(this.timers2); //清理定时器
     if (self.dataList.toolType == 1) {
-      self.crops(id, propertyId);
+      self.crops(id, propertyId, other);
     } else if (self.dataList.toolType == 2) {
-      self.water(id);
+      self.water(id, other);
     } else if (self.dataList.toolType == 3) {
-      self.weed(id);
+      self.weed(id, other);
     } else if (self.dataList.toolType == 4) {
-      self.disinsection(id);
+      self.disinsection(id, other);
     } else if (self.dataList.toolType == 5) {
-      self.cropsSertilize(id, type);
+      self.cropsSertilize(id, type, other);
     } else if (self.dataList.toolType == 6) {
-      self.collectCrops(id);
+      self.collectCrops(id, other);
     }
   },
   //播种
-  crops(id, propertyId) {
+  crops(id, propertyId, other) {
     let self = this;
     let landId = this.dataList.List[id].ID;
     let CropsID = this.dataList.List[id].CropsID;
     let IsLock = this.dataList.List[id].IsLock;
     if (CropsID == 0 && !IsLock) {
+      this.isallow = true;
       self.timers2 = setTimeout(function() {
         Msg.show('播种成功，经验+5');
       }, 500);
@@ -64,10 +64,17 @@ cc.Class({
         //   }
         // }, 1500);
       });
+    } else {
+      this.isallow = false;
+    }
+    if (this.isallow) {
+      other.node.color = cc.Color.CYAN;
+    } else {
+      other.node.color = cc.Color.MAGENTA;
     }
   },
   //浇水
-  water(id) {
+  water(id, other) {
     let self = this;
     let CropsID = this.dataList.List[id].CropsID;
     let IsLock = this.dataList.List[id].IsLock;
@@ -76,6 +83,7 @@ cc.Class({
     let IsWeeds = this.dataList.List[id].IsWeeds;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsWater) {
+      this.isallow = true;
       if (!IsDisinsection && IsWater) {
         self.timers2 = setTimeout(function() {
           Msg.show('浇水成功，经验+5');
@@ -95,14 +103,20 @@ cc.Class({
           // }, 1500);
         });
       } else {
-        self.timers2 = setTimeout(function() {
-          Msg.show('我现在不需要浇水哦~');
-        }, 500);
+        this.isallow = false;
+        // self.timers2 = setTimeout(function() {
+        //   Msg.show('我现在不需要浇水哦~');
+        // }, 500);
       }
+    }
+    if (this.isallow) {
+      other.node.color = cc.Color.CYAN;
+    } else {
+      other.node.color = cc.Color.MAGENTA;
     }
   },
   //除草
-  weed(id) {
+  weed(id, other) {
     let self = this;
     let CropsID = this.dataList.List[id].CropsID;
     let IsLock = this.dataList.List[id].IsLock;
@@ -112,6 +126,7 @@ cc.Class({
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsWeeds) {
       if (!IsDisinsection && !IsWater && IsWeeds) {
+        this.isallow = true;
         self.timers2 = setTimeout(function() {
           Msg.show('除草成功，经验+5');
         }, 500);
@@ -130,14 +145,20 @@ cc.Class({
           // }, 1500);
         });
       } else {
-        self.timers2 = setTimeout(function() {
-          Msg.show('我现在不需要除草哦~');
-        }, 500);
+        this.isallow = false;
+        // self.timers2 = setTimeout(function() {
+        //   Msg.show('我现在不需要除草哦~');
+        // }, 500);
       }
+    }
+    if (this.isallow) {
+      other.node.color = cc.Color.CYAN;
+    } else {
+      other.node.color = cc.Color.MAGENTA;
     }
   },
   //除虫
-  disinsection(id) {
+  disinsection(id, other) {
     let self = this;
     let CropsID = this.dataList.List[id].CropsID;
     let IsLock = this.dataList.List[id].IsLock;
@@ -146,6 +167,7 @@ cc.Class({
     let IsWeeds = this.dataList.List[id].IsWeeds;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsDisinsection) {
+      this.isallow = true;
       if (IsDisinsection) {
         self.timers2 = setTimeout(function() {
           Msg.show('除虫成功，经验+5');
@@ -165,14 +187,20 @@ cc.Class({
           // }, 1500);
         });
       } else {
-        self.timers2 = setTimeout(function() {
-          Msg.show('我现在不需要除虫哦~');
-        }, 500);
+        this.isallow = false;
+        // self.timers2 = setTimeout(function() {
+        //   Msg.show('我现在不需要除虫哦~');
+        // }, 500);
       }
+    }
+    if (this.isallow) {
+      other.node.color = cc.Color.CYAN;
+    } else {
+      other.node.color = cc.Color.MAGENTA;
     }
   },
   //施肥
-  cropsSertilize(id, type) {
+  cropsSertilize(id, type, other) {
     let self = this;
     let IsLock = this.dataList.List[id].IsLock;
     let CropsStatus = this.dataList.List[id].CropsStatus;
@@ -190,7 +218,10 @@ cc.Class({
 
               Data.func.CropsSertilize(CropsID, type).then(data => {
                 if (data.Code === 1) {
-                  Msg.show(data.Message);
+                  self.timers2 = setTimeout(function() {
+                    Msg.show(data.Message);
+                  }, 1500);
+
                   //普通肥料的时候
                   if (type == 7) {
                     if (progressNum < 300) {
@@ -205,10 +236,14 @@ cc.Class({
                       this.dataList.List[id].CropsStatus = CropsStatus + 1;
                     }
                   }
+                  //可以施肥  绿色
                   this.dataList.List[id].CropsSpreadCount = 1;
+                  this.isallow = true;
                   cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
                 } else {
-                  Msg.show(data.Message);
+                  //不能施肥 红色
+                  this.isallow = false;
+                  //Msg.show(data.Message);
                 }
               });
             }
@@ -218,14 +253,20 @@ cc.Class({
         }
       });
     }
+    if (this.isallow) {
+      other.node.color = cc.Color.CYAN;
+    } else {
+      other.node.color = cc.Color.MAGENTA;
+    }
   },
   //收取农作物
-  collectCrops(id) {
+  collectCrops(id, other) {
     let self = this;
     let CropsID = this.dataList.List[id].CropsID;
     let IsLock = this.dataList.List[id].IsLock;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus == 4 && !IsLock) {
+      this.isallow = true;
       Data.func.CollectCrops(CropsID).then(data => {
         if (data.Code === 1) {
           self.CollectNumber += Number(data.Model);
@@ -241,9 +282,15 @@ cc.Class({
         }
       });
     } else {
-      self.timers2 = setTimeout(function() {
-        Msg.show('我现在还不能收取哦~');
-      }, 500);
+      this.isallow = false;
+      // self.timers2 = setTimeout(function() {
+      //   Msg.show('我现在还不能收取哦~');
+      // }, 500);
+    }
+    if (this.isallow) {
+      other.node.color = cc.Color.CYAN;
+    } else {
+      other.node.color = cc.Color.MAGENTA;
     }
   },
 
