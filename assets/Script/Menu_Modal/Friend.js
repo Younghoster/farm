@@ -266,8 +266,7 @@ cc.Class({
         cc.director.loadScene('FriendIndex', () => {
           this.onLoadFadeIn();
         });
-      }
-      if (cc.find('Canvas').parent._name == 'FriendFarm') {
+      } else if (cc.find('Canvas').parent._name == 'FriendFarm') {
         Config.friendOpenId = openIds;
         cc.director.loadScene('FriendFarm', () => {
           this.onLoadFadeIn();

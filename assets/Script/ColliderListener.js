@@ -167,8 +167,8 @@ cc.Class({
     let IsWeeds = this.dataList.List[id].IsWeeds;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsDisinsection) {
-      this.isallow = true;
       if (IsDisinsection) {
+        this.isallow = true;
         self.timers2 = setTimeout(function() {
           Msg.show('除虫成功，经验+5');
         }, 500);
@@ -204,6 +204,7 @@ cc.Class({
     let self = this;
     let IsLock = this.dataList.List[id].IsLock;
     let CropsStatus = this.dataList.List[id].CropsStatus;
+    let isCropsSpreadCount = this.dataList.List[id].CropsSpreadCount;
     if (CropsStatus !== 0 && !IsLock) {
       Data.func.getFarmModalData().then(data2 => {
         let CropsID = data2.Model[id].CropsID;
@@ -236,13 +237,10 @@ cc.Class({
                       this.dataList.List[id].CropsStatus = CropsStatus + 1;
                     }
                   }
-                  //可以施肥  绿色
                   this.dataList.List[id].CropsSpreadCount = 1;
-                  this.isallow = true;
+
                   cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
                 } else {
-                  //不能施肥 红色
-                  this.isallow = false;
                   //Msg.show(data.Message);
                 }
               });
@@ -252,6 +250,11 @@ cc.Class({
           Msg.show(data2.Message);
         }
       });
+    }
+    if (isCropsSpreadCount) {
+      this.isallow = false;
+    } else {
+      this.isallow = true;
     }
     if (this.isallow) {
       other.node.color = cc.Color.CYAN;

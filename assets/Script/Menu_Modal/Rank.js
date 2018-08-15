@@ -71,6 +71,7 @@ cc.Class({
 
   //产蛋赋值
   assignData(data) {
+    let self = this;
     let advisor = data.path;
     let name = data.RealName;
 
@@ -101,7 +102,6 @@ cc.Class({
       let rankImg = cc.find('item-content/advisor-box/adviosr-mask/advisor', itemNode);
       this.setHeadImg(rankImg, data.Headimgurl);
     }
-
     let advisorSprite = cc.find('item-content/advisor-box/adviosr-mask/advisor', itemNode).getComponent(cc.Sprite);
     let nameLabel = cc.find('item-content/advisor-box/name', itemNode).getComponent(cc.Label);
     let countLabel = cc.find('item-content/box/textbox/label', itemNode).getComponent(cc.Label);
@@ -109,9 +109,41 @@ cc.Class({
     nameLabel.string = name;
     countLabel.string = eggCount;
 
+    itemNode.on('click', () => {
+      Config.friendName = name;
+      if (cc.find('Canvas').parent._name == 'index') {
+        Config.friendOpenId = data.OpenID;
+        cc.director.loadScene('FriendIndex', () => {
+          self.onLoadFadeIn();
+        });
+      } else if (cc.find('Canvas').parent._name == 'FriendIndex') {
+        Config.friendOpenId = data.OpenID;
+        cc.director.loadScene('FriendIndex', () => {
+          self.onLoadFadeIn();
+        });
+      } else if (cc.find('Canvas').parent._name == 'FriendFarm') {
+        Config.friendOpenId = data.OpenID;
+        cc.director.loadScene('FriendFarm', () => {
+          self.onLoadFadeIn();
+        });
+      } else {
+        Config.friendOpenId = data.OpenID;
+        cc.director.loadScene('FriendFarm', () => {
+          self.onLoadFadeIn();
+        });
+      }
+      self.removePersist();
+    });
     this.contentNode.addChild(itemNode);
   },
-
+  onLoadFadeIn() {
+    let canvas = cc.find('Canvas');
+    Tool.RunAction(canvas, 'fadeIn', 0.15);
+  },
+  removePersist() {
+    Config.menuNode.active = false;
+    Config.hearderNode.active = false;
+  },
   GetEggRankList() {
     Func.GetEggRankings(this.page).then(data => {
       if (data.Code === 1) {
