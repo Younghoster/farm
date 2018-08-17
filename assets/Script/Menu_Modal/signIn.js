@@ -32,7 +32,7 @@ cc.Class({
         });
         //更新头部数据
         Tool.updateHeader();
-        Msg.show(data.Message);
+        alert(data.Message);
       }
     });
   },

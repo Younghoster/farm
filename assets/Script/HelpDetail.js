@@ -22,6 +22,10 @@ cc.Class({
       self.ImgNode.spriteFrame = spriteFrame;
     });
     switch (Config.guideIntro) {
+      case 0: {
+        this.labels.string = '关于我们';
+        break;
+      }
       case 1: {
         this.labels.string = '认养与弃养';
         break;
@@ -35,26 +39,30 @@ cc.Class({
         break;
       }
       case 4: {
-        this.labels.string = '鸡蛋的兑换与交易';
+        this.labels.string = '贵妃鸡与贵妃鸡蛋';
         break;
       }
       case 5: {
-        this.labels.string = '鸡的兑换、置换与交易';
+        this.labels.string = '鸡蛋的兑换与交易';
         break;
       }
       case 6: {
-        this.labels.string = '牧场币与积分';
+        this.labels.string = '鸡的兑换、置换与交易';
         break;
       }
       case 7: {
-        this.labels.string = '清洁';
+        this.labels.string = '牧场币与积分';
         break;
       }
       case 8: {
-        this.labels.string = '农场';
+        this.labels.string = '清洁';
         break;
       }
       case 9: {
+        this.labels.string = '农场';
+        break;
+      }
+      case 10: {
         this.labels.string = '好友操作';
         break;
       }

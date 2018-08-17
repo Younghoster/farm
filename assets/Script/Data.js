@@ -18,8 +18,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -54,8 +53,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -81,8 +79,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -108,8 +105,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -135,8 +131,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -163,8 +158,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -190,8 +184,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -226,8 +219,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -256,8 +248,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -282,8 +273,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -309,8 +299,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -334,8 +323,7 @@ var func = {
             var response = xhr.responseText;
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -361,8 +349,7 @@ var func = {
             console.log('获取商城数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -387,8 +374,7 @@ var func = {
             console.log('获取商城数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -414,8 +400,7 @@ var func = {
             console.log('获取商城数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -452,8 +437,7 @@ var func = {
             console.log('获取商城数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -490,8 +474,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -528,8 +511,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -554,8 +536,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -580,8 +561,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -607,8 +587,7 @@ var func = {
             console.log('获取仓库数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -635,8 +614,7 @@ var func = {
             console.log('获取仓库数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -662,8 +640,7 @@ var func = {
             console.log('签到失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -690,8 +667,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -717,8 +693,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -744,8 +719,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -771,8 +745,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -798,8 +771,7 @@ var func = {
             console.log('签到失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -825,8 +797,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -853,8 +824,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -885,8 +855,7 @@ var func = {
             console.log(data.Message);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -911,8 +880,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -936,8 +904,7 @@ var func = {
             var response = xhr.responseText;
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -962,8 +929,7 @@ var func = {
             console.log(data.Message);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -987,8 +953,7 @@ var func = {
             console.log(data.Message);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1013,8 +978,7 @@ var func = {
             console.log('喂食失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1040,8 +1004,7 @@ var func = {
             console.log('购买失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1068,8 +1031,7 @@ var func = {
             console.log('购买失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1104,8 +1066,7 @@ var func = {
             console.log('获取仓库数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1129,8 +1090,7 @@ var func = {
             console.log('获取鸡蛋失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1154,8 +1114,7 @@ var func = {
             console.log('获取鸡蛋失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1179,8 +1138,7 @@ var func = {
             console.log('获取鸡蛋失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1205,8 +1163,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1232,8 +1189,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1259,8 +1215,7 @@ var func = {
             console.log('签到失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1292,8 +1247,7 @@ var func = {
             console.log('签到失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1319,8 +1273,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1349,8 +1302,7 @@ var func = {
             console.log('获取鸡蛋失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1376,8 +1328,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1415,8 +1366,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1441,8 +1391,7 @@ var func = {
             var response = xhr.responseText;
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1473,8 +1422,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1510,8 +1458,7 @@ var func = {
             var response = xhr.responseText;
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1561,8 +1508,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1574,7 +1520,7 @@ var func = {
     });
   },
   //贵妃鸡兑换
-  ExchangeChicken(username, address, phone, count) {
+  ExchangeChicken(username, address, phone, count, ischooseChick) {
     return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
@@ -1590,8 +1536,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1608,6 +1553,8 @@ var func = {
           address +
           '&phone=' +
           phone +
+          '&changeType=' +
+          ischooseChick +
           '&count=' +
           count
       );
@@ -1630,8 +1577,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1670,8 +1616,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1701,8 +1646,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1733,8 +1677,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1760,8 +1703,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1804,8 +1746,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1853,8 +1794,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1880,8 +1820,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1907,8 +1846,7 @@ var func = {
 
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1933,8 +1871,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1969,8 +1906,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -1999,8 +1935,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2035,8 +1970,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2066,8 +2000,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2101,8 +2034,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2136,8 +2068,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2165,8 +2096,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2195,8 +2125,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2226,8 +2155,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2261,8 +2189,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2291,8 +2218,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2321,8 +2247,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2347,8 +2272,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2373,8 +2297,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2398,8 +2321,7 @@ var func = {
             response = JSON.parse(response);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2436,8 +2358,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2462,8 +2383,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2488,8 +2408,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2513,8 +2432,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2539,8 +2457,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2565,8 +2482,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2591,8 +2507,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2617,8 +2532,7 @@ var func = {
             console.log(data.Message);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2642,8 +2556,7 @@ var func = {
             console.log(data.Message);
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2667,8 +2580,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2693,8 +2605,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2719,8 +2630,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2745,8 +2655,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2771,8 +2680,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };
@@ -2807,8 +2715,7 @@ var func = {
             console.log('获取数据失败');
             reject(response);
           }
-        }
-        else if (xhr.readyState == 4 && xhr.status == 0) {
+        } else if (xhr.readyState == 4 && xhr.status == 0) {
           alert('网络连接失败');
         }
       };

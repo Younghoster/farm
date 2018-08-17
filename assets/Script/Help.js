@@ -8,7 +8,7 @@ cc.Class({
   start() {},
   slideToggle(e) {
     let self = this;
-    Config.guideIntro = Number(e.currentTarget._name.substr(5, 1));
+    Config.guideIntro = Number(e.currentTarget._name.substr(5));
     cc.director.loadScene('HelpDetail');
   },
   back() {

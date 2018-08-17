@@ -162,7 +162,7 @@ cc.Class({
                 let timerBar = cc.find('timerBar', holeNode);
                 timerBar.active = false;
               } else {
-                // Msg.show(data.Message);
+                //alert(data.Message);
               }
             });
             setTimeout(function() {
@@ -173,7 +173,7 @@ cc.Class({
 
                   self.eggAnim.setCurrentTime(0, 'eggBroken');
                 } else {
-                  // Msg.show(data.Message);
+                  //alert(data.Message);
                 }
               });
             }, 1500);

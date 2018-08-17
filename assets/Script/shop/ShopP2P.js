@@ -196,17 +196,22 @@ cc.Class({
 
           let alert = cc.instantiate(prefab);
           let choose = cc.find('bg/content', alert);
-          let guifeiji = cc.find('/guifeiji', alert);
+          let guifeiji = cc.find('guifeiji', alert);
+          let guifeijiSprite = cc.find('guifeiji', alert).getComponent(cc.Sprite);
           let label1 = cc.find('bg/label1', alert);
           let label2 = cc.find('bg/label2', alert);
           let label3 = cc.find('bg/label3', alert);
           let label4 = cc.find('bg/money/str2', alert);
+
           Func.EggOnShelfInfo(data.ID).then(data => {
             if (data.Code === 1) {
               label1.getComponent(cc.Label).string = '上架人：' + data.Model.eggOwner;
               label2.getComponent(cc.Label).string = '数量：' + data.Model.eggCount;
               // label3.getComponent(cc.Label).string = '产蛋次数：' + data.Model.chickenLayEggTimes + '/60次';
               guifeiji.setPositionY(220);
+              cc.loader.loadRes('Shop/icon-egg__', cc.SpriteFrame, function(err, spriteFrame) {
+                guifeijiSprite.spriteFrame = spriteFrame;
+              });
               choose.active = false;
               label1.active = true;
               label2.active = true;

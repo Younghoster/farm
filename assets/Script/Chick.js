@@ -38,24 +38,7 @@ var Chick = cc.Class({
     this.cId = Id;
   },
   //初始化鸡的状态 播放不同的动画
-  initData() {
-    // Func.GetChickById(this.cId).then(data => {
-    //   if (data.Code === 1) {
-    //     let chick_data = data.Model;
-    //     let shitStatus = chick_data.Shit;
-    //     let sickStatus = chick_data.Sick;
-    //     let hungryStatus = chick_data.Hungry;
-    //     this.feedNode.active = hungryStatus;
-    //     this._chickStatus.shit = shitStatus;
-    //     this._chickStatus.sick = sickStatus;
-    //     this._chickStatus.hungry = hungryStatus;
-    //     this._status = chick_data.Status;
-    //     this.playAnim();
-    //   } else {
-    //     Msg.show('服务器忙');
-    //   }
-    // });
-  },
+  initData() {},
   //更新小鸡饥饿显示状态
   updateFeedState() {},
   onLoad() {
@@ -248,33 +231,26 @@ var Chick = cc.Class({
   },
   playChickShit: function() {
     this._chickAnim.play('chick_shit');
-    // Msg.show("牧场不干净了");
   },
   playChickHungry: function() {
     this._chickAnim.play('chick_hungry');
-    // Msg.show("小鸡饿了");
   },
   playChickSick: function() {
     this._chickAnim.play('chick_sick');
-    // Msg.show("小鸡生病了");
   },
   playChickSickHungry: function() {
     this._chickAnim.play('chick_sick_hungry');
-    // Msg.show("小鸡饿了，小鸡生病了");
   },
   playChickSickShit: function() {
     // this._chickAnim.play("chick_shit_sick");
     this._chickAnim.play('chick_sick');
-    // Msg.show("牧场不干净了，小鸡生病了");
   },
   playChickShitHungry: function() {
     this._chickAnim.play('chick_shit_hungry');
-    // Msg.show("牧场不干净了，小鸡饿了");
   },
   playChickShitHungrySick: function() {
     // this._chickAnim.play("chick_hungry_sick_shit");
     this._chickAnim.play('chick_sick');
-    // Msg.show("牧场不干净了，小鸡生病了，小鸡饿了");
   },
   //根据小鸡的状态 播放不同的动画
   playAnim: function() {

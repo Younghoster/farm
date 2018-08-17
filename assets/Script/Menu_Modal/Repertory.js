@@ -431,7 +431,7 @@ cc.Class({
   //产蛋鸡上架事件（点击确定的回调）
   OnShelfEggChick(type, goodsNode) {
     let self = this;
-    // Msg.show('接口还在开发中');
+    //alert('接口还在开发中');
     let countLabel = cc.find('icon-tip/count', goodsNode).getComponent(cc.Label);
     //获取输入框的价格及数量
     let unitprice = Alertshelf._price;
@@ -453,7 +453,7 @@ cc.Class({
   //上架事件（点击确定的回调）
   OnShelf(type, goodsNode) {
     let self = this;
-    // Msg.show('接口还在开发中');
+    //alert('接口还在开发中');
     let countLabel = cc.find('icon-tip/count', goodsNode).getComponent(cc.Label);
     //获取输入框的价格及数量
     let unitprice = Alertshelf._price;
