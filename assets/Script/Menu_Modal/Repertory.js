@@ -98,6 +98,7 @@ cc.Class({
             if (goods.Count > 0) {
               this.assignData(goods, goodsNode);
               this.goodsListNode.addChild(goodsNode);
+              Tool.RunAction(goodsNode, 'fadeIn', 0.15);
               this.emptyNode = null;
             }
           }
@@ -130,6 +131,7 @@ cc.Class({
             let goodsNode = cc.instantiate(this.goods_Prefab);
             this.assignData(goods, goodsNode);
             this.goodsListNode.addChild(goodsNode);
+            Tool.RunAction(goodsNode, 'fadeIn', 0.15);
           }
         } else {
           this.emptyNode ? (this.emptyNode.active = true) : false;
@@ -149,7 +151,6 @@ cc.Class({
     let nameLabel = cc.find('name', goodsNode).getComponent(cc.Label);
     //获取物品数据
     let PropertyTypeID = goods.PropertyTypeID;
-    console.log(goods);
     let PropName;
     if (goods.PropertyTypeID == 6) {
       if (goods.Type == 1) {
@@ -171,7 +172,7 @@ cc.Class({
       this.bindGoodsEvent(
         goodsNode,
         () => {
-          this.shelfEvent(PropName + '(' + goods.LayEggCount + '/60次)', goods.ID, goodsNode, goods.LayEggCount);
+          this.shelfEvent(PropName + '(' + goods.LayEggCount + '/60次)', goods.ID, goodsNode, 1);
         },
         '上架',
         () => {
@@ -370,6 +371,7 @@ cc.Class({
       let btnLabel = cc.find('label', btnRedNode).getComponent(cc.Label);
       btnLabel.string = name1;
       btnGroupNode.addChild(btnRedNode);
+
       btnRedNode.on('click', f1, that);
       btnRedNode.on('maskClick', f1, that);
     }
@@ -560,7 +562,6 @@ cc.Class({
     let title = cc.find('bg/name', obj).getComponent(cc.Label);
     let goodSprite = cc.find('guifeiji', obj).getComponent(cc.Sprite);
     let count = 1;
-    console.log(data);
 
     title.string = '贵妃鸡';
 

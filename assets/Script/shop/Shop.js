@@ -52,6 +52,7 @@ cc.Class({
         goodsLabel.string = goods.PropName + 'x' + count;
         priceLabel.string = goods.PropValue;
         goodsListNode.addChild(goodsNode);
+        Tool.RunAction(goodsNode, 'fadeIn', 0.15);
         goodsNode.on('click', event => {
           Alert.show('0', null, null, null, null, null, 'Prefab/Sell', function() {
             let selfAlert = this;

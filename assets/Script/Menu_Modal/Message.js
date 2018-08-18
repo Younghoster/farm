@@ -1,7 +1,8 @@
 var Data = require('Data');
 var utils = require('utils');
 var Func = Data.func;
-
+var ToolJs = require('Tool');
+var Tool = ToolJs.Tool;
 cc.Class({
   extends: cc.Component,
 
@@ -164,6 +165,7 @@ cc.Class({
             // Config.newSocket.emit("add", [Func.openID, Func.openID]);
           });
           this.itemBox.addChild(item);
+          Tool.RunAction(item, 'fadeIn', 0.15);
         }
         this.emptyNode = null;
       } else {
@@ -220,6 +222,7 @@ cc.Class({
             utils.fn.formatNumToDateTime(data.List[i].CreateTime);
           msg_content.string = data.List[i].Remark;
           this.itemBox.addChild(item);
+          Tool.RunAction(item, 'fadeIn', 0.15);
         }
         this.emptyNode = null;
       } else {

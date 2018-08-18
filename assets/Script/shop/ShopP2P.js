@@ -145,6 +145,7 @@ cc.Class({
       }
       priceLabel.string = goods.NowALLRanchMoney;
       goodsListNode.addChild(goodsNode);
+      Tool.RunAction(goodsNode, 'fadeIn', 0.15);
     }
   },
 

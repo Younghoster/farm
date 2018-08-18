@@ -45,6 +45,45 @@ var Tool = {
         break;
     }
   },
+  //判断触摸滑动方向
+  touchMove(node, call) {
+    let moveEndX, moveEndY, X, Y, startX, startY;
+    node.on(
+      cc.Node.EventType.TOUCH_START,
+      function(event) {
+        (startX = event.touch._point.x), (startY = event.touch._point.y);
+      },
+      true
+    );
+    // node.on(
+    //   cc.Node.EventType.TOUCH_MOVE,
+    //   function(event) {
+
+    //   },
+    //   true
+    // );
+    node.on(
+      cc.Node.EventType.TOUCH_END,
+      function(event) {
+        (moveEndX = event.touch._point.x),
+          (moveEndY = event.touch._point.y),
+          (X = moveEndX - startX),
+          (Y = moveEndY - startY);
+        if (X > 150) {
+          console.log('right');
+        } else if (X < -150) {
+          console.log('left');
+        } else if (Y > 150) {
+          call(0);
+          console.log('up');
+        } else if (Y < -150) {
+          call(1);
+          console.log('down');
+        }
+      },
+      true
+    );
+  },
   //移除常驻资源
   removePersist() {
     Config.menuNode.active = false;

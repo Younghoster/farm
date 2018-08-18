@@ -40,7 +40,6 @@ cc.Class({
     }, 60);
     //初始加载工具栏
     this.getToolPositon();
-    Tool.RunAction(cc.find('Canvas'), 'fadeIn', 0.3);
 
     //更新于植物状态变动
     this.node.on('updataPlant', function(event) {
@@ -494,17 +493,35 @@ cc.Class({
 
   gotoMuChange: function() {
     let self = this;
-    cc.director.loadScene('FriendIndex', this.onLoadFadeIn);
+    cc.director.loadScene('FriendIndex', () => {
+      let canvas = cc.find('Canvas');
+      Tool.RunAction(canvas, 'fadeIn', 0.15);
+    });
   },
   back: function() {
-    cc.director.loadScene('index', this.onLoadFadeIn);
+    cc.director.loadScene('index', () => {
+      let canvas = cc.find('Canvas');
+      Tool.RunAction(canvas, 'fadeIn', 0.15);
+    });
   },
-  onLoadFadeIn() {
-    let canvas = cc.find('Canvas');
-    Tool.RunAction(canvas, 'fadeIn', 0.15);
+  start() {
+    let self = this;
+    Tool.touchMove(this.node, function(e) {
+      Data.func.GetLastAndNextFriend(Config.friendOpenId).then(res => {
+        if (res.Code === 1) {
+          Config.friendOpenId = res.LastFriend;
+          if (e == 0) {
+          } else if (e == 1) {
+            Config.friendOpenId = res.NestFriend;
+          }
+        }
+        cc.director.loadScene('FriendFarm', () => {
+          let canvas = cc.find('Canvas');
+          Tool.RunAction(canvas, 'fadeIn', 0.15);
+        });
+      });
+    });
   },
-  start() {},
-
   update(dt) {
     // this.fatchData();
   }

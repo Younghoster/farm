@@ -54,7 +54,6 @@ cc.Class({
     }, 60);
     //初始加载工具栏
     this.getToolPositon();
-    Tool.RunAction(cc.find('Canvas'), 'fadeIn', 0.3);
 
     //更新于植物状态变动
     this.node.on('updataPlant', function(event) {
@@ -646,9 +645,11 @@ cc.Class({
   },
 
   gotoMuChange: function() {
-    cc.director.loadScene('index');
+    cc.director.loadScene('index', () => {
+      let canvas = cc.find('Canvas');
+      Tool.RunAction(canvas, 'fadeIn', 0.15);
+    });
   },
-
   start() {},
   loadAnimates() {
     cc.loader.loadRes('Prefab/Modal/load', cc.Prefab, function(error, prefab) {

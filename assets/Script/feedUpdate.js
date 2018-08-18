@@ -91,7 +91,7 @@ cc.Class({
             Msg.show(data.Message);
           } else if (data.Code === -4) {
             Alert.show(
-              data.Message,
+              '立刻前往购买',
               function() {
                 cc.director.loadScene('shop');
                 self.removePersist();

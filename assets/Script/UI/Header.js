@@ -22,6 +22,7 @@ cc.Class({
     self.node.on('upDataMoney', function(event) {
       Func.GetUserGrade().then(data => {
         if (data.Code === 1) {
+          Config.SignFlowCount = data.Model.SignFlowCount;
           self.setHeardData(data);
         } else {
           Msg.show(data.Message);
@@ -46,6 +47,7 @@ cc.Class({
   init() {
     Func.GetUserGrade().then(data => {
       if (data.Code === 1) {
+        Config.SignFlowCount = data.Model.SignFlowCount;
         this.setHeardData(data);
       } else {
         Msg.show(data.Message);

@@ -114,32 +114,34 @@ cc.Class({
       if (cc.find('Canvas').parent._name == 'index') {
         Config.friendOpenId = data.OpenID;
         cc.director.loadScene('FriendIndex', () => {
-          self.onLoadFadeIn();
+          let canvas = cc.find('Canvas');
+          Tool.RunAction(canvas, 'fadeIn', 0.15);
         });
       } else if (cc.find('Canvas').parent._name == 'FriendIndex') {
         Config.friendOpenId = data.OpenID;
         cc.director.loadScene('FriendIndex', () => {
-          self.onLoadFadeIn();
+          let canvas = cc.find('Canvas');
+          Tool.RunAction(canvas, 'fadeIn', 0.15);
         });
       } else if (cc.find('Canvas').parent._name == 'FriendFarm') {
         Config.friendOpenId = data.OpenID;
         cc.director.loadScene('FriendFarm', () => {
-          self.onLoadFadeIn();
+          let canvas = cc.find('Canvas');
+          Tool.RunAction(canvas, 'fadeIn', 0.15);
         });
       } else {
         Config.friendOpenId = data.OpenID;
         cc.director.loadScene('FriendFarm', () => {
-          self.onLoadFadeIn();
+          let canvas = cc.find('Canvas');
+          Tool.RunAction(canvas, 'fadeIn', 0.15);
         });
       }
       self.removePersist();
     });
     this.contentNode.addChild(itemNode);
+    Tool.RunAction(itemNode, 'fadeIn', 0.15);
   },
-  onLoadFadeIn() {
-    let canvas = cc.find('Canvas');
-    Tool.RunAction(canvas, 'fadeIn', 0.15);
-  },
+
   removePersist() {
     Config.menuNode.active = false;
     Config.hearderNode.active = false;

@@ -61,6 +61,9 @@ cc.Class({
 
     //初始化机器人
     this.botNode.active = data.RanchModel.IsHasCleaningMachine;
+    if (data.RanchModel.IsHasCleaningMachine) {
+      Tool.RunAction(this.botNode, 'fadeIn', 0.15);
+    }
 
     //初始化牧场是否显示鸡蛋
     this.eggMoreNode.active = data.RanchModel.EggCount > 0 ? true : false;
@@ -103,7 +106,7 @@ cc.Class({
           let element = data.List[i];
           var chickNode = cc.find(`Chick${i}`, this.node);
           chickNode.active = true;
-
+          Tool.RunAction(chickNode, 'fadeIn', 0.15);
           chickNode.setPosition(250 - Math.random() * 500, Math.random() * -250 - 200);
           // let feedNode = cc.find('feed', chickNode);
           // feedNode.active = element.IsHunger;
@@ -386,6 +389,7 @@ cc.Class({
         this.houseNode.getComponent(cc.Sprite).spriteFrame = spriteFrame;
       });
     }
+    Tool.RunAction(this.houseNode, 'fadeIn', 0.15);
   },
 
   //跳转天气数据列表
@@ -393,16 +397,39 @@ cc.Class({
     cc.director.loadScene('weatherInfo');
   },
   loadIndexScene() {
-    cc.director.loadScene('index');
+    cc.director.loadScene('index', () => {
+      let canvas = cc.find('Canvas');
+      Tool.RunAction(canvas, 'fadeIn', 0.15);
+    });
   },
   gotoFriendFarm() {
     let self = this;
-    cc.director.loadScene('FriendFarm');
+    cc.director.loadScene('FriendFarm', () => {
+      let canvas = cc.find('Canvas');
+      Tool.RunAction(canvas, 'fadeIn', 0.15);
+    });
   },
+
   onLoad() {},
 
   start() {
+    let self = this;
     this.bindNode();
+    Tool.touchMove(this.node, function(e) {
+      Func.GetLastAndNextFriend(Config.friendOpenId).then(res => {
+        if (res.Code === 1) {
+          Config.friendOpenId = res.LastFriend;
+          if (e == 0) {
+          } else if (e == 1) {
+            Config.friendOpenId = res.NestFriend;
+          }
+        }
+        cc.director.loadScene('FriendIndex', () => {
+          let canvas = cc.find('Canvas');
+          Tool.RunAction(canvas, 'fadeIn', 0.15);
+        });
+      });
+    });
     Func.GetWholeData(Config.friendOpenId).then(data => {
       if (data.Code === 1) {
         this.initData(data);

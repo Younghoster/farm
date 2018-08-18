@@ -47,8 +47,6 @@ cc.Class({
     this.flabellumNode = cc.find('flabellum', this.windmillNode);
 
     this.chickList = [];
-    let canvas = cc.find('Canvas');
-    Tool.RunAction(canvas, 'fadeIn', 0.3);
   },
   //用户头像
   setHeadImg(dom) {
@@ -113,7 +111,9 @@ cc.Class({
     //初始化 机器人是否显示
     this.botNode = cc.find('bot', this.node);
     this.botNode.active = data.RanchModel.IsHasCleaningMachine;
-
+    if (data.RanchModel.IsHasCleaningMachine) {
+      Tool.RunAction(this.botNode, 'fadeIn', 0.15);
+    }
     this.updateWeatherBox();
     this.updateWeather();
     this.initChick();
@@ -157,6 +157,7 @@ cc.Class({
           // cc.loader.loadRes('Prefab/Chick', cc.Prefab, (err, prefab) => {
           var chickNode = cc.find(`Chick${i}`, this.node);
           chickNode.active = true;
+          Tool.RunAction(chickNode, 'fadeIn', 0.15);
           chickNode.setPosition(250 - Math.random() * 500, Math.random() * -250 - 200);
           let feedNode = cc.find('feed', chickNode);
           feedNode.active = element.IsHunger;
@@ -252,7 +253,7 @@ cc.Class({
           'Shop/icon-1_',
           '剩余的饲料不足'
         );
-      } else if (data.Code == 2) {
+      } else if (data.Code == -1 || data.Code == -3 || data.Code == -4) {
         Msg.show(data.Message);
       }
     });
@@ -367,6 +368,7 @@ cc.Class({
     } else if (Config.weather === 1) {
       this.setIcon('index/sun/house_3', this.houseNode.getComponent(cc.Sprite));
     }
+    Tool.RunAction(this.houseNode, 'fadeIn', 0.15);
   },
   //更新 饲料tip的数量
   updateFeedCount(isAddByBox, count) {
@@ -512,7 +514,10 @@ cc.Class({
     this.removePersist();
   },
   loadSceneFarm() {
-    cc.director.loadScene('Farm/farm');
+    cc.director.loadScene('Farm/farm', () => {
+      let canvas = cc.find('Canvas');
+      Tool.RunAction(canvas, 'fadeIn', 0.15);
+    });
   },
 
   onLoad: function() {

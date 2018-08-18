@@ -22,11 +22,12 @@ cc.Class({
   },
   onLoad() {
     let self = this;
+    this.getShare();
     this.node.on('step1', function(event) {
       self.showMenu();
     });
     this.getWeather();
-    this.getShare();
+
     cc.sys.localStorage.clear();
   },
   getShare() {

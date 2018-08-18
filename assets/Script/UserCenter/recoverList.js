@@ -1,6 +1,7 @@
 var Data = require('Data');
 var utils = require('utils');
-
+var ToolJs = require('Tool');
+var Tool = ToolJs.Tool;
 cc.Class({
   extends: cc.Component,
 
@@ -89,6 +90,7 @@ cc.Class({
           day.string = utils.fn.formatNumToDate(data.List[i].CreateTime);
           time.string = utils.fn.formatNumToDateTime(data.List[i].CreateTime);
           this.PrefabParent.addChild(PropertyList);
+          Tool.RunAction(PropertyList, 'fadeIn', 0.15);
         }
       }
     } else {
