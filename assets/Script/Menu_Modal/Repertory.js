@@ -172,7 +172,7 @@ cc.Class({
       this.bindGoodsEvent(
         goodsNode,
         () => {
-          this.shelfEvent(PropName + '(' + goods.LayEggCount + '/60次)', goods.ID, goodsNode, 1);
+          this.shelfEvent(PropName + '(' + goods.LayEggCount + '/60次)', goods.ID, goodsNode, goods.LayEggCount);
         },
         '上架',
         () => {

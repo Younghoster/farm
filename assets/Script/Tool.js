@@ -51,7 +51,9 @@ var Tool = {
     node.on(
       cc.Node.EventType.TOUCH_START,
       function(event) {
-        (startX = event.touch._point.x), (startY = event.touch._point.y);
+        if (event.touch._point.y > 300) {
+          (startX = event.touch._point.x), (startY = event.touch._point.y);
+        }
       },
       true
     );
