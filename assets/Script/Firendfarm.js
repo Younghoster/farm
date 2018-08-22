@@ -24,6 +24,8 @@ cc.Class({
     var self = this;
     document.title = `${Config.friendName}的农场`;
     this.oldData = null;
+    this.allcount = 0;
+    this.FarmJs = cc.find('Canvas');
     //星星盒子
     self.starsBox = cc.find('bg/starsBox', this.node);
     self.moon = cc.find('moon', this.node);
@@ -364,70 +366,159 @@ cc.Class({
     for (let i = 1; i < 7; i++) {
       if (i == 2 || i == 3 || i == 4 || i == 6) {
         let tool = cc.find('tool/layout/farm_icon_0' + i, this.node);
-        this.addListenMove(i, tool);
+        tool.on('click', function() {
+          self.dataList = JSON.parse(cc.sys.localStorage.getItem('FarmData')); //缓存机制
+          self.setEvent(i);
+        });
       }
     }
   },
-
-  //添加触摸事件
-  addListenMove(i, tool, otherId) {
+  setEvent(n) {
     let self = this;
+    self.allcount = 0;
+    for (let i = 0; i < 12; i++) {
+      clearTimeout(this.timers); //清理定时器
+      clearTimeout(this.timers2); //清理定时器
+      switch (n) {
+        case 2: {
+          this.water(i);
+          break;
+        }
+        case 3: {
+          this.weed(i);
 
-    let farmBox = cc.find('bg', this.node);
-    let bg_farm = cc.find('bg_farm', this.node);
-    tool.on('touchstart', function(e) {
-      bg_farm.opacity = 0; //种子选择的浮窗
-      self.Value.toolType = i;
-      //播种时传入种子ID
-      if (i == 1) {
-        Config.propertyId = otherId;
+          break;
+        }
+        case 4: {
+          this.disinsection(i);
+
+          break;
+        }
       }
-      //施肥时传入肥料类型
-      else if (i == 5) {
-        Config.fertilizerId = otherId;
-      }
-      if (self.Value.toolType != 0) {
-        cc.sys.localStorage.setItem('FarmData', JSON.stringify(self.Value)); //缓存机制
-        self.Prefab = cc.instantiate(self.Tool_Prefab);
-        let Img = cc.find('tool', self.Prefab).getComponent(cc.Sprite);
-        cc.loader.loadRes(self.imgSrcSelect(i), cc.SpriteFrame, function(err, spriteFrame) {
-          Img.spriteFrame = spriteFrame;
+    }
+    if (n == 6) {
+      this.collectCrops(i);
+    }
+  },
+  //更新数据
+  // upLocDataByPlant() {
+  //   let self = this;
+  //   setTimeout(() => {
+  //     let datas = JSON.parse(cc.sys.localStorage.getItem('FarmData'));
+  //     console.log(datas);
+  //     self.clearAllDom(datas.List); //清除植物数据
+  //     self.setLocData(datas.List);
+  //     self.fatchPlant(datas.List); //重新加载植物
+  //   }, 500);
+  // },
+  //浇水
+  water(id) {
+    let self = this;
+    let CropsID = this.dataList.List[id].CropsID;
+    let IsLock = this.dataList.List[id].IsLock;
+    let IsDisinsection = this.dataList.List[id].IsDisinsection;
+    let IsWater = this.dataList.List[id].IsDry;
+    let IsWeeds = this.dataList.List[id].IsWeeds;
+    let CropsStatus = this.dataList.List[id].CropsStatus;
+    if (CropsStatus !== 0 && !IsLock && IsWater) {
+      if (!IsDisinsection && IsWater) {
+        self.allcount = self.allcount + 1;
+        Data.func.CropsWatering(CropsID, Config.openID).then(data => {
+          if (data.Code === 1) {
+            self.timers = setTimeout(function() {
+              Data.func.getFarmModalData(Config.friendOpenId).then(data2 => {
+                self.FarmJs.emit('updataPlant', {
+                  data: data2.Model
+                });
+              });
+            }, 1500);
+          } else {
+          }
         });
-        self.Prefab.setPosition(e.getLocation().x - 50, e.getLocation().y + 120);
-        farmBox.addChild(self.Prefab, 9);
       }
-    });
-    tool.on('touchmove', function(e) {
-      if (self.Value.toolType != 0) {
-        self.Prefab.setPosition(e.getLocation().x - 50, e.getLocation().y - 100);
+    }
+    if (id == 11 && this.allcount == 0) {
+      Msg.show('不需要浇水哦！');
+    } else if (id == 11 && this.allcount > 0) {
+      Msg.show('帮助好友浇水成功，经验+' + this.allcount * 5);
+    }
+  },
+  //除草
+  weed(id) {
+    let self = this;
+    let CropsID = this.dataList.List[id].CropsID;
+    let IsLock = this.dataList.List[id].IsLock;
+    let IsDisinsection = this.dataList.List[id].IsDisinsection;
+    let IsWater = this.dataList.List[id].IsDry;
+    let IsWeeds = this.dataList.List[id].IsWeeds;
+    let CropsStatus = this.dataList.List[id].CropsStatus;
+    if (CropsStatus !== 0 && !IsLock && IsWeeds) {
+      if (IsWeeds && !IsDisinsection && !IsWater) {
+        self.allcount = self.allcount + 1;
+        Data.func.CropsWeeding(CropsID, Config.openID).then(data => {
+          if (data.Code === 1) {
+            self.timers = setTimeout(function() {
+              Data.func.getFarmModalData(Config.friendOpenId).then(data2 => {
+                self.FarmJs.emit('updataPlant', {
+                  data: data2.Model
+                });
+              });
+            }, 1500);
+          } else {
+          }
+        });
       }
-    });
-    tool.on('touchend', function() {
-      if (self.Value.toolType != 0) {
-        self.Prefab.removeFromParent();
+    }
+    if (id == 11 && this.allcount == 0) {
+      Msg.show('不需要除草哦！');
+    } else if (id == 11 && this.allcount > 0) {
+      Msg.show('帮助好友除草成功，经验+' + this.allcount * 5);
+    }
+  },
+  //除虫
+  disinsection(id) {
+    let self = this;
+    let CropsID = this.dataList.List[id].CropsID;
+    let IsLock = this.dataList.List[id].IsLock;
+    let IsDisinsection = this.dataList.List[id].IsDisinsection;
+    let IsWater = this.dataList.List[id].IsDry;
+    let IsWeeds = this.dataList.List[id].IsWeeds;
+    let CropsStatus = this.dataList.List[id].CropsStatus;
+    if (CropsStatus !== 0 && !IsLock && IsDisinsection) {
+      if (IsDisinsection) {
+        self.allcount = self.allcount + 1;
+        Data.func.CropsDisinsection(CropsID, Config.openID).then(data => {
+          if (data.Code === 1) {
+            self.timers = setTimeout(function() {
+              Data.func.getFarmModalData(Config.friendOpenId).then(data2 => {
+                self.FarmJs.emit('updataPlant', {
+                  data: data2.Model
+                });
+              });
+            }, 1500);
+          } else {
+          }
+        });
       }
-      bg_farm.active = false; //种子选择的浮窗
-      bg_farm.opacity = 1;
-      bg_farm.removeAllChildren();
-      for (let i = 0; i < 12; i++) {
-        let itemNodeColor = cc.find('bg/mapNew/item' + i, self.node);
-        itemNodeColor.color = cc.Color.WHITE;
-      }
-    });
-    tool.on('touchcancel', function() {
-      if (self.Value.toolType != 0) {
-        self.Prefab.removeFromParent();
-      }
-      bg_farm.active = false; //种子选择的浮窗
-      bg_farm.opacity = 1;
-      bg_farm.removeAllChildren();
-      for (let i = 0; i < 12; i++) {
-        let itemNodeColor = cc.find('bg/mapNew/item' + i, self.node);
-        itemNodeColor.color = cc.Color.WHITE;
+    }
+    if (id == 11 && this.allcount == 0) {
+      Msg.show('不需要除虫哦！');
+    } else if (id == 11 && this.allcount > 0) {
+      Msg.show('帮助好友除虫成功，经验+' + this.allcount * 5);
+    }
+  },
+  //收取农作物
+  collectCrops(id) {
+    let self = this;
+    Data.func.FriendsStealCrops(Config.friendOpenId).then(data => {
+      if (data.Code === 1) {
+        self.allcount++;
+        Msg.show(data.Message);
+      } else {
+        Msg.show(data.Message);
       }
     });
   },
-
   //工具图片显示  浇水、除草、种子、镰刀
   imgSrcSelect(i) {
     var self = this;

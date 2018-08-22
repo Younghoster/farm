@@ -49,6 +49,15 @@ cc.Class({
       if (data.Code === 1) {
         Config.SignFlowCount = data.Model.SignFlowCount;
         this.setHeardData(data);
+        // if (data.Model.IsFirstLogin) {
+        //   Func.UpdateUserFirstLoginState().then(data => {
+        //     if (data.Code == 1) {
+        //       setTimeout(function() {
+        //         Msg.show('每日首次分享，可以获得丰厚奖励，记得分享哦！');
+        //       }, 1000);
+        //     }
+        //   });
+        // }
       } else {
         Msg.show(data.Message);
       }

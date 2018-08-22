@@ -51,29 +51,7 @@ cc.Class({
         //产蛋棚等级
         this.shedRank = data.Model.model.ShedRank;
         let list = data.Model.DetailList;
-        let LabStr = self.label.getComponent(cc.Label);
-        let LabStr2 = self.label2.getComponent(cc.Label);
-        let LabStr3 = self.label3.getComponent(cc.Label);
-        switch (this.shedRank) {
-          case 1: {
-            LabStr.string = '您的产蛋棚等级为1级';
-            LabStr2.string = '升级下一级所需';
-            LabStr3.string = '198牧场币（无等级限制）';
-            break;
-          }
-          case 2: {
-            LabStr.string = '您的产蛋棚等级为2级';
-            LabStr2.string = '升级下一级所需';
-            LabStr3.string = '498牧场币（无等级限制）';
-            break;
-          }
-          case 3: {
-            LabStr.string = '您的产蛋棚已经满级！';
-            LabStr2.string = '无需升级';
-            LabStr3.string = '';
-            break;
-          }
-        }
+
         for (let i = 0; i < list.length; i++) {
           const element = list[i];
 
@@ -244,8 +222,12 @@ cc.Class({
         holeSprite.spriteFrame = spriteFrame;
       });
       if (Config.firstLogin) {
-        if (i == 0 || i == 1) {
+        if (i == 0 || i == 1 || i == 2 || i == 3 || i == 4) {
           cc.loader.loadRes('eggHouse/img2', cc.SpriteFrame, (err, spriteFrame) => {
+            holeSprite.spriteFrame = spriteFrame;
+          });
+        } else if (i == 5) {
+          cc.loader.loadRes('eggHouse/img4', cc.SpriteFrame, (err, spriteFrame) => {
             holeSprite.spriteFrame = spriteFrame;
           });
         }

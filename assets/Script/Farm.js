@@ -23,12 +23,11 @@ cc.Class({
   onLoad() {
     document.title = `${Config.realName}的农场`;
     this.oldData = null;
+    this.allcount = 0;
+
+    this.CollectNumber = 0;
     let self = this;
-    this.func = {
-      getWeed: this.getWeed,
-      touchstart: this.touchstart,
-      touchmove: this.touchmove
-    };
+
     Config.backArr = ['farm'];
     let org = document.body.clientHeight / document.body.clientWidth;
 
@@ -409,7 +408,11 @@ cc.Class({
             let Label = cc.find('label', prefab).getComponent(cc.Label);
             ImgSrc = 'Modal/Repertory/ymzz';
             Label.string = data.List[i].TypeName + '×' + data.List[i].Count;
-            self.addListenMove(1, prefab, data.List[i].PropertyTypeID);
+            prefab.on('click', function() {
+              Config.propertyId = data.List[i].PropertyTypeID;
+              self.setEvent(1);
+            });
+
             cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function(err, spriteFrame) {
               Img.spriteFrame = spriteFrame;
             });
@@ -435,15 +438,20 @@ cc.Class({
     for (let i = 1; i < 7; i++) {
       let tool = cc.find('tool/layout/farm_icon_0' + i, this.node);
       if (i !== 1 && i !== 5) {
-        this.addListenMove(i, tool);
+        tool.on('click', function() {
+          self.dataList = JSON.parse(cc.sys.localStorage.getItem('FarmData')); //缓存机制
+          self.setEvent(i);
+        });
       }
       if (i == 1) {
-        tool.on('touchstart', function() {
+        tool.on('click', function() {
+          self.dataList = JSON.parse(cc.sys.localStorage.getItem('FarmData')); //缓存机制
           self.getSeed();
         });
       }
       if (i == 5) {
-        tool.on('touchstart', function() {
+        tool.on('click', function() {
+          self.dataList = JSON.parse(cc.sys.localStorage.getItem('FarmData')); //缓存机制
           let seedBox = cc.find('bg_farm', self.node);
           if (!seedBox.active) {
             seedBox.active = false;
@@ -463,7 +471,10 @@ cc.Class({
                     ImgSrc = 'Shop/fertilizer';
                   }
                   Label.string = data.List[i].TypeName + '×' + data.List[i].Count;
-                  self.addListenMove(5, prefab, data.List[i].PropertyTypeID);
+                  prefab.on('click', function() {
+                    Config.fertilizerId = data.List[i].PropertyTypeID;
+                    self.setEvent(5);
+                  });
                   cc.loader.loadRes(ImgSrc, cc.SpriteFrame, function(err, spriteFrame) {
                     Img.spriteFrame = spriteFrame;
                   });
@@ -486,88 +497,219 @@ cc.Class({
       }
     }
   },
-
-  //添加触摸事件
-  addListenMove(i, tool, otherId) {
+  setEvent(n) {
     let self = this;
+    let propertyId = Config.propertyId; //种子ID (玉米)
+    let type = Config.fertilizerId; //肥料ID
+    this.allcount = 0;
+    this.CollectNumber = 0;
+    for (let i = 0; i < 12; i++) {
+      clearTimeout(this.timers); //清理定时器
+      clearTimeout(this.timers2); //清理定时器
+      switch (n) {
+        case 1: {
+          this.crops(i, propertyId);
+          break;
+        }
+        case 2: {
+          this.water(i);
+          break;
+        }
+        case 3: {
+          this.weed(i);
 
-    let farmBox = cc.find('bg', this.node);
-    let bg_farm = cc.find('bg_farm', this.node);
-    tool.on('touchstart', function(e) {
-      self.touchstart(i, e.getLocation().x - 50, e.getLocation().y + 120, otherId);
-    });
-    tool.on('touchmove', function(e) {
-      self.touchmove(i, e.getLocation().x - 50, e.getLocation().y);
-    });
-    tool.on('touchend', function() {
-      self.touchend(i);
-      for (let i = 0; i < 12; i++) {
-        let itemNodeColor = cc.find('bg/mapNew/item' + i, self.node);
-        itemNodeColor.color = cc.Color.WHITE;
+          break;
+        }
+        case 4: {
+          this.disinsection(i);
+
+          break;
+        }
+        case 5: {
+          this.cropsSertilize(i, type);
+
+          break;
+        }
+        case 6: {
+          this.collectCrops(i);
+
+          break;
+        }
       }
-    });
-    tool.on('touchcancel', function() {
-      self.touchcancel(i);
-      for (let i = 0; i < 12; i++) {
-        let itemNodeColor = cc.find('bg/mapNew/item' + i, self.node);
-        itemNodeColor.color = cc.Color.WHITE;
-      }
-    });
-  },
-  touchstart(i, posX, posY, otherId) {
-    let self = this;
+    }
     let bg_farm = cc.find('bg_farm', this.node);
-    let farmBox = cc.find('bg', this.node);
-    bg_farm.opacity = 0; //种子选择的浮窗
-    self.Value.toolType = i;
-    //播种时传入种子ID
-    if (i == 1) {
-      Config.propertyId = otherId;
-    }
-    //施肥时传入肥料类型
-    else if (i == 5) {
-      Config.fertilizerId = otherId;
-    }
+    self.upLocDataByPlant();
     if (self.Value.toolType != 0) {
-      cc.sys.localStorage.setItem('FarmData', JSON.stringify(self.Value)); //缓存机制
-      self.Prefab = cc.instantiate(self.Tool_Prefab);
-      let Img = cc.find('tool', self.Prefab).getComponent(cc.Sprite);
-      cc.loader.loadRes(self.imgSrcSelect(i), cc.SpriteFrame, function(err, spriteFrame) {
-        Img.spriteFrame = spriteFrame;
+      self.Prefab.removeFromParent();
+    }
+    bg_farm.active = false; //种子选择的浮窗
+    bg_farm.opacity = 1;
+    bg_farm.removeAllChildren();
+  },
+  //播种
+  crops(id, propertyId) {
+    let self = this;
+    let landId = this.dataList.List[id].ID;
+    let CropsID = this.dataList.List[id].CropsID;
+    let IsLock = this.dataList.List[id].IsLock;
+    if (CropsID == 0 && !IsLock) {
+      Data.func.addCrops(landId, propertyId).then(data => {
+        if (data.Code == 1) {
+          self.allcount = self.allcount + 1;
+          this.dataList.List[id].CropsStatus = 1;
+          cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
+        }
       });
-      self.Prefab;
-      farmBox.addChild(self.Prefab, 9);
+    }
+    if (id == 11 && this.allcount == 0) {
+      Msg.show('已经种满啦！');
+    } else if (id == 11 && this.allcount > 0) {
+      Msg.show('播种成功，经验+' + 10 * this.allcount);
     }
   },
-  touchmove(i, posX, posY) {
+  //浇水
+  water(id) {
     let self = this;
-    if (self.Value.toolType != 0) {
-      self.Prefab.setPosition(posX - 50, posY - 100);
+    let CropsID = this.dataList.List[id].CropsID;
+    let IsLock = this.dataList.List[id].IsLock;
+    let IsDisinsection = this.dataList.List[id].IsDisinsection;
+    let IsWater = this.dataList.List[id].IsDry;
+    let IsWeeds = this.dataList.List[id].IsWeeds;
+    let CropsStatus = this.dataList.List[id].CropsStatus;
+    if (CropsStatus !== 0 && !IsLock && IsWater) {
+      if (!IsDisinsection && IsWater) {
+        this.dataList.List[id].IsDry = false;
+        cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
+        self.allcount = self.allcount + 1;
+        Data.func.CropsWatering(CropsID).then(data => {});
+      }
+    }
+    if (id == 11 && this.allcount == 0) {
+      Msg.show('不需要浇水哦！');
+    } else if (id == 11 && this.allcount > 0) {
+      Msg.show('浇水成功，经验+' + 5 * this.allcount);
     }
   },
-  touchend(i) {
+  //除草
+  weed(id) {
     let self = this;
+    let CropsID = this.dataList.List[id].CropsID;
+    let IsLock = this.dataList.List[id].IsLock;
+    let IsDisinsection = this.dataList.List[id].IsDisinsection;
+    let IsWater = this.dataList.List[id].IsDry;
+    let IsWeeds = this.dataList.List[id].IsWeeds;
+    let CropsStatus = this.dataList.List[id].CropsStatus;
+    if (CropsStatus !== 0 && !IsLock && IsWeeds) {
+      if (!IsDisinsection && !IsWater && IsWeeds) {
+        console.log(this.dataList);
+        this.dataList.List[id].IsWeeds = false;
+        cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
+        self.allcount = self.allcount + 1;
+        Data.func.CropsWeeding(CropsID).then(data => {});
+      }
+    }
+    if (id == 11 && this.allcount == 0) {
+      Msg.show('不需要除草哦！');
+    } else if (id == 11 && this.allcount > 0) {
+      Msg.show('除草成功，经验+' + 5 * this.allcount);
+    }
+  },
+  //除虫
+  disinsection(id) {
+    let self = this;
+    let CropsID = this.dataList.List[id].CropsID;
+    let IsLock = this.dataList.List[id].IsLock;
+    let IsDisinsection = this.dataList.List[id].IsDisinsection;
+    let IsWater = this.dataList.List[id].IsDry;
+    let IsWeeds = this.dataList.List[id].IsWeeds;
+    let CropsStatus = this.dataList.List[id].CropsStatus;
+    if (CropsStatus !== 0 && !IsLock && IsDisinsection) {
+      if (IsDisinsection) {
+        this.dataList.List[id].IsDisinsection = false;
+        cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
+        self.allcount = self.allcount + 1;
+        Data.func.CropsDisinsection(CropsID).then(data => {});
+      }
+    }
+    if (id == 11 && this.allcount == 0) {
+      Msg.show('不需要除虫哦！');
+    } else if (id == 11 && this.allcount > 0) {
+      Msg.show('除虫成功，经验+' + 5 * this.allcount);
+    }
+  },
+  //施肥
+  cropsSertilize(id, type) {
+    let self = this;
+    let IsLock = this.dataList.List[id].IsLock;
+    let CropsStatus = this.dataList.List[id].CropsStatus;
+    let isCropsSpreadCount = this.dataList.List[id].CropsSpreadCount;
+    if (CropsStatus !== 0 && !IsLock) {
+      let CropsID = this.dataList.List[id].CropsID;
+      Data.func.FarmCropsGrowTime(CropsID).then(data3 => {
+        if (data3.Code > 0) {
+          let createTime = data3.Model.match(/\d+/g)[0];
+          let endTime = parseInt(createTime) + 48 * 60 * 60 * 1000;
+          let nowDate = Date.parse(new Date());
+          let time = utils.fn.timeDiff(nowDate, endTime);
+          let progressNum = (time.days - 2) * 24 * 60 + time.hours * 60 + time.mins;
 
-    let bg_farm = cc.find('bg_farm', this.node);
-    self.upLocDataByPlant();
-    if (self.Value.toolType != 0) {
-      self.Prefab.removeFromParent();
+          Data.func.CropsSertilize(CropsID, type).then(data => {
+            if (data.Code === 1) {
+              self.allcount = self.allcount + 1;
+              //普通肥料的时候
+              if (type == 7) {
+                if (progressNum < 300) {
+                  //升级了
+                  if (CropsStatus < 4) {
+                    this.dataList.List[id].CropsStatus = CropsStatus + 1;
+                  }
+                }
+              } else if (type == 9) {
+                if (progressNum < 600) {
+                  //升级了
+                  this.dataList.List[id].CropsStatus = CropsStatus + 1;
+                }
+              }
+              this.dataList.List[id].CropsSpreadCount = 1;
+              cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
+            }
+          });
+          if (id == 11 && this.allcount == 0) {
+            Msg.show('已经都施过肥啦！');
+          } else if (id == 11 && this.allcount > 0) {
+            Msg.show('施肥成功！');
+          }
+        }
+      });
     }
-    bg_farm.active = false; //种子选择的浮窗
-    bg_farm.opacity = 1;
-    bg_farm.removeAllChildren();
   },
-  touchcancel(i) {
+  //收取农作物
+  collectCrops(id) {
     let self = this;
-    let bg_farm = cc.find('bg_farm', this.node);
-    self.upLocDataByPlant();
-    if (self.Value.toolType != 0) {
-      self.Prefab.removeFromParent();
+    let CropsID = this.dataList.List[id].CropsID;
+    let IsLock = this.dataList.List[id].IsLock;
+    let CropsStatus = this.dataList.List[id].CropsStatus;
+    if (CropsStatus == 4 && !IsLock) {
+      self.allcount = self.allcount + 1;
+      Data.func.CollectCrops(CropsID).then(data => {
+        if (data.Code === 1) {
+          self.CollectNumber = self.CollectNumber + data.Model;
+
+          self.dataList.List[id].CropsStatus = 0;
+          self.dataList.List[id].CropsID = 0;
+          self.dataList.List[id].CropsSpreadCount = 0;
+          cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
+          if (id == 11 && self.CollectNumber > 0) {
+            Msg.show('收取 × ' + self.CollectNumber);
+          }
+        }
+      });
     }
-    bg_farm.active = false; //种子选择的浮窗
-    bg_farm.opacity = 1;
-    bg_farm.removeAllChildren();
+    if (id == 11 && this.allcount == 0) {
+      Msg.show('无可收取植物！');
+    }
   },
+
   //更新数据
   upLocDataByPlant() {
     let self = this;

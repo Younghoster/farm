@@ -71,6 +71,20 @@ cc.Class({
 
     this.setHeadImg(headImg);
 
+    // 刚完成新手指引
+    if (Config.isfinishGuide) {
+      cc.loader.loadRes('Prefab/Modal/finishGuide', cc.Prefab, (err, prefab) => {
+        let itemNode = cc.instantiate(prefab);
+        let bttn = cc.find('btn-close', itemNode);
+        bttn.on('click', function() {
+          itemNode.removeFromParent();
+        });
+        self.node.addChild(itemNode);
+        itemNode.setLocalZOrder(2);
+        Config.isfinishGuide = 0;
+      });
+    }
+
     //名称
     document.title = `${data.UserModel.RealName}的牧场`;
     Config.realName = data.UserModel.RealName;

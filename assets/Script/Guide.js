@@ -424,11 +424,11 @@ var GuideSystem = {
     var radius = height > width ? height : width;
     guideMaskNode.height = radius + 15;
     guideMaskNode.width = radius + 15;
-
+    var items = 1;
     guideMaskNode.on(
       'click',
       function() {
-        var goodsNode = cc.find('eggHouse/bg/content/hole1');
+        var goodsNode = cc.find('eggHouse/bg/content/hole' + items);
         //设置position
         var pos = goodsNode.getPosition();
         var pos_5 = goodsNode.getNodeToWorldTransformAR(pos);
@@ -444,25 +444,25 @@ var GuideSystem = {
         guideMaskNode.height = radius + 15;
         guideMaskNode.width = radius + 15;
 
-        // cc.loader.loadRes('guide/pic-7', cc.SpriteFrame, function(err, spriteFrame) {
-        //   modalSprite.spriteFrame = spriteFrame;
-        // });
         //绑定事件
-        guideMaskNode.on(
-          'click',
-          function() {
-            jt.active = false;
-            textintro.active = false;
-            guideMaskNode.removeFromParent();
-            cc.find('eggHouse').removeFromParent();
-            self.alertMsgNew(8);
-            console.log(self.step);
-            var oldGuideNode = cc.find('guide');
-            oldGuideNode ? oldGuideNode.removeFromParent() : false;
-            self.guide();
-          },
-          this
-        );
+        items = items + 1;
+        if (items == 6) {
+          guideMaskNode.on(
+            'click',
+            function() {
+              jt.active = false;
+              textintro.active = false;
+              guideMaskNode.removeFromParent();
+              cc.find('eggHouse').removeFromParent();
+              self.alertMsgNew(8);
+              console.log(self.step);
+              var oldGuideNode = cc.find('guide');
+              oldGuideNode ? oldGuideNode.removeFromParent() : false;
+              self.guide();
+            },
+            this
+          );
+        }
       },
       this
     );
@@ -711,7 +711,7 @@ var GuideSystem = {
           self.setIcon('Modal/Msg/msg-exp', icon2);
           txt2.getComponent(cc.Label).string = '经验值*100';
           self.setIcon('Modal/Repertory/icon-asset05', icon3);
-          txt3.getComponent(cc.Label).string = '鸡蛋*4';
+          txt3.getComponent(cc.Label).string = '鸡蛋*8';
           layout1.active = true;
           layout2.active = true;
           layout3.active = true;

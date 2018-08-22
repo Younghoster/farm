@@ -52,8 +52,12 @@ var Alertshelf = {
       this._cancelButton.on('click', this.onButtonClicked, this);
       this._inputCountNode.on('text-changed', this.onTextChanged, this);
       this._inputPriceNode.on('text-changed', this.onTextChanged, this);
-      if (count) {
-        this._inputPriceEditBox.string = '输入价格(建议200-' + (count * 15 + 200) + ')';
+      if (typeof count == 'number') {
+        if (count == 0) {
+          this._inputPriceEditBox.string = '输入价格(建议200)';
+        } else {
+          this._inputPriceEditBox.string = '输入价格(建议200-' + (count * 15 + 200) + ')';
+        }
       } else {
         this._inputPriceEditBox.string = '输入单价(建议10-30)';
       }
