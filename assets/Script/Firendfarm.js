@@ -375,7 +375,7 @@ cc.Class({
   },
   setEvent(n) {
     let self = this;
-    self.allcount = 0;
+    Config.allcount = 0;
     for (let i = 0; i < 12; i++) {
       clearTimeout(this.timers); //清理定时器
       clearTimeout(this.timers2); //清理定时器
@@ -400,17 +400,7 @@ cc.Class({
       this.collectCrops(i);
     }
   },
-  //更新数据
-  // upLocDataByPlant() {
-  //   let self = this;
-  //   setTimeout(() => {
-  //     let datas = JSON.parse(cc.sys.localStorage.getItem('FarmData'));
-  //     console.log(datas);
-  //     self.clearAllDom(datas.List); //清除植物数据
-  //     self.setLocData(datas.List);
-  //     self.fatchPlant(datas.List); //重新加载植物
-  //   }, 500);
-  // },
+
   //浇水
   water(id) {
     let self = this;
@@ -422,7 +412,7 @@ cc.Class({
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsWater) {
       if (!IsDisinsection && IsWater) {
-        self.allcount = self.allcount + 1;
+        Config.allcount = Config.allcount + 1;
         Data.func.CropsWatering(CropsID, Config.openID).then(data => {
           if (data.Code === 1) {
             self.timers = setTimeout(function() {
@@ -437,10 +427,10 @@ cc.Class({
         });
       }
     }
-    if (id == 11 && this.allcount == 0) {
+    if (id == 11 && Config.allcount == 0) {
       Msg.show('不需要浇水哦！');
-    } else if (id == 11 && this.allcount > 0) {
-      Msg.show('帮助好友浇水成功，经验+' + this.allcount * 5);
+    } else if (id == 11 && Config.allcount > 0) {
+      Msg.show('帮助好友浇水成功，经验+' + Config.allcount * 5);
     }
   },
   //除草
@@ -454,7 +444,7 @@ cc.Class({
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsWeeds) {
       if (IsWeeds && !IsDisinsection && !IsWater) {
-        self.allcount = self.allcount + 1;
+        Config.allcount = Config.allcount + 1;
         Data.func.CropsWeeding(CropsID, Config.openID).then(data => {
           if (data.Code === 1) {
             self.timers = setTimeout(function() {
@@ -469,10 +459,10 @@ cc.Class({
         });
       }
     }
-    if (id == 11 && this.allcount == 0) {
+    if (id == 11 && Config.allcount == 0) {
       Msg.show('不需要除草哦！');
-    } else if (id == 11 && this.allcount > 0) {
-      Msg.show('帮助好友除草成功，经验+' + this.allcount * 5);
+    } else if (id == 11 && Config.allcount > 0) {
+      Msg.show('帮助好友除草成功，经验+' + Config.allcount * 5);
     }
   },
   //除虫
@@ -486,7 +476,7 @@ cc.Class({
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsDisinsection) {
       if (IsDisinsection) {
-        self.allcount = self.allcount + 1;
+        Config.allcount = Config.allcount + 1;
         Data.func.CropsDisinsection(CropsID, Config.openID).then(data => {
           if (data.Code === 1) {
             self.timers = setTimeout(function() {
@@ -501,10 +491,10 @@ cc.Class({
         });
       }
     }
-    if (id == 11 && this.allcount == 0) {
+    if (id == 11 && Config.allcount == 0) {
       Msg.show('不需要除虫哦！');
-    } else if (id == 11 && this.allcount > 0) {
-      Msg.show('帮助好友除虫成功，经验+' + this.allcount * 5);
+    } else if (id == 11 && Config.allcount > 0) {
+      Msg.show('帮助好友除虫成功，经验+' + Config.allcount * 5);
     }
   },
   //收取农作物
@@ -512,7 +502,6 @@ cc.Class({
     let self = this;
     Data.func.FriendsStealCrops(Config.friendOpenId).then(data => {
       if (data.Code === 1) {
-        self.allcount++;
         Msg.show(data.Message);
       } else {
         Msg.show(data.Message);

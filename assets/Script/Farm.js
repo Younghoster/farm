@@ -23,9 +23,6 @@ cc.Class({
   onLoad() {
     document.title = `${Config.realName}的农场`;
     this.oldData = null;
-    this.allcount = 0;
-
-    this.CollectNumber = 0;
     let self = this;
 
     Config.backArr = ['farm'];
@@ -501,8 +498,8 @@ cc.Class({
     let self = this;
     let propertyId = Config.propertyId; //种子ID (玉米)
     let type = Config.fertilizerId; //肥料ID
-    this.allcount = 0;
-    this.CollectNumber = 0;
+    Config.allcount = 0;
+    Config.CollectNumber = 0;
     for (let i = 0; i < 12; i++) {
       clearTimeout(this.timers); //清理定时器
       clearTimeout(this.timers2); //清理定时器
@@ -553,18 +550,18 @@ cc.Class({
     let CropsID = this.dataList.List[id].CropsID;
     let IsLock = this.dataList.List[id].IsLock;
     if (CropsID == 0 && !IsLock) {
+      Config.allcount = Config.allcount + 1;
       Data.func.addCrops(landId, propertyId).then(data => {
         if (data.Code == 1) {
-          self.allcount = self.allcount + 1;
           this.dataList.List[id].CropsStatus = 1;
           cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
         }
       });
     }
-    if (id == 11 && this.allcount == 0) {
+    if (id == 11 && Config.allcount == 0) {
       Msg.show('已经种满啦！');
-    } else if (id == 11 && this.allcount > 0) {
-      Msg.show('播种成功，经验+' + 10 * this.allcount);
+    } else if (id == 11 && Config.allcount > 0) {
+      Msg.show('播种成功，经验+' + 10 * Config.allcount);
     }
   },
   //浇水
@@ -577,17 +574,17 @@ cc.Class({
     let IsWeeds = this.dataList.List[id].IsWeeds;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsWater) {
+      Config.allcount = Config.allcount + 1;
       if (!IsDisinsection && IsWater) {
         this.dataList.List[id].IsDry = false;
         cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
-        self.allcount = self.allcount + 1;
         Data.func.CropsWatering(CropsID).then(data => {});
       }
     }
-    if (id == 11 && this.allcount == 0) {
+    if (id == 11 && Config.allcount == 0) {
       Msg.show('不需要浇水哦！');
-    } else if (id == 11 && this.allcount > 0) {
-      Msg.show('浇水成功，经验+' + 5 * this.allcount);
+    } else if (id == 11 && Config.allcount > 0) {
+      Msg.show('浇水成功，经验+' + 5 * Config.allcount);
     }
   },
   //除草
@@ -601,17 +598,16 @@ cc.Class({
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsWeeds) {
       if (!IsDisinsection && !IsWater && IsWeeds) {
-        console.log(this.dataList);
+        Config.allcount = Config.allcount + 1;
         this.dataList.List[id].IsWeeds = false;
         cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
-        self.allcount = self.allcount + 1;
         Data.func.CropsWeeding(CropsID).then(data => {});
       }
     }
-    if (id == 11 && this.allcount == 0) {
+    if (id == 11 && Config.allcount == 0) {
       Msg.show('不需要除草哦！');
-    } else if (id == 11 && this.allcount > 0) {
-      Msg.show('除草成功，经验+' + 5 * this.allcount);
+    } else if (id == 11 && Config.allcount > 0) {
+      Msg.show('除草成功，经验+' + 5 * Config.allcount);
     }
   },
   //除虫
@@ -625,16 +621,16 @@ cc.Class({
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus !== 0 && !IsLock && IsDisinsection) {
       if (IsDisinsection) {
+        Config.allcount = Config.allcount + 1;
         this.dataList.List[id].IsDisinsection = false;
         cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
-        self.allcount = self.allcount + 1;
         Data.func.CropsDisinsection(CropsID).then(data => {});
       }
     }
-    if (id == 11 && this.allcount == 0) {
+    if (id == 11 && Config.allcount == 0) {
       Msg.show('不需要除虫哦！');
-    } else if (id == 11 && this.allcount > 0) {
-      Msg.show('除虫成功，经验+' + 5 * this.allcount);
+    } else if (id == 11 && Config.allcount > 0) {
+      Msg.show('除虫成功，经验+' + 5 * Config.allcount);
     }
   },
   //施肥
@@ -655,7 +651,7 @@ cc.Class({
 
           Data.func.CropsSertilize(CropsID, type).then(data => {
             if (data.Code === 1) {
-              self.allcount = self.allcount + 1;
+              Config.allcount = Config.allcount + 1;
               //普通肥料的时候
               if (type == 7) {
                 if (progressNum < 300) {
@@ -670,15 +666,16 @@ cc.Class({
                   this.dataList.List[id].CropsStatus = CropsStatus + 1;
                 }
               }
+
               this.dataList.List[id].CropsSpreadCount = 1;
               cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
             }
+            if (id == 11 && Config.allcount > 0) {
+              Msg.show('施肥成功！');
+            } else if (id == 11 && Config.allcount == 0) {
+              Msg.show('已经都施过肥啦！');
+            }
           });
-          if (id == 11 && this.allcount == 0) {
-            Msg.show('已经都施过肥啦！');
-          } else if (id == 11 && this.allcount > 0) {
-            Msg.show('施肥成功！');
-          }
         }
       });
     }
@@ -690,22 +687,22 @@ cc.Class({
     let IsLock = this.dataList.List[id].IsLock;
     let CropsStatus = this.dataList.List[id].CropsStatus;
     if (CropsStatus == 4 && !IsLock) {
-      self.allcount = self.allcount + 1;
+      Config.allcount = Config.allcount + 1;
       Data.func.CollectCrops(CropsID).then(data => {
         if (data.Code === 1) {
-          self.CollectNumber = self.CollectNumber + data.Model;
+          Config.CollectNumber = Config.CollectNumber + data.Model;
 
           self.dataList.List[id].CropsStatus = 0;
           self.dataList.List[id].CropsID = 0;
           self.dataList.List[id].CropsSpreadCount = 0;
           cc.sys.localStorage.setItem('FarmData', JSON.stringify(this.dataList));
-          if (id == 11 && self.CollectNumber > 0) {
-            Msg.show('收取 × ' + self.CollectNumber);
+          if (id == 11) {
+            Msg.show('收取 × ' + Config.CollectNumber);
           }
         }
       });
     }
-    if (id == 11 && this.allcount == 0) {
+    if (id == 11 && Config.allcount == 0) {
       Msg.show('无可收取植物！');
     }
   },

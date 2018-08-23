@@ -27,6 +27,8 @@ window.Config = {
   firstLogin: false,
   guideStep: 1,
   EggCount: 0,
+  CollectNumber: 0,
+  allcount: 0,
   guideIntro: 0,
   SignFlowCount: 0,
   messageCount: 0,

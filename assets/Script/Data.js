@@ -126,7 +126,7 @@ var func = {
         }
       };
       // GET方法
-      xhr.open('GET', `${Config.apiUrl}/T_Base_User/GetEggRankings?page=${page}`, true);
+      xhr.open('GET', `${Config.apiUrl}/T_Base_User/GetEggRankings?openID=${this.openID}&page=${page}`, true);
       xhr.setRequestHeader('Content-Type', 'json');
       xhr.send();
     });

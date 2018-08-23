@@ -147,16 +147,15 @@ cc.Class({
     Config.hearderNode.active = false;
   },
   GetEggRankList() {
+    this.myRank = cc.find('bg-rank/layout/rank_value_', this.node).getComponent(cc.Label);
     Func.GetEggRankings(this.page).then(data => {
       if (data.Code === 1) {
         for (let i = 0; i < data.List.length; i++) {
           let element = data.List[i];
           ++this.rank;
           this.assignData(element);
-          if (data.List[i].OpenID == Config.openID) {
-            this.myRank = cc.find('bg-rank/layout/rank_value_', this.node).getComponent(cc.Label);
-            this.myRank.string = i + 1;
-          }
+
+          this.myRank.string = data.RanknNow;
         }
         this.page++;
       } else {
